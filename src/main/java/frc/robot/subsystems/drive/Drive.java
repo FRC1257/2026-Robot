@@ -269,14 +269,13 @@ public class Drive extends SubsystemBase {
     if (gyroInputs.connected) {
       // Use the real gyro angle
       rawGyroRotation = Rotation2d.fromDegrees(gyroIO.getYawAngle());
+      simRotation = rawGyroRotation;
     } else {
       rawGyroRotation = simRotation;
-      gyroInputs.yawPosition = simRotation;
     }
 
     poseEstimator.update(rawGyroRotation, modulePositions);
     odometry.update(rawGyroRotation, modulePositions);
-    poseEstimator.resetRotation(rawGyroRotation); // Remove this if gyro drifts a lot
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
   }
@@ -388,6 +387,7 @@ public class Drive extends SubsystemBase {
   /* public Rotation2d getRotation() {
     return getPose().getRotation();
   } */
+  @AutoLogOutput(key = "Drive/Rotation")
   public Rotation2d getRotation() {
     // return Rotation2d.fromDegrees(gyroIO.getYawAngle());
     return getPose().getRotation();

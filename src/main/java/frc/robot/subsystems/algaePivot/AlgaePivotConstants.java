@@ -15,6 +15,9 @@ public class AlgaePivotConstants {
   public static final double[] ALGAE_PIVOT_PID_REAL = {3.6, 0, 0, 0.01};
   public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL = {0, 0.45, 0, 0};
 
+  public static final double[] ALGAE_PIVOT_PID_REAL_ACTIVE = {3.6, 0, 0, 0.01};
+  public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL_ACTIVE = {0, 0.45, 0, 0};
+
   public static final double ALGAE_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
   public static final double ALGAE_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;
 

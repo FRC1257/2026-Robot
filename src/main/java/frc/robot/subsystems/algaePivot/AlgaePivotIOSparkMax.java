@@ -27,7 +27,6 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
   private final SparkClosedLoopController pidController;
   private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
   private ArmFeedforward feedforwardActive = new ArmFeedforward(0, 0, 0, 0);
-  
 
   // We use 2 separate encoders because electronics said so
   private RelativeEncoder motorEncoder;
@@ -67,7 +66,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
         .pid(
             AlgaePivotConstants.ALGAE_PIVOT_PID_REAL[0],
             AlgaePivotConstants.ALGAE_PIVOT_PID_REAL[1],
-            AlgaePivotConstants.ALGAE_PIVOT_PID_REAL[2], 
+            AlgaePivotConstants.ALGAE_PIVOT_PID_REAL[2],
             ClosedLoopSlot.kSlot0)
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
 
@@ -76,7 +75,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
         .pid(
             AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[0],
             AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[1],
-            AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[2], 
+            AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[2],
             ClosedLoopSlot.kSlot1)
         .feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
 
@@ -116,7 +115,6 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     setkA(AlgaePivotConstants.ALGAE_PIVOT_FEEDFORWARD_REAL_ACTIVE[3]);
   }
 
-
   /** Updates the set of loggable inputs. */
   @Override
   public void updateInputs(AlgaePivotIOInputs inputs) {
@@ -153,23 +151,29 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
   /** Go to Setpoint */
   @Override
   public void goToSetpoint(double setpoint) {
-    
+
     double feedforwardOutput = 0;
 
-    if(isBreakBeamBroken()){
-       feedforwardOutput = feedforwardActive.calculate(getAngle(), 0);
+    if (isBreakBeamBroken()) {
+      feedforwardOutput = feedforwardActive.calculate(getAngle(), 0);
     } else {
-       feedforwardOutput = feedforward.calculate(getAngle(), 0);
+      feedforwardOutput = feedforward.calculate(getAngle(), 0);
     }
 
     Logger.recordOutput("AlgaePivot/FeedforwardOutput", feedforwardOutput);
 
-    if(isBreakBeamBroken()) {
+    if (isBreakBeamBroken()) {
       pidController.setReference(
-          setpoint, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot1,feedforwardOutput);
+          setpoint,
+          ControlType.kMAXMotionPositionControl,
+          ClosedLoopSlot.kSlot1,
+          feedforwardOutput);
     } else {
       pidController.setReference(
-          setpoint, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedforwardOutput);
+          setpoint,
+          ControlType.kMAXMotionPositionControl,
+          ClosedLoopSlot.kSlot0,
+          feedforwardOutput);
     }
   }
 

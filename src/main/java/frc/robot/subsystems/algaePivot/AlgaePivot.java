@@ -233,6 +233,10 @@ public class AlgaePivot extends SubsystemBase {
     return ManualCommand(() -> speed);
   }
 
+  public boolean isBreakBeamBroken() {
+    return io.isBreakBeamBroken();
+  }
+  
   public Command quasistaticForward() {
     armState = State.SYSID;
     return SysId.quasistatic(Direction.kForward)

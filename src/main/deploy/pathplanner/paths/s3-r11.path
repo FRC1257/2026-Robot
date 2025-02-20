@@ -3,25 +3,41 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.2107581967213117,
-        "y": 5.853125
+        "x": 5.925884433962715,
+        "y": 6.046285377360648
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.6183401639344264,
-        "y": 5.1098872950819665
+        "x": 6.115503517319565,
+        "y": 6.268327073748536
       },
       "isLocked": false,
-      "linkedName": "a1"
+      "linkedName": "s3"
     },
     {
       "anchor": {
-        "x": 4.021875,
-        "y": 2.6930803571428568
+        "x": 5.925884433962715,
+        "y": 2.970081967213115
       },
       "prevControl": {
-        "x": 3.38203125,
-        "y": 2.6473772321428566
+        "x": 6.329557620750189,
+        "y": 3.514291235033819
+      },
+      "nextControl": {
+        "x": 5.375675418747497,
+        "y": 2.228321416551952
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.848053278688525,
+        "y": 2.4006659836065567
+      },
+      "prevControl": {
+        "x": 3.565823116992791,
+        "y": 2.461768136068589
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,10 +61,10 @@
     "rotation": 63.43494882292197
   },
   "reversed": false,
-  "folder": "a1",
+  "folder": "s3",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.9710219310790964
+    "rotation": 4.332313983099947
   },
   "useDefaultConstraints": true
 }

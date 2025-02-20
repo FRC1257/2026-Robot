@@ -71,7 +71,6 @@ public class CoralPivot extends SubsystemBase {
     logP = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/P", io.getP());
     logI = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/I", io.getI());
     logD = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/D", io.getD());
-    logFF = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/FF", io.getFF());
 
     logkS = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/kS", io.getkS());
     logkG = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/kG", io.getkG());
@@ -108,10 +107,10 @@ public class CoralPivot extends SubsystemBase {
     // Move arm based on state
     switch (armState) {
       case MANUAL:
-        setVoltage(manualSpeed * 12);
+        move(manualSpeed);
         break;
       case PID:
-        io.goToSetpoint(setpoint);
+        runPID();
         break;
       default:
         break;
@@ -123,8 +122,6 @@ public class CoralPivot extends SubsystemBase {
     if (logI.get() != io.getI()) io.setI(logI.get());
 
     if (logD.get() != io.getD()) io.setD(logD.get());
-
-    if (logFF.get() != io.getFF()) io.setFF(logFF.get());
 
     if (logkS.get() != io.getkS()) io.setkS(logkS.get());
 
@@ -152,21 +149,32 @@ public class CoralPivot extends SubsystemBase {
     return voltageDifference <= CoralPivotConstants.CORAL_PIVOT_TOLERANCE;
   }
 
-  public void setVoltage(double motorVolts) {
+  public void move(double speed) {
     // limit the arm if its past the limit
-    if (io.getAngle() > CoralPivotConstants.CORAL_PIVOT_MAX_ANGLE && motorVolts > 0) {
-      motorVolts = 0;
-    } else if (io.getAngle() < CoralPivotConstants.CORAL_PIVOT_MIN_ANGLE && motorVolts < 0) {
-      motorVolts = 0;
+    if (io.getAngle() > CoralPivotConstants.CORAL_PIVOT_MAX_ANGLE && speed > 0) {
+      speed = 0;
+    } else if (io.getAngle() < CoralPivotConstants.CORAL_PIVOT_MIN_ANGLE && speed < 0) {
+      speed = 0;
     }
 
-    io.setVoltage(motorVolts);
+    io.setVoltage(speed * 12);
 
-    isVoltageClose(motorVolts);
+    isVoltageClose(speed * 12);
   }
 
   public void runPID() {
-    io.goToSetpoint(setpoint);
+    if (setpoint > CoralPivotConstants.CORAL_PIVOT_MAX_ANGLE) {
+      setpoint = CoralPivotConstants.CORAL_PIVOT_MAX_ANGLE;
+    } else if (setpoint < CoralPivotConstants.CORAL_PIVOT_MIN_ANGLE) {
+      setpoint = CoralPivotConstants.CORAL_PIVOT_MIN_ANGLE;
+    }
+    if ((io.getAngle() <= CoralPivotConstants.CORAL_PIVOT_MIN_ANGLE && io.getAngVelocity() < 0)
+        || (io.getAngle() >= CoralPivotConstants.CORAL_PIVOT_MAX_ANGLE
+            && io.getAngVelocity() > 0)) {
+      io.setVoltage(0);
+    } else {
+      io.goToSetpoint(setpoint);
+    }
   }
 
   public void setPID(double setpoint) {
@@ -183,8 +191,7 @@ public class CoralPivot extends SubsystemBase {
   }
 
   public boolean atSetpoint() {
-    return Math.abs(io.getAngle() - setpoint) < CoralPivotConstants.CORAL_PIVOT_PID_TOLERANCE
-        && Math.abs(io.getAngVelocity()) < CoralPivotConstants.CORAL_PIVOT_PID_VELOCITY_TOLERANCE;
+    return Math.abs(io.getAngle() - setpoint) < CoralPivotConstants.CORAL_PIVOT_PID_TOLERANCE;
   }
 
   public void setMechanism(MechanismLigament2d mechanism) {
@@ -201,9 +208,7 @@ public class CoralPivot extends SubsystemBase {
   }
 
   public Command PIDCommand(double setpoint) {
-    return new RunCommand(() -> setPID(setpoint), this)
-        .until(() -> atSetpoint())
-        .andThen(() -> setVoltage(0));
+    return new RunCommand(() -> setPID(setpoint), this).until(() -> atSetpoint());
   }
 
   public Command InstantPIDCommand(double setpoint) {
@@ -216,6 +221,7 @@ public class CoralPivot extends SubsystemBase {
         .andThen(
             () -> {
               manualSpeed = 0;
+              move(0);
             });
   }
 

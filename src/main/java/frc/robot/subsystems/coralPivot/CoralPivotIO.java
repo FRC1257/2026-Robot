@@ -44,8 +44,6 @@ public interface CoralPivotIO {
 
   public default void setD(double d) {}
 
-  public default void setFF(double ff) {}
-
   public default void setkS(double kS) {}
 
   public default void setkV(double kV) {}
@@ -63,10 +61,6 @@ public interface CoralPivotIO {
   }
 
   public default double getD() {
-    return 0.0;
-  }
-
-  public default double getFF() {
     return 0.0;
   }
 

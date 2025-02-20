@@ -1,7 +1,6 @@
 package frc.robot.subsystems.algaePivot;
 
 import edu.wpi.first.math.util.Units;
-import frc.robot.Constants;
 
 public class AlgaePivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
@@ -9,19 +8,17 @@ public class AlgaePivotConstants {
   public static final int ALGAE_PIVOT_ID = 0; // Change later
 
   public static final double ALGAE_PIVOT_GEARING = 1.0 / 16.0;
-  public static final double POSITION_CONVERSION_FACTOR = 2 * Constants.PI * ALGAE_PIVOT_GEARING;
-  public static final double ALGAE_PIVOT_ROTATION_DIAM_M = 1;
 
-  public static final double[] ALGAE_PIVOT_PID_REAL = {3.6, 0, 0, 0.01};
+  public static final double[] ALGAE_PIVOT_PID_REAL = {3.6, 0, 0, 0};
   public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL = {0, 0.45, 0, 0};
 
-  public static final double[] ALGAE_PIVOT_PID_REAL_ACTIVE = {3.6, 0, 0, 0.01};
+  public static final double[] ALGAE_PIVOT_PID_REAL_ACTIVE = {3.6, 0, 0, 0.};
   public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL_ACTIVE = {0, 0.45, 0, 0};
 
   public static final double ALGAE_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
   public static final double ALGAE_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;
 
-  public static final double ALGAE_PIVOT_OFFSET = 1.5; // 1.14;
+  public static final double ALGAE_PIVOT_OFFSET = 0; // 1.14;
 
   public static final double PIVOT_MAX_PID_TIME = 3;
 

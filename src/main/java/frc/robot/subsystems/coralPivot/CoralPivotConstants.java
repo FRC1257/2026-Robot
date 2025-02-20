@@ -1,22 +1,18 @@
 package frc.robot.subsystems.coralPivot;
 
 import edu.wpi.first.math.util.Units;
-import frc.robot.Constants;
 
 public class CoralPivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
 
   public static final int CORAL_PIVOT_ID = 0; // Change later
 
-  public static final double CORAL_PIVOT_GEARING = 21.0 / 35.0;
-  public static final double POSITION_CONVERSION_FACTOR = 2 * Constants.PI * CORAL_PIVOT_GEARING;
-
-  public static final double[] CORAL_PIVOT_PID_REAL = {3.6, 0, 0, 0.01};
+  public static final double[] CORAL_PIVOT_PID_REAL = {3.6, 0, 0, 0};
   public static final double[] CORAL_PIVOT_FEEDFORWARD_REAL = {0, 0.45, 0, 0};
 
   public static final double CORAL_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
 
-  public static final double CORAL_PIVOT_OFFSET = 1.5; // 1.14;
+  public static final double CORAL_PIVOT_OFFSET = 0; // 1.14;
 
   public static final double CORAL_PIVOT_MAX_ANGLE = Units.degreesToRadians(90);
   public static final double CORAL_PIVOT_MIN_ANGLE = Units.degreesToRadians(-70);

@@ -50,8 +50,6 @@ public interface AlgaePivotIO {
 
   public default void setD(double d) {}
 
-  public default void setFF(double ff) {}
-
   public default void setkS(double kS) {}
 
   public default void setkV(double kV) {}
@@ -59,6 +57,20 @@ public interface AlgaePivotIO {
   public default void setkG(double kG) {}
 
   public default void setkA(double kA) {}
+
+  public default void setActiveP(double p) {}
+
+  public default void setActiveI(double i) {}
+
+  public default void setActiveD(double d) {}
+
+  public default void setActivekS(double kS) {}
+
+  public default void setActivekV(double kV) {}
+
+  public default void setActivekG(double kG) {}
+
+  public default void setActivekA(double kA) {}
 
   public default double getP() {
     return 0.0;
@@ -69,10 +81,6 @@ public interface AlgaePivotIO {
   }
 
   public default double getD() {
-    return 0.0;
-  }
-
-  public default double getFF() {
     return 0.0;
   }
 
@@ -89,6 +97,34 @@ public interface AlgaePivotIO {
   }
 
   public default double getkA() {
+    return 0.0;
+  }
+
+  public default double getActiveP() {
+    return 0.0;
+  }
+
+  public default double getActiveI() {
+    return 0.0;
+  }
+
+  public default double getActiveD() {
+    return 0.0;
+  }
+
+  public default double getActivekS() {
+    return 0.0;
+  }
+
+  public default double getActivekG() {
+    return 0.0;
+  }
+
+  public default double getActivekV() {
+    return 0.0;
+  }
+
+  public default double getActivekA() {
     return 0.0;
   }
 }

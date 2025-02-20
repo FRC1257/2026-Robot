@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
 import frc.robot.subsystems.drive.Drive;
+import java.util.ArrayList;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 public class CustomAutoChooser {
@@ -15,12 +16,7 @@ public class CustomAutoChooser {
     s3
   }
 
-  public static enum NextPositions {
-    c1,
-    c2,
-    a1,
-    a2,
-    a3,
+  public static enum ReefPositions {
     r1,
     r2,
     r3,
@@ -33,12 +29,16 @@ public class CustomAutoChooser {
     r10,
     r11,
     r12,
-    p,
     NONE
   }
 
+  public static enum CoralStationPositions {
+    c1,
+    c2
+  }
+
   private LoggedDashboardChooser<StartPositions> startChooser;
-  private LoggedDashboardChooser<NextPositions>[] positionChoosers = new LoggedDashboardChooser[5];
+  private LoggedDashboardChooser<ReefPositions>[] positionChoosers = new LoggedDashboardChooser[5];
 
   private Drive drive;
 
@@ -52,10 +52,10 @@ public class CustomAutoChooser {
 
     for (int i = 0; i < positionChoosers.length; i++) {
       positionChoosers[i] = new LoggedDashboardChooser<>("Position " + (i + 1));
-      positionChoosers[i].addDefaultOption("", NextPositions.NONE);
+      positionChoosers[i].addDefaultOption("", ReefPositions.NONE);
 
-      for (NextPositions position : NextPositions.values()) {
-        if (position == NextPositions.NONE) continue;
+      for (ReefPositions position : ReefPositions.values()) {
+        if (position == ReefPositions.NONE) continue;
         positionChoosers[i].addOption(position.toString(), position);
       }
     }
@@ -63,7 +63,7 @@ public class CustomAutoChooser {
 
   public Command getAutoCommand() {
     StartPositions startPos = startChooser.get();
-    NextPositions nextPoses[] = new NextPositions[positionChoosers.length];
+    ArrayList<ReefPositions> reefPoses = new ArrayList<ReefPositions>();
     SequentialCommandGroup commandGroup = new SequentialCommandGroup();
 
     Pose2d startPose2d;
@@ -89,18 +89,53 @@ public class CustomAutoChooser {
             },
             drive));
 
-    nextPoses[0] = positionChoosers[0].get();
-    if (nextPoses[0] != NextPositions.NONE)
-      commandGroup.addCommands(
-          drive.followPathFileCommand(startPos.toString() + "-" + nextPoses[0].toString()));
-
-    for (int i = 1; i < positionChoosers.length; i++) {
-      nextPoses[i] = positionChoosers[i].get();
-      if (nextPoses[i] == NextPositions.NONE) continue;
-      commandGroup.addCommands(
-          drive.followPathFileCommand(nextPoses[i - 1].toString() + "-" + nextPoses[i].toString()));
+    // make a ReefPos list that skips over all the NONE positions
+    for (LoggedDashboardChooser<ReefPositions> positionChooser : positionChoosers) {
+      ReefPositions reefPos = positionChooser.get();
+      if (reefPos == ReefPositions.NONE) continue;
+      reefPoses.add(reefPos);
     }
 
+    if (reefPoses.size() == 0) return commandGroup;
+
+    commandGroup.addCommands(drive.followPathFileCommand(
+      startPos.toString() + "-" + reefPoses.get(0).toString()));
+
+    for (int i = 1; i < reefPoses.size(); i++) {
+      ReefPositions currentReefPosition = reefPoses.get(i - 1);
+      ReefPositions nextReefPosition = reefPoses.get(i);
+
+      CoralStationPositions coralStationPos;
+      switch (currentReefPosition) {
+          // top reef spots
+        case r2:
+        case r3:
+        case r4:
+        case r5:
+        case r6:
+        case r7:
+          coralStationPos = CoralStationPositions.c1;
+          break;
+        case r8:
+        case r9:
+        case r10:
+        case r11:
+        case r12:
+        case r1:
+          coralStationPos = CoralStationPositions.c2;
+          break;
+        default:
+          // unreachable (all r spots are acounted for)
+          System.out.println("Bug: Autochooser tried to navigate to a nonexistent reef spot");
+          coralStationPos = CoralStationPositions.c1;
+          break;
+      }
+      commandGroup.addCommands(
+          drive.followPathFileCommand(
+              currentReefPosition.toString() + "-" + coralStationPos.toString()),
+          drive.followPathFileCommand(
+              coralStationPos.toString() + "-" + nextReefPosition.toString()));
+    }
     return commandGroup;
   }
 }

@@ -43,7 +43,7 @@ public class DriveControls {
   // Algae Intake Controls
   public static Trigger INTAKE_ALGAE;
   public static Trigger SHOOT_ALGAE;
-  
+
   // Coral Intake Controls
   public static Trigger INTAKE_CORAL;
   public static Trigger SHOOT_CORAL;
@@ -77,15 +77,15 @@ public class DriveControls {
       case PROGRAMMERS:
       default:
         // Operator controls
-        INTAKE_CORAL = operator.a();
-        SHOOT_CORAL = operator.b();
+        INTAKE_CORAL = operator.leftBumper();
+        SHOOT_CORAL = operator.rightBumper();
 
-        CORAL_PIVOT_ROTATE = () -> (operator.getLeftY());
+        CORAL_PIVOT_ROTATE = () -> (operator.getRightYD());
         CORAL_PIVOT_L2_3 = operator.a();
         CORAL_PIVOT_DOWN = operator.b();
 
-        INTAKE_ALGAE = operator.leftBumper();
-        SHOOT_ALGAE = operator.rightBumper();
+        INTAKE_ALGAE = operator.leftTrigger();
+        SHOOT_ALGAE = operator.rightTrigger();
 
         ELEVATOR_SPEED = () -> operator.getLeftYD();
         ELEVATOR_L1 = operator.a();

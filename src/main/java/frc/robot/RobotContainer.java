@@ -230,28 +230,72 @@ public class RobotContainer {
   // Subsystem compound commands
   public Command goToL1() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
-      .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
   }
 
   public Command goToL2() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
-      .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command goToL3() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
-      .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command stow() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
-      .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
   }
 
   public Command algaeIntake() {
-    return algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_VOLTAGE)
-      .until(()-> algaePivot.isBreakBeamBroken());
-  } 
+    return algaeIntake
+        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_VOLTAGE)
+        .until(() -> algaePivot.isBreakBeamBroken());
+  }
 
+  public Command coralIntake() {
+    return coralIntake
+      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_VOLTAGE)
+      .withTimeout(2);
+  }
+
+  public Command coralFeeder() {
+    return coralPivot
+      .PIDCommand(CoralPivotConstants.CORAL_PIVOT_INTAKE_ANGLE)
+      .andThen(coralIntake());
+  }
+  
+  public Command algaeOuttake() {
+    return algaeIntake
+      .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_VOLTAGE)
+      .until(() -> !algaePivot.isBreakBeamBroken());
+  }
+
+  public Command coralOuttake() {
+    return coralIntake 
+      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_VOLTAGE)
+      .withTimeout(2);
+  }
+
+  public Command processor() {
+    return algaePivot
+      .PIDCommand(AlgaePivotConstants.ALGAE_PIVOT_PROCESSOR_ANGLE)
+      .andThen(algaeOuttake());
+  }
+
+  public Command fullL1() {
+    return (goToL1().andThen(coralOuttake()))
+      .andThen(stow());
+  }
+
+  public Command fullL2() {
+    return (goToL2().andThen(coralOuttake()))
+      .andThen(stow());
+  }
+
+  public Command fullL3() {
+    return (goToL2().andThen(coralOuttake()))
+      .andThen(stow());
+  }
 }
- 

@@ -264,10 +264,10 @@ public class RobotContainer {
 
   public Command coralFeeder() {
     return coralPivot
-      .PIDCommand(CoralPivotConstants.CORAL_PIVOT_INTAKE_ANGLE)
-      .andThen(coralIntake());
+        .PIDCommand(CoralPivotConstants.CORAL_PIVOT_INTAKE_ANGLE)
+        .andThen(coralIntake());
   }
-  
+
   public Command algaeOuttake() {
     return algaeIntake
       .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED)
@@ -282,8 +282,8 @@ public class RobotContainer {
 
   public Command processor() {
     return algaePivot
-      .PIDCommand(AlgaePivotConstants.ALGAE_PIVOT_PROCESSOR_ANGLE)
-      .andThen(algaeOuttake());
+        .PIDCommand(AlgaePivotConstants.ALGAE_PIVOT_PROCESSOR_ANGLE)
+        .andThen(algaeOuttake());
   }
 
   public Command fullL1() {

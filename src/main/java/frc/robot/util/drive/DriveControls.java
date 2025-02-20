@@ -100,8 +100,8 @@ public class DriveControls {
         CORAL_PIVOT_STOW = operator.b();
         CORAL_PIVOT_INTAKE = operator.y();
 
-        INTAKE_ALGAE = operator.leftBumper();
-        SHOOT_ALGAE = operator.rightBumper();
+        INTAKE_ALGAE = operator.leftTrigger();
+        SHOOT_ALGAE = operator.rightTrigger();
 
         ELEVATOR_SPEED = () -> operator.getLeftYD();
         ELEVATOR_L1 = operator.getDPad(DPad.LEFT);

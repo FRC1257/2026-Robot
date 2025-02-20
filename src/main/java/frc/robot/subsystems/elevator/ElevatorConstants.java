@@ -32,8 +32,8 @@ public class ElevatorConstants {
   public static final double ELEVATOR_MASS_KG = 5;
 
   // Max velocity and acceleration of the elevator, in m/s and m/s^2
-  public static final double MAX_VELOCITY = 2;
-  public static final double MAX_ACCELERATION = 2;
+  public static final double MAX_VELOCITY = 0.3;
+  public static final double MAX_ACCELERATION = 0.3;
 
   // Digital input channels
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;

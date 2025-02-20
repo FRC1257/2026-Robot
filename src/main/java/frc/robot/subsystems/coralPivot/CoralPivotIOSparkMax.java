@@ -3,18 +3,18 @@
 
 package frc.robot.subsystems.coralPivot;
 
-import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.controller.ArmFeedforward;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.Constants;
 import org.littletonrobotics.junction.Logger;
 
@@ -25,12 +25,13 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
   private final SparkClosedLoopController pidController;
   private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
 
-  private RelativeEncoder motorEncoder;
-  private DutyCycleEncoder absoluteEncoder;
+  private SparkAbsoluteEncoder motorEncoder;
 
   private double setpoint = 0;
 
-  private double kP = 0, kI = 0, kD = 0;
+  private double kP = CoralPivotConstants.CORAL_PIVOT_PID_REAL[0],
+      kI = CoralPivotConstants.CORAL_PIVOT_PID_REAL[1],
+      kD = CoralPivotConstants.CORAL_PIVOT_PID_REAL[2];
 
   public CoralPivotIOSparkMax() {
     pivotMotor = new SparkMax(CoralPivotConstants.CORAL_PIVOT_ID, MotorType.kBrushless);
@@ -42,24 +43,21 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
         .voltageCompensation(12.0)
         .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
 
-    motorEncoder = pivotMotor.getEncoder();
+    motorEncoder = pivotMotor.getAbsoluteEncoder();
 
     config
-        .encoder
-        .positionConversionFactor(2 * Constants.PI * CoralPivotConstants.POSITION_CONVERSION_FACTOR)
-        .velocityConversionFactor(
-            2 * Constants.PI * CoralPivotConstants.POSITION_CONVERSION_FACTOR / 60.0);
-
-    // absoluteEncoder.reset();
-    // make sure the pivot starts at the bottom position every time
-    // absoluteEncoder.reset();
+        .absoluteEncoder
+        .setSparkMaxDataPortConfig()
+        .zeroCentered(true)
+        .zeroOffset(CoralPivotConstants.CORAL_PIVOT_OFFSET)
+        .positionConversionFactor(2 * Constants.PI)
+        .velocityConversionFactor(2 * Constants.PI / 60.0)
+        .startPulseUs(1)
+        .endPulseUs(1024);
 
     pidController = pivotMotor.getClosedLoopController();
 
-    config.closedLoop.pid(
-        CoralPivotConstants.CORAL_PIVOT_PID_REAL[0],
-        CoralPivotConstants.CORAL_PIVOT_PID_REAL[1],
-        CoralPivotConstants.CORAL_PIVOT_PID_REAL[2]);
+    config.closedLoop.pid(kP, kI, kD).feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
 
     config
         .closedLoop
@@ -71,13 +69,6 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
 
     pivotMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     configureFeedForward();
-
-    absoluteEncoder = new DutyCycleEncoder(CoralPivotConstants.ABSOLUTE_ENCODER_CHANNEL);
-    absoluteEncoder.setDutyCycleRange(1.0 / 1025.0, 1024.0 / 1025.0);
-    absoluteEncoder.setAssumedFrequency(975.6);
-    Logger.recordOutput("Absolute Encoder Starting Position: ", absoluteEncoder.get());
-
-    motorEncoder.setPosition(getAngle());
   }
 
   private void configureFeedForward() {
@@ -91,7 +82,6 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
   @Override
   public void updateInputs(CoralPivotIOInputs inputs) {
     inputs.angleRads = getAngle();
-    Logger.recordOutput("CoralPivot/RelativePosition", motorEncoder.getPosition());
     inputs.angVelocityRadsPerSec = motorEncoder.getVelocity();
     inputs.appliedVolts = pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
     inputs.currentAmps = new double[] {pivotMotor.getOutputCurrent()};
@@ -109,8 +99,7 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
   /** Returns the current distance measurement. */
   @Override
   public double getAngle() {
-    return absoluteEncoder.get() * CoralPivotConstants.POSITION_CONVERSION_FACTOR
-        + CoralPivotConstants.CORAL_PIVOT_OFFSET;
+    return motorEncoder.getPosition();
   }
 
   @Override
@@ -165,11 +154,6 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
     pivotMotor.configure(
         config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     kD = d;
-  }
-
-  @Override
-  public void setFF(double ff) {
-    // pidController.setFF(ff);
   }
 
   @Override
@@ -229,11 +213,5 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
   @Override
   public double getD() {
     return kD;
-  }
-
-  @Override
-  public double getFF() {
-    // return pidController.getFF();
-    return 0;
   }
 }

@@ -231,20 +231,24 @@ public class RobotContainer {
   public Command goToL1() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
   }
 
   public Command goToL2() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command goToL3() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command stow() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
   }
 

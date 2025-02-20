@@ -69,9 +69,13 @@ public class ElevatorIOSparkMax implements ElevatorIO {
     rightConfig.apply(leftConfig);
     rightConfig.follow(leftMotor, true);
 
-    absoluteEncoder = new DutyCycleEncoder(ElevatorConstants.ABSOLUTE_ENCODER_CHANNEL);
+    absoluteEncoder =
+        new DutyCycleEncoder(
+            ElevatorConstants.ABSOLUTE_ENCODER_CHANNEL,
+            2 * Constants.PI * ElevatorConstants.DRUM_RADIUS_METERS,
+            ElevatorConstants.ELEVATOR_OFFSET_METERS);
     absoluteEncoder.setDutyCycleRange(1.0 / 1025.0, 1024.0 / 1025.0);
-    absoluteEncoder.setAssumedFrequency(975.6);
+    absoluteEncoder.setAssumedFrequency(1000000.0 / 1025.0);
     Logger.recordOutput("Absolute Encoder Starting Position: ", absoluteEncoder.get());
 
     // reset safe kResetSafeParameters switches the motor to default paramaters, then adds the
@@ -100,7 +104,7 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   public void updateInputs(ElevatorIOInputs inputs) {
     inputs.setpointMeters = setpoint;
     inputs.positionMeters = getPosition();
-    Logger.recordOutput("Elevator/RelativePosition", leftEncoder.getPosition());
+    Logger.recordOutput("Elevator/Absolute Position", absoluteEncoder.get());
     inputs.velocityMetersPerSec = getVelocity();
     inputs.appliedVoltage = leftMotor.getAppliedOutput() * leftMotor.getBusVoltage();
     inputs.limitSwitchPressed = isLimitSwitchPressed();
@@ -119,8 +123,7 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   @Override
   public double getPosition() {
     // get the absolute position in radians, then convert to meters
-    return absoluteEncoder.get() * ElevatorConstants.POSITION_CONVERSION_FACTOR
-        + ElevatorConstants.ELEVATOR_OFFSET_METERS;
+    return leftEncoder.getPosition();
   }
 
   @Override

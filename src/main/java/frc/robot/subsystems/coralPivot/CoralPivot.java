@@ -71,7 +71,6 @@ public class CoralPivot extends SubsystemBase {
     logP = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/P", io.getP());
     logI = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/I", io.getI());
     logD = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/D", io.getD());
-    logFF = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/FF", io.getFF());
 
     logkS = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/kS", io.getkS());
     logkG = new LoggedNetworkNumber("/SmartDashboard/CoralPivot/kG", io.getkG());
@@ -123,8 +122,6 @@ public class CoralPivot extends SubsystemBase {
     if (logI.get() != io.getI()) io.setI(logI.get());
 
     if (logD.get() != io.getD()) io.setD(logD.get());
-
-    if (logFF.get() != io.getFF()) io.setFF(logFF.get());
 
     if (logkS.get() != io.getkS()) io.setkS(logkS.get());
 

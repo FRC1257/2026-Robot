@@ -194,12 +194,12 @@ public class RobotContainer {
         algaePivot.InstantPIDCommand(AlgaePivotConstants.ALGAE_PIVOT_PROCESSOR_ANGLE));
 
     // Algae Intake Controls
-    INTAKE_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_VOLTAGE));
-    SHOOT_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_VOLTAGE));
+    INTAKE_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED));
+    SHOOT_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED));
 
     // Coral Intake Controls
-    INTAKE_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_VOLTAGE));
-    SHOOT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_VOLTAGE));
+    INTAKE_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED));
+    SHOOT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED));
 
     coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_ROTATE));
     CORAL_PIVOT_L1.onTrue(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
@@ -231,36 +231,34 @@ public class RobotContainer {
   public Command goToL1() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
   }
 
   public Command goToL2() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command goToL3() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command stow() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
   }
 
   public Command algaeIntake() {
     return algaeIntake
-        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_VOLTAGE)
-        .until(() -> algaePivot.isBreakBeamBroken());
+        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED)
+        .until(() -> algaePivot.isBreakBeamBroken())
+        .andThen(algaeIntake
+        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED).withTimeout(0.5));
   }
 
   public Command coralIntake() {
     return coralIntake
-      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_VOLTAGE)
+      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED)
       .withTimeout(2);
   }
 
@@ -272,13 +270,13 @@ public class RobotContainer {
   
   public Command algaeOuttake() {
     return algaeIntake
-      .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_VOLTAGE)
+      .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED)
       .until(() -> !algaePivot.isBreakBeamBroken());
   }
 
   public Command coralOuttake() {
     return coralIntake 
-      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_VOLTAGE)
+      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED)
       .withTimeout(2);
   }
 
@@ -289,17 +287,14 @@ public class RobotContainer {
   }
 
   public Command fullL1() {
-    return (goToL1().andThen(coralOuttake()))
-      .andThen(stow());
+    return (goToL1().andThen(coralOuttake()));
   }
 
   public Command fullL2() {
-    return (goToL2().andThen(coralOuttake()))
-      .andThen(stow());
+    return (goToL2().andThen(coralOuttake()));
   }
 
   public Command fullL3() {
-    return (goToL2().andThen(coralOuttake()))
-      .andThen(stow());
+    return (goToL2().andThen(coralOuttake()));
   }
 }

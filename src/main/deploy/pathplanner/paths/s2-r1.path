@@ -4,28 +4,41 @@
     {
       "anchor": {
         "x": 7.552254098360655,
-        "y": 7.244
+        "y": 6.11685450819672
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.673036327881198,
-        "y": 6.91442024814977
+        "x": 5.834823329258914,
+        "y": 5.826201203930269
       },
       "isLocked": false,
-      "linkedName": "s1"
+      "linkedName": "s2"
     },
     {
       "anchor": {
-        "x": 3.0568647540983607,
-        "y": 5.42156762295082
+<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r1.path
+        "x": 3.6236049107142856,
+        "y": 5.461383928571429
       },
       "prevControl": {
-        "x": 3.6340615033606625,
-        "y": 6.090951802798706
+        "x": 3.91088169642857,
+        "y": 5.644196428571429
       },
       "nextControl": {
-        "x": 2.7703832414608702,
-        "y": 5.089330491290743
+        "x": 2.9345256489212663,
+        "y": 5.022878943794054
+=======
+        "x": 3.2606557377049183,
+        "y": 5.4395491803278695
+      },
+      "prevControl": {
+        "x": 3.7096038432276712,
+        "y": 5.877185576329614
+      },
+      "nextControl": {
+        "x": 2.8239285593104735,
+        "y": 5.013825792619156
+>>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-r1.path
       },
       "isLocked": false,
       "linkedName": null
@@ -36,13 +49,13 @@
         "y": 3.848716517857143
       },
       "prevControl": {
-<<<<<<< HEAD
-        "x": 3.1370134505885305,
-        "y": 4.089184502171541
+<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r1.path
+        "x": 3.062109375,
+        "y": 4.149051339285714
 =======
-        "x": 2.8059233826798495,
-        "y": 4.1443296600933595
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36
+        "x": 2.986744923600995,
+        "y": 4.499448526111412
+>>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-r1.path
       },
       "nextControl": null,
       "isLocked": false,
@@ -66,10 +79,10 @@
     "rotation": 0.0
   },
   "reversed": false,
-  "folder": "s1",
+  "folder": "s2",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.95637152053575
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

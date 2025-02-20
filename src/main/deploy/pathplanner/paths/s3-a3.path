@@ -3,63 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-<<<<<<< HEAD
-        "x": 5.020814732142856,
-        "y": 2.725725446428571
+        "x": 5.925884433962715,
+        "y": 6.046285377360648
       },
       "prevControl": null,
       "nextControl": {
-        "x": 5.335186259318283,
-        "y": 2.902976360817519
-=======
-        "x": 4.998872950819672,
-        "y": 2.7722848360655736
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 5.313244477995099,
-        "y": 2.9495357504545217
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36
+        "x": 3.3363852841328376,
+        "y": 5.412413567957955
       },
       "isLocked": false,
-      "linkedName": "r10"
+      "linkedName": "s3"
     },
     {
       "anchor": {
-        "x": 3.788114754098361,
-        "y": 2.4546106557377048
+        "x": 3.0688524590163935,
+        "y": 5.343647540983607
       },
       "prevControl": {
-        "x": 4.570054283024249,
-        "y": 2.3679938186581904
+        "x": 3.286327388764303,
+        "y": 5.466954697836491
       },
       "nextControl": {
-        "x": 3.033157488207471,
-        "y": 2.5382386193879025
+        "x": 2.758694179709147,
+        "y": 5.167789405794913
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
+<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s3 to c2.path
         "x": 1.2227459016393443,
-        "y": 4.00701844262295
+        "y": 0.9694196428571433
       },
       "prevControl": {
-        "x": 1.033465157798862,
-        "y": 4.203673288290165
+        "x": 1.3528949863063628,
+        "y": 2.469903912857565
+=======
+        "x": 1.3797169811320753,
+        "y": 2.376238207547169
+      },
+      "prevControl": {
+        "x": 1.1261096554236085,
+        "y": 1.8404027554560367
+>>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s3-a3.path
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "a2"
+      "linkedName": "a3"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 1.99,
-      "rotationDegrees": 0.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -73,13 +67,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -34.15969454566939
+    "rotation": 4.313216953209095
   },
   "reversed": false,
-  "folder": "r10",
+  "folder": "s3",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 120.069
+    "rotation": 4.332313983099947
   },
   "useDefaultConstraints": true
 }

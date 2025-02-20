@@ -4,33 +4,33 @@
     {
       "anchor": {
         "x": 7.552254098360655,
-        "y": 7.244
+        "y": 6.11685450819672
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.713058474491888,
-        "y": 6.709089947835593
+        "x": 6.58125,
+        "y": 5.853125
       },
       "isLocked": false,
-      "linkedName": "s1"
+      "linkedName": "s2"
     },
     {
       "anchor": {
-<<<<<<< HEAD
+<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r6.path
         "x": 5.308091517857142,
         "y": 5.1088169642857135
       },
       "prevControl": {
-        "x": 5.871513649004683,
-        "y": 5.600312865925058
+        "x": 5.8409021882318495,
+        "y": 5.27257757611241
 =======
         "x": 5.38247950819672,
         "y": 5.493493852459016
       },
       "prevControl": {
-        "x": 7.566031296989684,
-        "y": 5.767339889271585
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36
+        "x": 5.915290178571428,
+        "y": 5.657254464285713
+>>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-r6.path
       },
       "nextControl": null,
       "isLocked": false,
@@ -51,17 +51,17 @@
   },
   "goalEndState": {
     "velocity": 0,
-<<<<<<< HEAD
+<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r6.path
     "rotation": -120.3791260113684
 =======
     "rotation": -123.14699583225605
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36
+>>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-r6.path
   },
   "reversed": false,
-  "folder": "s1",
+  "folder": "s2",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -179.95637152053575
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

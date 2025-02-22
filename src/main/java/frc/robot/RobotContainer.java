@@ -252,14 +252,12 @@ public class RobotContainer {
     return algaeIntake
         .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED)
         .until(() -> algaePivot.isBreakBeamBroken())
-        .andThen(algaeIntake
-        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED).withTimeout(0.5));
+        .andThen(
+            algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED).withTimeout(0.5));
   }
 
   public Command coralIntake() {
-    return coralIntake
-      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED)
-      .withTimeout(2);
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(2);
   }
 
   public Command coralFeeder() {
@@ -270,14 +268,12 @@ public class RobotContainer {
 
   public Command algaeOuttake() {
     return algaeIntake
-      .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED)
-      .until(() -> !algaePivot.isBreakBeamBroken());
+        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED)
+        .until(() -> !algaePivot.isBreakBeamBroken());
   }
 
   public Command coralOuttake() {
-    return coralIntake 
-      .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED)
-      .withTimeout(2);
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(2);
   }
 
   public Command processor() {

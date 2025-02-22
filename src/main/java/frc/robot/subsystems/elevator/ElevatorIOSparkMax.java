@@ -11,9 +11,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import frc.robot.Constants;
-import org.littletonrobotics.junction.Logger;
 
 public class ElevatorIOSparkMax implements ElevatorIO {
   private SparkMax leftMotor;
@@ -21,10 +19,6 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   private SparkMax rightMotor;
   private SparkClosedLoopController leftController;
   private RelativeEncoder leftEncoder;
-
-  // Separate absolute encoder because we are too broke to afford absolute encoder adapters to
-  // connect to spark max
-  private DutyCycleEncoder absoluteEncoder;
 
   // Limit switch used to block elevator if it goes too high
   private DigitalInput limitSwitch;
@@ -46,13 +40,14 @@ public class ElevatorIOSparkMax implements ElevatorIO {
     leftController = leftMotor.getClosedLoopController();
 
     leftEncoder = leftMotor.getEncoder();
+    leftEncoder.setPosition(0);
 
     SparkMaxConfig leftConfig = new SparkMaxConfig();
     leftConfig
         .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
         .idleMode(ElevatorConstants.MOTOR_DEFAULT_IDLE_MODE)
         .voltageCompensation(12.0)
-        .inverted(true);
+        .inverted(false);
     leftConfig
         .encoder
         .positionConversionFactor(ElevatorConstants.POSITION_CONVERSION_FACTOR)
@@ -69,15 +64,6 @@ public class ElevatorIOSparkMax implements ElevatorIO {
     rightConfig.apply(leftConfig);
     rightConfig.follow(leftMotor, true);
 
-    absoluteEncoder =
-        new DutyCycleEncoder(
-            ElevatorConstants.ABSOLUTE_ENCODER_CHANNEL,
-            2 * Constants.PI * ElevatorConstants.DRUM_RADIUS_METERS,
-            ElevatorConstants.ELEVATOR_OFFSET_METERS);
-    absoluteEncoder.setDutyCycleRange(1.0 / 1025.0, 1024.0 / 1025.0);
-    absoluteEncoder.setAssumedFrequency(1000000.0 / 1025.0);
-    Logger.recordOutput("Absolute Encoder Starting Position: ", absoluteEncoder.get());
-
     // reset safe kResetSafeParameters switches the motor to default paramaters, then adds the
     // changes from the config object
     // persist paramaters saves these changes to the motor memory so it doesn't get cooked during
@@ -86,8 +72,6 @@ public class ElevatorIOSparkMax implements ElevatorIO {
     leftMotor.configure(leftConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     rightMotor.configure(
         rightConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-
-    leftEncoder.setPosition(getPosition());
 
     limitSwitch = new DigitalInput(ElevatorConstants.LIMIT_SWITCH_CHANNEL);
   }
@@ -104,7 +88,6 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   public void updateInputs(ElevatorIOInputs inputs) {
     inputs.setpointMeters = setpoint;
     inputs.positionMeters = getPosition();
-    Logger.recordOutput("Elevator/Absolute Position", absoluteEncoder.get());
     inputs.velocityMetersPerSec = getVelocity();
     inputs.appliedVoltage = leftMotor.getAppliedOutput() * leftMotor.getBusVoltage();
     inputs.limitSwitchPressed = isLimitSwitchPressed();
@@ -147,7 +130,7 @@ public class ElevatorIOSparkMax implements ElevatorIO {
 
   @Override
   public void setVoltage(double voltage) {
-    leftMotor.set(voltage);
+    leftMotor.setVoltage(voltage);
   }
 
   @Override

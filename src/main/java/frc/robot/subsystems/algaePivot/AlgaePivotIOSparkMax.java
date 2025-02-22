@@ -48,7 +48,8 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     config
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12.0)
-        .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT);
+        .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
+        .inverted(true);
 
     motorEncoder = pivotMotor.getAbsoluteEncoder();
 
@@ -57,8 +58,8 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
         .setSparkMaxDataPortConfig()
         .zeroCentered(true)
         .zeroOffset(AlgaePivotConstants.ALGAE_PIVOT_OFFSET)
-        .positionConversionFactor(2 * Constants.PI)
-        .velocityConversionFactor(2 * Constants.PI / 60.0)
+        .positionConversionFactor(1.0 / 360.0)
+        .velocityConversionFactor(1.0 / 360.0)
         .startPulseUs(1)
         .endPulseUs(1024);
 

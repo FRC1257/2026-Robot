@@ -5,7 +5,7 @@ import edu.wpi.first.math.util.Units;
 public class AlgaePivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
 
-  public static final int ALGAE_PIVOT_ID = 0; // Change later
+  public static final int ALGAE_PIVOT_ID = 16; // Change later
 
   public static final double ALGAE_PIVOT_GEARING = 1.0 / 16.0;
 

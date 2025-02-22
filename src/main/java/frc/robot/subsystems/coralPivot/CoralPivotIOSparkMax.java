@@ -50,8 +50,10 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
         .setSparkMaxDataPortConfig()
         .zeroCentered(true)
         .zeroOffset(CoralPivotConstants.CORAL_PIVOT_OFFSET)
-        .positionConversionFactor(2 * Constants.PI)
-        .velocityConversionFactor(2 * Constants.PI / 60.0)
+        .positionConversionFactor(1.0 / 360.0)
+        .velocityConversionFactor(1)
+        // .positionConversionFactor(2 * Constants.PI)
+        // .velocityConversionFactor(2 * Constants.PI / 60.0)
         .startPulseUs(1)
         .endPulseUs(1024);
 

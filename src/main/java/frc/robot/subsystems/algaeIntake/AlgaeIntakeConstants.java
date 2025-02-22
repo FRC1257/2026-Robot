@@ -17,7 +17,7 @@ public class AlgaeIntakeConstants {
     // something is
   }
 
-  public static final int ALGAE_INTAKE_MOTOR_ID = 0;
+  public static final int ALGAE_INTAKE_MOTOR_ID = 14;
 
   public static final double ALGAE_INTAKE_IN_SPEED = 0.75;
   public static final double ALGAE_INTAKE_WEAK_IN_SPEED = 0;

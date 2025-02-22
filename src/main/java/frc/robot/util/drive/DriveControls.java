@@ -86,24 +86,24 @@ public class DriveControls {
       case PROGRAMMERS:
       default:
         // Operator controls
-        ALGAE_PIVOT_SPEED = () -> operator.getLeftYD();
-        ALGAE_PIVOT_DOWN = operator.a();
-        ALGAE_PIVOT_STOW = operator.b();
-        ALGAE_PIVOT_PROCESSOR = operator.x();
+        ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
+        ALGAE_PIVOT_DOWN = EMPTY_TRIGGER;
+        ALGAE_PIVOT_STOW = EMPTY_TRIGGER;
+        ALGAE_PIVOT_PROCESSOR = EMPTY_TRIGGER;
 
-        INTAKE_CORAL = operator.a();
-        SHOOT_CORAL = operator.b();
+        INTAKE_CORAL = EMPTY_TRIGGER;
+        SHOOT_CORAL = EMPTY_TRIGGER;
 
-        CORAL_PIVOT_ROTATE = () -> (operator.getLeftY());
-        CORAL_PIVOT_L1 = operator.x();
-        CORAL_PIVOT_L2_L3 = operator.a();
-        CORAL_PIVOT_STOW = operator.b();
-        CORAL_PIVOT_INTAKE = operator.y();
+        CORAL_PIVOT_ROTATE = EMPTY_DOUBLE_SUPPLIER;
+        CORAL_PIVOT_L1 = EMPTY_TRIGGER;
+        CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
+        CORAL_PIVOT_STOW = EMPTY_TRIGGER;
+        CORAL_PIVOT_INTAKE = EMPTY_TRIGGER;
 
-        INTAKE_ALGAE = operator.leftTrigger();
-        SHOOT_ALGAE = operator.rightTrigger();
+        INTAKE_ALGAE = EMPTY_TRIGGER;
+        SHOOT_ALGAE = EMPTY_TRIGGER;
 
-        ELEVATOR_SPEED = () -> operator.getLeftYD();
+        ELEVATOR_SPEED = () -> -operator.getLeftYD();
         ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
         ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
         ELEVATOR_L3 = operator.getDPad(DPad.UP);

@@ -5,7 +5,7 @@ import edu.wpi.first.math.util.Units;
 public class CoralPivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
 
-  public static final int CORAL_PIVOT_ID = 0; // Change later
+  public static final int CORAL_PIVOT_ID = 15; // Change later
 
   public static final double[] CORAL_PIVOT_PID_REAL = {3.6, 0, 0, 0};
   public static final double[] CORAL_PIVOT_FEEDFORWARD_REAL = {0, 0.45, 0, 0};

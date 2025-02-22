@@ -18,26 +18,23 @@ public class ElevatorConstants {
   public static int RIGHT_MOTOR_ID = 5;
   public static IdleMode MOTOR_DEFAULT_IDLE_MODE = IdleMode.kBrake;
   /** Used for converting angular displacement into linear displacement */
-  public static double DRUM_RADIUS_METERS = 0.02;
+  public static double DRUM_RADIUS_METERS = 0.02236;
   /** Gear ratio of the elevator motors */
   public static double GEAR_RATIO = 1.0 / 20.0;
 
   /** Final position conversion factor based on drum radius and gear ratio */
   public static double POSITION_CONVERSION_FACTOR =
-      2 * Constants.PI * DRUM_RADIUS_METERS * GEAR_RATIO;
-
-  /** When the elevator is on the bottom, what does the encoder say */
-  public static double ELEVATOR_OFFSET_METERS = 0.0;
+      4 * Constants.PI * DRUM_RADIUS_METERS * GEAR_RATIO;
 
   public static final double ELEVATOR_MASS_KG = 5;
 
   // Max velocity and acceleration of the elevator, in m/s and m/s^2
-  public static final double MAX_VELOCITY = 0.3;
-  public static final double MAX_ACCELERATION = 0.3;
+  public static final double MAX_VELOCITY = 200;
+  public static final double MAX_ACCELERATION = 1000;
 
   // Digital input channels
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;
-  public static final int LIMIT_SWITCH_CHANNEL = 0;
+  public static final int LIMIT_SWITCH_CHANNEL = 9;
 
   // Height setpoints for elevator
   public static final double ELEVATOR_INTAKE_HEIGHT = 0.3;
@@ -46,7 +43,7 @@ public class ElevatorConstants {
   public static final double ELEVATOR_L3_HEIGHT = 0.7;
 
   // PID Constants
-  public static final double[] ELEVATOR_REAL_PID = {0.1, 0, 0, 0};
+  public static final double[] ELEVATOR_REAL_PID = {1, 0, 0, 0.456};
   /** Tolerance used when checking if the elevator is at the setpoint */
   public static double SETPOINT_TOLERANCE_METERS = 0.01;
 

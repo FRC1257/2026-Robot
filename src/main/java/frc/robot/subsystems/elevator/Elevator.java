@@ -114,10 +114,6 @@ public class Elevator extends SubsystemBase {
 
     // Log Inputs
     Logger.processInputs("Elevator", inputs);
-
-    Logger.recordOutput(
-        "Elevator/ElevatorAbsoluteEncoderConnected",
-        inputs.positionMeters != ElevatorConstants.ELEVATOR_OFFSET_METERS);
   }
 
   public void setPID(double setpoint) {
@@ -165,8 +161,6 @@ public class Elevator extends SubsystemBase {
 
   public void runPID() {
     if (setpoint > ElevatorConstants.ELEVATOR_MAX_HEIGHT) {
-      setpoint = ElevatorConstants.ELEVATOR_MAX_HEIGHT;
-    } else if (setpoint < ElevatorConstants.ELEVATOR_MAX_HEIGHT) {
       setpoint = ElevatorConstants.ELEVATOR_MAX_HEIGHT;
     }
     if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)

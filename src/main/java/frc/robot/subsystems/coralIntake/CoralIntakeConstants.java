@@ -1,7 +1,7 @@
 package frc.robot.subsystems.coralIntake;
 
 public class CoralIntakeConstants {
-  public static final int CORAL_INTAKE_MOTOR_ID = 0;
+  public static final int CORAL_INTAKE_MOTOR_ID = 13;
 
   public static final double kCoralIntakeGearing = 1.2;
   public static final double kCoralIntakeDrumRadius = 0.03;

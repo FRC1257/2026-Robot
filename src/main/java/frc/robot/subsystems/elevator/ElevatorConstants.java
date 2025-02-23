@@ -9,12 +9,6 @@ public class ElevatorConstants {
   public static final double ELEVATOR_MAX_HEIGHT = 0.955675; // not including chasis
   public static final double ELEVATOR_MIN_HEIGHT = 0;
 
-  // sysid stuff
-  public static final double RAMP_RATE = 0.5;
-  public static final double STEP_VOLTAGE = 2.5;
-  public static final double SYSID_ROUTINE_TIMEOUT = 8;
-  public static final double ELEVATOR_TOLERANCE = 1.0;
-
   public static int LEFT_MOTOR_ID = 10;
   public static int RIGHT_MOTOR_ID = 5;
   public static IdleMode MOTOR_DEFAULT_IDLE_MODE = IdleMode.kBrake;
@@ -52,7 +46,7 @@ public class ElevatorConstants {
 
   public static class ElevatorSimConstants {
     public static final double[] ELEVATOR_SIM_PID = {20, 0, 0};
-    public static final double[] ELEVATOR_SIM_FF = {0, 0.126415, 21, 0};
+    public static final double[] ELEVATOR_SIM_FF = {1.4841E-06, 0.12642, 17.748, 1.5689E-05};
     // Convert from encoder steps to meters
 
     public static final double GEAR_RATIO_SIM = 20;

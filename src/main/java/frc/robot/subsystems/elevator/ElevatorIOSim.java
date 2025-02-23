@@ -50,7 +50,7 @@ public class ElevatorIOSim implements ElevatorIO {
             ElevatorSimConstants.ELEVATOR_SIM_PID[0],
             ElevatorSimConstants.ELEVATOR_SIM_PID[1],
             ElevatorSimConstants.ELEVATOR_SIM_PID[2],
-            new TrapezoidProfile.Constraints(0.6, 4));
+            new TrapezoidProfile.Constraints(0.3, 0.3));
 
     m_controller.setTolerance(0.1, 0.05);
 

@@ -2,13 +2,11 @@ package frc.robot.subsystems.elevator;
 
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Volts;
 
 import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.MutLinearVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
-import edu.wpi.first.units.measure.Time;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -76,11 +74,8 @@ public class Elevator extends SubsystemBase {
 
     SysId =
         new SysIdRoutine(
-            new SysIdRoutine.Config(
-                Volts.per(Second).of(ElevatorConstants.RAMP_RATE),
-                Volts.of(ElevatorConstants.STEP_VOLTAGE),
-                Time.ofRelativeUnits(ElevatorConstants.SYSID_ROUTINE_TIMEOUT, Second),
-                (state) -> Logger.recordOutput("Elevator/SysIdTestState", state)),
+            new SysIdRoutine.Config(null, null, null,
+                (state) -> Logger.recordOutput("Elevator/SysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 v -> io.setVoltage(v.in(Volts)),
                 (sysidLog) -> {

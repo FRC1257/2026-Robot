@@ -96,9 +96,6 @@ public class Drive extends SubsystemBase {
 
   private Rotation2d simRotation = new Rotation2d();
 
-  private final LoggedDashboardChooser<Translation2d> startPositionChooser =
-      new LoggedDashboardChooser("startPosition");
-
   public Drive(
       GyroIO gyroIO,
       ModuleIO flModuleIO,
@@ -114,17 +111,6 @@ public class Drive extends SubsystemBase {
     SparkMaxOdometryThread.getInstance().start();
 
     this.visionIO = visionIO;
-
-    Translation2d startPos1 =
-        new Translation2d(FieldConstants.startingLineX, FieldConstants.Barge.farCage.getY());
-    Translation2d startPos2 =
-        new Translation2d(FieldConstants.startingLineX, FieldConstants.Barge.middleCage.getY());
-    Translation2d startPos3 =
-        new Translation2d(FieldConstants.startingLineX, FieldConstants.Barge.closeCage.getY());
-
-    startPositionChooser.addDefaultOption("s1", startPos1);
-    startPositionChooser.addOption("s2", startPos2);
-    startPositionChooser.addOption("s3", startPos3);
 
     try {
       config = RobotConfig.fromGUISettings();
@@ -204,11 +190,6 @@ public class Drive extends SubsystemBase {
                 },
                 null,
                 this));
-  }
-
-  public void setStartPosition() {
-    Translation2d selectedPosition = startPositionChooser.get();
-    poseEstimator.resetTranslation(AllianceFlipUtil.apply(selectedPosition));
   }
 
   public void periodic() {

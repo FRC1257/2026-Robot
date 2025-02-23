@@ -49,7 +49,7 @@ public class VisionConstants {
 
   // The layout of the AprilTags on the field
   public static final AprilTagFieldLayout kTagLayout =
-      AprilTagFieldLayout.loadField(AprilTagFields.k2025Reefscape);
+      AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
   public static final double AMBIGUITY_THRESHOLD = 0.5;
   public static final double MAX_DISTANCE = 4; // meters

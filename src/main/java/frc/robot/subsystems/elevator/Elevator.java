@@ -79,7 +79,8 @@ public class Elevator extends SubsystemBase {
             new SysIdRoutine.Config(
                 Volts.per(Second).of(ElevatorConstants.RAMP_RATE),
                 Volts.of(ElevatorConstants.STEP_VOLTAGE),
-                Time.ofRelativeUnits(ElevatorConstants.SYSID_ROUTINE_TIMEOUT, Second)),
+                Time.ofRelativeUnits(ElevatorConstants.SYSID_ROUTINE_TIMEOUT, Second),
+                (state) -> Logger.recordOutput("Elevator/SysIdTestState", state)),
             new SysIdRoutine.Mechanism(
                 v -> io.setVoltage(v.in(Volts)),
                 (sysidLog) -> {
@@ -223,19 +224,13 @@ public class Elevator extends SubsystemBase {
         .until(
             () ->
                 io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT
-                    || io.isLimitSwitchPressed())
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("Elevator/sysid-test-state-", "quasistatic-forward")));
+                    || io.isLimitSwitchPressed());
   }
 
   public Command quasistaticBack() {
     elevatorState = State.SYSID;
     return SysId.quasistatic(Direction.kReverse)
-        .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT)
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("Elevator/sysid-test-state-", "quasistatic-reverse")));
+        .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT);
   }
 
   public Command dynamicForward() {
@@ -244,18 +239,19 @@ public class Elevator extends SubsystemBase {
         .until(
             () ->
                 io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT
-                    || io.isLimitSwitchPressed())
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("Elevator/sysid-test-state-", "dynamic-forward")));
+                    || io.isLimitSwitchPressed());
   }
 
   public Command dynamicBack() {
     elevatorState = State.SYSID;
     return SysId.dynamic(Direction.kReverse)
-        .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT)
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("Elevator/sysid-test-state-", "dynamic-reverse")));
+        .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT);
+  }
+
+  public Command sysIdCommand() {
+    return quasistaticForward()
+        .andThen(quasistaticBack())
+        .andThen(dynamicForward())
+        .andThen(dynamicBack());
   }
 }

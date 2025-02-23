@@ -13,13 +13,12 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
-  // public static final String[] camNames = {"Front_Camera", "Left_Camera", "Right_Camera"};
-  public static final String[] camNames = {"Front_Camera"};
+  public static final String[] camNames = {"Front_Camera", "Left_Camera", "Right_Camera", "Back_Camera"};
   public static final int numCameras = camNames.length;
 
   // Cam mounted facing forward, half a meter forward of center, half a meter up
   // from center.
-  /*public static final Transform3d[] camsRobotToCam = {
+  public static final Transform3d[] camsRobotToCam = {
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(-9), Units.inchesToMeters(7), Units.inchesToMeters(10)),
@@ -38,14 +37,14 @@ public class VisionConstants {
         new Rotation3d(
             0,
             Rotation2d.fromDegrees(90 - 61.90).getRadians(),
-            Rotation2d.fromDegrees(-90).getRadians())) // maybe need to change
-  };*/
-  public static final Transform3d[] camsRobotToCam = {
+            Rotation2d.fromDegrees(-90).getRadians())), // maybe need to change
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-9), Units.inchesToMeters(7), Units.inchesToMeters(10)),
+            numCameras, numCameras, numCameras),
         new Rotation3d(
-            0, Rotation2d.fromDegrees(30).getRadians(), Rotation2d.fromDegrees(0).getRadians()))
+            0,
+            0,
+            0))
   };
 
   // The layout of the AprilTags on the field
@@ -58,7 +57,7 @@ public class VisionConstants {
   // The standard deviations of our vision estimated poses, which affect
   // correction rate
   // (Fake values. Experiment and determine estimation noise on an actual robot.)
-  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.2, 0.2, 1000);
+  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.2, 0.2, 15);
   public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, 1);
 
   public static Transform3d getSimVersion(Transform3d real) {

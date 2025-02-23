@@ -215,12 +215,7 @@ public class RobotContainer {
     ELEVATOR_L2.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
     ELEVATOR_L3.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
     ELEVATOR_INTAKE.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_INTAKE_HEIGHT));
-    ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(0));
-
-    operator.a().onTrue(elevator.quasistaticForward());
-    operator.b().onTrue(elevator.quasistaticBack());
-    operator.x().onTrue(elevator.dynamicForward());
-    operator.y().onTrue(elevator.dynamicBack());
+    ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT));
   }
 
   /**

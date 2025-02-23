@@ -26,7 +26,7 @@ public class AlgaeIntakeIOSparkMax implements AlgaeIntakeIO {
     motor = new SparkFlex(AlgaeIntakeConstants.ALGAE_INTAKE_MOTOR_ID, MotorType.kBrushless);
 
     config
-        .idleMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode.kCoast)
+        .idleMode(IdleMode.kBrake)
         .voltageCompensation(12)
         .smartCurrentLimit(NEO_CURRENT_LIMIT)
         .inverted(true);

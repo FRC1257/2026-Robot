@@ -7,7 +7,7 @@ public class CoralPivotConstants {
 
   public static final int CORAL_PIVOT_ID = 15; // Change later
 
-  public static final double[] CORAL_PIVOT_PID_REAL = {3.6, 0, 0, 0};
+  public static final double[] CORAL_PIVOT_PID_REAL = {3.6, 0, 0};
   public static final double[] CORAL_PIVOT_FEEDFORWARD_REAL = {0, 0.45, 0, 0};
 
   public static final double CORAL_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
@@ -24,9 +24,11 @@ public class CoralPivotConstants {
   public static final double CORAL_PIVOT_STOW_ANGLE = Units.degreesToRadians(85);
   // Will have to add constants for placing coral
 
-  public static final double RAMP_RATE = 0.5;
-  public static final double STEP_VOLTAGE = 3.0;
-  public static final double CORAL_PIVOT_TOLERANCE = 1.0;
+  public static final double SYSID_RAMP_RATE = 1;
+  public static final double SYSID_STEP_VOLTAGE = 7.0;
+  public static final double SYSID_TIME = 10;
+
+  public static final double CORAL_PIVOT_VOLTAGE_TOLERANCE = 1.0;
 
   public static final double CORAL_PIVOT_CONTROL_SPEED_FACTOR = 1.0;
 
@@ -37,8 +39,8 @@ public class CoralPivotConstants {
   public static final int ABSOLUTE_ENCODER_CHANNEL = 0;
 
   public static class CoralPivotSimConstants {
-    public static final double[] kPivotSimPID = {15, 0, 0, 0};
-    public static final double[] kPivotSimFF = {0, 0.574, 0, 0};
+    public static final double[] kPivotSimPID = {0, 0, 0};
+    public static final double[] kPivotSimFF = {0, 0.574434, 4.37, 0};
 
     public static final double kArmReduction = 200;
     public static final double kArmMass = 10.0; // Kilograms

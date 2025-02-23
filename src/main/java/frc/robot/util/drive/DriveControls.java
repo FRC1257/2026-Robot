@@ -5,7 +5,6 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
-import frc.robot.util.drive.CommandSnailController.DPad;
 import java.util.function.DoubleSupplier;
 
 public class DriveControls {
@@ -18,52 +17,52 @@ public class DriveControls {
   private static final DoubleSupplier EMPTY_DOUBLE_SUPPLIER = () -> 0.0;
 
   // Drive controls
-  public static DoubleSupplier DRIVE_FORWARD;
-  public static DoubleSupplier DRIVE_STRAFE;
-  public static DoubleSupplier DRIVE_ROTATE;
-  public static Trigger DRIVE_SLOW;
-  public static Trigger DRIVE_STOP;
-  public static Trigger DRIVE_ROBOT_RELATIVE;
+  public static DoubleSupplier DRIVE_FORWARD = EMPTY_DOUBLE_SUPPLIER;
+  public static DoubleSupplier DRIVE_STRAFE = EMPTY_DOUBLE_SUPPLIER;
+  public static DoubleSupplier DRIVE_ROTATE = EMPTY_DOUBLE_SUPPLIER;
+  public static Trigger DRIVE_SLOW = EMPTY_TRIGGER;
+  public static Trigger DRIVE_STOP = EMPTY_TRIGGER;
+  public static Trigger DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
   // Algae Pivot Controls
-  public static DoubleSupplier ALGAE_PIVOT_SPEED;
-  public static Trigger ALGAE_PIVOT_STOW;
-  public static Trigger ALGAE_PIVOT_DOWN;
-  public static Trigger ALGAE_PIVOT_PROCESSOR;
+  public static DoubleSupplier ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
+  public static Trigger ALGAE_PIVOT_STOW = EMPTY_TRIGGER;
+  public static Trigger ALGAE_PIVOT_DOWN = EMPTY_TRIGGER;
+  public static Trigger ALGAE_PIVOT_PROCESSOR = EMPTY_TRIGGER;
 
   // Coral pivot controls
-  public static DoubleSupplier CORAL_PIVOT_ROTATE;
-  public static Trigger CORAL_PIVOT_L1;
-  public static Trigger CORAL_PIVOT_L2_L3;
-  public static Trigger CORAL_PIVOT_STOW;
-  public static Trigger CORAL_PIVOT_INTAKE;
+  public static DoubleSupplier CORAL_PIVOT_ROTATE = EMPTY_DOUBLE_SUPPLIER;
+  public static Trigger CORAL_PIVOT_L1 = EMPTY_TRIGGER;
+  public static Trigger CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
+  public static Trigger CORAL_PIVOT_STOW = EMPTY_TRIGGER;
+  public static Trigger CORAL_PIVOT_INTAKE = EMPTY_TRIGGER;
 
   // Drive Turns
-  public static Trigger TURN_90;
-  public static Trigger TURN_180;
+  public static Trigger TURN_90 = EMPTY_TRIGGER;
+  public static Trigger TURN_180 = EMPTY_TRIGGER;
 
   // Rumble Controls
-  public static Trigger TIMED_RUMBLE;
-  public static Trigger INTAKE_RUMBLE;
+  public static Trigger TIMED_RUMBLE = EMPTY_TRIGGER;
+  public static Trigger INTAKE_RUMBLE = EMPTY_TRIGGER;
 
   // Potential Hail Marry Program [Suggested by Owen]
-  public static Trigger SHOOT_FROM_SOURCE;
+  public static Trigger SHOOT_FROM_SOURCE = EMPTY_TRIGGER;
 
   // Algae Intake Controls
-  public static Trigger INTAKE_ALGAE;
-  public static Trigger SHOOT_ALGAE;
+  public static Trigger INTAKE_ALGAE = EMPTY_TRIGGER;
+  public static Trigger SHOOT_ALGAE = EMPTY_TRIGGER;
 
   // Coral Intake Controls
-  public static Trigger INTAKE_CORAL;
-  public static Trigger SHOOT_CORAL;
+  public static Trigger INTAKE_CORAL = EMPTY_TRIGGER;
+  public static Trigger SHOOT_CORAL = EMPTY_TRIGGER;
 
   // Elevator Controls
-  public static DoubleSupplier ELEVATOR_SPEED;
-  public static Trigger ELEVATOR_L1;
-  public static Trigger ELEVATOR_L2;
-  public static Trigger ELEVATOR_L3;
-  public static Trigger ELEVATOR_DOWN;
-  public static Trigger ELEVATOR_INTAKE;
+  public static DoubleSupplier ELEVATOR_SPEED = EMPTY_DOUBLE_SUPPLIER;
+  public static Trigger ELEVATOR_L1 = EMPTY_TRIGGER;
+  public static Trigger ELEVATOR_L2 = EMPTY_TRIGGER;
+  public static Trigger ELEVATOR_L3 = EMPTY_TRIGGER;
+  public static Trigger ELEVATOR_DOWN = EMPTY_TRIGGER;
+  public static Trigger ELEVATOR_INTAKE = EMPTY_TRIGGER;
 
   // Setup the controls
   public static void configureControls() {
@@ -94,23 +93,21 @@ public class DriveControls {
         INTAKE_CORAL = EMPTY_TRIGGER;
         SHOOT_CORAL = EMPTY_TRIGGER;
 
-        CORAL_PIVOT_ROTATE = EMPTY_DOUBLE_SUPPLIER;
-        CORAL_PIVOT_L1 = EMPTY_TRIGGER;
-        CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
-        CORAL_PIVOT_STOW = EMPTY_TRIGGER;
-        CORAL_PIVOT_INTAKE = EMPTY_TRIGGER;
+        CORAL_PIVOT_ROTATE = () -> -operator.getLeftYD();
+        CORAL_PIVOT_L1 = operator.a();
+        CORAL_PIVOT_L2_L3 = operator.b();
+        CORAL_PIVOT_STOW = operator.x();
+        CORAL_PIVOT_INTAKE = operator.y();
 
         INTAKE_ALGAE = EMPTY_TRIGGER;
         SHOOT_ALGAE = EMPTY_TRIGGER;
 
-        ELEVATOR_SPEED = () -> -operator.getLeftYD();
+        // ELEVATOR_SPEED = () -> -operator.getLeftYD();
         // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
-        ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
-        ELEVATOR_L3 = operator.getDPad(DPad.UP);
+        // ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
+        // ELEVATOR_L3 = operator.getDPad(DPad.UP);
         // ELEVATOR_DOWN = operator.b();
-        ELEVATOR_INTAKE = operator.getDPad(DPad.DOWN);
-        ELEVATOR_L1 = EMPTY_TRIGGER;
-        ELEVATOR_DOWN = EMPTY_TRIGGER;
+        // ELEVATOR_INTAKE = operator.getDPad(DPad.DOWN);
         break;
 
         // bottom right Left joystick to intake

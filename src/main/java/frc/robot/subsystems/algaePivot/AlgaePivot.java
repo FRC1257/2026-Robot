@@ -179,7 +179,7 @@ public class AlgaePivot extends SubsystemBase {
     io.setBrake(brake);
   }
 
-  @AutoLogOutput(key = "AlgaePivot/Close")
+  @AutoLogOutput(key = "AlgaePivot/Is Voltage Close")
   public boolean isVoltageClose(double setVoltage) {
     double voltageDifference = Math.abs(setVoltage - inputs.appliedVolts);
     return voltageDifference <= AlgaePivotConstants.ALGAE_PIVOT_TOLERANCE;

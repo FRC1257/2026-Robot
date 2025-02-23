@@ -85,12 +85,13 @@ public class ElevatorIOSim implements ElevatorIO {
 
   @Override
   public void goToSetpoint() {
-    // change in velocity / time = acceleration
+    double pidOutput = m_controller.calculate(getPosition());
+
+    // change in velocity / change in time = acceleration
     // Acceleration is used to calculate feedforward
     double acceleration =
         (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
 
-    double pidOutput = m_controller.calculate(getPosition());
     double ffOutput = feedforward.calculate(m_controller.getSetpoint().velocity, acceleration);
 
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));

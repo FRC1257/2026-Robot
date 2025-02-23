@@ -26,7 +26,7 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
 
     SparkFlexConfig config = new SparkFlexConfig();
     config
-        .idleMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode.kCoast)
+        .idleMode(IdleMode.kBrake)
         .voltageCompensation(12)
         .smartCurrentLimit(NEO_CURRENT_LIMIT)
         .inverted(true);

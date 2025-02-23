@@ -3,18 +3,18 @@
 
 package frc.robot.subsystems.coralPivot;
 
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
-import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import org.littletonrobotics.junction.Logger;
 
@@ -22,16 +22,18 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
   // Motor and Encoders
   private SparkMax pivotMotor;
   private SparkMaxConfig config;
-  private final SparkClosedLoopController pidController;
+
+  private final ProfiledPIDController pidController;
   private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
 
   private SparkAbsoluteEncoder motorEncoder;
 
   private double setpoint = 0;
 
-  private double kP = CoralPivotConstants.CORAL_PIVOT_PID_REAL[0],
-      kI = CoralPivotConstants.CORAL_PIVOT_PID_REAL[1],
-      kD = CoralPivotConstants.CORAL_PIVOT_PID_REAL[2];
+  // These variables are used to find the acceleration of the PID setpoint
+  // (change in velocity / time = avg acceleration)
+  double lastSpeed = 0;
+  double lastTime = Timer.getFPGATimestamp();
 
   public CoralPivotIOSparkMax() {
     pivotMotor = new SparkMax(CoralPivotConstants.CORAL_PIVOT_ID, MotorType.kBrushless);
@@ -57,15 +59,14 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
         .startPulseUs(1)
         .endPulseUs(1024);
 
-    pidController = pivotMotor.getClosedLoopController();
-
-    config.closedLoop.pid(kP, kI, kD).feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
-
-    config
-        .closedLoop
-        .maxMotion
-        .maxVelocity(CoralPivotConstants.CORAL_PIVOT_MAX_VELOCITY)
-        .maxAcceleration(CoralPivotConstants.CORAL_PIVOT_MAX_ACCELERATION);
+    pidController =
+        new ProfiledPIDController(
+            CoralPivotConstants.CORAL_PIVOT_PID_REAL[0],
+            CoralPivotConstants.CORAL_PIVOT_PID_REAL[1],
+            CoralPivotConstants.CORAL_PIVOT_PID_REAL[2],
+            new TrapezoidProfile.Constraints(
+                CoralPivotConstants.CORAL_PIVOT_MAX_VELOCITY,
+                CoralPivotConstants.CORAL_PIVOT_MAX_ACCELERATION));
 
     // 0 position for absolute encoder is at 0.2585 rad, so subtract that value from everything
 
@@ -109,16 +110,31 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
     return motorEncoder.getVelocity();
   }
 
-  /** Go to Setpoint */
   @Override
-  public void goToSetpoint(double setpoint) {
-    // With the setpoint value we run PID control like normal
-    double feedforwardOutput = feedforward.calculate(getAngle(), 0);
+  public void setSetpoint(double setpoint) {
+    pidController.setGoal(setpoint);
+    pidController.reset(getAngle(), getAngVelocity());
+  }
 
-    Logger.recordOutput("CoralPivot/FeedforwardOutput", feedforwardOutput);
+  @Override
+  public void goToSetpoint() {
+    double pidOutput = pidController.calculate(getAngle());
 
-    pidController.setReference(
-        setpoint, ControlType.kMAXMotionPositionControl, ClosedLoopSlot.kSlot0, feedforwardOutput);
+    // change in velocity / change in time = acceleration
+    // Acceleration is used to calculate feedforward
+    double acceleration =
+        (pidController.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+
+    double ffOutput =
+        feedforward.calculate(
+            pidController.getSetpoint().position,
+            pidController.getSetpoint().velocity,
+            acceleration);
+
+    setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
+
+    lastSpeed = pidController.getSetpoint().velocity;
+    lastTime = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -136,50 +152,37 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
 
   @Override
   public void setP(double p) {
-    config.closedLoop.p(p);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kP = p;
+    pidController.setP(p);
   }
 
   @Override
   public void setI(double i) {
-    config.closedLoop.i(i);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kI = i;
+    pidController.setI(i);
   }
 
   @Override
   public void setD(double d) {
-    config.closedLoop.d(d);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kD = d;
+    pidController.setD(d);
   }
 
   @Override
   public void setkS(double kS) {
-    feedforward =
-        new ArmFeedforward(kS, feedforward.getKg(), feedforward.getKv(), feedforward.getKa());
+    feedforward.setKs(kS);
   }
 
   @Override
   public void setkG(double kG) {
-    feedforward =
-        new ArmFeedforward(feedforward.getKs(), kG, feedforward.getKv(), feedforward.getKa());
+    feedforward.setKg(kG);
   }
 
   @Override
   public void setkV(double kV) {
-    feedforward =
-        new ArmFeedforward(feedforward.getKs(), feedforward.getKg(), kV, feedforward.getKa());
+    feedforward.setKv(kV);
   }
 
   @Override
   public void setkA(double kA) {
-    feedforward =
-        new ArmFeedforward(feedforward.getKs(), feedforward.getKg(), feedforward.getKv(), kA);
+    feedforward.setKa(kA);
   }
 
   @Override
@@ -204,16 +207,16 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
 
   @Override
   public double getP() {
-    return kP;
+    return pidController.getP();
   }
 
   @Override
   public double getI() {
-    return kI;
+    return pidController.getI();
   }
 
   @Override
   public double getD() {
-    return kD;
+    return pidController.getD();
   }
 }

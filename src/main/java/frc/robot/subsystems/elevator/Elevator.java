@@ -2,6 +2,8 @@ package frc.robot.subsystems.elevator;
 
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
 import edu.wpi.first.units.measure.MutDistance;
@@ -19,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import java.util.function.DoubleSupplier;
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
@@ -55,7 +58,6 @@ public class Elevator extends SubsystemBase {
   }
 
   private State elevatorState = State.MANUAL;
-  private double setpoint = 0;
   private double manualSpeed = 0;
 
   public Elevator(ElevatorIO io) {
@@ -74,7 +76,10 @@ public class Elevator extends SubsystemBase {
 
     SysId =
         new SysIdRoutine(
-            new SysIdRoutine.Config(null, null, null,
+            new SysIdRoutine.Config(
+                Volts.per(Second).of(ElevatorConstants.SYSID_RAMP_RATE),
+                Volts.of(ElevatorConstants.SYSID_STEP_VOLTAGE),
+                Seconds.of(ElevatorConstants.SYSID_TIME),
                 (state) -> Logger.recordOutput("Elevator/SysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 v -> io.setVoltage(v.in(Volts)),
@@ -128,7 +133,11 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setPID(double setpoint) {
-    this.setpoint = setpoint;
+    if (setpoint > ElevatorConstants.ELEVATOR_MAX_HEIGHT)
+      setpoint = ElevatorConstants.ELEVATOR_MAX_HEIGHT;
+    else if (setpoint < ElevatorConstants.ELEVATOR_MIN_HEIGHT)
+      setpoint = ElevatorConstants.ELEVATOR_MIN_HEIGHT;
+
     io.setSetpoint(setpoint);
     elevatorState = State.PID;
   }
@@ -161,20 +170,25 @@ public class Elevator extends SubsystemBase {
     return io.atSetpoint();
   }
 
+  @AutoLogOutput(key = "Elevator/Is Voltage Close")
+  public boolean isVoltageClose(double setVoltage) {
+    double voltageDifference = Math.abs(setVoltage - inputs.appliedVoltage);
+    return voltageDifference <= ElevatorConstants.ELEVATOR_VOLTAGE_TOLERANCE;
+  }
+
   public void move(double speed) {
     if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
             && io.getVelocity() > 0)) {
       io.setVoltage(0);
+      isVoltageClose(0);
     } else {
       io.setVoltage(speed * 12);
+      isVoltageClose(speed * 12);
     }
   }
 
   public void runPID() {
-    if (setpoint > ElevatorConstants.ELEVATOR_MAX_HEIGHT) {
-      setpoint = ElevatorConstants.ELEVATOR_MAX_HEIGHT;
-    }
     if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
             && io.getVelocity() > 0)) {
@@ -241,12 +255,5 @@ public class Elevator extends SubsystemBase {
     elevatorState = State.SYSID;
     return SysId.dynamic(Direction.kReverse)
         .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT);
-  }
-
-  public Command sysIdCommand() {
-    return quasistaticForward()
-        .andThen(quasistaticBack())
-        .andThen(dynamicForward())
-        .andThen(dynamicBack());
   }
 }

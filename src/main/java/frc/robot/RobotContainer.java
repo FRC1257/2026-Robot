@@ -216,6 +216,11 @@ public class RobotContainer {
     ELEVATOR_L3.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
     ELEVATOR_INTAKE.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_INTAKE_HEIGHT));
     ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT));
+
+    // operator.a().onTrue(coralPivot.quasistaticForward());
+    // operator.b().onTrue(coralPivot.quasistaticBack());
+    // operator.x().onTrue(coralPivot.dynamicForward());
+    // operator.y().onTrue(coralPivot.dynamicBack());
   }
 
   /**

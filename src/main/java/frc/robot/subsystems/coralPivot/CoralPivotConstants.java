@@ -39,8 +39,8 @@ public class CoralPivotConstants {
   public static final int ABSOLUTE_ENCODER_CHANNEL = 0;
 
   public static class CoralPivotSimConstants {
-    public static final double[] kPivotSimPID = {0, 0, 0};
-    public static final double[] kPivotSimFF = {0, 0.574434, 4.37, 0};
+    public static final double[] kPivotSimPID = {35, 0, 0};
+    public static final double[] kPivotSimFF = {0, 0.57445, 3.9692, 0.0037023};
 
     public static final double kArmReduction = 200;
     public static final double kArmMass = 10.0; // Kilograms

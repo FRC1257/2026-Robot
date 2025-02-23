@@ -8,6 +8,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.subsystems.coralPivot.CoralPivotConstants.CoralPivotSimConstants;
+import org.littletonrobotics.junction.Logger;
 
 public class CoralPivotIOSim implements CoralPivotIO {
 
@@ -46,7 +47,7 @@ public class CoralPivotIOSim implements CoralPivotIO {
             CoralPivotConstants.CoralPivotSimConstants.kPivotSimPID[0],
             CoralPivotConstants.CoralPivotSimConstants.kPivotSimPID[1],
             CoralPivotConstants.CoralPivotSimConstants.kPivotSimPID[2],
-            new TrapezoidProfile.Constraints(2.45, 2.45));
+            new TrapezoidProfile.Constraints(2.85, 15));
 
     m_controller.setTolerance(0.1, 0.05);
 
@@ -88,6 +89,8 @@ public class CoralPivotIOSim implements CoralPivotIO {
     // Acceleration is used to calculate feedforward
     double acceleration =
         (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+
+    Logger.recordOutput("CoralPivot/Acceleration", acceleration);
 
     double ffOutput =
         m_feedforward.calculate(

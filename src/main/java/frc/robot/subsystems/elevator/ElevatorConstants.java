@@ -11,7 +11,8 @@ public class ElevatorConstants {
 
   // sysid stuff
   public static final double RAMP_RATE = 0.5;
-  public static final double STEP_VOLTAGE = 3.0;
+  public static final double STEP_VOLTAGE = 2.5;
+  public static final double SYSID_ROUTINE_TIMEOUT = 8;
   public static final double ELEVATOR_TOLERANCE = 1.0;
 
   public static int LEFT_MOTOR_ID = 10;
@@ -29,8 +30,8 @@ public class ElevatorConstants {
   public static final double ELEVATOR_MASS_KG = 5;
 
   // Max velocity and acceleration of the elevator, in m/s and m/s^2
-  public static final double MAX_VELOCITY = 200;
-  public static final double MAX_ACCELERATION = 1000;
+  public static final double MAX_VELOCITY = 0.3;
+  public static final double MAX_ACCELERATION = 0.3;
 
   // Digital input channels
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;
@@ -43,15 +44,18 @@ public class ElevatorConstants {
   public static final double ELEVATOR_L3_HEIGHT = 0.7;
 
   // PID Constants
-  public static final double[] ELEVATOR_REAL_PID = {1, 0, 0, 0.456};
+  public static final double[] ELEVATOR_REAL_PID = {0, 0, 0};
+  public static final double[] ELEVATOR_REAL_FF = {0, 0, 0, 0};
+
   /** Tolerance used when checking if the elevator is at the setpoint */
-  public static double SETPOINT_TOLERANCE_METERS = 0.01;
+  public static double SETPOINT_TOLERANCE_METERS = 0.005;
 
   public static class ElevatorSimConstants {
-    public static final double[] ELEVATOR_SIM_PID = {15, 0, 0, 2.261};
+    public static final double[] ELEVATOR_SIM_PID = {20, 0, 0};
+    public static final double[] ELEVATOR_SIM_FF = {0, 0.126415, 21, 0};
     // Convert from encoder steps to meters
 
-    public static final double GEAR_RATIO_SIM = 1;
+    public static final double GEAR_RATIO_SIM = 20;
     public static final double ELEVATOR_STARTING_HEIGHT = 0.2;
 
     // 4096 pulses per revolution

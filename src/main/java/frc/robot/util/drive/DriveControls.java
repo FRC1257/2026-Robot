@@ -104,11 +104,13 @@ public class DriveControls {
         SHOOT_ALGAE = EMPTY_TRIGGER;
 
         ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
+        // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
         ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
         ELEVATOR_L3 = operator.getDPad(DPad.UP);
-        ELEVATOR_DOWN = operator.b();
+        // ELEVATOR_DOWN = operator.b();
         ELEVATOR_INTAKE = operator.getDPad(DPad.DOWN);
+        ELEVATOR_L1 = EMPTY_TRIGGER;
+        ELEVATOR_DOWN = EMPTY_TRIGGER;
         break;
 
         // bottom right Left joystick to intake

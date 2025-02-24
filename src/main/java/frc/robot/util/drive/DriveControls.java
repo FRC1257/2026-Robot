@@ -25,6 +25,10 @@ public class DriveControls {
   public static Trigger DRIVE_STOP = EMPTY_TRIGGER;
   public static Trigger DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
+  public static Trigger TOGGLE_REEF_POSITION_UP = EMPTY_TRIGGER;
+  public static Trigger TOGGLE_REEF_POSITION_DOWN = EMPTY_TRIGGER;
+  public static Trigger DRIVE_TO_REEF = EMPTY_TRIGGER;
+
   // Algae Pivot Controls
   public static DoubleSupplier ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
   public static Trigger ALGAE_PIVOT_STOW = EMPTY_TRIGGER;

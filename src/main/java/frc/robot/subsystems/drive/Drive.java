@@ -42,6 +42,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.vision.VisionConstants;
@@ -54,6 +55,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
+import frc.robot.FieldConstants;
 
 public class Drive extends SubsystemBase {
   // private static final double DRIVE_BASE_RADIUS = Math.hypot(kTrackWidthX / 2.0, kTrackWidthY /
@@ -93,6 +95,8 @@ public class Drive extends SubsystemBase {
   private SysIdRoutine turnRoutine;
 
   private Rotation2d simRotation = new Rotation2d();
+
+  private int GlobalToggle;
 
   public Drive(
       GyroIO gyroIO,
@@ -188,6 +192,8 @@ public class Drive extends SubsystemBase {
                 },
                 null,
                 this));
+
+    GlobalToggle = 0; 
   }
 
   public void periodic() {
@@ -464,5 +470,33 @@ public class Drive extends SubsystemBase {
             // differential drivetrain, the rotation will have no effect.
             );
     return AutoBuilder.followPath(path);
+  }
+
+  public void IncreaseGlobalToggle() {
+    if(GlobalToggle < 11) {
+      GlobalToggle += 1;
+    } else {
+      GlobalToggle = 0;
+    }
+  }
+
+  public void decreaseGlobalToggle() {
+    if(GlobalToggle > 0) {
+      GlobalToggle -= 1;
+    } else {
+      GlobalToggle = 11;
+    }
+  }
+
+  public Command positiveReefPoseToggle() {
+    return new InstantCommand(() -> IncreaseGlobalToggle());
+  }
+
+  public Command negativeReefPoseToggle() {
+    return new InstantCommand(() -> decreaseGlobalToggle()); 
+  }
+
+  public Command DriveToReef() {
+    return goToPose(FieldConstants.REEF_POSITION[GlobalToggle]);
   }
 }

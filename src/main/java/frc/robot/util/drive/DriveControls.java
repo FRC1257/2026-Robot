@@ -5,6 +5,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
+import frc.robot.util.drive.CommandSnailController.DPad;
+
 import java.util.function.DoubleSupplier;
 
 public class DriveControls {
@@ -35,7 +37,7 @@ public class DriveControls {
   public static Trigger CORAL_PIVOT_L1 = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_STOW = EMPTY_TRIGGER;
-  public static Trigger CORAL_PIVOT_INTAKE = EMPTY_TRIGGER;
+  public static Trigger CORAL_PIVOT_STATION = EMPTY_TRIGGER;
 
   // Drive Turns
   public static Trigger TURN_90 = EMPTY_TRIGGER;
@@ -50,11 +52,11 @@ public class DriveControls {
 
   // Algae Intake Controls
   public static Trigger INTAKE_ALGAE = EMPTY_TRIGGER;
-  public static Trigger SHOOT_ALGAE = EMPTY_TRIGGER;
+  public static Trigger EJECT_ALGAE = EMPTY_TRIGGER;
 
   // Coral Intake Controls
   public static Trigger INTAKE_CORAL = EMPTY_TRIGGER;
-  public static Trigger SHOOT_CORAL = EMPTY_TRIGGER;
+  public static Trigger EJECT_CORAL = EMPTY_TRIGGER;
 
   // Elevator Controls
   public static DoubleSupplier ELEVATOR_SPEED = EMPTY_DOUBLE_SUPPLIER;
@@ -62,7 +64,14 @@ public class DriveControls {
   public static Trigger ELEVATOR_L2 = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_L3 = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_DOWN = EMPTY_TRIGGER;
-  public static Trigger ELEVATOR_INTAKE = EMPTY_TRIGGER;
+  public static Trigger ELEVATOR_STATION = EMPTY_TRIGGER;
+
+  // Combined elevator and coral pivot controls
+  public static Trigger COMBINED_L1 = EMPTY_TRIGGER;
+  public static Trigger COMBINED_L2 = EMPTY_TRIGGER;
+  public static Trigger COMBINED_L3 = EMPTY_TRIGGER;
+  public static Trigger COMBINED_STATION = EMPTY_TRIGGER;
+  public static Trigger COMBINED_STOW = EMPTY_TRIGGER;
 
   // Setup the controls
   public static void configureControls() {
@@ -82,6 +91,25 @@ public class DriveControls {
     }
 
     switch (Constants.operator) {
+      case ANTONIOS:
+        COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        COMBINED_L3 = operator. getDPad(DPad.UP);
+        COMBINED_STATION = operator.getDPad(DPad.DOWN);
+        COMBINED_STOW = operator.a();
+
+        ELEVATOR_SPEED = () -> -operator.getLeftYD();
+
+        ALGAE_PIVOT_STOW = operator.x();
+        ALGAE_PIVOT_PROCESSOR = operator.y();
+        ALGAE_PIVOT_DOWN = operator.b();
+
+        INTAKE_CORAL = operator.leftBumper();
+        EJECT_CORAL = operator.rightBumper();
+
+        INTAKE_ALGAE = operator.leftTrigger();
+        EJECT_ALGAE = operator.rightTrigger();
+        break;
       case PROGRAMMERS:
       default:
         // Operator controls
@@ -91,16 +119,16 @@ public class DriveControls {
         ALGAE_PIVOT_PROCESSOR = EMPTY_TRIGGER;
 
         INTAKE_CORAL = EMPTY_TRIGGER;
-        SHOOT_CORAL = EMPTY_TRIGGER;
+        EJECT_CORAL = EMPTY_TRIGGER;
 
         CORAL_PIVOT_ROTATE = () -> -operator.getLeftYD();
         CORAL_PIVOT_L1 = operator.a();
         CORAL_PIVOT_L2_L3 = operator.b();
         CORAL_PIVOT_STOW = operator.x();
-        CORAL_PIVOT_INTAKE = operator.y();
+        CORAL_PIVOT_STATION = operator.y();
 
         INTAKE_ALGAE = EMPTY_TRIGGER;
-        SHOOT_ALGAE = EMPTY_TRIGGER;
+        EJECT_ALGAE = EMPTY_TRIGGER;
 
         // ELEVATOR_SPEED = () -> -operator.getLeftYD();
         // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);

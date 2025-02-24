@@ -38,11 +38,17 @@ public final class Constants {
   }
 
   public static enum Drivers {
-    PROGRAMMERS
+    PROGRAMMERS,
+    GABE,
+    MICHAEL,
+    MADDIE
   }
 
   public static enum Operators {
-    PROGRAMMERS
+    PROGRAMMERS,
+    ANTONIOS,
+    KEVIN,
+    ARBORIA
   }
 
   public static Mode getRobotMode() {

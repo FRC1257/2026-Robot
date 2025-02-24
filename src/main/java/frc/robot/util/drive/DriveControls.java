@@ -91,6 +91,10 @@ public class DriveControls {
 
         TURN_90 = driver.y();
         TURN_180 = driver.start();
+
+        TOGGLE_REEF_POSITION_UP = driver.getDPad(DPad.UP);
+        TOGGLE_REEF_POSITION_DOWN = driver.getDPad(DPad.DOWN);
+        DRIVE_TO_REEF = driver.a();
         break;
     }
 

@@ -195,18 +195,18 @@ public class RobotContainer {
 
     // Algae Intake Controls
     INTAKE_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED));
-    SHOOT_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED));
+    EJECT_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED));
 
     // Coral Intake Controls
     INTAKE_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED));
-    SHOOT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED));
+    EJECT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED));
 
     coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_ROTATE));
     CORAL_PIVOT_L1.onTrue(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
     CORAL_PIVOT_L2_L3.onTrue(
         coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
-    CORAL_PIVOT_INTAKE.onTrue(
-        coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_INTAKE_ANGLE));
+    CORAL_PIVOT_STATION.onTrue(
+        coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
     CORAL_PIVOT_STOW.onTrue(
         coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
 
@@ -214,8 +214,14 @@ public class RobotContainer {
     ELEVATOR_L1.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
     ELEVATOR_L2.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
     ELEVATOR_L3.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
-    ELEVATOR_INTAKE.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_INTAKE_HEIGHT));
+    ELEVATOR_STATION.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT));
     ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT));
+
+    COMBINED_L1.onTrue(goToL1());
+    COMBINED_L2.onTrue(goToL2());
+    COMBINED_L3.onTrue(goToL3());
+    COMBINED_STATION.onTrue(goToStation());
+    COMBINED_STOW.onTrue(stow());
 
     // operator.a().onTrue(coralPivot.quasistaticForward());
     // operator.b().onTrue(coralPivot.quasistaticBack());
@@ -234,23 +240,53 @@ public class RobotContainer {
 
   // Subsystem compound commands
   public Command goToL1() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+  }
+
+  public Command goToL2() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+  }
+
+  public Command goToL3() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+  }
+
+  public Command goToStation() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
+  }
+
+  public Command stow() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
+  }
+
+  public Command goToL1Auto() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
   }
 
-  public Command goToL2() {
+  public Command goToL2Auto() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
-  public Command goToL3() {
+  public Command goToL3Auto() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
-  public Command stow() {
+  public Command stowAuto() {
     return elevator.PIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
         .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
+  }
+
+  public Command goToStationAuto() {
+    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
   }
 
   public Command algaeIntake() {
@@ -267,7 +303,7 @@ public class RobotContainer {
 
   public Command coralFeeder() {
     return coralPivot
-        .PIDCommand(CoralPivotConstants.CORAL_PIVOT_INTAKE_ANGLE)
+        .PIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE)
         .andThen(coralIntake());
   }
 

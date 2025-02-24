@@ -38,6 +38,7 @@ public class DriveControls {
   public static Trigger CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_STOW = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_STATION = EMPTY_TRIGGER;
+  public static Trigger CORAL_PIVOT_STATION = EMPTY_TRIGGER;
 
   // Drive Turns
   public static Trigger TURN_90 = EMPTY_TRIGGER;
@@ -53,9 +54,11 @@ public class DriveControls {
   // Algae Intake Controls
   public static Trigger INTAKE_ALGAE = EMPTY_TRIGGER;
   public static Trigger EJECT_ALGAE = EMPTY_TRIGGER;
+  public static Trigger EJECT_ALGAE = EMPTY_TRIGGER;
 
   // Coral Intake Controls
   public static Trigger INTAKE_CORAL = EMPTY_TRIGGER;
+  public static Trigger EJECT_CORAL = EMPTY_TRIGGER;
   public static Trigger EJECT_CORAL = EMPTY_TRIGGER;
 
   // Elevator Controls
@@ -64,6 +67,14 @@ public class DriveControls {
   public static Trigger ELEVATOR_L2 = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_L3 = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_DOWN = EMPTY_TRIGGER;
+  public static Trigger ELEVATOR_STATION = EMPTY_TRIGGER;
+
+  // Combined elevator and coral pivot controls
+  public static Trigger COMBINED_L1 = EMPTY_TRIGGER;
+  public static Trigger COMBINED_L2 = EMPTY_TRIGGER;
+  public static Trigger COMBINED_L3 = EMPTY_TRIGGER;
+  public static Trigger COMBINED_STATION = EMPTY_TRIGGER;
+  public static Trigger COMBINED_STOW = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_STATION = EMPTY_TRIGGER;
 
   // Combined elevator and coral pivot controls
@@ -120,14 +131,17 @@ public class DriveControls {
 
         INTAKE_CORAL = EMPTY_TRIGGER;
         EJECT_CORAL = EMPTY_TRIGGER;
+        EJECT_CORAL = EMPTY_TRIGGER;
 
         CORAL_PIVOT_ROTATE = () -> -operator.getLeftYD();
         CORAL_PIVOT_L1 = operator.a();
         CORAL_PIVOT_L2_L3 = operator.b();
         CORAL_PIVOT_STOW = operator.x();
         CORAL_PIVOT_STATION = operator.y();
+        CORAL_PIVOT_STATION = operator.y();
 
         INTAKE_ALGAE = EMPTY_TRIGGER;
+        EJECT_ALGAE = EMPTY_TRIGGER;
         EJECT_ALGAE = EMPTY_TRIGGER;
 
         // ELEVATOR_SPEED = () -> -operator.getLeftYD();

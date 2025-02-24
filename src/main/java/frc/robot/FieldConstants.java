@@ -186,6 +186,15 @@ public class FieldConstants {
     public final double pitch;
   }
 
+  public static class StartingPositions {
+    public static final Pose2d startPos1 =
+        new Pose2d(startingLineX, Barge.farCage.getY(), Rotation2d.fromDegrees(0));
+    public static final Pose2d startPos2 =
+        new Pose2d(startingLineX, Barge.middleCage.getY(), Rotation2d.fromDegrees(0));
+    public static final Pose2d startPos3 =
+        new Pose2d(startingLineX, Barge.closeCage.getY(), Rotation2d.fromDegrees(0));
+  }
+
   public static final double aprilTagWidth = Units.inchesToMeters(6.50);
   // public static final AprilTagLayoutType defaultAprilTagType = AprilTagLayoutType.OFFICIAL;//
   public static final int aprilTagCount = 22;

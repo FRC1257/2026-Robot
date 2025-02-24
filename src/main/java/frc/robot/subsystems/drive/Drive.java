@@ -472,6 +472,21 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.followPath(path);
   }
 
+  /**
+   * Follows PathPlanner GUI-created path from file
+   *
+   * @param filename the name of the file read
+   * @return a command that follows the path
+   */
+  public Command followPathFileCommand(String filename) {
+    try {
+      return AutoBuilder.followPath(PathPlannerPath.fromPathFile(filename));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new InstantCommand();
+    }
+  }
+
   public void IncreaseGlobalToggle() {
     if (GlobalToggle < 11) {
       GlobalToggle += 1;

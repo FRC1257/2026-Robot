@@ -13,7 +13,9 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
-  public static final String[] camNames = {"Front_Camera", "Left_Camera", "Right_Camera", "Back_Camera"};
+  public static final String[] camNames = {
+    "Front_Camera", "Left_Camera", "Right_Camera", "Back_Camera"
+  };
   public static final int numCameras = camNames.length;
 
   // Cam mounted facing forward, half a meter forward of center, half a meter up
@@ -38,13 +40,7 @@ public class VisionConstants {
             0,
             Rotation2d.fromDegrees(90 - 61.90).getRadians(),
             Rotation2d.fromDegrees(-90).getRadians())), // maybe need to change
-    new Transform3d(
-        new Translation3d(
-            numCameras, numCameras, numCameras),
-        new Rotation3d(
-            0,
-            0,
-            0))
+    new Transform3d(new Translation3d(numCameras, numCameras, numCameras), new Rotation3d(0, 0, 0))
   };
 
   // The layout of the AprilTags on the field

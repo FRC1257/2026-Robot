@@ -18,7 +18,7 @@ public class CoralPivotConstants {
   public static final double CORAL_PIVOT_MIN_ANGLE = Units.degreesToRadians(-70);
 
   // deleted the old constants from last years code, this intake angle is from last year still
-  public static final double CORAL_PIVOT_INTAKE_ANGLE = Units.degreesToRadians(2.0);
+  public static final double CORAL_PIVOT_STATION_ANGLE = Units.degreesToRadians(2.0);
   public static final double CORAL_PIVOT_L1_ANGLE = Units.degreesToRadians(-20);
   public static final double CORAL_PIVOT_L2_L3_ANGLE = Units.degreesToRadians(-15);
   public static final double CORAL_PIVOT_STOW_ANGLE = Units.degreesToRadians(85);

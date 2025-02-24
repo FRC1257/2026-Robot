@@ -39,7 +39,7 @@ public class ElevatorConstants {
   public static final int LIMIT_SWITCH_CHANNEL = 9;
 
   // Height setpoints for elevator
-  public static final double ELEVATOR_INTAKE_HEIGHT = 0.3;
+  public static final double ELEVATOR_STATION_HEIGHT = 0.3;
   public static final double ELEVATOR_L1_HEIGHT = 0.4;
   public static final double ELEVATOR_L2_HEIGHT = 0.6;
   public static final double ELEVATOR_L3_HEIGHT = 0.7;
@@ -52,7 +52,7 @@ public class ElevatorConstants {
   public static double SETPOINT_TOLERANCE_METERS = 0.005;
 
   public static class ElevatorSimConstants {
-    public static final double[] ELEVATOR_SIM_PID = {20, 0, 0};
+    public static final double[] ELEVATOR_SIM_PID = {300, 0, 0};
     public static final double[] ELEVATOR_SIM_FF = {1.4841E-06, 0.12642, 17.748, 1.5689E-05};
     // Convert from encoder steps to meters
 

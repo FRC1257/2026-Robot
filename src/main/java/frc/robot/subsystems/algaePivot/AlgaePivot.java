@@ -38,6 +38,19 @@ public class AlgaePivot extends SubsystemBase {
   private LoggedNetworkNumber logkV;
   private LoggedNetworkNumber logkA;
 
+  private LoggedNetworkNumber logActiveP;
+  private LoggedNetworkNumber logActiveI;
+  private LoggedNetworkNumber logActiveD;
+  private LoggedNetworkNumber logActiveFF;
+
+  private LoggedNetworkNumber logActivekS;
+  private LoggedNetworkNumber logActivekG;
+  private LoggedNetworkNumber logActivekV;
+  private LoggedNetworkNumber logActivekA;
+
+  private LoggedNetworkNumber logMaxVelocity;
+  private LoggedNetworkNumber logMaxAcceleration;
+
   // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
   private final MutVoltage m_appliedVoltage = Volts.mutable(0);
   // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
@@ -71,12 +84,20 @@ public class AlgaePivot extends SubsystemBase {
     logP = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/P", io.getP());
     logI = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/I", io.getI());
     logD = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/D", io.getD());
-    logFF = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/FF", io.getFF());
 
     logkS = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/kS", io.getkS());
     logkG = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/kG", io.getkG());
     logkV = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/kV", io.getkV());
     logkA = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/kA", io.getkA());
+
+    logActiveP = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active P", io.getP());
+    logActiveI = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active I", io.getI());
+    logActiveD = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active D", io.getD());
+
+    logActivekS = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active kS", io.getkS());
+    logActivekG = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active kG", io.getkG());
+    logActivekV = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active kV", io.getkV());
+    logActivekA = new LoggedNetworkNumber("/SmartDashboard/AlgaePivot/Active kA", io.getkA());
 
     SysId =
         new SysIdRoutine(
@@ -136,8 +157,6 @@ public class AlgaePivot extends SubsystemBase {
 
     if (logD.get() != io.getD()) io.setD(logD.get());
 
-    if (logFF.get() != io.getFF()) io.setFF(logFF.get());
-
     if (logkS.get() != io.getkS()) io.setkS(logkS.get());
 
     if (logkG.get() != io.getkG()) io.setkG(logkG.get());
@@ -145,6 +164,20 @@ public class AlgaePivot extends SubsystemBase {
     if (logkV.get() != io.getkV()) io.setkV(logkV.get());
 
     if (logkA.get() != io.getkA()) io.setkG(logkA.get());
+
+    if (logActiveP.get() != io.getActiveP()) io.setActiveP(logActiveP.get());
+
+    if (logActiveI.get() != io.getActiveI()) io.setActiveI(logActiveI.get());
+
+    if (logActiveD.get() != io.getActiveD()) io.setActiveD(logActiveD.get());
+
+    if (logActivekS.get() != io.getActivekS()) io.setActivekS(logActivekS.get());
+
+    if (logActivekG.get() != io.getActivekG()) io.setActivekG(logActivekG.get());
+
+    if (logActivekV.get() != io.getActivekV()) io.setActivekV(logActivekV.get());
+
+    if (logActivekA.get() != io.getActivekA()) io.setActivekG(logActivekA.get());
 
     // Log Inputs
     Logger.processInputs("AlgaePivot", inputs);
@@ -158,7 +191,7 @@ public class AlgaePivot extends SubsystemBase {
     io.setBrake(brake);
   }
 
-  @AutoLogOutput(key = "AlgaePivot/Close")
+  @AutoLogOutput(key = "AlgaePivot/Is Voltage Close")
   public boolean isVoltageClose(double setVoltage) {
     double voltageDifference = Math.abs(setVoltage - inputs.appliedVolts);
     return voltageDifference <= AlgaePivotConstants.ALGAE_PIVOT_TOLERANCE;
@@ -243,6 +276,10 @@ public class AlgaePivot extends SubsystemBase {
 
   public Command ManualCommand(double speed) {
     return ManualCommand(() -> speed);
+  }
+
+  public boolean isBreakBeamBroken() {
+    return io.isBreakBeamBroken();
   }
 
   public Command quasistaticForward() {

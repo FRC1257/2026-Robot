@@ -29,8 +29,10 @@ public interface CoralPivotIO {
     return 0.0;
   }
 
+  public default void setSetpoint(double setpoint) {}
+
   /** Go to Setpoint */
-  public default void goToSetpoint(double setpoint) {}
+  public default void goToSetpoint() {}
 
   public default void setBrake(boolean brake) {}
 
@@ -43,8 +45,6 @@ public interface CoralPivotIO {
   public default void setI(double i) {}
 
   public default void setD(double d) {}
-
-  public default void setFF(double ff) {}
 
   public default void setkS(double kS) {}
 
@@ -63,10 +63,6 @@ public interface CoralPivotIO {
   }
 
   public default double getD() {
-    return 0.0;
-  }
-
-  public default double getFF() {
     return 0.0;
   }
 

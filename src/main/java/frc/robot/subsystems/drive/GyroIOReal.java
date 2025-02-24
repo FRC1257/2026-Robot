@@ -33,6 +33,7 @@ public class GyroIOReal implements GyroIO {
     navx = new AHRS(NavXComType.kMXP_SPI);
     resetRoll = 0;
     resetPitch = 0;
+    resetYaw = 0;
     navx.reset();
 
     gyro = new ADXRS450_Gyro();

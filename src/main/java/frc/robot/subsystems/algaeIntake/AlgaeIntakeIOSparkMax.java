@@ -5,27 +5,28 @@ import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 /** Need to import Constants files/classes */
 //
 
 public class AlgaeIntakeIOSparkMax implements AlgaeIntakeIO {
 
-  private SparkMax motor;
+  private SparkFlex motor;
   private RelativeEncoder encoder;
 
-  private SparkMaxConfig config;
+  private SparkFlexConfig config = new SparkFlexConfig();
 
   public AlgaeIntakeIOSparkMax() {
     /** ID needs to be assigned from constants */
     // setPIDConstants(kGroundIntakeP, kGroundIntakeI, kGroundIntakeD);
-    motor = new SparkMax(AlgaeIntakeConstants.ALGAE_INTAKE_MOTOR_ID, SparkMax.MotorType.kBrushless);
+    motor = new SparkFlex(AlgaeIntakeConstants.ALGAE_INTAKE_MOTOR_ID, MotorType.kBrushless);
 
     config
-        .idleMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode.kCoast)
+        .idleMode(IdleMode.kBrake)
         .voltageCompensation(12)
         .smartCurrentLimit(NEO_CURRENT_LIMIT)
         .inverted(true);

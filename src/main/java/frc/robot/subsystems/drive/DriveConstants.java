@@ -33,10 +33,10 @@ public final class DriveConstants {
 
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
-  public static final double kFrontLeftChassisAngularOffset = 0;
-  public static final double kFrontRightChassisAngularOffset = Math.PI;
-  public static final double kBackLeftChassisAngularOffset = Math.PI;
-  public static final double kBackRightChassisAngularOffset = 0;
+  public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2 + 1.924964;
+  public static final double kFrontRightChassisAngularOffset = Math.PI - 1.94004;
+  public static final double kBackLeftChassisAngularOffset = 5.41928 - Math.PI;
+  public static final double kBackRightChassisAngularOffset = -3 * Math.PI / 2 + 5.958595;
 
   // SPARK MAX CAN IDs
   // Subject to change depending on what robot side is the front

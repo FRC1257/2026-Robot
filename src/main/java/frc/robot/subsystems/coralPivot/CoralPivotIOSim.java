@@ -1,11 +1,14 @@
 package frc.robot.subsystems.coralPivot;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController; //
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 import frc.robot.subsystems.coralPivot.CoralPivotConstants.CoralPivotSimConstants;
+import org.littletonrobotics.junction.Logger;
 
 public class CoralPivotIOSim implements CoralPivotIO {
 
@@ -17,6 +20,11 @@ public class CoralPivotIOSim implements CoralPivotIO {
   private ArmFeedforward m_feedforward = new ArmFeedforward(0, 0, 0, 0);
 
   private double appliedVoltage = 0;
+
+  // These variables are used to find the acceleration of the PID setpoint (change in velocity /
+  // time = avg acceleration)
+  double lastSpeed = 0;
+  double lastTime = Timer.getFPGATimestamp();
 
   // Simulation classes help us simulate what's going on, including gravity.
 
@@ -39,7 +47,7 @@ public class CoralPivotIOSim implements CoralPivotIO {
             CoralPivotConstants.CoralPivotSimConstants.kPivotSimPID[0],
             CoralPivotConstants.CoralPivotSimConstants.kPivotSimPID[1],
             CoralPivotConstants.CoralPivotSimConstants.kPivotSimPID[2],
-            new TrapezoidProfile.Constraints(2.45, 2.45));
+            new TrapezoidProfile.Constraints(2.85, 15));
 
     m_controller.setTolerance(0.1, 0.05);
 
@@ -68,14 +76,30 @@ public class CoralPivotIOSim implements CoralPivotIO {
   }
 
   @Override
-  public void goToSetpoint(double setpoint) {
+  public void setSetpoint(double setpoint) {
     m_controller.setGoal(setpoint);
-    // With the setpoint value we run PID control like normal
-    double pidOutput = m_controller.calculate(getAngle());
-    double feedforwardOutput =
-        m_feedforward.calculate(getAngle(), m_controller.getSetpoint().velocity);
+    m_controller.reset(getAngle(), getAngVelocity());
+  }
 
-    setVoltage(feedforwardOutput + pidOutput);
+  @Override
+  public void goToSetpoint() {
+    double pidOutput = m_controller.calculate(getAngle());
+
+    // change in velocity / change in time = acceleration
+    // Acceleration is used to calculate feedforward
+    double acceleration =
+        (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+
+    Logger.recordOutput("CoralPivot/Acceleration", acceleration);
+
+    double ffOutput =
+        m_feedforward.calculate(
+            m_controller.getSetpoint().position, m_controller.getSetpoint().velocity, acceleration);
+
+    setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
+
+    lastSpeed = m_controller.getSetpoint().velocity;
+    lastTime = Timer.getFPGATimestamp();
   }
 
   @Override

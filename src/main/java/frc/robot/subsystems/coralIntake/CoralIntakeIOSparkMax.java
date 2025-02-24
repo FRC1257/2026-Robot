@@ -5,28 +5,28 @@ import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
+import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
-import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkFlexConfig;
 
 /** Need to import Constants files/classes */
 //
 
 public class CoralIntakeIOSparkMax implements CoralIntakeIO {
 
-  private SparkMax motor;
+  private SparkFlex motor;
   private RelativeEncoder encoder;
 
   public CoralIntakeIOSparkMax() {
     /** ID needs to be assigned from constants */
     // setPIDConstants(kGroundIntakeP, kGroundIntakeI, kGroundIntakeD);
-    motor = new SparkMax(CoralIntakeConstants.CORAL_INTAKE_MOTOR_ID, MotorType.kBrushless);
+    motor = new SparkFlex(CoralIntakeConstants.CORAL_INTAKE_MOTOR_ID, MotorType.kBrushless);
     encoder = motor.getEncoder();
 
-    SparkMaxConfig config = new SparkMaxConfig();
+    SparkFlexConfig config = new SparkFlexConfig();
     config
-        .idleMode(com.revrobotics.spark.config.SparkBaseConfig.IdleMode.kCoast)
+        .idleMode(IdleMode.kBrake)
         .voltageCompensation(12)
         .smartCurrentLimit(NEO_CURRENT_LIMIT)
         .inverted(true);
@@ -53,7 +53,7 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
   /** sets brake mode to stop */
   @Override
   public void setBrake(boolean brake) {
-    SparkMaxConfig config = new SparkMaxConfig();
+    SparkFlexConfig config = new SparkFlexConfig();
     config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
     motor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }

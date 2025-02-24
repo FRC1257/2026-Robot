@@ -33,7 +33,10 @@ public interface ElevatorIO {
    *
    * @param setpoint the target height, in meters, the elevator is trying to go to
    */
-  public default void goToSetpoint(double setpoint) {}
+  public default void setSetpoint(double setpoint) {}
+
+  /** Runs PID and feedforward to move towards setpoint */
+  public default void goToSetpoint() {}
 
   /** Returns the elevator's instantaneous height */
   public default double getPosition() {
@@ -94,11 +97,36 @@ public interface ElevatorIO {
   public default double getD() {
     return 0.0;
   }
+
   /**
    * Only use individual getters and setters for spontaneous changes during runtime. All PID
    * constants are automatically set when the robot starts up
    */
-  public default double getFF() {
+  public default double getkS() {
+    return 0.0;
+  }
+
+  /**
+   * Only use individual getters and setters for spontaneous changes during runtime. All PID
+   * constants are automatically set when the robot starts up
+   */
+  public default double getkG() {
+    return 0.0;
+  }
+
+  /**
+   * Only use individual getters and setters for spontaneous changes during runtime. All PID
+   * constants are automatically set when the robot starts up
+   */
+  public default double getkV() {
+    return 0.0;
+  }
+
+  /**
+   * Only use individual getters and setters for spontaneous changes during runtime. All PID
+   * constants are automatically set when the robot starts up
+   */
+  public default double getkA() {
     return 0.0;
   }
 
@@ -121,5 +149,20 @@ public interface ElevatorIO {
    * Only use individual getters and setters for spontaneous changes during runtime. All PID
    * constants are automatically set when the robot starts up
    */
-  public default void setFF(double kFF) {}
+  public default void setkS(double kS) {}
+  /**
+   * Only use individual getters and setters for spontaneous changes during runtime. All PID
+   * constants are automatically set when the robot starts up
+   */
+  public default void setkG(double kG) {}
+  /**
+   * Only use individual getters and setters for spontaneous changes during runtime. All PID
+   * constants are automatically set when the robot starts up
+   */
+  public default void setkV(double kV) {}
+  /**
+   * Only use individual getters and setters for spontaneous changes during runtime. All PID
+   * constants are automatically set when the robot starts up
+   */
+  public default void setkA(double kA) {}
 }

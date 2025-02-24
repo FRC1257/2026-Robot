@@ -1,8 +1,11 @@
 package frc.robot.subsystems.elevator;
 
+import edu.wpi.first.math.MathUtil;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 import frc.robot.subsystems.elevator.ElevatorConstants.ElevatorSimConstants;
 
@@ -16,9 +19,14 @@ public class ElevatorIOSim implements ElevatorIO {
 
   // Standard classes for controlling our arm
   private final ProfiledPIDController m_controller;
-  private double ffOutput = ElevatorSimConstants.ELEVATOR_SIM_PID[3];
+  private final ElevatorFeedforward feedforward;
 
   private double appliedVoltage = 0;
+
+  // These variables are used to find the acceleration of the PID setpoint (change in velocity /
+  // time = avg acceleration)
+  double lastSpeed = 0;
+  double lastTime = Timer.getFPGATimestamp();
 
   // Simulation classes help us simulate what's going on, including gravity.
   // This arm sim represents an arm that can travel from -75 degrees (rotated down
@@ -42,9 +50,16 @@ public class ElevatorIOSim implements ElevatorIO {
             ElevatorSimConstants.ELEVATOR_SIM_PID[0],
             ElevatorSimConstants.ELEVATOR_SIM_PID[1],
             ElevatorSimConstants.ELEVATOR_SIM_PID[2],
-            new TrapezoidProfile.Constraints(2.45, 2.45));
+            new TrapezoidProfile.Constraints(0.6, 5));
 
     m_controller.setTolerance(0.1, 0.05);
+
+    feedforward =
+        new ElevatorFeedforward(
+            ElevatorSimConstants.ELEVATOR_SIM_FF[0],
+            ElevatorSimConstants.ELEVATOR_SIM_FF[1],
+            ElevatorSimConstants.ELEVATOR_SIM_FF[2],
+            ElevatorSimConstants.ELEVATOR_SIM_FF[3]);
   }
 
   @Override
@@ -63,12 +78,26 @@ public class ElevatorIOSim implements ElevatorIO {
   }
 
   @Override
-  public void goToSetpoint(double setpoint) {
+  public void setSetpoint(double setpoint) {
     m_controller.setGoal(setpoint);
-    // With the setpoint value we run PID control like normal
+    m_controller.reset(getPosition(), getVelocity());
+  }
+
+  @Override
+  public void goToSetpoint() {
     double pidOutput = m_controller.calculate(getPosition());
 
-    setVoltage(ffOutput + pidOutput);
+    // change in velocity / change in time = acceleration
+    // Acceleration is used to calculate feedforward
+    double acceleration =
+        (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+
+    double ffOutput = feedforward.calculate(m_controller.getSetpoint().velocity, acceleration);
+
+    setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
+
+    lastSpeed = m_controller.getSetpoint().velocity;
+    lastTime = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -108,8 +137,23 @@ public class ElevatorIOSim implements ElevatorIO {
   }
 
   @Override
-  public void setFF(double ff) {
-    this.ffOutput = ff;
+  public void setkS(double kS) {
+    feedforward.setKs(kS);
+  }
+
+  @Override
+  public void setkG(double kG) {
+    feedforward.setKg(kG);
+  }
+
+  @Override
+  public void setkV(double kV) {
+    feedforward.setKv(kV);
+  }
+
+  @Override
+  public void setkA(double kA) {
+    feedforward.setKa(kA);
   }
 
   @Override
@@ -128,7 +172,22 @@ public class ElevatorIOSim implements ElevatorIO {
   }
 
   @Override
-  public double getFF() {
-    return ffOutput;
+  public double getkS() {
+    return feedforward.getKs();
+  }
+
+  @Override
+  public double getkG() {
+    return feedforward.getKg();
+  }
+
+  @Override
+  public double getkV() {
+    return feedforward.getKv();
+  }
+
+  @Override
+  public double getkA() {
+    return feedforward.getKa();
   }
 }

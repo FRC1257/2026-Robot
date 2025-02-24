@@ -21,6 +21,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 public class VisionIOPhoton implements VisionIO {
   private final PhotonCamera[] cameras = new PhotonCamera[numCameras];
   private final PhotonPoseEstimator[] cameraEstimators = new PhotonPoseEstimator[numCameras];
+  private final PhotonPipelineResult[] cameraResults = new PhotonPipelineResult[numCameras];
 
   private Pose2d lastEstimate = new Pose2d();
 
@@ -36,6 +37,7 @@ public class VisionIOPhoton implements VisionIO {
           new PhotonPoseEstimator(
               kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
       cameraEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+      cameraResults[i] = new PhotonPipelineResult();
     }
 
     SmartDashboard.putBoolean("KillSideCams", false);
@@ -75,9 +77,30 @@ public class VisionIOPhoton implements VisionIO {
     }
   }
 
+  @Override
+  public PhotonPipelineResult getLatestResult(int camIndex) {
+    if(camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
+
+    var results = cameras[camIndex].getAllUnreadResults();
+    double latestTimestamp = 0;
+
+    if(results.size() == 0) {
+      return cameraResults[camIndex];
+    }
+    
+    for(var result : results) {
+      if(result.getTimestampSeconds() > latestTimestamp) {
+        latestTimestamp = result.getTimestampSeconds();
+        cameraResults[camIndex] = result;
+      }
+    }
+
+    return cameraResults[camIndex];
+  }
+
   private PhotonPipelineResult[] getAprilTagResults() {
     if (killSideCams.get()) {
-      PhotonPipelineResult cam1_result = getLatestResult(cameras[0]);
+      PhotonPipelineResult cam1_result = getLatestResult(0);
 
       printStuff("cam1", cam1_result);
 
@@ -87,7 +110,7 @@ public class VisionIOPhoton implements VisionIO {
     PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];
 
     for (int i = 0; i < numCameras; i++) {
-      results[i] = cameras[i].getLatestResult();
+      results[i] = getLatestResult(i);
       printStuff("cam" + (i + 1), results[i]);
     }
 

@@ -47,7 +47,7 @@ public class VisionConstants {
   public static final AprilTagFieldLayout kTagLayout =
       AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
 
-  public static final double AMBIGUITY_THRESHOLD = 0.5;
+  public static final double AMBIGUITY_THRESHOLD = 0.2;
   public static final double MAX_DISTANCE = 4; // meters
 
   // The standard deviations of our vision estimated poses, which affect

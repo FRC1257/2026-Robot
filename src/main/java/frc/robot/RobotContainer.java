@@ -16,12 +16,37 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
+import frc.robot.subsystems.algaeIntake.AlgaeIntake;
+import frc.robot.subsystems.algaeIntake.AlgaeIntakeConstants;
+import frc.robot.subsystems.algaeIntake.AlgaeIntakeIO;
+import frc.robot.subsystems.algaeIntake.AlgaeIntakeIOSim;
+import frc.robot.subsystems.algaeIntake.AlgaeIntakeIOSparkMax;
+import frc.robot.subsystems.algaePivot.AlgaePivot;
+import frc.robot.subsystems.algaePivot.AlgaePivotConstants;
+import frc.robot.subsystems.algaePivot.AlgaePivotIO;
+import frc.robot.subsystems.algaePivot.AlgaePivotIOSim;
+import frc.robot.subsystems.algaePivot.AlgaePivotIOSparkMax;
+import frc.robot.subsystems.coralIntake.CoralIntake;
+import frc.robot.subsystems.coralIntake.CoralIntakeConstants;
+import frc.robot.subsystems.coralIntake.CoralIntakeIO;
+import frc.robot.subsystems.coralIntake.CoralIntakeIOSim;
+import frc.robot.subsystems.coralIntake.CoralIntakeIOSparkMax;
+import frc.robot.subsystems.coralPivot.CoralPivot;
+import frc.robot.subsystems.coralPivot.CoralPivotConstants;
+import frc.robot.subsystems.coralPivot.CoralPivotIO;
+import frc.robot.subsystems.coralPivot.CoralPivotIOSim;
+import frc.robot.subsystems.coralPivot.CoralPivotIOSparkMax;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOReal;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
+import frc.robot.subsystems.elevator.Elevator;
+import frc.robot.subsystems.elevator.ElevatorConstants;
+import frc.robot.subsystems.elevator.ElevatorIO;
+import frc.robot.subsystems.elevator.ElevatorIOSim;
+import frc.robot.subsystems.elevator.ElevatorIOSparkMax;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
@@ -36,9 +61,16 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  */
 public class RobotContainer {
   // Subsystems
-  public final Drive drive;
+  private final Drive drive;
+  private final AlgaePivot algaePivot;
+  private final AlgaeIntake algaeIntake;
+  private final CoralIntake coralIntake;
+  private final CoralPivot coralPivot;
+  private final Elevator elevator;
 
-  private Mechanism2d mech = new Mechanism2d(3, 3);
+  private Mechanism2d coralPivotMech = new Mechanism2d(3, 3);
+  private Mechanism2d elevatorMech = new Mechanism2d(3, 3);
+  private Mechanism2d algaePivotMech = new Mechanism2d(3, 3);
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -57,6 +89,11 @@ public class RobotContainer {
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3),
                 new VisionIOPhoton());
+        algaePivot = new AlgaePivot(new AlgaePivotIOSparkMax());
+        algaeIntake = new AlgaeIntake(new AlgaeIntakeIOSparkMax());
+        coralIntake = new CoralIntake(new CoralIntakeIOSparkMax());
+        coralPivot = new CoralPivot(new CoralPivotIOSparkMax());
+        elevator = new Elevator(new ElevatorIOSparkMax());
         break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -69,6 +106,11 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new VisionIOSim());
+        algaePivot = new AlgaePivot(new AlgaePivotIOSim());
+        algaeIntake = new AlgaeIntake(new AlgaeIntakeIOSim());
+        coralIntake = new CoralIntake(new CoralIntakeIOSim());
+        coralPivot = new CoralPivot(new CoralPivotIOSim());
+        elevator = new Elevator(new ElevatorIOSim());
         break;
 
         // Replayed robot, disable IO implementations
@@ -81,14 +123,30 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new VisionIO() {});
+        algaePivot = new AlgaePivot(new AlgaePivotIO() {});
+        algaeIntake = new AlgaeIntake(new AlgaeIntakeIO() {});
+        coralIntake = new CoralIntake(new CoralIntakeIO() {});
+        coralPivot = new CoralPivot(new CoralPivotIO() {});
+        elevator = new Elevator(new ElevatorIO() {});
         break;
     }
 
     // Set up robot state manager
 
-    MechanismRoot2d root = mech.getRoot("pivot", 1, 0.5);
+    MechanismRoot2d algaePivotRoot = algaePivotMech.getRoot("pivot", 1, 0.5);
+    algaePivotRoot.append(algaePivot.getArmMechanism());
     // add subsystem mechanisms
-    SmartDashboard.putData("Arm Mechanism", mech);
+    SmartDashboard.putData("Algae Pivot Mechanism", algaePivotMech);
+
+    MechanismRoot2d coralPivotRoot = coralPivotMech.getRoot("coral pivot", 1, 0.5);
+    coralPivotRoot.append(coralPivot.getArmMechanism());
+    // add subsystem mechanisms
+    SmartDashboard.putData("Coral Pivot Mechanism", coralPivotMech);
+
+    MechanismRoot2d elevatorRoot = elevatorMech.getRoot("elevator", 1, 0.5);
+    elevatorRoot.append(elevator.getElevatorMechanism());
+    // add subsystem mechanisms
+    SmartDashboard.putData("Elevator Mechanism", elevatorMech);
 
     // Set up auto routines
     /* NamedCommands.registerCommand(
@@ -120,6 +178,7 @@ public class RobotContainer {
   private void configureButtonBindings() {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
+    algaePivot.setDefaultCommand(algaePivot.ManualCommand(ALGAE_PIVOT_SPEED));
 
     DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
 
@@ -130,6 +189,52 @@ public class RobotContainer {
               drive.resetYaw();
             },
             drive));
+
+    ALGAE_PIVOT_DOWN.onTrue(
+        algaePivot.InstantPIDCommand(AlgaePivotConstants.ALGAE_PIVOT_DOWN_ANGLE));
+    ALGAE_PIVOT_STOW.onTrue(
+        algaePivot.InstantPIDCommand(AlgaePivotConstants.ALGAE_PIVOT_STOW_ANGLE));
+    ALGAE_PIVOT_PROCESSOR.onTrue(
+        algaePivot.InstantPIDCommand(AlgaePivotConstants.ALGAE_PIVOT_PROCESSOR_ANGLE));
+
+    // Algae Intake Controls
+    INTAKE_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED));
+    EJECT_ALGAE.whileTrue(algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED));
+
+    // Coral Intake Controls
+    INTAKE_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED));
+    EJECT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED));
+
+    coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_ROTATE));
+    CORAL_PIVOT_L1.onTrue(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+    CORAL_PIVOT_L2_L3.onTrue(
+        coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+    CORAL_PIVOT_STATION.onTrue(
+        coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
+    CORAL_PIVOT_STOW.onTrue(
+        coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
+
+    elevator.setDefaultCommand(elevator.ManualCommand(ELEVATOR_SPEED));
+    ELEVATOR_L1.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
+    ELEVATOR_L2.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
+    ELEVATOR_L3.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
+    ELEVATOR_STATION.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT));
+    ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT));
+
+    COMBINED_L1.onTrue(goToL1());
+    COMBINED_L2.onTrue(goToL2());
+    COMBINED_L3.onTrue(goToL3());
+    COMBINED_STATION.onTrue(goToStation());
+    COMBINED_STOW.onTrue(stow());
+
+    TOGGLE_REEF_POSITION_UP.onTrue(drive.positiveReefPoseToggle());
+    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.negativeReefPoseToggle());
+    DRIVE_TO_REEF.onTrue(drive.DriveToReef());
+
+    // operator.a().onTrue(coralPivot.quasistaticForward());
+    // operator.b().onTrue(coralPivot.quasistaticBack());
+    // operator.x().onTrue(coralPivot.dynamicForward());
+    // operator.y().onTrue(coralPivot.dynamicBack());
   }
 
   /**
@@ -140,5 +245,102 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // return autoChooser.get();
     return customAutoChooser.getAutoCommand();
+  }
+
+  // Subsystem compound commands
+  public Command goToL1() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+  }
+
+  public Command goToL2() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+  }
+
+  public Command goToL3() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+  }
+
+  public Command goToStation() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
+  }
+
+  public Command stow() {
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
+  }
+
+  public Command goToL1Auto() {
+    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+  }
+
+  public Command goToL2Auto() {
+    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+  }
+
+  public Command goToL3Auto() {
+    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+  }
+
+  public Command stowAuto() {
+    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
+  }
+
+  public Command goToStationAuto() {
+    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
+        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
+  }
+
+  public Command algaeIntake() {
+    return algaeIntake
+        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED)
+        .until(() -> algaePivot.isBreakBeamBroken())
+        .andThen(
+            algaeIntake.manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_IN_SPEED).withTimeout(0.5));
+  }
+
+  public Command coralIntake() {
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(2);
+  }
+
+  public Command coralFeeder() {
+    return coralPivot
+        .PIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE)
+        .andThen(coralIntake());
+  }
+
+  public Command algaeOuttake() {
+    return algaeIntake
+        .manualCommand(AlgaeIntakeConstants.ALGAE_INTAKE_OUT_SPEED)
+        .until(() -> !algaePivot.isBreakBeamBroken());
+  }
+
+  public Command coralOuttake() {
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(2);
+  }
+
+  public Command processor() {
+    return algaePivot
+        .PIDCommand(AlgaePivotConstants.ALGAE_PIVOT_PROCESSOR_ANGLE)
+        .andThen(algaeOuttake());
+  }
+
+  public Command fullL1() {
+    return (goToL1().andThen(coralOuttake()));
+  }
+
+  public Command fullL2() {
+    return (goToL2().andThen(coralOuttake()));
+  }
+
+  public Command fullL3() {
+    return (goToL2().andThen(coralOuttake()));
   }
 }

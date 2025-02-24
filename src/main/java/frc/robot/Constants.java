@@ -17,11 +17,11 @@ import edu.wpi.first.wpilibj.RobotBase;
 public final class Constants {
   public static final Mode mode = Mode.SIM;
   public static final Drivers driver = Drivers.PROGRAMMERS;
-  public static final Operators operator = Operators.PROGRAMMERS;
+  public static final Operators operator = Operators.ANTONIOS;
 
   public static final Mode currentMode = getRobotMode();
 
-  public static final boolean useVision = false;
+  public static final boolean useVision = true;
 
   public static enum Mode {
     /** Running on a real robot. */
@@ -38,11 +38,17 @@ public final class Constants {
   }
 
   public static enum Drivers {
-    PROGRAMMERS
+    PROGRAMMERS,
+    GABE,
+    MICHAEL,
+    MADDIE
   }
 
   public static enum Operators {
-    PROGRAMMERS
+    PROGRAMMERS,
+    ANTONIOS,
+    KEVIN,
+    ARBORIA
   }
 
   public static Mode getRobotMode() {
@@ -67,19 +73,6 @@ public final class Constants {
   public static final class NeoMotorConstants {
     public static final double kFreeSpeedRpm = 5676;
   }
-
-  public static class ElectricalLayout {
-    // Controllers
-    public static final int CONTROLLER_DRIVER_ID = 0;
-    public static final int CONTROLLER_OPERATOR_ID = 1;
-
-    // Drivetrain Main
-    public static final int DRIVE_FRONT_LEFT = 1;
-    public static final int DRIVE_FRONT_RIGHT = 2;
-    public static final int DRIVE_BACK_LEFT = 3;
-    public static final int DRIVE_BACK_RIGHT = 4;
-  }
-  ;
 
   public static double PI = 3.141592653589793238462643;
   public static double UPDATE_PERIOD = 0.010; // seconds

@@ -472,10 +472,6 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.followPath(path);
   }
 
-  public int getGlobalToggle(){
-    return GlobalToggle;
-  }
-
   public void IncreaseGlobalToggle() {
     if(GlobalToggle < 11) {
       GlobalToggle += 1;
@@ -501,6 +497,6 @@ public class Drive extends SubsystemBase {
   }
 
   public Command DriveToReef() {
-    return goToPose(FieldConstants.REEF_POSITION[getGlobalToggle()]);
+    return goToPose(FieldConstants.REEF_POSITION[GlobalToggle]);
   }
 }

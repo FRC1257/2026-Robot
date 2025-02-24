@@ -126,18 +126,6 @@ public class AlgaePivot extends SubsystemBase {
 
     armMechanism.setAngle(Units.radiansToDegrees(inputs.angleRads));
 
-    if (io.isBreakBeamBroken()) {
-      io.setP(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[0]);
-      io.setI(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[1]);
-      io.setD(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[2]);
-      io.setFF(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[3]);
-
-      io.setkS(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[0]);
-      io.setkG(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[1]);
-      io.setkV(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[2]);
-      io.setkA(AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[3]);
-    }
-
     // Move arm based on state
     switch (armState) {
       case MANUAL:

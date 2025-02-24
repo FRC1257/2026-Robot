@@ -156,6 +156,21 @@ public class FieldConstants {
         new Pose2d(Units.inchesToMeters(48), Units.inchesToMeters(86.5), new Rotation2d());
   }
 
+  public static final Pose2d[] REEF_POSITION = {
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d()),
+    new Pose2d(0,0, new Rotation2d())
+  };
+
   public enum ReefHeight {
     L4(Units.inchesToMeters(72), -90),
     L3(Units.inchesToMeters(47.625), -35),

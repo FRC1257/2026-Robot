@@ -3,6 +3,7 @@ package frc.robot.subsystems.vision;
 import static frc.robot.subsystems.vision.VisionConstants.kMultiTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
+import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -36,8 +37,8 @@ public interface VisionIO {
   /** Updates the set of loggable inputs. */
   public default void updateInputs(VisionIOInputs inputs, Pose2d estimate) {}
 
-  public default PhotonPipelineResult getLatestResult(PhotonCamera camera) {
-    return camera.getLatestResult();
+  public default PhotonPipelineResult getLatestResult(int camIndex) {
+    return new PhotonPipelineResult();
   }
 
   public default Optional<Pose2d>[] getEstimates(

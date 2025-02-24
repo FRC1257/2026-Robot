@@ -25,6 +25,7 @@ public class VisionIOSim implements VisionIO {
   private final PhotonCamera[] cameras = new PhotonCamera[numCameras];
   private final PhotonPoseEstimator[] camEstimators = new PhotonPoseEstimator[numCameras];
   private PhotonCameraSim[] camSims = new PhotonCameraSim[numCameras];
+  private PhotonPipelineResult[] cameraResults = new PhotonPipelineResult[numCameras];
 
   private VisionSystemSim visionSim;
 
@@ -39,6 +40,7 @@ public class VisionIOSim implements VisionIO {
               PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
               getSimVersion(camsRobotToCam[i]));
       camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+      cameraResults[i] = new PhotonPipelineResult();
     }
 
     // Create the vision system simulation which handles cam1s and targets on the
@@ -79,7 +81,7 @@ public class VisionIOSim implements VisionIO {
     PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];
 
     for (int i = 0; i < numCameras; i++) {
-      results[i] = getLatestResult(cameras[i]);
+      results[i] = getLatestResult(i);
     }
 
     inputs.estimate = new Pose2d[] {new Pose2d()};
@@ -105,6 +107,27 @@ public class VisionIOSim implements VisionIO {
     Logger.recordOutput("Vision/OrangeConnected", cameras[0].isConnected());
     // Logger.recordOutput("Vision/RaspberryConnected", cameras[1].isConnected());
     // Logger.recordOutput("Vision/Raspberry2Connected", cameras[2].isConnected());
+  }
+
+  @Override
+  public PhotonPipelineResult getLatestResult(int camIndex) {
+    if(camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
+
+    var results = cameras[camIndex].getAllUnreadResults();
+    double latestTimestamp = 0;
+
+    if(results.size() == 0) {
+      return cameraResults[camIndex];
+    }
+    
+    for(var result : results) {
+      if(result.getTimestampSeconds() > latestTimestamp) {
+        latestTimestamp = result.getTimestampSeconds();
+        cameraResults[camIndex] = result;
+      }
+    }
+
+    return cameraResults[camIndex];
   }
 
   /** A Field2d for visualizing our robot and objects on the field. */

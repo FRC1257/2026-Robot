@@ -38,7 +38,6 @@ public class DriveControls {
   public static Trigger CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_STOW = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_STATION = EMPTY_TRIGGER;
-  public static Trigger CORAL_PIVOT_STATION = EMPTY_TRIGGER;
 
   // Drive Turns
   public static Trigger TURN_90 = EMPTY_TRIGGER;
@@ -54,11 +53,9 @@ public class DriveControls {
   // Algae Intake Controls
   public static Trigger INTAKE_ALGAE = EMPTY_TRIGGER;
   public static Trigger EJECT_ALGAE = EMPTY_TRIGGER;
-  public static Trigger EJECT_ALGAE = EMPTY_TRIGGER;
 
   // Coral Intake Controls
   public static Trigger INTAKE_CORAL = EMPTY_TRIGGER;
-  public static Trigger EJECT_CORAL = EMPTY_TRIGGER;
   public static Trigger EJECT_CORAL = EMPTY_TRIGGER;
 
   // Elevator Controls
@@ -67,14 +64,6 @@ public class DriveControls {
   public static Trigger ELEVATOR_L2 = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_L3 = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_DOWN = EMPTY_TRIGGER;
-  public static Trigger ELEVATOR_STATION = EMPTY_TRIGGER;
-
-  // Combined elevator and coral pivot controls
-  public static Trigger COMBINED_L1 = EMPTY_TRIGGER;
-  public static Trigger COMBINED_L2 = EMPTY_TRIGGER;
-  public static Trigger COMBINED_L3 = EMPTY_TRIGGER;
-  public static Trigger COMBINED_STATION = EMPTY_TRIGGER;
-  public static Trigger COMBINED_STOW = EMPTY_TRIGGER;
   public static Trigger ELEVATOR_STATION = EMPTY_TRIGGER;
 
   // Combined elevator and coral pivot controls
@@ -149,10 +138,8 @@ public class DriveControls {
         // ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
         // ELEVATOR_L3 = operator.getDPad(DPad.UP);
         // ELEVATOR_DOWN = operator.b();
-        // ELEVATOR_INTAKE = operator.getDPad(DPad.DOWN);
+        // ELEVATOR_STATION = operator.getDPad(DPad.DOWN);
         break;
-
-        // bottom right Left joystick to intake
     }
   }
 

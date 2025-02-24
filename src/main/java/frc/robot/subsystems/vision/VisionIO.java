@@ -3,7 +3,6 @@ package frc.robot.subsystems.vision;
 import static frc.robot.subsystems.vision.VisionConstants.kMultiTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
-import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -14,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import org.littletonrobotics.junction.AutoLog;
-import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;

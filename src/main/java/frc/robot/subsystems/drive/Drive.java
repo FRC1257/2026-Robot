@@ -45,6 +45,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.FieldConstants;
 import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
@@ -55,7 +56,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
-import frc.robot.FieldConstants;
 
 public class Drive extends SubsystemBase {
   // private static final double DRIVE_BASE_RADIUS = Math.hypot(kTrackWidthX / 2.0, kTrackWidthY /
@@ -193,7 +193,7 @@ public class Drive extends SubsystemBase {
                 null,
                 this));
 
-    GlobalToggle = 0; 
+    GlobalToggle = 0;
   }
 
   public void periodic() {
@@ -473,7 +473,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void IncreaseGlobalToggle() {
-    if(GlobalToggle < 11) {
+    if (GlobalToggle < 11) {
       GlobalToggle += 1;
     } else {
       GlobalToggle = 0;
@@ -481,7 +481,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void decreaseGlobalToggle() {
-    if(GlobalToggle > 0) {
+    if (GlobalToggle > 0) {
       GlobalToggle -= 1;
     } else {
       GlobalToggle = 11;
@@ -493,7 +493,7 @@ public class Drive extends SubsystemBase {
   }
 
   public Command negativeReefPoseToggle() {
-    return new InstantCommand(() -> decreaseGlobalToggle()); 
+    return new InstantCommand(() -> decreaseGlobalToggle());
   }
 
   public Command DriveToReef() {

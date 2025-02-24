@@ -111,17 +111,17 @@ public class VisionIOSim implements VisionIO {
 
   @Override
   public PhotonPipelineResult getLatestResult(int camIndex) {
-    if(camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
+    if (camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
 
     var unreadResults = cameras[camIndex].getAllUnreadResults();
     double latestTimestamp = 0;
 
-    if(unreadResults.size() == 0) {
+    if (unreadResults.size() == 0) {
       return cameraResults[camIndex];
     }
-    
-    for(var result : unreadResults) {
-      if(result.getTimestampSeconds() > latestTimestamp) {
+
+    for (var result : unreadResults) {
+      if (result.getTimestampSeconds() > latestTimestamp) {
         latestTimestamp = result.getTimestampSeconds();
         cameraResults[camIndex] = result;
       }

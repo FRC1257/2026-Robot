@@ -157,18 +157,18 @@ public class FieldConstants {
   }
 
   public static final Pose2d[] REEF_POSITION = {
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d())
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d())
   };
 
   public enum ReefHeight {

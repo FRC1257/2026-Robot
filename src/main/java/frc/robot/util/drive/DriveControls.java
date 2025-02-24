@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants;
 import frc.robot.util.drive.CommandSnailController.DPad;
-
 import java.util.function.DoubleSupplier;
 
 public class DriveControls {
@@ -102,7 +101,7 @@ public class DriveControls {
       case ANTONIOS:
         COMBINED_L1 = operator.getDPad(DPad.LEFT);
         COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        COMBINED_L3 = operator. getDPad(DPad.UP);
+        COMBINED_L3 = operator.getDPad(DPad.UP);
         COMBINED_STATION = operator.getDPad(DPad.DOWN);
         COMBINED_STOW = operator.a();
 

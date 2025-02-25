@@ -162,7 +162,7 @@ public class RobotContainer {
         new FeedForwardCharacterization(
             drive, drive::runCharacterizationVolts, drive::getCharacterizationVelocity));
 
-    customAutoChooser = new CustomAutoChooser(drive);
+    customAutoChooser = new CustomAutoChooser(this, drive);
 
     // Configure the button bindings
     configureControls();
@@ -341,6 +341,18 @@ public class RobotContainer {
   }
 
   public Command fullL3() {
-    return (goToL2().andThen(coralOuttake()));
+    return (goToL3().andThen(coralOuttake()));
+  }
+
+  public Command fullL1Auto() {
+    return (goToL1Auto().andThen(coralOuttake()));
+  }
+
+  public Command fullL2Auto() {
+    return (goToL2Auto().andThen(coralOuttake()));
+  }
+
+  public Command fullL3Auto() {
+    return (goToL3Auto().andThen(coralOuttake()));
   }
 }

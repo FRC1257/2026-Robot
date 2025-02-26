@@ -231,10 +231,10 @@ public class RobotContainer {
     TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
     DRIVE_TO_REEF.onTrue(drive.driveToReef());
 
-    // operator.a().onTrue(coralPivot.quasistaticForward());
-    // operator.b().onTrue(coralPivot.quasistaticBack());
-    // operator.x().onTrue(coralPivot.dynamicForward());
-    // operator.y().onTrue(coralPivot.dynamicBack());
+    operator.a().whileTrue(elevator.quasistaticForward());
+    operator.b().whileTrue(elevator.quasistaticBack());
+    operator.x().whileTrue(elevator.dynamicForward());
+    operator.y().whileTrue(elevator.dynamicBack());
   }
 
   /**

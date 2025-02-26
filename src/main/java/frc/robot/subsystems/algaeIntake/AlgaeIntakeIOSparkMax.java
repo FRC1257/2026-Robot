@@ -50,7 +50,7 @@ public class AlgaeIntakeIOSparkMax implements AlgaeIntakeIO {
   @Override
   public void setVoltage(double voltage) {
     motor.setVoltage(voltage);
-    Logger.recordOutput("CoralIntake/Desired Voltage", voltage);
+    Logger.recordOutput("AlgaeIntake/Desired Voltage", voltage);
   }
 
   /** sets brake mode to stop */

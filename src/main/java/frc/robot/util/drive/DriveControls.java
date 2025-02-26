@@ -83,7 +83,7 @@ public class DriveControls {
       default:
         DRIVE_FORWARD = () -> driver.getLeftY();
         DRIVE_STRAFE = () -> driver.getLeftX();
-        DRIVE_ROTATE = () -> -driver.getRightX();
+        DRIVE_ROTATE = () -> driver.getRightX();
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
@@ -106,14 +106,15 @@ public class DriveControls {
         // COMBINED_STOW = operator.a();
 
         ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+        // CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
-        ALGAE_PIVOT_STOW = operator.x();
-        ALGAE_PIVOT_PROCESSOR = operator.y();
+        // ALGAE_PIVOT_STOW = operator.x();
+        // ALGAE_PIVOT_PROCESSOR = operator.y();
         // ALGAE_PIVOT_DOWN = operator.b();
+        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.2;
 
-        INTAKE_CORAL = operator.leftBumper();
-        EJECT_CORAL = operator.rightBumper();
+        // INTAKE_CORAL = operator.leftBumper();
+        // EJECT_CORAL = operator.rightBumper();
 
         // INTAKE_ALGAE = operator.leftTrigger();
         // EJECT_ALGAE = operator.rightTrigger();

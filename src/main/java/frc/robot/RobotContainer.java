@@ -229,9 +229,9 @@ public class RobotContainer {
     COMBINED_STATION.onTrue(goToStation());
     COMBINED_STOW.onTrue(stow());
 
-    TOGGLE_REEF_POSITION_UP.onTrue(drive.positiveReefPoseToggle());
-    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.negativeReefPoseToggle());
-    DRIVE_TO_REEF.onTrue(drive.DriveToReef());
+    TOGGLE_REEF_POSITION_UP.onTrue(drive.reefPoseChooserIncrement());
+    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
+    DRIVE_TO_REEF.onTrue(drive.driveToReef());
 
     // operator.a().onTrue(coralPivot.quasistaticForward());
     // operator.b().onTrue(coralPivot.quasistaticBack());

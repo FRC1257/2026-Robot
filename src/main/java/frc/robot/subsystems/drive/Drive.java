@@ -259,7 +259,7 @@ public class Drive extends SubsystemBase {
       rawGyroRotation = simRotation;
     }
 
-    poseEstimator.update(rawGyroRotation, modulePositions);
+    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
     odometry.update(rawGyroRotation, modulePositions);
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
@@ -275,6 +275,7 @@ public class Drive extends SubsystemBase {
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
     simRotation =
         simRotation.rotateBy(Rotation2d.fromRadians(discreteSpeeds.omegaRadiansPerSecond * 0.02));
+    Logger.recordOutput("Drive/Omega Velocity", discreteSpeeds.omegaRadiansPerSecond);
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, kMaxSpeedMetersPerSecond);
 
@@ -298,7 +299,6 @@ public class Drive extends SubsystemBase {
   public void resetYaw() {
     gyroIO.zeroAll();
     simRotation = Rotation2d.fromDegrees(0);
-    setPose(AllianceFlipUtil.apply(new Pose2d()));
   }
 
   /**

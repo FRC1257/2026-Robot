@@ -81,9 +81,9 @@ public class DriveControls {
     switch (Constants.driver) {
       case PROGRAMMERS:
       default:
-        DRIVE_FORWARD = () -> driver.getLeftY();
-        DRIVE_STRAFE = () -> driver.getLeftX();
-        DRIVE_ROTATE = () -> -driver.getRightX();
+        DRIVE_FORWARD = () -> -driver.getLeftY();
+        DRIVE_STRAFE = () -> -driver.getLeftX();
+        DRIVE_ROTATE = () -> -operator.getLeftX();
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;

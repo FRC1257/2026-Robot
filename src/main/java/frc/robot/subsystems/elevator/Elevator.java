@@ -213,14 +213,18 @@ public class Elevator extends SubsystemBase {
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(double speed) {
-    return new FunctionalCommand(
-        () -> move(speed), () -> move(speed), (interrupted) -> move(0), () -> false, this);
+    return new RunCommand(() -> setManual(speed), this)
+      .finallyDo(
+        () -> {
+          manualSpeed = 0;
+          move(0);
+        });
   }
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(DoubleSupplier speedSupplier) {
     return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
-        .andThen(
+        .finallyDo(
             () -> {
               manualSpeed = 0;
               move(0);

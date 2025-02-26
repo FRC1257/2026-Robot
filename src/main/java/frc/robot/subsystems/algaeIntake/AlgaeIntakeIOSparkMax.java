@@ -2,6 +2,8 @@ package frc.robot.subsystems.algaeIntake;
 
 import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -49,6 +51,7 @@ public class AlgaeIntakeIOSparkMax implements AlgaeIntakeIO {
   @Override
   public void setVoltage(double voltage) {
     motor.setVoltage(voltage);
+    Logger.recordOutput("CoralIntake/Desired Voltage", voltage);
   }
 
   /** sets brake mode to stop */

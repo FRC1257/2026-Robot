@@ -1,5 +1,7 @@
 package frc.robot.subsystems.elevator;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -155,6 +157,7 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   @Override
   public void setVoltage(double voltage) {
     leftMotor.setVoltage(voltage);
+    Logger.recordOutput("Elevator/Desired Voltage", voltage);
   }
 
   @Override

@@ -42,6 +42,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -96,7 +97,7 @@ public class Drive extends SubsystemBase {
 
   private Rotation2d simRotation = new Rotation2d();
 
-  private int GlobalToggle;
+  private int reefPoseIndex;
 
   public Drive(
       GyroIO gyroIO,
@@ -193,7 +194,7 @@ public class Drive extends SubsystemBase {
                 null,
                 this));
 
-    GlobalToggle = 0; 
+    reefPoseIndex = 0; 
   }
 
   public void periodic() {
@@ -433,11 +434,11 @@ public class Drive extends SubsystemBase {
   }
 
   /* Configure trajectory following */
-  public Command goToPose(Pose2d target_pose, double end_velocity) {
+  public Command pathfindToPose(Pose2d target_pose, double end_velocity) {
     return AutoBuilder.pathfindToPose(target_pose, kPathConstraints, end_velocity);
   }
 
-  public Command goToPose(Pose2d target_pose) {
+  public Command pathfindToPose(Pose2d target_pose) {
     return AutoBuilder.pathfindToPose(target_pose, kPathConstraints, 0.0);
   }
 
@@ -453,7 +454,11 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.pathfindThenFollowPath(path, kPathConstraints);
   }
 
-  public Command goToThaPose(Pose2d endPose) {
+  /** 
+   * This function is flawed because getPose only runs once so the path always starts from the starting pose.
+     Do not use this function until we fix it, use pathfindToPose instead
+  */
+  public Command splinePathToPose(Pose2d endPose) {
     List<Waypoint> bezierPoints = PathPlannerPath.waypointsFromPoses(getPose(), endPose);
 
     // Create the path using the bezier points created above
@@ -472,31 +477,31 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.followPath(path);
   }
 
-  public void IncreaseGlobalToggle() {
-    if(GlobalToggle < 11) {
-      GlobalToggle += 1;
+  public void increaseReefPoseIndex() {
+    if(reefPoseIndex < 11) {
+      reefPoseIndex += 1;
     } else {
-      GlobalToggle = 0;
+      reefPoseIndex = 0;
     }
   }
 
-  public void decreaseGlobalToggle() {
-    if(GlobalToggle > 0) {
-      GlobalToggle -= 1;
+  public void decreaseReefPoseIndex() {
+    if(reefPoseIndex > 0) {
+      reefPoseIndex -= 1;
     } else {
-      GlobalToggle = 11;
+      reefPoseIndex = 11;
     }
   }
 
-  public Command positiveReefPoseToggle() {
-    return new InstantCommand(() -> IncreaseGlobalToggle());
+  public Command reefPoseChooserIncrement() {
+    return new InstantCommand(() -> increaseReefPoseIndex());
   }
 
-  public Command negativeReefPoseToggle() {
-    return new InstantCommand(() -> decreaseGlobalToggle()); 
+  public Command reefPoseChooserDecrement() {
+    return new InstantCommand(() -> decreaseReefPoseIndex()); 
   }
 
-  public Command DriveToReef() {
-    return goToPose(FieldConstants.REEF_POSITION[GlobalToggle]);
+  public Command driveToReef() {
+    return pathfindToPose(FieldConstants.REEF_POSITION[reefPoseIndex]);
   }
 }

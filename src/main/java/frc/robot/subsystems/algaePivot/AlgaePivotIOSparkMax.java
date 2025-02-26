@@ -213,7 +213,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public boolean isBreakBeamBroken() {
-    //return breakBeam.get();
+    // return breakBeam.get();
     return false;
   }
 

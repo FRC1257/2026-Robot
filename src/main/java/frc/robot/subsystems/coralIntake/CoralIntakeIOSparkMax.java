@@ -2,8 +2,6 @@ package frc.robot.subsystems.coralIntake;
 
 import static frc.robot.Constants.NEO_CURRENT_LIMIT;
 
-import org.littletonrobotics.junction.Logger;
-
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -11,6 +9,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import org.littletonrobotics.junction.Logger;
 
 /** Need to import Constants files/classes */
 //

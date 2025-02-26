@@ -42,7 +42,6 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -194,7 +193,7 @@ public class Drive extends SubsystemBase {
                 null,
                 this));
 
-    reefPoseIndex = 0; 
+    reefPoseIndex = 0;
   }
 
   public void periodic() {
@@ -454,10 +453,10 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.pathfindThenFollowPath(path, kPathConstraints);
   }
 
-  /** 
-   * This function is flawed because getPose only runs once so the path always starts from the starting pose.
-     Do not use this function until we fix it, use pathfindToPose instead
-  */
+  /**
+   * This function is flawed because getPose only runs once so the path always starts from the
+   * starting pose. Do not use this function until we fix it, use pathfindToPose instead
+   */
   public Command splinePathToPose(Pose2d endPose) {
     List<Waypoint> bezierPoints = PathPlannerPath.waypointsFromPoses(getPose(), endPose);
 
@@ -493,7 +492,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void increaseReefPoseIndex() {
-    if(reefPoseIndex < 11) {
+    if (reefPoseIndex < 11) {
       reefPoseIndex += 1;
     } else {
       reefPoseIndex = 0;
@@ -501,7 +500,7 @@ public class Drive extends SubsystemBase {
   }
 
   public void decreaseReefPoseIndex() {
-    if(reefPoseIndex > 0) {
+    if (reefPoseIndex > 0) {
       reefPoseIndex -= 1;
     } else {
       reefPoseIndex = 11;
@@ -513,7 +512,7 @@ public class Drive extends SubsystemBase {
   }
 
   public Command reefPoseChooserDecrement() {
-    return new InstantCommand(() -> decreaseReefPoseIndex()); 
+    return new InstantCommand(() -> decreaseReefPoseIndex());
   }
 
   public Command driveToReef() {

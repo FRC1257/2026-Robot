@@ -21,8 +21,6 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.subsystems.coralPivot.CoralPivotConstants;
-
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
@@ -254,11 +252,11 @@ public class AlgaePivot extends SubsystemBase {
   // Allows manual control of the pivot arm for PID tuning
   public Command ManualCommand(DoubleSupplier speedSupplier) {
     return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
-      .finallyDo(
-        () -> {
-          manualSpeed = 0;
-          move(0);
-        });
+        .finallyDo(
+            () -> {
+              manualSpeed = 0;
+              move(0);
+            });
   }
 
   public Command ManualCommand(double speed) {

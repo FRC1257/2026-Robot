@@ -215,11 +215,11 @@ public class CoralPivot extends SubsystemBase {
   // Allows manual control of the pivot arm for PID tuning
   public Command ManualCommand(DoubleSupplier speedSupplier) {
     return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
-      .finallyDo(
-        () -> {
-          manualSpeed = 0;
-          move(0);
-        });
+        .finallyDo(
+            () -> {
+              manualSpeed = 0;
+              move(0);
+            });
   }
 
   public Command ManualCommand(double speed) {

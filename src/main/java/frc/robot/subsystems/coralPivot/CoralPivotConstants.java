@@ -24,8 +24,8 @@ public class CoralPivotConstants {
   public static final double CORAL_PIVOT_STOW_ANGLE = Units.degreesToRadians(85);
   // Will have to add constants for placing coral
 
-  public static final double SYSID_RAMP_RATE = 1;
-  public static final double SYSID_STEP_VOLTAGE = 7.0;
+  public static final double SYSID_RAMP_RATE = 0.5;
+  public static final double SYSID_STEP_VOLTAGE = 3.0;
   public static final double SYSID_TIME = 10;
 
   public static final double CORAL_PIVOT_VOLTAGE_TOLERANCE = 1.0;

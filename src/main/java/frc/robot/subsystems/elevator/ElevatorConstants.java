@@ -7,7 +7,7 @@ public class ElevatorConstants {
   // top height 50 inches (measured from bottom of elevator frame)
   // bottom height 12.375 inches (measured from bottom of frame)
   public static final double ELEVATOR_MAX_HEIGHT = 0.86; // not including chasis
-  public static final double ELEVATOR_MIN_HEIGHT = 0.001;
+  public static final double ELEVATOR_MIN_HEIGHT = 0.01;
 
   // SysID constants
   public static final double SYSID_RAMP_RATE = 1;

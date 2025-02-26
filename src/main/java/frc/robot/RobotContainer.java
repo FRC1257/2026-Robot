@@ -162,7 +162,7 @@ public class RobotContainer {
         new FeedForwardCharacterization(
             drive, drive::runCharacterizationVolts, drive::getCharacterizationVelocity));
 
-    customAutoChooser = new CustomAutoChooser(drive);
+    customAutoChooser = new CustomAutoChooser(this, drive);
 
     // Configure the button bindings
     configureControls();
@@ -227,9 +227,14 @@ public class RobotContainer {
     COMBINED_STATION.onTrue(goToStation());
     COMBINED_STOW.onTrue(stow());
 
-    TOGGLE_REEF_POSITION_UP.onTrue(drive.positiveReefPoseToggle());
-    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.negativeReefPoseToggle());
-    DRIVE_TO_REEF.onTrue(drive.DriveToReef());
+    TOGGLE_REEF_POSITION_UP.onTrue(drive.reefPoseChooserIncrement());
+    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
+    DRIVE_TO_REEF.onTrue(drive.driveToReef());
+
+    // operator.a().onTrue(coralPivot.quasistaticForward());
+    // operator.b().onTrue(coralPivot.quasistaticBack());
+    // operator.x().onTrue(coralPivot.dynamicForward());
+    // operator.y().onTrue(coralPivot.dynamicBack());
   }
 
   /**
@@ -336,6 +341,18 @@ public class RobotContainer {
   }
 
   public Command fullL3() {
-    return (goToL2().andThen(coralOuttake()));
+    return (goToL3().andThen(coralOuttake()));
+  }
+
+  public Command fullL1Auto() {
+    return (goToL1Auto().andThen(coralOuttake()));
+  }
+
+  public Command fullL2Auto() {
+    return (goToL2Auto().andThen(coralOuttake()));
+  }
+
+  public Command fullL3Auto() {
+    return (goToL3Auto().andThen(coralOuttake()));
   }
 }

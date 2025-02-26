@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import org.littletonrobotics.junction.Logger;
 
 /** Need to import Constants files/classes */
 //
@@ -48,6 +49,7 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
   @Override
   public void setVoltage(double voltage) {
     motor.setVoltage(voltage);
+    Logger.recordOutput("CoralIntake/Desired Voltage", voltage);
   }
 
   /** sets brake mode to stop */

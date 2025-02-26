@@ -14,6 +14,7 @@ import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
+import org.littletonrobotics.junction.Logger;
 
 public class ElevatorIOSparkMax implements ElevatorIO {
   private SparkMax leftMotor;
@@ -155,6 +156,7 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   @Override
   public void setVoltage(double voltage) {
     leftMotor.setVoltage(voltage);
+    Logger.recordOutput("Elevator/Desired Voltage", voltage);
   }
 
   @Override

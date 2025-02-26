@@ -32,8 +32,9 @@ public class AlgaePivotConstants {
   public static final double ALGAE_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(45);
   // Will have to add constants for placing ALGAE
 
-  public static final double RAMP_RATE = 0.5;
-  public static final double STEP_VOLTAGE = 3.0;
+  public static final double SYSID_RAMP_RATE = 0.5;
+  public static final double SYSID_STEP_VOLTAGE = 3.0;
+  public static final double SYSID_TIME = 10;
   public static final double ALGAE_PIVOT_TOLERANCE = 1.0;
 
   public static final double ALGAE_PIVOT_CONTROL_SPEED_FACTOR = 1.0;

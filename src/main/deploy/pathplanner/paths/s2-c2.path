@@ -36,13 +36,8 @@
         "y": 0.9694196428571433
       },
       "prevControl": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to c2.path
-        "x": 1.2655591334894611,
-        "y": 1.2367882757611244
-=======
         "x": 1.7702918455052923,
         "y": 1.2059465630530317
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-c2.path
       },
       "nextControl": null,
       "isLocked": false,

@@ -8,34 +8,20 @@
       },
       "prevControl": null,
       "nextControl": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r2.path
-        "x": 6.861997767857142,
-        "y": 6.179575892857142
-=======
         "x": 6.724888392857142,
         "y": 5.996763392857142
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-a1.path
       },
       "isLocked": false,
       "linkedName": "s2"
     },
     {
       "anchor": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r2.path
-        "x": 3.0751674107142857,
-        "y": 4.175167410714286
-      },
-      "prevControl": {
-        "x": 3.051620133196721,
-        "y": 5.883950526932085
-=======
         "x": 1.2107581967213117,
         "y": 5.853125
       },
       "prevControl": {
         "x": 2.1806919642857143,
         "y": 5.820479910714286
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-a1.path
       },
       "nextControl": null,
       "isLocked": false,

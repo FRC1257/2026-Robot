@@ -16,18 +16,6 @@
     },
     {
       "anchor": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r1.path
-        "x": 3.6236049107142856,
-        "y": 5.461383928571429
-      },
-      "prevControl": {
-        "x": 3.91088169642857,
-        "y": 5.644196428571429
-      },
-      "nextControl": {
-        "x": 2.9345256489212663,
-        "y": 5.022878943794054
-=======
         "x": 3.2606557377049183,
         "y": 5.4395491803278695
       },
@@ -38,7 +26,6 @@
       "nextControl": {
         "x": 2.8239285593104735,
         "y": 5.013825792619156
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-r1.path
       },
       "isLocked": false,
       "linkedName": null
@@ -49,13 +36,8 @@
         "y": 3.848716517857143
       },
       "prevControl": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s2 to r1.path
-        "x": 3.062109375,
-        "y": 4.149051339285714
-=======
         "x": 2.986744923600995,
         "y": 4.499448526111412
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s2-r1.path
       },
       "nextControl": null,
       "isLocked": false,

@@ -16,18 +16,6 @@
     },
     {
       "anchor": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s3 to r5.path
-        "x": 5.092633928571428,
-        "y": 5.245926339285713
-      },
-      "prevControl": {
-        "x": 5.207360396845347,
-        "y": 5.7689946091724655
-      },
-      "nextControl": {
-        "x": 5.0390737032264274,
-        "y": 5.0017311258580275
-=======
         "x": 3.848053278688525,
         "y": 5.679303278688525
       },
@@ -38,7 +26,6 @@
       "nextControl": {
         "x": 3.603756813925928,
         "y": 5.626206788178348
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s3-a2.path
       },
       "isLocked": false,
       "linkedName": null

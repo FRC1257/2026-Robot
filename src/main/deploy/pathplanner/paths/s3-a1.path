@@ -16,21 +16,12 @@
     },
     {
       "anchor": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s3 to r2.path
-        "x": 3.0751674107142857,
-        "y": 4.175167410714286
-      },
-      "prevControl": {
-        "x": 2.8286039905928093,
-        "y": 4.133857849375532
-=======
         "x": 1.2107581967213117,
         "y": 5.853125
       },
       "prevControl": {
         "x": 2.00788580298537,
         "y": 5.883294830739091
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s3-a1.path
       },
       "nextControl": null,
       "isLocked": false,

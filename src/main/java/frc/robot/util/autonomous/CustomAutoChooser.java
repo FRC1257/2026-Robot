@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
 import frc.robot.RobotContainer;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.util.drive.AllianceFlipUtil;
 import java.util.ArrayList;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
@@ -81,6 +82,19 @@ public class CustomAutoChooser {
     }
   }
 
+  // Returns the elevator and coral pivot command to go to the desired level
+  public Command getElevatorCommand(ReefLevels level) {
+    switch (level) {
+      case l1:
+        return robotContainer.goToL1Auto();
+      case l2:
+        return robotContainer.goToL2Auto();
+      case l3:
+        return robotContainer.goToL3Auto();
+    }
+    return new InstantCommand();
+  }
+
   public Command getAutoCommand() {
     StartPositions startPos = startChooser.get();
     ArrayList<ReefPositions> reefPoses = new ArrayList<ReefPositions>();
@@ -103,10 +117,11 @@ public class CustomAutoChooser {
         break;
     }
 
+    // Reset drive position so pose estimator doesn't tweak out
     commandGroup.addCommands(
         new InstantCommand(
             () -> {
-              drive.setPose(startPose2d);
+              drive.setPose(AllianceFlipUtil.apply(startPose2d));
             },
             drive));
 
@@ -122,17 +137,18 @@ public class CustomAutoChooser {
 
     if (reefPoses.size() == 0) return commandGroup;
 
-    // startpos to reef point
-    commandGroup.addCommands(
-        drive.followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString()));
+    // Drive from start position to first reef position and drop preloaded coral
+    Command driveStartToReef =
+        drive.followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString());
 
-    commandGroup.addCommands();
+    commandGroup.addCommands(
+        driveStartToReef.alongWith(getElevatorCommand(reefLevels.get(0))),
+        (robotContainer.coralOuttake()));
 
     for (int i = 1; i < reefPoses.size(); i++) {
       ReefPositions currentReefPosition = reefPoses.get(i - 1);
-      ReefLevels currentReefLevel = reefLevels.get(i - 1);
       ReefPositions nextReefPosition = reefPoses.get(i);
-      ReefLevels nextReefLevel = reefLevels.get(i);
+      ReefLevels reefLevel = reefLevels.get(i);
 
       CoralStationPositions coralStationPos;
       switch (currentReefPosition) {
@@ -160,29 +176,19 @@ public class CustomAutoChooser {
           break;
       }
 
-      Command fullLevelAutoCommand = new InstantCommand();
-      switch (currentReefLevel) {
-        case l1:
-          fullLevelAutoCommand = robotContainer.fullL1Auto();
-          break;
-        case l2:
-          fullLevelAutoCommand = robotContainer.fullL2Auto();
-          break;
-        case l3:
-          fullLevelAutoCommand = robotContainer.fullL3Auto();
-          break;
-      }
+      Command driveStationCommand =
+          drive.followPathFileCommand(
+              currentReefPosition.toString() + "-" + coralStationPos.toString());
+
+      Command driveReefCommand =
+          drive.followPathFileCommand(
+              coralStationPos.toString() + "-" + nextReefPosition.toString());
 
       commandGroup.addCommands(
-          fullLevelAutoCommand,
-          // go to coral station
-          drive.followPathFileCommand(
-              currentReefPosition.toString() + "-" + coralStationPos.toString()),
-          robotContainer.goToStationAuto(),
+          driveStationCommand.alongWith(robotContainer.goToStationAuto()),
           robotContainer.coralIntake(),
-          // go bacak to reef
-          drive.followPathFileCommand(
-              coralStationPos.toString() + "-" + nextReefPosition.toString()));
+          driveReefCommand.alongWith(getElevatorCommand(reefLevel)),
+          robotContainer.coralOuttake());
     }
     return commandGroup;
   }

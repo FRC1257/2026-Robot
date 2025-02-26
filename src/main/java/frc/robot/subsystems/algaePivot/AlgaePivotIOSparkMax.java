@@ -3,19 +3,19 @@
 
 package frc.robot.subsystems.algaePivot;
 
-import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
-import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
 import org.littletonrobotics.junction.Logger;
 
@@ -23,7 +23,8 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
   // Motor and Encoders
   private SparkMax pivotMotor;
   private SparkMaxConfig config;
-  private final SparkClosedLoopController pidController;
+  private final ProfiledPIDController pidController;
+  private final ProfiledPIDController pidControllerActive;
   private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
   private ArmFeedforward feedforwardActive = new ArmFeedforward(0, 0, 0, 0);
 
@@ -39,6 +40,11 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
   private double kActiveP = AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[0],
       kActiveI = AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[1],
       kActiveD = AlgaePivotConstants.ALGAE_PIVOT_PID_REAL_ACTIVE[2];
+
+  // These variables are used to find the acceleration of the PID setpoint
+  // (change in velocity / change in time = avg acceleration)
+  double lastSpeed = 0;
+  double lastTime = Timer.getFPGATimestamp();
 
   public AlgaePivotIOSparkMax() {
     pivotMotor = new SparkMax(AlgaePivotConstants.ALGAE_PIVOT_ID, MotorType.kBrushless);
@@ -67,21 +73,23 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     // make sure the pivot starts at the bottom position every time
     // absoluteEncoder.reset();
 
-    pidController = pivotMotor.getClosedLoopController();
+    pidController =
+        new ProfiledPIDController(
+            kP,
+            kI,
+            kD,
+            new TrapezoidProfile.Constraints(
+                AlgaePivotConstants.ALGAE_PIVOT_MAX_VELOCITY,
+                AlgaePivotConstants.ALGAE_PIVOT_MAX_ACCELERATION));
 
-    config
-        .closedLoop
-        .pid(kP, kI, kD, ClosedLoopSlot.kSlot0)
-        .pid(kActiveP, kActiveI, kActiveD, ClosedLoopSlot.kSlot1)
-        .feedbackSensor(FeedbackSensor.kAbsoluteEncoder);
-
-    config
-        .closedLoop
-        .maxMotion
-        .maxVelocity(AlgaePivotConstants.ALGAE_PIVOT_MAX_VELOCITY, ClosedLoopSlot.kSlot0)
-        .maxAcceleration(AlgaePivotConstants.ALGAE_PIVOT_MAX_ACCELERATION, ClosedLoopSlot.kSlot0)
-        .maxVelocity(AlgaePivotConstants.ALGAE_PIVOT_MAX_VELOCITY, ClosedLoopSlot.kSlot1)
-        .maxAcceleration(AlgaePivotConstants.ALGAE_PIVOT_MAX_ACCELERATION, ClosedLoopSlot.kSlot1);
+    pidControllerActive =
+        new ProfiledPIDController(
+            kActiveP,
+            kActiveI,
+            kActiveD,
+            new TrapezoidProfile.Constraints(
+                AlgaePivotConstants.ALGAE_PIVOT_MAX_VELOCITY,
+                AlgaePivotConstants.ALGAE_PIVOT_MAX_ACCELERATION));
 
     pivotMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     configureFeedForward();
@@ -135,29 +143,59 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     return motorEncoder.getVelocity();
   }
 
-  /** Go to Setpoint */
   @Override
-  public void goToSetpoint(double setpoint) {
+  public void setSetpoint(double setpoint) {
+    pidController.setGoal(setpoint);
+    pidController.reset(getAngle(), getAngVelocity());
+    pidControllerActive.setGoal(setpoint);
+    pidControllerActive.reset(getAngle(), getAngVelocity());
+  }
 
-    double feedforwardOutput = 0;
+  @Override
+  public void goToSetpoint() {
+    double pidOutput = 0, ffOutput = 0;
 
     if (isBreakBeamBroken()) {
-      feedforwardOutput = feedforwardActive.calculate(getAngle(), 0);
-      pidController.setReference(
-          setpoint,
-          ControlType.kMAXMotionPositionControl,
-          ClosedLoopSlot.kSlot1,
-          feedforwardOutput);
+      pidOutput = pidController.calculate(getAngle());
+
+      // change in velocity / change in time = acceleration
+      // Acceleration is used to calculate feedforward
+      double acceleration =
+          (pidController.getSetpoint().velocity - lastSpeed)
+              / (Timer.getFPGATimestamp() - lastTime);
+
+      Logger.recordOutput("CoralPivot/Acceleration", acceleration);
+
+      ffOutput =
+          feedforward.calculate(
+              pidController.getSetpoint().position,
+              pidController.getSetpoint().velocity,
+              acceleration);
+
+      lastSpeed = pidController.getSetpoint().velocity;
     } else {
-      feedforwardOutput = feedforward.calculate(getAngle(), 0);
-      pidController.setReference(
-          setpoint,
-          ControlType.kMAXMotionPositionControl,
-          ClosedLoopSlot.kSlot0,
-          feedforwardOutput);
+      pidOutput = pidControllerActive.calculate(getAngle());
+
+      // change in velocity / change in time = acceleration
+      // Acceleration is used to calculate feedforward
+      double acceleration =
+          (pidControllerActive.getSetpoint().velocity - lastSpeed)
+              / (Timer.getFPGATimestamp() - lastTime);
+
+      Logger.recordOutput("CoralPivot/Acceleration", acceleration);
+
+      ffOutput =
+          feedforwardActive.calculate(
+              pidControllerActive.getSetpoint().position,
+              pidControllerActive.getSetpoint().velocity,
+              acceleration);
+
+      lastSpeed = pidControllerActive.getSetpoint().velocity;
     }
 
-    Logger.recordOutput("AlgaePivot/FeedforwardOutput", feedforwardOutput);
+    setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
+
+    lastTime = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -180,26 +218,17 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public void setP(double p) {
-    config.closedLoop.p(p, ClosedLoopSlot.kSlot0);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kP = p;
+    pidController.setP(p);
   }
 
   @Override
   public void setI(double i) {
-    config.closedLoop.i(i, ClosedLoopSlot.kSlot0);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kI = i;
+    pidController.setI(i);
   }
 
   @Override
   public void setD(double d) {
-    config.closedLoop.d(d, ClosedLoopSlot.kSlot0);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kD = d;
+    pidController.setD(d);
   }
 
   @Override
@@ -263,26 +292,17 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public void setActiveP(double p) {
-    config.closedLoop.p(p, ClosedLoopSlot.kSlot1);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kActiveP = p;
+    pidControllerActive.setP(p);
   }
 
   @Override
   public void setActiveI(double i) {
-    config.closedLoop.i(i, ClosedLoopSlot.kSlot1);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kActiveI = i;
+    pidControllerActive.setI(i);
   }
 
   @Override
   public void setActiveD(double d) {
-    config.closedLoop.d(d, ClosedLoopSlot.kSlot1);
-    pivotMotor.configure(
-        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    kActiveD = d;
+    pidControllerActive.setD(d);
   }
 
   @Override

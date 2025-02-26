@@ -31,7 +31,6 @@ public class AlgaePivot extends SubsystemBase {
   private LoggedNetworkNumber logP;
   private LoggedNetworkNumber logI;
   private LoggedNetworkNumber logD;
-  private LoggedNetworkNumber logFF;
 
   private LoggedNetworkNumber logkS;
   private LoggedNetworkNumber logkG;
@@ -41,15 +40,11 @@ public class AlgaePivot extends SubsystemBase {
   private LoggedNetworkNumber logActiveP;
   private LoggedNetworkNumber logActiveI;
   private LoggedNetworkNumber logActiveD;
-  private LoggedNetworkNumber logActiveFF;
 
   private LoggedNetworkNumber logActivekS;
   private LoggedNetworkNumber logActivekG;
   private LoggedNetworkNumber logActivekV;
   private LoggedNetworkNumber logActivekA;
-
-  private LoggedNetworkNumber logMaxVelocity;
-  private LoggedNetworkNumber logMaxAcceleration;
 
   // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
   private final MutVoltage m_appliedVoltage = Volts.mutable(0);
@@ -209,7 +204,7 @@ public class AlgaePivot extends SubsystemBase {
             && io.getAngVelocity() > 0)) {
       io.setVoltage(0);
     } else {
-      io.goToSetpoint(setpoint);
+      io.goToSetpoint();
     }
   }
 

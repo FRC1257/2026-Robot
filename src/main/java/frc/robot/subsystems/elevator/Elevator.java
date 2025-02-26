@@ -177,9 +177,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public void move(double speed) {
-    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
+    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && speed < 0)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
-            && io.getVelocity() > 0)) {
+            && speed > 0)) {
       io.setVoltage(0);
       isVoltageClose(0);
     } else {

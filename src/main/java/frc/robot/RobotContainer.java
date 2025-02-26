@@ -205,7 +205,7 @@ public class RobotContainer {
     INTAKE_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED));
     EJECT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED));
 
-    coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_ROTATE));
+    coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_SPEED));
     CORAL_PIVOT_L1.onTrue(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
     CORAL_PIVOT_L2_L3.onTrue(
         coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
@@ -215,9 +215,9 @@ public class RobotContainer {
         coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
 
     elevator.setDefaultCommand(elevator.ManualCommand(ELEVATOR_SPEED));
-    ELEVATOR_L1.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
-    ELEVATOR_L2.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
-    ELEVATOR_L3.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
+    ELEVATOR_L1.onTrue(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
+    ELEVATOR_L2.onTrue(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
+    ELEVATOR_L3.onTrue(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
     ELEVATOR_STATION.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT));
     ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT));
 
@@ -230,11 +230,6 @@ public class RobotContainer {
     TOGGLE_REEF_POSITION_UP.onTrue(drive.positiveReefPoseToggle());
     TOGGLE_REEF_POSITION_DOWN.onTrue(drive.negativeReefPoseToggle());
     DRIVE_TO_REEF.onTrue(drive.DriveToReef());
-
-    // operator.a().onTrue(coralPivot.quasistaticForward());
-    // operator.b().onTrue(coralPivot.quasistaticBack());
-    // operator.x().onTrue(coralPivot.dynamicForward());
-    // operator.y().onTrue(coralPivot.dynamicBack());
   }
 
   /**

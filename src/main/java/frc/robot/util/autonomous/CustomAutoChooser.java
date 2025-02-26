@@ -98,8 +98,8 @@ public class CustomAutoChooser {
 
     if (reefPoses.size() == 0) return commandGroup;
 
-    commandGroup.addCommands(drive.followPathFileCommand(
-      startPos.toString() + "-" + reefPoses.get(0).toString()));
+    commandGroup.addCommands(
+        drive.followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString()));
 
     for (int i = 1; i < reefPoses.size(); i++) {
       ReefPositions currentReefPosition = reefPoses.get(i - 1);

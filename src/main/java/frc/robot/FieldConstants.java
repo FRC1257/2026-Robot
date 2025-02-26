@@ -157,18 +157,18 @@ public class FieldConstants {
   }
 
   public static final Pose2d[] REEF_POSITION = {
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d()),
-    new Pose2d(0,0, new Rotation2d())
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d()),
+    new Pose2d(0, 0, new Rotation2d())
   };
 
   public enum ReefHeight {
@@ -184,6 +184,15 @@ public class FieldConstants {
 
     public final double height;
     public final double pitch;
+  }
+
+  public static class StartingPositions {
+    public static final Pose2d startPos1 =
+        new Pose2d(startingLineX, Barge.farCage.getY(), Rotation2d.fromDegrees(180));
+    public static final Pose2d startPos2 =
+        new Pose2d(startingLineX, Barge.middleCage.getY(), Rotation2d.fromDegrees(180));
+    public static final Pose2d startPos3 =
+        new Pose2d(startingLineX, Barge.closeCage.getY(), Rotation2d.fromDegrees(180));
   }
 
   public static final double aprilTagWidth = Units.inchesToMeters(6.50);

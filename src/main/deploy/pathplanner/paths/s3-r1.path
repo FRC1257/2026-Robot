@@ -1,0 +1,75 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 5.925884433962715,
+        "y": 6.046285377360648
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.146421918094767,
+        "y": 5.911046323418762
+      },
+      "isLocked": false,
+      "linkedName": "s3"
+    },
+    {
+      "anchor": {
+        "x": 3.6202868852459016,
+        "y": 5.78719262295082
+      },
+      "prevControl": {
+        "x": 4.232497546654684,
+        "y": 6.202265120607353
+      },
+      "nextControl": {
+        "x": 3.3770168911833682,
+        "y": 5.622258082594942
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.068638392857143,
+        "y": 3.848716517857143
+      },
+      "prevControl": {
+<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s3 to r1.path
+        "x": 2.2643553591621526,
+        "y": 5.236367112848171
+=======
+        "x": 3.214534319552874,
+        "y": 5.22354733708943
+>>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s3-r1.path
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "r1"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 0.0
+  },
+  "reversed": false,
+  "folder": "s3",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 4.332313983099947
+  },
+  "useDefaultConstraints": true
+}

@@ -46,6 +46,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.FieldConstants;
 import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
@@ -56,7 +57,6 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
-import frc.robot.FieldConstants;
 
 public class Drive extends SubsystemBase {
   // private static final double DRIVE_BASE_RADIUS = Math.hypot(kTrackWidthX / 2.0, kTrackWidthY /
@@ -475,6 +475,21 @@ public class Drive extends SubsystemBase {
             // differential drivetrain, the rotation will have no effect.
             );
     return AutoBuilder.followPath(path);
+  }
+
+  /**
+   * Follows PathPlanner GUI-created path from file
+   *
+   * @param filename the name of the file read
+   * @return a command that follows the path
+   */
+  public Command followPathFileCommand(String filename) {
+    try {
+      return AutoBuilder.followPath(PathPlannerPath.fromPathFile(filename));
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new InstantCommand();
+    }
   }
 
   public void increaseReefPoseIndex() {

@@ -105,8 +105,8 @@ public class VisionIOSim implements VisionIO {
     }
 
     Logger.recordOutput("Vision/OrangeConnected", cameras[0].isConnected());
-    // Logger.recordOutput("Vision/RaspberryConnected", cameras[1].isConnected());
-    // Logger.recordOutput("Vision/Raspberry2Connected", cameras[2].isConnected());
+    Logger.recordOutput("Vision/RaspberryConnected", cameras[1].isConnected());
+    Logger.recordOutput("Vision/Raspberry2Connected", cameras[2].isConnected());
   }
 
   @Override

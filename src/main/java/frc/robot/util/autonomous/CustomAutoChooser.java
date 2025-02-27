@@ -95,16 +95,6 @@ public class CustomAutoChooser {
     return new InstantCommand();
   }
 
-  public Pose2d flipStartPos(Pose2d startPos) {
-    if (AllianceFlipUtil.shouldFlip()) {
-      return new Pose2d(
-          FieldConstants.fieldLength - startPos.getX(),
-          FieldConstants.fieldWidth - startPos.getY(),
-          AllianceFlipUtil.apply(startPos.getRotation()));
-    }
-    return startPos;
-  }
-
   public Command getAutoCommand() {
     StartPositions startPos = startChooser.get();
     ArrayList<ReefPositions> reefPoses = new ArrayList<ReefPositions>();
@@ -131,7 +121,7 @@ public class CustomAutoChooser {
     commandGroup.addCommands(
         new InstantCommand(
             () -> {
-              drive.setPose(flipStartPos(startPose2d));
+              drive.setPose(AllianceFlipUtil.apply(startPose2d));
             },
             drive));
 

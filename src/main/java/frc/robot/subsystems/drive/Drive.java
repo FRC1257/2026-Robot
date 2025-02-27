@@ -295,6 +295,7 @@ public class Drive extends SubsystemBase {
     runVelocity(new ChassisSpeeds());
   }
 
+  /** Resets the yaw angle of the estimated position */
   public void resetYaw() {
     setPose(new Pose2d(getPose().getTranslation(), AllianceFlipUtil.apply(new Rotation2d())));
   }

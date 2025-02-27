@@ -50,7 +50,6 @@ import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
 import frc.robot.util.autonomous.LocalADStarAK;
-import frc.robot.util.drive.AllianceFlipUtil;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

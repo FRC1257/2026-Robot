@@ -12,7 +12,7 @@ public class CoralPivotConstants {
 
   public static final double CORAL_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
 
-  public static final double CORAL_PIVOT_OFFSET = 0; // 1.14;
+  public static final double CORAL_PIVOT_OFFSET = 0.9081909; // 1.14;
 
   public static final double CORAL_PIVOT_MAX_ANGLE = Units.degreesToRadians(90);
   public static final double CORAL_PIVOT_MIN_ANGLE = Units.degreesToRadians(-70);

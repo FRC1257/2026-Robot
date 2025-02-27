@@ -18,7 +18,7 @@ public class AlgaePivotConstants {
   public static final double ALGAE_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
   public static final double ALGAE_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;
 
-  public static final double ALGAE_PIVOT_OFFSET = 0; // 1.14;
+  public static final double ALGAE_PIVOT_OFFSET = 0.2299176; // 1.14;
 
   public static final double PIVOT_MAX_PID_TIME = 3;
 

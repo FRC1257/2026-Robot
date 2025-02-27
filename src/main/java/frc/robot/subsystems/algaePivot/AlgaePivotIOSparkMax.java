@@ -52,7 +52,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     config = new SparkMaxConfig();
 
     config
-        .idleMode(IdleMode.kBrake)
+        .idleMode(IdleMode.kCoast)
         .voltageCompensation(12.0)
         .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
         .inverted(true);
@@ -61,13 +61,10 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
     config
         .absoluteEncoder
-        .setSparkMaxDataPortConfig()
         .zeroCentered(true)
         .zeroOffset(AlgaePivotConstants.ALGAE_PIVOT_OFFSET)
-        .positionConversionFactor(1.0 / 360.0)
-        .velocityConversionFactor(1.0 / 360.0)
-        .startPulseUs(1)
-        .endPulseUs(1024);
+        .positionConversionFactor(2 * Constants.PI)
+        .velocityConversionFactor(2 * Constants.PI / 60);
 
     // absoluteEncoder.reset();
     // make sure the pivot starts at the bottom position every time

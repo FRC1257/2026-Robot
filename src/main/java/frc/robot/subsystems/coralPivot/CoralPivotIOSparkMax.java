@@ -49,15 +49,15 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
 
     config
         .absoluteEncoder
-        .setSparkMaxDataPortConfig()
         .zeroCentered(true)
         .zeroOffset(CoralPivotConstants.CORAL_PIVOT_OFFSET)
-        .positionConversionFactor(1.0 / 360.0)
-        .velocityConversionFactor(1)
-        // .positionConversionFactor(2 * Constants.PI)
-        // .velocityConversionFactor(2 * Constants.PI / 60.0)
-        .startPulseUs(1)
-        .endPulseUs(1024);
+        .positionConversionFactor(2 * Constants.PI)
+        .velocityConversionFactor(2 * Constants.PI / 60)
+        .inverted(false);
+    // .positionConversionFactor(2 * Constants.PI)
+    // .velocityConversionFactor(2 * Constants.PI / 60.0)
+    // .startPulseUs(1)
+    // .endPulseUs(1024);
 
     pidController =
         new ProfiledPIDController(

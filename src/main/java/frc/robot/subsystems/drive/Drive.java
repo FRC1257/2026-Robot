@@ -274,7 +274,6 @@ public class Drive extends SubsystemBase {
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
     simRotation =
         simRotation.rotateBy(Rotation2d.fromRadians(discreteSpeeds.omegaRadiansPerSecond * 0.02));
-    Logger.recordOutput("Drive/Omega Velocity", discreteSpeeds.omegaRadiansPerSecond);
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, kMaxSpeedMetersPerSecond);
 
@@ -295,9 +294,9 @@ public class Drive extends SubsystemBase {
     runVelocity(new ChassisSpeeds());
   }
 
+  /** Resets the yaw angle of the estimated position */
   public void resetYaw() {
-    gyroIO.zeroAll();
-    simRotation = Rotation2d.fromDegrees(0);
+    setPose(new Pose2d(getPose().getTranslation(), AllianceFlipUtil.apply(new Rotation2d())));
   }
 
   /**
@@ -379,6 +378,15 @@ public class Drive extends SubsystemBase {
 
   /** Resets the current odometry pose. */
   public void setPose(Pose2d pose) {
+    gyroIO.setYawAngle(pose.getRotation().getDegrees());
+    simRotation = pose.getRotation();
+    // Update gyro angle
+    if (gyroInputs.connected) {
+      // Use the real gyro angle
+      rawGyroRotation = Rotation2d.fromDegrees(gyroIO.getYawAngle());
+    } else {
+      rawGyroRotation = simRotation;
+    }
     poseEstimator.resetPosition(rawGyroRotation, getModulePositions(), pose);
     odometry.resetPosition(rawGyroRotation, getModulePositions(), pose);
   }

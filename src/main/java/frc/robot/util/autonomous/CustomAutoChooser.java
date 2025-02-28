@@ -66,7 +66,7 @@ public class CustomAutoChooser {
 
     //add all options for position
     for (int i = 0; i < positionChoosers.length; i++) {
-      positionChoosers[i] = new LoggedDashboardChooser<>("Position " + (i + 1));
+      positionChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1));
       positionChoosers[i].addDefaultOption("", ReefPositions.NONE);
 
       // add all enum options to the chooser
@@ -78,7 +78,7 @@ public class CustomAutoChooser {
 
     //add all options for levels
     for (int i = 0; i < levelChoosers.length; i++) {
-      levelChoosers[i] = new LoggedDashboardChooser<>("Position " + (i + 1) + " Level");
+      levelChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1) + " Level");
 
       // add all enum options to the chooser
       for (ReefLevels level : ReefLevels.values()) {
@@ -88,7 +88,7 @@ public class CustomAutoChooser {
   }
 
   // Returns the elevator and coral pivot command to go to the desired level
-  public Command getElevatorCommand(ReefLevels level) {
+  public Command getElevatorAndPivotCommand(ReefLevels level) {
     switch (level) {
       case l1:
         return robotContainer.goToL1Auto();
@@ -149,7 +149,7 @@ public class CustomAutoChooser {
         drive.followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString());
 
     commandGroup.addCommands(
-        driveStartToReef.alongWith(getElevatorCommand(reefLevels.get(0))),
+        driveStartToReef.alongWith(getElevatorAndPivotCommand(reefLevels.get(0))),
         (robotContainer.coralOuttake()));
 
     //returns poses for reef positions
@@ -198,7 +198,7 @@ public class CustomAutoChooser {
       commandGroup.addCommands(
           driveStationCommand.alongWith(robotContainer.goToStationAuto()),
           robotContainer.coralIntake(),
-          driveReefCommand.alongWith(getElevatorCommand(reefLevel)),
+          driveReefCommand.alongWith(getElevatorAndPivotCommand(reefLevel)),
           robotContainer.coralOuttake());
     }
     return commandGroup;

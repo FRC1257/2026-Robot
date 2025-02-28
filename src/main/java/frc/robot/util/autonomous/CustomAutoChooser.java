@@ -45,6 +45,8 @@ public class CustomAutoChooser {
     l3
   }
 
+  /*dropdown for each one in elastic, allows us to choose between start, position,
+  and level*/
   private LoggedDashboardChooser<StartPositions> startChooser;
   private LoggedDashboardChooser<ReefPositions>[] positionChoosers = new LoggedDashboardChooser[5];
   private LoggedDashboardChooser<ReefLevels>[] levelChoosers = new LoggedDashboardChooser[5];
@@ -56,13 +58,15 @@ public class CustomAutoChooser {
     this.drive = drive;
     this.robotContainer = robotContainer;
 
+    //initializes the choosers
     startChooser = new LoggedDashboardChooser<>("Starting Position ");
     startChooser.addDefaultOption("Starting Position 1", StartPositions.s1);
     startChooser.addOption("Starting Position 2", StartPositions.s2);
     startChooser.addOption("Starting Position 3", StartPositions.s3);
 
+    //add all options for position
     for (int i = 0; i < positionChoosers.length; i++) {
-      positionChoosers[i] = new LoggedDashboardChooser<>("Position " + (i + 1));
+      positionChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1));
       positionChoosers[i].addDefaultOption("", ReefPositions.NONE);
 
       // add all enum options to the chooser
@@ -72,8 +76,9 @@ public class CustomAutoChooser {
       }
     }
 
+    //add all options for levels
     for (int i = 0; i < levelChoosers.length; i++) {
-      levelChoosers[i] = new LoggedDashboardChooser<>("Position " + (i + 1) + " Level");
+      levelChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1) + " Level");
 
       // add all enum options to the chooser
       for (ReefLevels level : ReefLevels.values()) {
@@ -83,7 +88,7 @@ public class CustomAutoChooser {
   }
 
   // Returns the elevator and coral pivot command to go to the desired level
-  public Command getElevatorCommand(ReefLevels level) {
+  public Command getElevatorAndPivotCommand(ReefLevels level) {
     switch (level) {
       case l1:
         return robotContainer.goToL1Auto();
@@ -95,12 +100,14 @@ public class CustomAutoChooser {
     return new InstantCommand();
   }
 
+  //returns the entire auto
   public Command getAutoCommand() {
     StartPositions startPos = startChooser.get();
     ArrayList<ReefPositions> reefPoses = new ArrayList<ReefPositions>();
     ArrayList<ReefLevels> reefLevels = new ArrayList<ReefLevels>();
     SequentialCommandGroup commandGroup = new SequentialCommandGroup();
 
+    //creates start position to reset our estimates
     Pose2d startPose2d;
     switch (startPos) {
       case s1:
@@ -142,9 +149,10 @@ public class CustomAutoChooser {
         drive.followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString());
 
     commandGroup.addCommands(
-        driveStartToReef.alongWith(getElevatorCommand(reefLevels.get(0))),
+        driveStartToReef.alongWith(getElevatorAndPivotCommand(reefLevels.get(0))),
         (robotContainer.coralOuttake()));
 
+    //returns poses for reef positions
     for (int i = 1; i < reefPoses.size(); i++) {
       ReefPositions currentReefPosition = reefPoses.get(i - 1);
       ReefPositions nextReefPosition = reefPoses.get(i);
@@ -176,18 +184,21 @@ public class CustomAutoChooser {
           break;
       }
 
+      //drives to the stations
       Command driveStationCommand =
           drive.followPathFileCommand(
               currentReefPosition.toString() + "-" + coralStationPos.toString());
 
+      //drives to the reef position chosen
       Command driveReefCommand =
           drive.followPathFileCommand(
               coralStationPos.toString() + "-" + nextReefPosition.toString());
 
+      //combines all the commands needed
       commandGroup.addCommands(
           driveStationCommand.alongWith(robotContainer.goToStationAuto()),
           robotContainer.coralIntake(),
-          driveReefCommand.alongWith(getElevatorCommand(reefLevel)),
+          driveReefCommand.alongWith(getElevatorAndPivotCommand(reefLevel)),
           robotContainer.coralOuttake());
     }
     return commandGroup;

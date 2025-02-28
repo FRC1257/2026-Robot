@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -178,9 +177,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public void move(double speed) {
-    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
+    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && speed < 0)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
-            && io.getVelocity() > 0)) {
+            && speed > 0)) {
       io.setVoltage(0);
       isVoltageClose(0);
     } else {
@@ -215,14 +214,18 @@ public class Elevator extends SubsystemBase {
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(double speed) {
-    return new FunctionalCommand(
-        () -> move(speed), () -> move(speed), (interrupted) -> move(0), () -> false, this);
+    return new RunCommand(() -> setManual(speed), this)
+        .finallyDo(
+            () -> {
+              manualSpeed = 0;
+              move(0);
+            });
   }
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(DoubleSupplier speedSupplier) {
     return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
-        .andThen(
+        .finallyDo(
             () -> {
               manualSpeed = 0;
               move(0);

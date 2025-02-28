@@ -6,12 +6,12 @@ import frc.robot.Constants;
 public class ElevatorConstants {
   // top height 50 inches (measured from bottom of elevator frame)
   // bottom height 12.375 inches (measured from bottom of frame)
-  public static final double ELEVATOR_MAX_HEIGHT = 0.955675; // not including chasis
-  public static final double ELEVATOR_MIN_HEIGHT = 0.001;
+  public static final double ELEVATOR_MAX_HEIGHT = 0.86; // not including chasis
+  public static final double ELEVATOR_MIN_HEIGHT = 0.01;
 
   // SysID constants
   public static final double SYSID_RAMP_RATE = 1;
-  public static final double SYSID_STEP_VOLTAGE = 7;
+  public static final double SYSID_STEP_VOLTAGE = 4;
   public static final double SYSID_TIME = 10;
 
   public static final double ELEVATOR_VOLTAGE_TOLERANCE = 1;
@@ -45,7 +45,7 @@ public class ElevatorConstants {
   public static final double ELEVATOR_L3_HEIGHT = 0.7;
 
   // PID Constants
-  public static final double[] ELEVATOR_REAL_PID = {0, 0, 0};
+  public static final double[] ELEVATOR_REAL_PID = {1, 0, 0};
   public static final double[] ELEVATOR_REAL_FF = {0, 0, 0, 0};
 
   /** Tolerance used when checking if the elevator is at the setpoint */

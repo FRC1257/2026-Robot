@@ -36,7 +36,7 @@ public class DriveControls {
   public static Trigger ALGAE_PIVOT_PROCESSOR = EMPTY_TRIGGER;
 
   // Coral pivot controls
-  public static DoubleSupplier CORAL_PIVOT_ROTATE = EMPTY_DOUBLE_SUPPLIER;
+  public static DoubleSupplier CORAL_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
   public static Trigger CORAL_PIVOT_L1 = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
   public static Trigger CORAL_PIVOT_STOW = EMPTY_TRIGGER;
@@ -99,23 +99,25 @@ public class DriveControls {
 
     switch (Constants.operator) {
       case ANTONIOS:
-        COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        COMBINED_L3 = operator.getDPad(DPad.UP);
-        COMBINED_STATION = operator.getDPad(DPad.DOWN);
-        COMBINED_STOW = operator.a();
+        // COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        // COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        // COMBINED_L3 = operator.getDPad(DPad.UP);
+        // COMBINED_STATION = operator.getDPad(DPad.DOWN);
+        // COMBINED_STOW = operator.a();
 
         ELEVATOR_SPEED = () -> -operator.getLeftYD();
+        // CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
-        ALGAE_PIVOT_STOW = operator.x();
-        ALGAE_PIVOT_PROCESSOR = operator.y();
-        ALGAE_PIVOT_DOWN = operator.b();
+        // ALGAE_PIVOT_STOW = operator.x();
+        // ALGAE_PIVOT_PROCESSOR = operator.y();
+        // ALGAE_PIVOT_DOWN = operator.b();
+        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.2;
 
-        INTAKE_CORAL = operator.leftBumper();
-        EJECT_CORAL = operator.rightBumper();
+        // INTAKE_CORAL = operator.leftBumper();
+        // EJECT_CORAL = operator.rightBumper();
 
-        INTAKE_ALGAE = operator.leftTrigger();
-        EJECT_ALGAE = operator.rightTrigger();
+        // INTAKE_ALGAE = operator.leftTrigger();
+        // EJECT_ALGAE = operator.rightTrigger();
         break;
       case PROGRAMMERS:
       default:
@@ -129,11 +131,10 @@ public class DriveControls {
         EJECT_CORAL = EMPTY_TRIGGER;
         EJECT_CORAL = EMPTY_TRIGGER;
 
-        CORAL_PIVOT_ROTATE = () -> -operator.getLeftYD();
+        CORAL_PIVOT_SPEED = () -> -operator.getLeftYD();
         CORAL_PIVOT_L1 = operator.a();
         CORAL_PIVOT_L2_L3 = operator.b();
         CORAL_PIVOT_STOW = operator.x();
-        CORAL_PIVOT_STATION = operator.y();
         CORAL_PIVOT_STATION = operator.y();
 
         INTAKE_ALGAE = EMPTY_TRIGGER;
@@ -142,10 +143,10 @@ public class DriveControls {
 
         // ELEVATOR_SPEED = () -> -operator.getLeftYD();
         // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
-        // ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
-        // ELEVATOR_L3 = operator.getDPad(DPad.UP);
+        ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
+        ELEVATOR_L3 = operator.getDPad(DPad.UP);
         // ELEVATOR_DOWN = operator.b();
-        // ELEVATOR_STATION = operator.getDPad(DPad.DOWN);
+        ELEVATOR_STATION = operator.getDPad(DPad.DOWN);
         break;
     }
   }

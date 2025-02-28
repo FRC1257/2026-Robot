@@ -20,13 +20,8 @@
         "y": 5.141462053571429
       },
       "prevControl": {
-<<<<<<< HEAD:src/main/deploy/pathplanner/paths/s3 to r3.path
-        "x": 4.098176523960084,
-        "y": 5.4814287772515975
-=======
         "x": 2.44047131147541,
         "y": 5.445543032786884
->>>>>>> 29ffd84e0889ad9584705f7b6770ab367d689e36:src/main/deploy/pathplanner/paths/s3-r3.path
       },
       "nextControl": null,
       "isLocked": false,

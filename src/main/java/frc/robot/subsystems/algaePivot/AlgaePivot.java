@@ -4,6 +4,7 @@ import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Rotations;
 import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
 import edu.wpi.first.math.util.Units;
@@ -98,9 +99,10 @@ public class AlgaePivot extends SubsystemBase {
     SysId =
         new SysIdRoutine(
             new SysIdRoutine.Config(
-                Volts.per(Second).of(AlgaePivotConstants.RAMP_RATE),
-                Volts.of(AlgaePivotConstants.STEP_VOLTAGE),
-                null),
+                Volts.per(Second).of(AlgaePivotConstants.SYSID_RAMP_RATE),
+                Volts.of(AlgaePivotConstants.SYSID_STEP_VOLTAGE),
+                Seconds.of(AlgaePivotConstants.SYSID_TIME),
+                (state) -> Logger.recordOutput("/AlgaePivot/SysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 v -> io.setVoltage(v.in(Volts)),
                 (sysidLog) -> {
@@ -252,7 +254,7 @@ public class AlgaePivot extends SubsystemBase {
   // Allows manual control of the pivot arm for PID tuning
   public Command ManualCommand(DoubleSupplier speedSupplier) {
     return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
-        .andThen(
+        .finallyDo(
             () -> {
               manualSpeed = 0;
               move(0);
@@ -270,36 +272,24 @@ public class AlgaePivot extends SubsystemBase {
   public Command quasistaticForward() {
     armState = State.SYSID;
     return SysId.quasistatic(Direction.kForward)
-        .until(() -> io.getAngle() > AlgaePivotConstants.ALGAE_PIVOT_MAX_ANGLE)
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("AlgaePivot/sysid-test-state-", "quasistatic-forward")));
+        .until(() -> io.getAngle() >= AlgaePivotConstants.ALGAE_PIVOT_MAX_ANGLE);
   }
 
   public Command quasistaticBack() {
     armState = State.SYSID;
     return SysId.quasistatic(Direction.kReverse)
-        .until(() -> io.getAngle() < AlgaePivotConstants.ALGAE_PIVOT_MIN_ANGLE)
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("AlgaePivot/sysid-test-state-", "quasistatic-reverse")));
+        .until(() -> io.getAngle() <= AlgaePivotConstants.ALGAE_PIVOT_MIN_ANGLE);
   }
 
   public Command dynamicForward() {
     armState = State.SYSID;
     return SysId.dynamic(Direction.kForward)
-        .until(() -> io.getAngle() > AlgaePivotConstants.ALGAE_PIVOT_MAX_ANGLE)
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("AlgaePivot/sysid-test-state-", "dynamic-forward")));
+        .until(() -> io.getAngle() >= AlgaePivotConstants.ALGAE_PIVOT_MAX_ANGLE);
   }
 
   public Command dynamicBack() {
     armState = State.SYSID;
     return SysId.dynamic(Direction.kReverse)
-        .until(() -> io.getAngle() < AlgaePivotConstants.ALGAE_PIVOT_MIN_ANGLE)
-        .alongWith(
-            new InstantCommand(
-                () -> Logger.recordOutput("AlgaePivot/sysid-test-state-", "dynamic-reverse")));
+        .until(() -> io.getAngle() <= AlgaePivotConstants.ALGAE_PIVOT_MIN_ANGLE);
   }
 }

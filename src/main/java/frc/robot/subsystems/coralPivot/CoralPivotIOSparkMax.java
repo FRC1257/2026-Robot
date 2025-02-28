@@ -95,7 +95,7 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
   /** Run open loop at the specified voltage. */
   @Override
   public void setVoltage(double motorVolts) {
-    Logger.recordOutput("CoralPivot/AppliedVolts", motorVolts);
+    Logger.recordOutput("CoralPivot/Desired Voltage", motorVolts);
     pivotMotor.setVoltage(motorVolts);
   }
 

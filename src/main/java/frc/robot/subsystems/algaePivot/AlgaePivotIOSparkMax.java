@@ -128,7 +128,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
   /** Run open loop at the specified voltage. */
   @Override
   public void setVoltage(double motorVolts) {
-    Logger.recordOutput("AlgaePivot/AppliedVolts", motorVolts);
+    Logger.recordOutput("AlgaePivot/Desired Voltage", motorVolts);
     pivotMotor.setVoltage(motorVolts);
   }
 
@@ -213,7 +213,8 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public boolean isBreakBeamBroken() {
-    return breakBeam.get();
+    // return breakBeam.get();
+    return false;
   }
 
   @Override

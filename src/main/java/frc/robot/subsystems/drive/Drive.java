@@ -96,7 +96,7 @@ public class Drive extends SubsystemBase {
 
   private Rotation2d simRotation = new Rotation2d();
 
-  private int GlobalToggle;
+  private int reefPoseIndex;
 
   public Drive(
       GyroIO gyroIO,
@@ -193,7 +193,7 @@ public class Drive extends SubsystemBase {
                 null,
                 this));
 
-    GlobalToggle = 0;
+    reefPoseIndex = 0;
   }
 
   public void periodic() {
@@ -259,7 +259,7 @@ public class Drive extends SubsystemBase {
       rawGyroRotation = simRotation;
     }
 
-    poseEstimator.update(rawGyroRotation, modulePositions);
+    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
     odometry.update(rawGyroRotation, modulePositions);
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
@@ -295,10 +295,9 @@ public class Drive extends SubsystemBase {
     runVelocity(new ChassisSpeeds());
   }
 
+  /** Resets the yaw angle of the estimated position */
   public void resetYaw() {
-    gyroIO.zeroAll();
-    simRotation = Rotation2d.fromDegrees(0);
-    setPose(AllianceFlipUtil.apply(new Pose2d()));
+    setPose(new Pose2d(getPose().getTranslation(), AllianceFlipUtil.apply(new Rotation2d())));
   }
 
   /**
@@ -380,6 +379,11 @@ public class Drive extends SubsystemBase {
 
   /** Resets the current odometry pose. */
   public void setPose(Pose2d pose) {
+    gyroIO.setYawAngle(pose.getRotation().getDegrees());
+    simRotation = pose.getRotation();
+    rawGyroRotation = pose.getRotation();
+
+    // Yes I know it says that you don't need to reset the gyro rotation, but it tweaks out if you don't
     poseEstimator.resetPosition(rawGyroRotation, getModulePositions(), pose);
     odometry.resetPosition(rawGyroRotation, getModulePositions(), pose);
   }
@@ -433,11 +437,11 @@ public class Drive extends SubsystemBase {
   }
 
   /* Configure trajectory following */
-  public Command goToPose(Pose2d target_pose, double end_velocity) {
+  public Command pathfindToPose(Pose2d target_pose, double end_velocity) {
     return AutoBuilder.pathfindToPose(target_pose, kPathConstraints, end_velocity);
   }
 
-  public Command goToPose(Pose2d target_pose) {
+  public Command pathfindToPose(Pose2d target_pose) {
     return AutoBuilder.pathfindToPose(target_pose, kPathConstraints, 0.0);
   }
 
@@ -453,7 +457,11 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.pathfindThenFollowPath(path, kPathConstraints);
   }
 
-  public Command goToThaPose(Pose2d endPose) {
+  /**
+   * This function is flawed because getPose only runs once so the path always starts from the
+   * starting pose. Do not use this function until we fix it, use pathfindToPose instead
+   */
+  public Command splinePathToPose(Pose2d endPose) {
     List<Waypoint> bezierPoints = PathPlannerPath.waypointsFromPoses(getPose(), endPose);
 
     // Create the path using the bezier points created above
@@ -487,31 +495,31 @@ public class Drive extends SubsystemBase {
     }
   }
 
-  public void IncreaseGlobalToggle() {
-    if (GlobalToggle < 11) {
-      GlobalToggle += 1;
+  public void increaseReefPoseIndex() {
+    if (reefPoseIndex < 11) {
+      reefPoseIndex += 1;
     } else {
-      GlobalToggle = 0;
+      reefPoseIndex = 0;
     }
   }
 
-  public void decreaseGlobalToggle() {
-    if (GlobalToggle > 0) {
-      GlobalToggle -= 1;
+  public void decreaseReefPoseIndex() {
+    if (reefPoseIndex > 0) {
+      reefPoseIndex -= 1;
     } else {
-      GlobalToggle = 11;
+      reefPoseIndex = 11;
     }
   }
 
-  public Command positiveReefPoseToggle() {
-    return new InstantCommand(() -> IncreaseGlobalToggle());
+  public Command reefPoseChooserIncrement() {
+    return new InstantCommand(() -> increaseReefPoseIndex());
   }
 
-  public Command negativeReefPoseToggle() {
-    return new InstantCommand(() -> decreaseGlobalToggle());
+  public Command reefPoseChooserDecrement() {
+    return new InstantCommand(() -> decreaseReefPoseIndex());
   }
 
-  public Command DriveToReef() {
-    return goToPose(FieldConstants.REEF_POSITION[GlobalToggle]);
+  public Command driveToReef() {
+    return pathfindToPose(FieldConstants.REEF_POSITION[reefPoseIndex]);
   }
 }

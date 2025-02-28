@@ -52,7 +52,7 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
         .zeroCentered(true)
         .zeroOffset(CoralPivotConstants.CORAL_PIVOT_OFFSET)
         .positionConversionFactor(2 * Constants.PI)
-        .velocityConversionFactor(2 * Constants.PI / 60)
+        .velocityConversionFactor(2 * Constants.PI)
         .inverted(false);
     // .positionConversionFactor(2 * Constants.PI)
     // .velocityConversionFactor(2 * Constants.PI / 60.0)
@@ -89,7 +89,7 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
     inputs.appliedVolts = pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
     inputs.currentAmps = new double[] {pivotMotor.getOutputCurrent()};
     inputs.tempCelsius = new double[] {pivotMotor.getMotorTemperature()};
-    inputs.setpointAngleRads = setpoint;
+    inputs.setpointAngleRads = pidController.getSetpoint().position;
   }
 
   /** Run open loop at the specified voltage. */

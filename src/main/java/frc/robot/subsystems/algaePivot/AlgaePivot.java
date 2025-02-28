@@ -148,7 +148,7 @@ public class AlgaePivot extends SubsystemBase {
 
     if (logkV.get() != io.getkV()) io.setkV(logkV.get());
 
-    if (logkA.get() != io.getkA()) io.setkG(logkA.get());
+    if (logkA.get() != io.getkA()) io.setkA(logkA.get());
 
     if (logActiveP.get() != io.getActiveP()) io.setActiveP(logActiveP.get());
 
@@ -162,7 +162,7 @@ public class AlgaePivot extends SubsystemBase {
 
     if (logActivekV.get() != io.getActivekV()) io.setActivekV(logActivekV.get());
 
-    if (logActivekA.get() != io.getActivekA()) io.setActivekG(logActivekA.get());
+    if (logActivekA.get() != io.getActivekA()) io.setActivekA(logActivekA.get());
 
     // Log Inputs
     Logger.processInputs("AlgaePivot", inputs);
@@ -213,6 +213,7 @@ public class AlgaePivot extends SubsystemBase {
   public void setPID(double setpoint) {
     this.setpoint = setpoint;
     armState = State.PID;
+    io.setSetpoint(setpoint);
     Logger.recordOutput("AlgaePivot/Setpoint", setpoint);
   }
 

@@ -105,13 +105,16 @@ public class DriveControls {
         // COMBINED_STATION = operator.getDPad(DPad.DOWN);
         // COMBINED_STOW = operator.a();
 
+        CORAL_PIVOT_STOW = operator.getDPad(DPad.DOWN);
+        CORAL_PIVOT_STATION = operator.getDPad(DPad.UP);
+
         ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        // CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
         // ALGAE_PIVOT_STOW = operator.x();
         // ALGAE_PIVOT_PROCESSOR = operator.y();
         // ALGAE_PIVOT_DOWN = operator.b();
-        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.2;
+        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
         // INTAKE_CORAL = operator.leftBumper();
         // EJECT_CORAL = operator.rightBumper();

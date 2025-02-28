@@ -54,9 +54,9 @@ public final class DriveConstants {
 
   public static final boolean kGyroReversed = false;
 
-  public static final double kMaxAccelerationMetersPerSecondSquared = 3;
-  public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
-  public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+  public static final double kMaxAccelerationMetersPerSecondSquared = 4;
+  public static final double kMaxAngularSpeedRadiansPerSecond = 1.5 * Math.PI;
+  public static final double kMaxAngularSpeedRadiansPerSecondSquared = 2 * Math.PI;
 
   public static final double kPXController = 1;
   public static final double kPYController = 1;
@@ -73,7 +73,7 @@ public final class DriveConstants {
           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
   public static final double kSlowModeConstant = 0.5;
-  public static final double kTurnAngleP = 0.9;
+  public static final double kTurnAngleP = 1.3;
   public static final double kTurnAngleI = 0;
   public static final double kTurnAngleD = 0;
   public static final double kTurnAngleTolerance = 0.05;

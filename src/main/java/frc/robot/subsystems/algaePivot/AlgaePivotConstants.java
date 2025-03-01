@@ -25,11 +25,10 @@ public class AlgaePivotConstants {
   public static final double ALGAE_PIVOT_MAX_ANGLE = 1.95;
   public static final double ALGAE_PIVOT_MIN_ANGLE = Units.degreesToRadians(-20);
 
-  // deleted the old constants from last years code, this intake angle is from last year still
-  public static final double ALGAE_PIVOT_DOWN_ANGLE = Units.degreesToRadians(20);
+  public static final double ALGAE_PIVOT_DOWN_ANGLE = Units.degreesToRadians(40);
   public static final double ALGAE_PIVOT_STOW_ANGLE = Units.degreesToRadians(105);
   public static final double ALGAE_PIVOT_AUTO_INTAKE_ANGLE = Units.degreesToRadians(45);
-  public static final double ALGAE_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(45);
+  public static final double ALGAE_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(55);
   // Will have to add constants for placing ALGAE
 
   public static final double SYSID_RAMP_RATE = 0.5;

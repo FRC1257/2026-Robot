@@ -383,7 +383,8 @@ public class Drive extends SubsystemBase {
     simRotation = pose.getRotation();
     rawGyroRotation = pose.getRotation();
 
-    // Yes I know it says that you don't need to reset the gyro rotation, but it tweaks out if you don't
+    // Yes I know it says that you don't need to reset the gyro rotation, but it tweaks out if you
+    // don't
     poseEstimator.resetPosition(rawGyroRotation, getModulePositions(), pose);
     odometry.resetPosition(rawGyroRotation, getModulePositions(), pose);
   }

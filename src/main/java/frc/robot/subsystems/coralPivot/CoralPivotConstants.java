@@ -10,7 +10,7 @@ public class CoralPivotConstants {
   public static final double[] CORAL_PIVOT_PID_REAL = {3, 0.3, 0};
   public static final double[] CORAL_PIVOT_FEEDFORWARD_REAL = {0.09, 0.43, 0.31973, 0.02};
 
-  public static final double CORAL_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
+  public static final double CORAL_PIVOT_PID_TOLERANCE = Units.degreesToRadians(3);
 
   public static final double CORAL_PIVOT_OFFSET = 0.9081909; // 1.14;
 
@@ -18,9 +18,9 @@ public class CoralPivotConstants {
   public static final double CORAL_PIVOT_MIN_ANGLE = Units.degreesToRadians(-70);
 
   // deleted the old constants from last years code, this intake angle is from last year still
-  public static final double CORAL_PIVOT_STATION_ANGLE = Units.degreesToRadians(2.0);
+  public static final double CORAL_PIVOT_STATION_ANGLE = 0.987;
   public static final double CORAL_PIVOT_L1_ANGLE = Units.degreesToRadians(-20);
-  public static final double CORAL_PIVOT_L2_L3_ANGLE = Units.degreesToRadians(-15);
+  public static final double CORAL_PIVOT_L2_L3_ANGLE = -0.1;
   public static final double CORAL_PIVOT_STOW_ANGLE = Units.degreesToRadians(85);
   // Will have to add constants for placing coral
 

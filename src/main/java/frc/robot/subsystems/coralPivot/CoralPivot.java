@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import java.util.function.DoubleSupplier;
@@ -205,7 +206,8 @@ public class CoralPivot extends SubsystemBase {
   }
 
   public Command PIDCommand(double setpoint) {
-    return new RunCommand(() -> setPID(setpoint), this).until(() -> atSetpoint());
+    return new InstantCommand(() -> setPID(setpoint), this)
+        .andThen(new WaitUntilCommand(() -> atSetpoint()));
   }
 
   public Command InstantPIDCommand(double setpoint) {

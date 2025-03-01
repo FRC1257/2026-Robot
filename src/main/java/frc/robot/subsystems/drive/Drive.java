@@ -381,13 +381,9 @@ public class Drive extends SubsystemBase {
   public void setPose(Pose2d pose) {
     gyroIO.setYawAngle(pose.getRotation().getDegrees());
     simRotation = pose.getRotation();
-    // Update gyro angle
-    if (gyroInputs.connected) {
-      // Use the real gyro angle
-      rawGyroRotation = Rotation2d.fromDegrees(gyroIO.getYawAngle());
-    } else {
-      rawGyroRotation = simRotation;
-    }
+    rawGyroRotation = pose.getRotation();
+
+    // Yes I know it says that you don't need to reset the gyro rotation, but it tweaks out if you don't
     poseEstimator.resetPosition(rawGyroRotation, getModulePositions(), pose);
     odometry.resetPosition(rawGyroRotation, getModulePositions(), pose);
   }

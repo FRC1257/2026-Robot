@@ -31,8 +31,8 @@ public class ElevatorConstants {
   public static final double ELEVATOR_MASS_KG = 5;
 
   // Max velocity and acceleration of the elevator, in m/s and m/s^2
-  public static final double MAX_VELOCITY = 0.3;
-  public static final double MAX_ACCELERATION = 0.3;
+  public static final double MAX_VELOCITY = 1;
+  public static final double MAX_ACCELERATION = 4;
 
   // Digital input channels
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;
@@ -45,8 +45,8 @@ public class ElevatorConstants {
   public static final double ELEVATOR_L3_HEIGHT = 0.7;
 
   // PID Constants
-  public static final double[] ELEVATOR_REAL_PID = {0, 0, 0};
-  public static final double[] ELEVATOR_REAL_FF = {0, 0, 0, 0};
+  public static final double[] ELEVATOR_REAL_PID = {3, 0, 0};
+  public static final double[] ELEVATOR_REAL_FF = {0.2354, 0.16, 8.7, 0.17};
 
   /** Tolerance used when checking if the elevator is at the setpoint */
   public static double SETPOINT_TOLERANCE_METERS = 0.005;

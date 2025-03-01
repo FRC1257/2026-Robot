@@ -99,17 +99,24 @@ public class DriveControls {
 
     switch (Constants.operator) {
       case ANTONIOS:
-        // COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        // COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        // COMBINED_L3 = operator.getDPad(DPad.UP);
-        // COMBINED_STATION = operator.getDPad(DPad.DOWN);
-        // COMBINED_STOW = operator.a();
+        COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        COMBINED_L3 = operator.getDPad(DPad.UP);
+        COMBINED_STATION = operator.getDPad(DPad.DOWN);
+        COMBINED_STOW = operator.a();
 
-        CORAL_PIVOT_STOW = operator.getDPad(DPad.DOWN);
-        CORAL_PIVOT_STATION = operator.getDPad(DPad.UP);
+        // ELEVATOR_DOWN = operator.getDPad(DPad.DOWN);
+        // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
+        // ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
+        // ELEVATOR_L3 = operator.getDPad(DPad.UP);
+
+        // CORAL_PIVOT_STATION = operator.a();
+
+        // CORAL_PIVOT_STOW = operator.getDPad(DPad.DOWN);
+        // CORAL_PIVOT_STATION = operator.getDPad(DPad.UP);
 
         ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
         // ALGAE_PIVOT_STOW = operator.x();
         // ALGAE_PIVOT_PROCESSOR = operator.y();

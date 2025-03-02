@@ -128,7 +128,7 @@ public class CoralPivot extends SubsystemBase {
 
     if (logkV.get() != io.getkV()) io.setkV(logkV.get());
 
-    if (logkA.get() != io.getkA()) io.setkG(logkA.get());
+    if (logkA.get() != io.getkA()) io.setkA(logkA.get());
 
     // Log Inputs
     Logger.processInputs("CoralPivot", inputs);

@@ -130,6 +130,7 @@ public class Elevator extends SubsystemBase {
 
     // Log Inputs
     Logger.processInputs("Elevator", inputs);
+    Logger.recordOutput("Elevator/Elevator State", elevatorState);
   }
 
   public void setPID(double setpoint) {
@@ -189,9 +190,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public void runPID() {
-    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
+    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < -0.1)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
-            && io.getVelocity() > 0)) {
+            && io.getVelocity() > 0.1)) {
       io.setVoltage(0);
     } else {
       io.goToSetpoint();

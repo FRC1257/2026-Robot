@@ -58,13 +58,13 @@ public class CustomAutoChooser {
     this.drive = drive;
     this.robotContainer = robotContainer;
 
-    //initializes the choosers
+    // initializes the choosers
     startChooser = new LoggedDashboardChooser<>("Starting Position ");
     startChooser.addDefaultOption("Starting Position 1", StartPositions.s1);
     startChooser.addOption("Starting Position 2", StartPositions.s2);
     startChooser.addOption("Starting Position 3", StartPositions.s3);
 
-    //add all options for position
+    // add all options for position
     for (int i = 0; i < positionChoosers.length; i++) {
       positionChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1));
       positionChoosers[i].addDefaultOption("", ReefPositions.NONE);
@@ -76,7 +76,7 @@ public class CustomAutoChooser {
       }
     }
 
-    //add all options for levels
+    // add all options for levels
     for (int i = 0; i < levelChoosers.length; i++) {
       levelChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1) + " Level");
 
@@ -100,14 +100,14 @@ public class CustomAutoChooser {
     return new InstantCommand();
   }
 
-  //returns the entire auto
+  // returns the entire auto
   public Command getAutoCommand() {
     StartPositions startPos = startChooser.get();
     ArrayList<ReefPositions> reefPoses = new ArrayList<ReefPositions>();
     ArrayList<ReefLevels> reefLevels = new ArrayList<ReefLevels>();
     SequentialCommandGroup commandGroup = new SequentialCommandGroup();
 
-    //creates start position to reset our estimates
+    // creates start position to reset our estimates
     Pose2d startPose2d;
     switch (startPos) {
       case s1:
@@ -152,7 +152,7 @@ public class CustomAutoChooser {
         driveStartToReef.alongWith(getElevatorAndPivotCommand(reefLevels.get(0))),
         (robotContainer.coralOuttake()));
 
-    //returns poses for reef positions
+    // returns poses for reef positions
     for (int i = 1; i < reefPoses.size(); i++) {
       ReefPositions currentReefPosition = reefPoses.get(i - 1);
       ReefPositions nextReefPosition = reefPoses.get(i);
@@ -184,17 +184,17 @@ public class CustomAutoChooser {
           break;
       }
 
-      //drives to the stations
+      // drives to the stations
       Command driveStationCommand =
           drive.followPathFileCommand(
               currentReefPosition.toString() + "-" + coralStationPos.toString());
 
-      //drives to the reef position chosen
+      // drives to the reef position chosen
       Command driveReefCommand =
           drive.followPathFileCommand(
               coralStationPos.toString() + "-" + nextReefPosition.toString());
 
-      //combines all the commands needed
+      // combines all the commands needed
       commandGroup.addCommands(
           driveStationCommand.alongWith(robotContainer.goToStationAuto()),
           robotContainer.coralIntake(),

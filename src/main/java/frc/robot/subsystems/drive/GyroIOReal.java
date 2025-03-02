@@ -46,6 +46,7 @@ public class GyroIOReal implements GyroIO {
   public void updateInputs(GyroIOInputs inputs) {
     inputs.connected = navx.isConnected();
     Logger.recordOutput("OtherGyro", gyro.getAngle());
+    Logger.recordOutput("Drive/Gyro Calibrating", navx.isCalibrating());
     inputs.yawPosition = Rotation2d.fromDegrees(getYawAngle());
     inputs.rollPosition = Rotation2d.fromDegrees(getRollAngle());
     inputs.pitchPosition = Rotation2d.fromDegrees(getPitchAngle());

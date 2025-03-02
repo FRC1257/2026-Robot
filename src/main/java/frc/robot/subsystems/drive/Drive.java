@@ -98,6 +98,9 @@ public class Drive extends SubsystemBase {
 
   private int reefPoseIndex;
 
+  private double lastTime = Timer.getFPGATimestamp();
+  private double deltaTime = 0;
+
   public Drive(
       GyroIO gyroIO,
       ModuleIO flModuleIO,
@@ -171,7 +174,11 @@ public class Drive extends SubsystemBase {
     // Configure SysId
     sysId =
         new SysIdRoutine(
-            new SysIdRoutine.Config(),
+            new SysIdRoutine.Config(
+                null,
+                null,
+                null,
+                (state) -> Logger.recordOutput("Drive/DriveSysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 volts -> {
                   for (Module module : modules) {
@@ -183,7 +190,11 @@ public class Drive extends SubsystemBase {
 
     turnRoutine =
         new SysIdRoutine(
-            new SysIdRoutine.Config(),
+            new SysIdRoutine.Config(
+                null,
+                null,
+                null,
+                (state) -> Logger.recordOutput("Drive/TurnSysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 volts -> {
                   for (Module module : modules) {
@@ -197,6 +208,9 @@ public class Drive extends SubsystemBase {
   }
 
   public void periodic() {
+    deltaTime = Timer.getFPGATimestamp() - lastTime;
+    lastTime = Timer.getFPGATimestamp();
+
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
     for (var module : modules) {
@@ -248,7 +262,8 @@ public class Drive extends SubsystemBase {
       modulePositions[moduleIndex] = modules[moduleIndex].getPosition();
     }
 
-    Logger.recordOutput("FieldVelocity", getFieldVelocity());
+    ChassisSpeeds fieldVelocity = getFieldVelocity();
+    Logger.recordOutput("FieldVelocity", fieldVelocity);
 
     // Update gyro angle
     if (gyroInputs.connected) {
@@ -256,6 +271,9 @@ public class Drive extends SubsystemBase {
       rawGyroRotation = Rotation2d.fromDegrees(gyroIO.getYawAngle());
       simRotation = rawGyroRotation;
     } else {
+      simRotation =
+          simRotation.rotateBy(
+              Rotation2d.fromRadians(fieldVelocity.omegaRadiansPerSecond * deltaTime));
       rawGyroRotation = simRotation;
     }
 
@@ -273,8 +291,6 @@ public class Drive extends SubsystemBase {
   public void runVelocity(ChassisSpeeds speeds) {
     // Calculate module setpoints
     ChassisSpeeds discreteSpeeds = ChassisSpeeds.discretize(speeds, 0.02);
-    simRotation =
-        simRotation.rotateBy(Rotation2d.fromRadians(discreteSpeeds.omegaRadiansPerSecond * 0.02));
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, kMaxSpeedMetersPerSecond);
 
@@ -357,7 +373,7 @@ public class Drive extends SubsystemBase {
     // but not the reverse.  However, because this transform is a simple rotation, negating the
     // angle
     // given as the robot angle reverses the direction of rotation, and the conversion is reversed.
-    return ChassisSpeeds.fromFieldRelativeSpeeds(
+    return ChassisSpeeds.fromRobotRelativeSpeeds(
         kinematics.toChassisSpeeds(getModuleStates()), getRotation());
   }
 

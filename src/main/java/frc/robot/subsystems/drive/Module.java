@@ -56,8 +56,8 @@ public class Module {
         io.setTurnPIDFF(kTurningP, kTurningI, kTurningD, kTurningFF);
         break;
       case SIM:
-        io.setDrivePIDFF(0.1, 0, 0, 0);
-        io.setTurnPIDFF(10.0, 0, 0, 0);
+        io.setDrivePIDFF(1, 0, 0, 0.0935);
+        io.setTurnPIDFF(5, 0, 0, 0.12);
         break;
       default:
         io.setDrivePIDFF(0, 0, 0, 0);
@@ -88,6 +88,8 @@ public class Module {
     // Run closed loop turn control
     if (angleSetpoint != null) {
       io.setTurnPosition(angleSetpoint.getRadians());
+      Logger.recordOutput(
+          "Drive/Module" + Integer.toString(index) + "/Turn Setpoint", angleSetpoint);
 
       // Run closed loop drive control
       // Only allowed if closed loop turn control is running

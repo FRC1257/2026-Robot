@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.algaeIntake.AlgaeIntake;
@@ -215,9 +216,9 @@ public class RobotContainer {
         coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STOW_ANGLE));
 
     elevator.setDefaultCommand(elevator.ManualCommand(ELEVATOR_SPEED));
-    ELEVATOR_L1.onTrue(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
-    ELEVATOR_L2.onTrue(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
-    ELEVATOR_L3.onTrue(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
+    ELEVATOR_L1.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
+    ELEVATOR_L2.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
+    ELEVATOR_L3.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
     ELEVATOR_STATION.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT));
     ELEVATOR_DOWN.onTrue(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_MIN_HEIGHT));
 
@@ -231,10 +232,10 @@ public class RobotContainer {
     TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
     DRIVE_TO_REEF.onTrue(drive.driveToReef());
 
-    operator.a().whileTrue(elevator.quasistaticForward());
-    operator.b().whileTrue(elevator.quasistaticBack());
-    operator.x().whileTrue(elevator.dynamicForward());
-    operator.y().whileTrue(elevator.dynamicBack());
+    operator.a().whileTrue(drive.turnQuasistatic(Direction.kForward));
+    operator.b().whileTrue(drive.turnQuasistatic(Direction.kReverse));
+    operator.x().whileTrue(drive.turnDynamic(Direction.kForward));
+    operator.y().whileTrue(drive.turnDynamic(Direction.kReverse));
   }
 
   /**

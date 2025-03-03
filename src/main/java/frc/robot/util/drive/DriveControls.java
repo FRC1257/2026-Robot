@@ -98,26 +98,56 @@ public class DriveControls {
     }
 
     switch (Constants.operator) {
-      case ANTONIOS:
-        // COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        // COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        // COMBINED_L3 = operator.getDPad(DPad.UP);
-        // COMBINED_STATION = operator.getDPad(DPad.DOWN);
-        // COMBINED_STOW = operator.a();
+      case KEVIN:
+        COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        COMBINED_L3 = operator.getDPad(DPad.UP);
+        COMBINED_STOW = operator.getDPad(DPad.DOWN);
+        COMBINED_STATION = operator.a();
 
         ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        // CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
-        // ALGAE_PIVOT_STOW = operator.x();
-        // ALGAE_PIVOT_PROCESSOR = operator.y();
-        // ALGAE_PIVOT_DOWN = operator.b();
-        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.2;
+        ALGAE_PIVOT_STOW = operator.x();
+        ALGAE_PIVOT_PROCESSOR = operator.y();
+        ALGAE_PIVOT_DOWN = operator.b();
 
-        // INTAKE_CORAL = operator.leftBumper();
-        // EJECT_CORAL = operator.rightBumper();
+        INTAKE_CORAL = operator.rightBumper();
+        EJECT_CORAL = operator.leftBumper();
 
-        // INTAKE_ALGAE = operator.leftTrigger();
-        // EJECT_ALGAE = operator.rightTrigger();
+        INTAKE_ALGAE = operator.rightTrigger();
+        EJECT_ALGAE = operator.leftTrigger();
+
+      case ANTONIOS:
+        COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        COMBINED_L3 = operator.getDPad(DPad.UP);
+        COMBINED_STOW = operator.getDPad(DPad.DOWN);
+        COMBINED_STATION = operator.a();
+
+        // ELEVATOR_DOWN = operator.getDPad(DPad.DOWN);
+        // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
+        // ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
+        // ELEVATOR_L3 = operator.getDPad(DPad.UP);
+
+        // CORAL_PIVOT_STATION = operator.a();
+
+        // CORAL_PIVOT_STOW = operator.getDPad(DPad.DOWN);
+        // CORAL_PIVOT_STATION = operator.getDPad(DPad.UP);
+
+        ELEVATOR_SPEED = () -> -operator.getLeftYD();
+        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+
+        ALGAE_PIVOT_STOW = operator.x();
+        ALGAE_PIVOT_PROCESSOR = operator.y();
+        ALGAE_PIVOT_DOWN = operator.b();
+        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+
+        INTAKE_CORAL = operator.leftBumper();
+        EJECT_CORAL = operator.rightBumper();
+
+        INTAKE_ALGAE = operator.leftTrigger();
+        EJECT_ALGAE = operator.rightTrigger();
         break;
       case PROGRAMMERS:
       default:

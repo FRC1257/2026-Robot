@@ -61,13 +61,10 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
     config
         .absoluteEncoder
-        .setSparkMaxDataPortConfig()
         .zeroCentered(true)
         .zeroOffset(AlgaePivotConstants.ALGAE_PIVOT_OFFSET)
-        .positionConversionFactor(1.0 / 360.0)
-        .velocityConversionFactor(1.0 / 360.0)
-        .startPulseUs(1)
-        .endPulseUs(1024);
+        .positionConversionFactor(2 * Constants.PI)
+        .velocityConversionFactor(2 * Constants.PI);
 
     // absoluteEncoder.reset();
     // make sure the pivot starts at the bottom position every time
@@ -118,7 +115,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     inputs.angleRads = getAngle();
     inputs.angVelocityRadsPerSec = motorEncoder.getVelocity();
     inputs.appliedVolts = pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
-    inputs.setpointAngleRads = setpoint;
+    inputs.setpointAngleRads = pidController.getSetpoint().position;
     inputs.breakBeamBroken = isBreakBeamBroken();
 
     inputs.currentAmps = new double[] {pivotMotor.getOutputCurrent()};
@@ -149,6 +146,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     pidController.reset(getAngle(), getAngVelocity());
     pidControllerActive.setGoal(setpoint);
     pidControllerActive.reset(getAngle(), getAngVelocity());
+    Logger.recordOutput("AlgaePivot/Actual Setpoint", pidController.getSetpoint().position);
   }
 
   @Override
@@ -156,24 +154,6 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
     double pidOutput = 0, ffOutput = 0;
 
     if (isBreakBeamBroken()) {
-      pidOutput = pidController.calculate(getAngle());
-
-      // change in velocity / change in time = acceleration
-      // Acceleration is used to calculate feedforward
-      double acceleration =
-          (pidController.getSetpoint().velocity - lastSpeed)
-              / (Timer.getFPGATimestamp() - lastTime);
-
-      Logger.recordOutput("CoralPivot/Acceleration", acceleration);
-
-      ffOutput =
-          feedforward.calculate(
-              pidController.getSetpoint().position,
-              pidController.getSetpoint().velocity,
-              acceleration);
-
-      lastSpeed = pidController.getSetpoint().velocity;
-    } else {
       pidOutput = pidControllerActive.calculate(getAngle());
 
       // change in velocity / change in time = acceleration
@@ -191,6 +171,27 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
               acceleration);
 
       lastSpeed = pidControllerActive.getSetpoint().velocity;
+    } else {
+      pidOutput = pidController.calculate(getAngle());
+
+      // change in velocity / change in time = acceleration
+      // Acceleration is used to calculate feedforward
+      double acceleration =
+          (pidController.getSetpoint().velocity - lastSpeed)
+              / (Timer.getFPGATimestamp() - lastTime);
+
+      Logger.recordOutput("CoralPivot/Acceleration", acceleration);
+
+      ffOutput =
+          feedforward.calculate(
+              pidController.getSetpoint().position,
+              pidController.getSetpoint().velocity,
+              acceleration);
+
+      lastSpeed = pidController.getSetpoint().velocity;
+
+      Logger.recordOutput("AlgaePivot/PID output", pidOutput);
+      Logger.recordOutput("AlgaePivot/FF output", ffOutput);
     }
 
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
@@ -234,26 +235,22 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public void setkS(double kS) {
-    feedforward =
-        new ArmFeedforward(kS, feedforward.getKg(), feedforward.getKv(), feedforward.getKa());
+    feedforward.setKs(kS);
   }
 
   @Override
   public void setkG(double kG) {
-    feedforward =
-        new ArmFeedforward(feedforward.getKs(), kG, feedforward.getKv(), feedforward.getKa());
+    feedforward.setKg(kG);
   }
 
   @Override
   public void setkV(double kV) {
-    feedforward =
-        new ArmFeedforward(feedforward.getKs(), feedforward.getKg(), kV, feedforward.getKa());
+    feedforward.setKv(kV);
   }
 
   @Override
   public void setkA(double kA) {
-    feedforward =
-        new ArmFeedforward(feedforward.getKs(), feedforward.getKg(), feedforward.getKv(), kA);
+    feedforward.setKa(kA);
   }
 
   @Override
@@ -308,30 +305,22 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public void setActivekS(double kS) {
-    feedforwardActive =
-        new ArmFeedforward(
-            kS, feedforwardActive.getKg(), feedforwardActive.getKv(), feedforwardActive.getKa());
+    feedforwardActive.setKs(kS);
   }
 
   @Override
   public void setActivekG(double kG) {
-    feedforwardActive =
-        new ArmFeedforward(
-            feedforwardActive.getKs(), kG, feedforwardActive.getKv(), feedforwardActive.getKa());
+    feedforwardActive.setKg(kG);
   }
 
   @Override
   public void setActivekV(double kV) {
-    feedforwardActive =
-        new ArmFeedforward(
-            feedforwardActive.getKs(), feedforwardActive.getKg(), kV, feedforwardActive.getKa());
+    feedforwardActive.setKv(kV);
   }
 
   @Override
   public void setActivekA(double kA) {
-    feedforwardActive =
-        new ArmFeedforward(
-            feedforwardActive.getKs(), feedforwardActive.getKg(), feedforwardActive.getKv(), kA);
+    feedforwardActive.setKa(kA);
   }
 
   @Override
@@ -356,16 +345,16 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
   @Override
   public double getActiveP() {
-    return kActiveP;
+    return pidControllerActive.getP();
   }
 
   @Override
   public double getActiveI() {
-    return kActiveI;
+    return pidControllerActive.getI();
   }
 
   @Override
   public double getActiveD() {
-    return kActiveD;
+    return pidControllerActive.getD();
   }
 }

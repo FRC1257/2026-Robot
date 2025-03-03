@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import java.util.function.DoubleSupplier;
@@ -148,7 +149,7 @@ public class AlgaePivot extends SubsystemBase {
 
     if (logkV.get() != io.getkV()) io.setkV(logkV.get());
 
-    if (logkA.get() != io.getkA()) io.setkG(logkA.get());
+    if (logkA.get() != io.getkA()) io.setkA(logkA.get());
 
     if (logActiveP.get() != io.getActiveP()) io.setActiveP(logActiveP.get());
 
@@ -162,7 +163,7 @@ public class AlgaePivot extends SubsystemBase {
 
     if (logActivekV.get() != io.getActivekV()) io.setActivekV(logActivekV.get());
 
-    if (logActivekA.get() != io.getActivekA()) io.setActivekG(logActivekA.get());
+    if (logActivekA.get() != io.getActivekA()) io.setActivekA(logActivekA.get());
 
     // Log Inputs
     Logger.processInputs("AlgaePivot", inputs);
@@ -213,6 +214,7 @@ public class AlgaePivot extends SubsystemBase {
   public void setPID(double setpoint) {
     this.setpoint = setpoint;
     armState = State.PID;
+    io.setSetpoint(setpoint);
     Logger.recordOutput("AlgaePivot/Setpoint", setpoint);
   }
 
@@ -242,7 +244,8 @@ public class AlgaePivot extends SubsystemBase {
   }
 
   public Command PIDCommand(double setpoint) {
-    return new RunCommand(() -> setPID(setpoint), this).until(() -> atSetpoint());
+    return new InstantCommand(() -> setPID(setpoint), this)
+        .andThen(new WaitUntilCommand(() -> atSetpoint()));
   }
 
   public Command InstantPIDCommand(double setpoint) {

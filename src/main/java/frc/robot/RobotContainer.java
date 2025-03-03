@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.algaeIntake.AlgaeIntake;
@@ -162,7 +163,7 @@ public class RobotContainer {
         new FeedForwardCharacterization(
             drive, drive::runCharacterizationVolts, drive::getCharacterizationVelocity));
 
-    customAutoChooser = new CustomAutoChooser(drive);
+    customAutoChooser = new CustomAutoChooser(this, drive);
 
     // Configure the button bindings
     configureControls();
@@ -205,7 +206,7 @@ public class RobotContainer {
     INTAKE_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED));
     EJECT_CORAL.whileTrue(coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED));
 
-    coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_ROTATE));
+    coralPivot.setDefaultCommand(coralPivot.ManualCommand(CORAL_PIVOT_SPEED));
     CORAL_PIVOT_L1.onTrue(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
     CORAL_PIVOT_L2_L3.onTrue(
         coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
@@ -227,14 +228,14 @@ public class RobotContainer {
     COMBINED_STATION.onTrue(goToStation());
     COMBINED_STOW.onTrue(stow());
 
-    TOGGLE_REEF_POSITION_UP.onTrue(drive.positiveReefPoseToggle());
-    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.negativeReefPoseToggle());
-    DRIVE_TO_REEF.onTrue(drive.DriveToReef());
+    TOGGLE_REEF_POSITION_UP.onTrue(drive.reefPoseChooserIncrement());
+    TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
+    DRIVE_TO_REEF.onTrue(drive.driveToReef());
 
-    // operator.a().onTrue(coralPivot.quasistaticForward());
-    // operator.b().onTrue(coralPivot.quasistaticBack());
-    // operator.x().onTrue(coralPivot.dynamicForward());
-    // operator.y().onTrue(coralPivot.dynamicBack());
+    operator.a().whileTrue(drive.turnQuasistatic(Direction.kForward));
+    operator.b().whileTrue(drive.turnQuasistatic(Direction.kReverse));
+    operator.x().whileTrue(drive.turnDynamic(Direction.kForward));
+    operator.y().whileTrue(drive.turnDynamic(Direction.kReverse));
   }
 
   /**
@@ -341,6 +342,18 @@ public class RobotContainer {
   }
 
   public Command fullL3() {
-    return (goToL2().andThen(coralOuttake()));
+    return (goToL3().andThen(coralOuttake()));
+  }
+
+  public Command fullL1Auto() {
+    return (goToL1Auto().andThen(coralOuttake()));
+  }
+
+  public Command fullL2Auto() {
+    return (goToL2Auto().andThen(coralOuttake()));
+  }
+
+  public Command fullL3Auto() {
+    return (goToL3Auto().andThen(coralOuttake()));
   }
 }

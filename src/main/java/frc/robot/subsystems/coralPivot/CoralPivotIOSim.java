@@ -21,8 +21,8 @@ public class CoralPivotIOSim implements CoralPivotIO {
 
   private double appliedVoltage = 0;
 
-  // These variables are used to find the acceleration of the PID setpoint (change in velocity /
-  // time = avg acceleration)
+  // These variables are used to find the acceleration of the PID setpoint
+  // (change in velocity / change in time = avg acceleration)
   double lastSpeed = 0;
   double lastTime = Timer.getFPGATimestamp();
 

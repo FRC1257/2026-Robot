@@ -49,8 +49,12 @@ public class ModuleIOSim implements ModuleIO {
   private double turnAppliedVolts = 0.0;
 
   private final SimpleMotorFeedforward driveFeedforward = new SimpleMotorFeedforward(0.0, 0.13);
+  private final SimpleMotorFeedforward turnFeedforward = new SimpleMotorFeedforward(0.0, 0.0);
   private final PIDController driveFeedback = new PIDController(0.1, 0.0, 0.0);
   private final PIDController turnFeedback = new PIDController(10.0, 0.0, 0.0);
+
+  private double lastTurnSetpoint = 0;
+  private double lastTime = Timer.getFPGATimestamp();
 
   public ModuleIOSim() {
     turnFeedback.enableContinuousInput(0, 2 * Constants.PI);
@@ -103,18 +107,30 @@ public class ModuleIOSim implements ModuleIO {
 
   @Override
   public void setTurnPosition(double angle) {
-    setTurnVoltage(turnFeedback.calculate(turnSim.getAngularPositionRad(), angle));
+    double dtheta = angle - lastTurnSetpoint;
+    if (dtheta > Constants.PI) {
+      dtheta -= 2 * Constants.PI;
+    } else if (dtheta < -Constants.PI) {
+      dtheta += 2 * Constants.PI;
+    }
+
+    double setpointVelocity = dtheta / (Timer.getFPGATimestamp() - lastTime);
+    lastTime = Timer.getFPGATimestamp();
+    lastTurnSetpoint = angle;
+    double ffOutput = turnFeedforward.calculate(setpointVelocity);
+    setTurnVoltage(turnFeedback.calculate(turnSim.getAngularPositionRad(), angle) + ffOutput);
   }
 
   @Override
   public void setDrivePIDFF(double p, double i, double d, double ff) {
     driveFeedback.setPID(p, i, d);
-    // driveFeedforward.setGain(ff);
+    driveFeedforward.setKv(ff);
   }
 
   @Override
   public void setTurnPIDFF(double p, double i, double d, double ff) {
     turnFeedback.setPID(p, i, d);
+    turnFeedforward.setKv(ff);
   }
 
   @Override

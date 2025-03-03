@@ -9,37 +9,37 @@ public class AlgaePivotConstants {
 
   public static final double ALGAE_PIVOT_GEARING = 1.0 / 16.0;
 
-  public static final double[] ALGAE_PIVOT_PID_REAL = {3.6, 0, 0, 0};
-  public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL = {0, 0.45, 0, 0};
+  public static final double[] ALGAE_PIVOT_PID_REAL = {1, 0, 0};
+  public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL = {0.123, 0.6465, 0.22, 0.04};
 
-  public static final double[] ALGAE_PIVOT_PID_REAL_ACTIVE = {3.6, 0, 0, 0.};
-  public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL_ACTIVE = {0, 0.45, 0, 0};
+  public static final double[] ALGAE_PIVOT_PID_REAL_ACTIVE = {0, 0, 0};
+  public static final double[] ALGAE_PIVOT_FEEDFORWARD_REAL_ACTIVE = {0, 0, 0, 0};
 
   public static final double ALGAE_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
   public static final double ALGAE_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;
 
-  public static final double ALGAE_PIVOT_OFFSET = 0; // 1.14;
+  public static final double ALGAE_PIVOT_OFFSET = 0.2299176; // 1.14;
 
   public static final double PIVOT_MAX_PID_TIME = 3;
 
-  public static final double ALGAE_PIVOT_MAX_ANGLE = Units.degreesToRadians(100);
+  public static final double ALGAE_PIVOT_MAX_ANGLE = 1.95;
   public static final double ALGAE_PIVOT_MIN_ANGLE = Units.degreesToRadians(-20);
 
-  // deleted the old constants from last years code, this intake angle is from last year still
-  public static final double ALGAE_PIVOT_DOWN_ANGLE = Units.degreesToRadians(20);
-  public static final double ALGAE_PIVOT_STOW_ANGLE = Units.degreesToRadians(95);
+  public static final double ALGAE_PIVOT_DOWN_ANGLE = Units.degreesToRadians(40);
+  public static final double ALGAE_PIVOT_STOW_ANGLE = Units.degreesToRadians(105);
   public static final double ALGAE_PIVOT_AUTO_INTAKE_ANGLE = Units.degreesToRadians(45);
-  public static final double ALGAE_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(45);
+  public static final double ALGAE_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(55);
   // Will have to add constants for placing ALGAE
 
-  public static final double RAMP_RATE = 0.5;
-  public static final double STEP_VOLTAGE = 3.0;
+  public static final double SYSID_RAMP_RATE = 0.5;
+  public static final double SYSID_STEP_VOLTAGE = 1.0;
+  public static final double SYSID_TIME = 10;
   public static final double ALGAE_PIVOT_TOLERANCE = 1.0;
 
   public static final double ALGAE_PIVOT_CONTROL_SPEED_FACTOR = 1.0;
 
-  public static final double ALGAE_PIVOT_MAX_VELOCITY = 0.3;
-  public static final double ALGAE_PIVOT_MAX_ACCELERATION = 0.3;
+  public static final double ALGAE_PIVOT_MAX_VELOCITY = 3;
+  public static final double ALGAE_PIVOT_MAX_ACCELERATION = 8;
 
   public static final int BREAK_BEAM_CHANNEL = 0;
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;

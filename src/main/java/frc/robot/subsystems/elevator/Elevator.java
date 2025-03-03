@@ -14,10 +14,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import java.util.function.DoubleSupplier;
@@ -130,6 +130,7 @@ public class Elevator extends SubsystemBase {
 
     // Log Inputs
     Logger.processInputs("Elevator", inputs);
+    Logger.recordOutput("Elevator/Elevator State", elevatorState);
   }
 
   public void setPID(double setpoint) {
@@ -177,9 +178,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public void move(double speed) {
-    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
+    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && speed < 0)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
-            && io.getVelocity() > 0)) {
+            && speed > 0)) {
       io.setVoltage(0);
       isVoltageClose(0);
     } else {
@@ -189,9 +190,9 @@ public class Elevator extends SubsystemBase {
   }
 
   public void runPID() {
-    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < 0)
+    if ((io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT && io.getVelocity() < -0.1)
         || ((io.getPosition() >= ElevatorConstants.ELEVATOR_MAX_HEIGHT || io.isLimitSwitchPressed())
-            && io.getVelocity() > 0)) {
+            && io.getVelocity() > 0.1)) {
       io.setVoltage(0);
     } else {
       io.goToSetpoint();
@@ -204,7 +205,8 @@ public class Elevator extends SubsystemBase {
    * @param setpoint the setpoint in meters
    */
   public Command PIDCommand(double setpoint) {
-    return new RunCommand(() -> setPID(setpoint), this).until(() -> atSetpoint());
+    return new InstantCommand(() -> setPID(setpoint), this)
+        .andThen(new WaitUntilCommand(() -> atSetpoint()));
   }
 
   public Command InstantPIDCommand(double setpoint) {
@@ -213,14 +215,18 @@ public class Elevator extends SubsystemBase {
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(double speed) {
-    return new FunctionalCommand(
-        () -> move(speed), () -> move(speed), (interrupted) -> move(0), () -> false, this);
+    return new RunCommand(() -> setManual(speed), this)
+        .finallyDo(
+            () -> {
+              manualSpeed = 0;
+              move(0);
+            });
   }
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(DoubleSupplier speedSupplier) {
     return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
-        .andThen(
+        .finallyDo(
             () -> {
               manualSpeed = 0;
               move(0);

@@ -19,8 +19,8 @@ public class AlgaeIntakeConstants {
 
   public static final int ALGAE_INTAKE_MOTOR_ID = 14;
 
-  public static final double ALGAE_INTAKE_IN_SPEED = 0.75;
+  public static final double ALGAE_INTAKE_IN_SPEED = 0.3;
   public static final double ALGAE_INTAKE_WEAK_IN_SPEED = 0;
-  public static final double ALGAE_INTAKE_OUT_SPEED = -0.75;
+  public static final double ALGAE_INTAKE_OUT_SPEED = -0.3;
   public static final double ALGAE_INTAKE_TOLERANCE = 1;
 }

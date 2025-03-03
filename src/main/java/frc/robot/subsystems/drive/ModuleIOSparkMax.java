@@ -221,14 +221,14 @@ public class ModuleIOSparkMax implements ModuleIO {
   public void setDrivePIDFF(double p, double i, double d, double ff) {
     driveConfig.closedLoop.pidf(p, i, d, ff);
     driveSparkMax.configure(
-        driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   @Override
   public void setTurnPIDFF(double p, double i, double d, double ff) {
     turnConfig.closedLoop.pidf(p, i, d, ff);
     turnSparkMax.configure(
-        turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        turnConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   @Override
@@ -261,14 +261,14 @@ public class ModuleIOSparkMax implements ModuleIO {
   public void setDriveBrakeMode(boolean enable) {
     driveConfig.idleMode(enable ? IdleMode.kBrake : IdleMode.kCoast);
     driveSparkMax.configure(
-        driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   @Override
   public void setTurnBrakeMode(boolean enable) {
     driveConfig.idleMode(enable ? IdleMode.kBrake : IdleMode.kCoast);
     driveSparkMax.configure(
-        driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 
   @Override

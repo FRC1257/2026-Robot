@@ -49,15 +49,15 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
 
     config
         .absoluteEncoder
-        .setSparkMaxDataPortConfig()
         .zeroCentered(true)
         .zeroOffset(CoralPivotConstants.CORAL_PIVOT_OFFSET)
-        .positionConversionFactor(1.0 / 360.0)
-        .velocityConversionFactor(1)
-        // .positionConversionFactor(2 * Constants.PI)
-        // .velocityConversionFactor(2 * Constants.PI / 60.0)
-        .startPulseUs(1)
-        .endPulseUs(1024);
+        .positionConversionFactor(2 * Constants.PI)
+        .velocityConversionFactor(2 * Constants.PI)
+        .inverted(false);
+    // .positionConversionFactor(2 * Constants.PI)
+    // .velocityConversionFactor(2 * Constants.PI / 60.0)
+    // .startPulseUs(1)
+    // .endPulseUs(1024);
 
     pidController =
         new ProfiledPIDController(
@@ -89,13 +89,13 @@ public class CoralPivotIOSparkMax implements CoralPivotIO {
     inputs.appliedVolts = pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
     inputs.currentAmps = new double[] {pivotMotor.getOutputCurrent()};
     inputs.tempCelsius = new double[] {pivotMotor.getMotorTemperature()};
-    inputs.setpointAngleRads = setpoint;
+    inputs.setpointAngleRads = pidController.getSetpoint().position;
   }
 
   /** Run open loop at the specified voltage. */
   @Override
   public void setVoltage(double motorVolts) {
-    Logger.recordOutput("CoralPivot/AppliedVolts", motorVolts);
+    Logger.recordOutput("CoralPivot/Desired Voltage", motorVolts);
     pivotMotor.setVoltage(motorVolts);
   }
 

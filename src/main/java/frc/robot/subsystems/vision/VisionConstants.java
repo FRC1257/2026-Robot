@@ -23,9 +23,9 @@ public class VisionConstants {
   public static final Transform3d[] camsRobotToCam = {
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-9), Units.inchesToMeters(7), Units.inchesToMeters(10)),
+            Units.inchesToMeters(15) - 0.0178, Units.inchesToMeters(0.25), Units.inchesToMeters(7.5)),
         new Rotation3d(
-            0, Rotation2d.fromDegrees(30).getRadians(), Rotation2d.fromDegrees(180).getRadians())),
+            0, Rotation2d.fromDegrees(15).getRadians(), Rotation2d.fromDegrees(0).getRadians())),
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(-0.25), Units.inchesToMeters(4.5), Units.inchesToMeters(11)),

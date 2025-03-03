@@ -83,7 +83,7 @@ public class DriveControls {
       default:
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
-        DRIVE_ROTATE = () -> -operator.getLeftX();
+        DRIVE_ROTATE = () -> -driver.getRightX();
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
@@ -99,24 +99,24 @@ public class DriveControls {
 
     switch (Constants.operator) {
       case KEVIN:
-        // COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        // COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        // COMBINED_L3 = operator.getDPad(DPad.UP);
-        // COMBINED_STOW = operator.getDPad(DPad.DOWN);
-        // COMBINED_STATION = operator.a();
+        COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        COMBINED_L3 = operator.getDPad(DPad.UP);
+        COMBINED_STOW = operator.getDPad(DPad.DOWN);
+        COMBINED_STATION = operator.a();
 
-        // ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        // CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+        ELEVATOR_SPEED = () -> -operator.getLeftYD();
+        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
 
-        // ALGAE_PIVOT_STOW = operator.x();
-        // ALGAE_PIVOT_PROCESSOR = operator.y();
-        // ALGAE_PIVOT_DOWN = operator.b();
+        ALGAE_PIVOT_STOW = operator.x();
+        ALGAE_PIVOT_PROCESSOR = operator.y();
+        ALGAE_PIVOT_DOWN = operator.b();
 
-        // INTAKE_CORAL = operator.rightBumper();
-        // EJECT_CORAL = operator.leftBumper();
+        INTAKE_CORAL = operator.rightBumper();
+        EJECT_CORAL = operator.leftBumper();
 
-        // INTAKE_ALGAE = operator.rightTrigger();
-        // EJECT_ALGAE = operator.leftTrigger();
+        INTAKE_ALGAE = operator.rightTrigger();
+        EJECT_ALGAE = operator.leftTrigger();
 
       case ANTONIOS:
         COMBINED_L1 = operator.getDPad(DPad.LEFT);

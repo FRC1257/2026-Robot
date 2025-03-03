@@ -497,6 +497,16 @@ public class Drive extends SubsystemBase {
     return AutoBuilder.followPath(path);
   }
 
+  public Command driveToFieldPosition(String positionName) {
+    try {
+      return AutoBuilder.pathfindThenFollowPath(
+          PathPlannerPath.fromPathFile(positionName + "-align"), kPathConstraints);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new InstantCommand();
+    }
+  }
+
   /**
    * Follows PathPlanner GUI-created path from file
    *

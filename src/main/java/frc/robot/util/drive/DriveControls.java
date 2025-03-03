@@ -117,7 +117,8 @@ public class DriveControls {
 
         INTAKE_ALGAE = operator.rightTrigger();
         EJECT_ALGAE = operator.leftTrigger();
-
+        break;
+        
       case ANTONIOS:
         COMBINED_L1 = operator.getDPad(DPad.LEFT);
         COMBINED_L2 = operator.getDPad(DPad.RIGHT);

@@ -4,7 +4,6 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -23,24 +22,24 @@ public class VisionConstants {
   public static final Transform3d[] camsRobotToCam = {
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(15) - 0.0178, Units.inchesToMeters(0.25), Units.inchesToMeters(7.5)),
-        new Rotation3d(
-            0, Rotation2d.fromDegrees(15).getRadians(), Rotation2d.fromDegrees(0).getRadians())),
+            Units.inchesToMeters(15) - 0.0178,
+            Units.inchesToMeters(0.25),
+            Units.inchesToMeters(7.5)),
+        new Rotation3d(0, Units.degreesToRadians(15), 0)),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-0.25), Units.inchesToMeters(4.5), Units.inchesToMeters(11)),
+            Units.inchesToMeters(6.4375), Units.inchesToMeters(10.5), Units.inchesToMeters(35)),
         new Rotation3d(
-            0,
-            Rotation2d.fromDegrees(90 - 61.90).getRadians(),
-            Rotation2d.fromDegrees(90).getRadians())), // maybe need to change
+            0, Units.degreesToRadians(25.5), Units.degreesToRadians(90))), // maybe need to change
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-0.25), Units.inchesToMeters(-4.5), Units.inchesToMeters(11)),
+            Units.inchesToMeters(6.4375), Units.inchesToMeters(-10), Units.inchesToMeters(35)),
         new Rotation3d(
-            0,
-            Rotation2d.fromDegrees(90 - 61.90).getRadians(),
-            Rotation2d.fromDegrees(-90).getRadians())), // maybe need to change
-    new Transform3d(new Translation3d(numCameras, numCameras, numCameras), new Rotation3d(0, 0, 0))
+            0, Units.degreesToRadians(25.5), Units.degreesToRadians(-90))), // maybe need to change
+    new Transform3d(
+        new Translation3d(
+            Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25), Units.inchesToMeters(31.75)),
+        new Rotation3d(0, Units.degreesToRadians(16.7), 0))
   };
 
   // The layout of the AprilTags on the field

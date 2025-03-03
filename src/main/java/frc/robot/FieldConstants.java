@@ -29,7 +29,8 @@ public class FieldConstants {
     public static final Pose2d centerFace =
         new Pose2d(Units.inchesToMeters(235.726), 0, Rotation2d.fromDegrees(90));
   }
-//contains the measurements and starting points for the cages; contains measurements from INCHES to METERS
+  // contains the measurements and starting points for the cages; contains measurements from INCHES
+  // to METERS
   public static class Barge {
     public static final Translation2d farCage =
         new Translation2d(Units.inchesToMeters(345.428), Units.inchesToMeters(286.779));

@@ -5,9 +5,12 @@
 package frc.robot;
 
 import edu.wpi.first.hal.AllianceStationID;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.util.drive.AllianceFlipUtil;
+import frc.robot.util.misc.Elastic;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -83,6 +86,9 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
+
+    // Select the autonomous tab in elastic
+    Elastic.selectTab("Autonomous");
   }
 
   /** This function is called periodically during all modes. */
@@ -129,6 +135,13 @@ public class Robot extends LoggedRobot {
     if (autonomousCommand != null) {
       autonomousCommand.cancel();
     }
+
+    System.out.println(DriverStation.getAlliance().toString());
+    if (AllianceFlipUtil.shouldFlip()) {
+      Elastic.selectTab("Teleoperated Red");
+    } else {
+      Elastic.selectTab("Teleoperated Blue");
+    }
   }
 
   /** This function is called periodically during operator control. */
@@ -149,12 +162,12 @@ public class Robot extends LoggedRobot {
   /** This function is called once when the robot is first started up. */
   @Override
   public void simulationInit() {
-    DriverStationSim.setAllianceStationId(AllianceStationID.Blue1);
+    DriverStationSim.setAllianceStationId(AllianceStationID.Red1);
   }
 
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    DriverStationSim.setAllianceStationId(AllianceStationID.Blue1);
+    DriverStationSim.setAllianceStationId(AllianceStationID.Red1);
   }
 }

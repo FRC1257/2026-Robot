@@ -243,6 +243,14 @@ public class RobotContainer {
   }
 
   // Subsystem compound commands
+  public Command coralShimmy() {
+    return coralIntake
+        .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED)
+        .withTimeout(0.1)
+        .andThen(
+            coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.3));
+  }
+
   public Command goToL1() {
     return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
         .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
@@ -250,12 +258,14 @@ public class RobotContainer {
 
   public Command goToL2() {
     return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
-        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE))
+        .andThen(coralShimmy());
   }
 
   public Command goToL3() {
     return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
-        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE))
+        .andThen(coralShimmy());
   }
 
   public Command goToStation() {

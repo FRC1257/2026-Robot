@@ -13,7 +13,7 @@ public class CoralIntakeConstants {
           * kCoralIntakeDrumRadius; // Moment of inertia represents how resistant to force
   // something is
 
-  public static final double CORAL_INTAKE_IN_SPEED = -0.2;
+  public static final double CORAL_INTAKE_IN_SPEED = -0.1;
   public static final double CORAL_INTAKE_WEAK_IN_SPEED = 4.5;
   public static final double CORAL_INTAKE_OUT_SPEED = 0.2;
   public static final double CORAL_INTAKE_TOLERANCE = 1;

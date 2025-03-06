@@ -61,7 +61,7 @@ public class VisionConstants {
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25), Units.inchesToMeters(31.75)),
-        new Rotation3d(0, Units.degreesToRadians(-16.7), 180))
+        new Rotation3d(0, Units.degreesToRadians(-16.7), Units.degreesToRadians(180)))
   };
 
   // The layout of the AprilTags on the field

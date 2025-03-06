@@ -125,7 +125,8 @@ public class Drive extends SubsystemBase {
 
     // PID Constants used in AutoBuilder config
     PIDConstants translationPID = new PIDConstants(kTranslationP, kTranslationI, kTranslationD);
-    PIDConstants rotationPID = new PIDConstants(kTurnAngleP, kTurnAngleI, kTurnAngleD);
+    PIDConstants rotationPID =
+        new PIDConstants(kTurnPathplannerAngleP, kTurnPathplannerAngleI, kTurnPathplannerAngleD);
 
     // Configure AutoBuilder for PathPlanner
     AutoBuilder.configure(

@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.algaeIntake.AlgaeIntake;
@@ -232,10 +231,8 @@ public class RobotContainer {
     TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
     DRIVE_TO_REEF.onTrue(drive.driveToReef());
 
-    operator.a().whileTrue(drive.turnQuasistatic(Direction.kForward));
-    operator.b().whileTrue(drive.turnQuasistatic(Direction.kReverse));
-    operator.x().whileTrue(drive.turnDynamic(Direction.kForward));
-    operator.y().whileTrue(drive.turnDynamic(Direction.kReverse));
+    JOYSTICK_REEF_POINT.whileTrue(DriveCommands.joystickReefPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
+    JOYSTICK_STATION_POINT.whileTrue(DriveCommands.joystickStationPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
   }
 
   /**

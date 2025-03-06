@@ -4,7 +4,6 @@ import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.geometry.Translation3d;
@@ -20,27 +19,49 @@ public class VisionConstants {
 
   // Cam mounted facing forward, half a meter forward of center, half a meter up
   // from center.
+  //     public static final Transform3d[] camsRobotToCam = {
+  //       new Transform3d(
+  //           new Translation3d(
+  //               Units.inchesToMeters(15) - 0.0178,
+  //               Units.inchesToMeters(0.25),
+  //               Units.inchesToMeters(7.5)),
+  //           new Rotation3d(0, Units.degreesToRadians(15), 0)),
+  //       new Transform3d(
+  //           new Translation3d(
+  //               Units.inchesToMeters(6.4375), Units.inchesToMeters(10.5),
+  //   Units.inchesToMeters(35)),
+  //           new Rotation3d(
+  //               0, Units.degreesToRadians(25.5), Units.degreesToRadians(0))),
+  //       new Transform3d(
+  //           new Translation3d(
+  //               Units.inchesToMeters(6.4375), Units.inchesToMeters(-10),
+  // Units.inchesToMeters(35)),
+  //           new Rotation3d(
+  //               0, Units.degreesToRadians(25.5), Units.degreesToRadians(0))),
+  //       new Transform3d(
+  //           new Translation3d(
+  //               Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25),
+  //   Units.inchesToMeters(31.75)),
+  //           new Rotation3d(0, Units.degreesToRadians(16.7), 0))
+  //     };
+
   public static final Transform3d[] camsRobotToCam = {
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-9), Units.inchesToMeters(7), Units.inchesToMeters(10)),
-        new Rotation3d(
-            0, Rotation2d.fromDegrees(30).getRadians(), Rotation2d.fromDegrees(180).getRadians())),
+            Units.inchesToMeters(7.375), Units.inchesToMeters(0.25), Units.inchesToMeters(7.5)),
+        new Rotation3d(0, Units.degreesToRadians(-15), 0)),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-0.25), Units.inchesToMeters(4.5), Units.inchesToMeters(11)),
-        new Rotation3d(
-            0,
-            Rotation2d.fromDegrees(90 - 61.90).getRadians(),
-            Rotation2d.fromDegrees(90).getRadians())), // maybe need to change
+            Units.inchesToMeters(6.4375), Units.inchesToMeters(10.5), Units.inchesToMeters(35)),
+        new Rotation3d(0, Units.degreesToRadians(-25.5), Units.degreesToRadians(0))),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(-0.25), Units.inchesToMeters(-4.5), Units.inchesToMeters(11)),
-        new Rotation3d(
-            0,
-            Rotation2d.fromDegrees(90 - 61.90).getRadians(),
-            Rotation2d.fromDegrees(-90).getRadians())), // maybe need to change
-    new Transform3d(new Translation3d(numCameras, numCameras, numCameras), new Rotation3d(0, 0, 0))
+            Units.inchesToMeters(6.4375), Units.inchesToMeters(-10), Units.inchesToMeters(35)),
+        new Rotation3d(0, Units.degreesToRadians(-25.5), Units.degreesToRadians(0))),
+    new Transform3d(
+        new Translation3d(
+            Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25), Units.inchesToMeters(31.75)),
+        new Rotation3d(0, Units.degreesToRadians(-16.7), 180))
   };
 
   // The layout of the AprilTags on the field
@@ -53,7 +74,7 @@ public class VisionConstants {
   // The standard deviations of our vision estimated poses, which affect
   // correction rate
   // (Fake values. Experiment and determine estimation noise on an actual robot.)
-  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.2, 0.2, 15);
+  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(0.4, 0.4, 15);
   public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, 1);
 
   public static Transform3d getSimVersion(Transform3d real) {

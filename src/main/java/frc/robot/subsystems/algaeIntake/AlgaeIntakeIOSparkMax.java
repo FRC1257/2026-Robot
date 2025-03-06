@@ -1,6 +1,6 @@
 package frc.robot.subsystems.algaeIntake;
 
-import static frc.robot.Constants.NEO_CURRENT_LIMIT;
+import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
@@ -29,7 +29,7 @@ public class AlgaeIntakeIOSparkMax implements AlgaeIntakeIO {
     config
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12)
-        .smartCurrentLimit(NEO_CURRENT_LIMIT)
+        .smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT)
         .inverted(true);
 
     encoder = motor.getEncoder();

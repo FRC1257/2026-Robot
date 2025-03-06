@@ -82,6 +82,9 @@ public class DriveControls {
   // Setup the controls
   public static void configureControls() {
     switch (Constants.driver) {
+      case MADDIE:
+      case MICHAEL:
+      case GABE:
       case PROGRAMMERS:
       default:
         DRIVE_FORWARD = () -> -driver.getLeftY();
@@ -104,6 +107,26 @@ public class DriveControls {
     }
 
     switch (Constants.operator) {
+      case ARBORIA:
+        COMBINED_L1 = operator.getDPad(DPad.LEFT);
+        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
+        COMBINED_L3 = operator.getDPad(DPad.UP);
+        COMBINED_STOW = operator.getDPad(DPad.DOWN);
+        COMBINED_STATION = operator.a();
+
+        ELEVATOR_SPEED = () -> -operator.getLeftYD();
+        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
+
+        ALGAE_PIVOT_STOW = operator.x();
+        ALGAE_PIVOT_PROCESSOR = operator.y();
+        ALGAE_PIVOT_DOWN = operator.b();
+
+        INTAKE_CORAL = operator.rightBumper();
+        EJECT_CORAL = operator.leftBumper();
+
+        INTAKE_ALGAE = operator.rightTrigger();
+        EJECT_ALGAE = operator.leftTrigger();
+        break;
       case KEVIN:
         COMBINED_L1 = operator.getDPad(DPad.LEFT);
         COMBINED_L2 = operator.getDPad(DPad.RIGHT);
@@ -123,6 +146,7 @@ public class DriveControls {
 
         INTAKE_ALGAE = operator.rightTrigger();
         EJECT_ALGAE = operator.leftTrigger();
+        break;
 
       case ANTONIOS:
         COMBINED_L1 = operator.getDPad(DPad.LEFT);

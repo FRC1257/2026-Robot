@@ -168,8 +168,8 @@ public class ElevatorIOSparkMax implements ElevatorIO {
 
   @Override
   public boolean isLimitSwitchPressed() {
-    // return limitSwitch.get();
-    return false;
+    return !limitSwitch.get();
+    // return false;
   }
 
   @Override

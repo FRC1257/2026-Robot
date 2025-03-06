@@ -39,8 +39,12 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.util.sendable.Sendable;
+import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -56,6 +60,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
+import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 
 public class Drive extends SubsystemBase {
   // private static final double DRIVE_BASE_RADIUS = Math.hypot(kTrackWidthX / 2.0, kTrackWidthY /
@@ -100,6 +105,12 @@ public class Drive extends SubsystemBase {
 
   private double lastTime = Timer.getFPGATimestamp();
   private double deltaTime = 0;
+
+  // Things that will be shown on Elastic Dashboard
+  private Field2d field;
+
+  private LoggedNetworkNumber matchTime;
+  private LoggedNetworkNumber rotation;
 
   public Drive(
       GyroIO gyroIO,
@@ -206,6 +217,52 @@ public class Drive extends SubsystemBase {
                 this));
 
     reefPoseIndex = 0;
+
+    // Things that will be shown on elastic
+
+    // Field with robot position
+    field = new Field2d();
+
+    SmartDashboard.putData("Field", field);
+
+    // Swerve drive states
+    SmartDashboard.putData(
+        "Swerve Drive",
+        new Sendable() {
+          @Override
+          public void initSendable(SendableBuilder builder) {
+            builder.setSmartDashboardType("SwerveDrive");
+
+            builder.addDoubleProperty(
+                "Front Left Angle", () -> modules[0].getAngle().getRadians(), null);
+            builder.addDoubleProperty(
+                "Front Left Velocity", () -> modules[0].getVelocityMetersPerSec(), null);
+
+            builder.addDoubleProperty(
+                "Front Right Angle", () -> modules[1].getAngle().getRadians(), null);
+            builder.addDoubleProperty(
+                "Front Right Velocity", () -> modules[1].getVelocityMetersPerSec(), null);
+
+            builder.addDoubleProperty(
+                "Back Left Angle", () -> modules[2].getAngle().getRadians(), null);
+            builder.addDoubleProperty(
+                "Back Left Velocity", () -> modules[2].getVelocityMetersPerSec(), null);
+
+            builder.addDoubleProperty(
+                "Back Right Angle", () -> modules[3].getAngle().getRadians(), null);
+            builder.addDoubleProperty(
+                "Back Right Velocity", () -> modules[3].getVelocityMetersPerSec(), null);
+
+            builder.addDoubleProperty(
+                "Robot Angle", () -> AllianceFlipUtil.apply(getRotation()).getRadians(), null);
+          }
+        });
+
+    // Match timer
+    matchTime = new LoggedNetworkNumber("/SmartDashboard/Match Time");
+
+    // Robot rotation
+    rotation = new LoggedNetworkNumber("SmartDashboard/Robot Angle");
   }
 
   public void periodic() {
@@ -282,6 +339,12 @@ public class Drive extends SubsystemBase {
     odometry.update(rawGyroRotation, modulePositions);
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
+
+    // Update Elastic things
+    field.setRobotPose(getPose());
+
+    matchTime.set(DriverStation.getMatchTime());
+    rotation.set(AllianceFlipUtil.apply(getRotation()).getDegrees());
   }
 
   /**
@@ -496,6 +559,16 @@ public class Drive extends SubsystemBase {
             // differential drivetrain, the rotation will have no effect.
             );
     return AutoBuilder.followPath(path);
+  }
+
+  public Command driveToFieldPosition(String positionName) {
+    try {
+      return AutoBuilder.pathfindThenFollowPath(
+          PathPlannerPath.fromPathFile(positionName + "-align"), kPathConstraints);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return new InstantCommand();
+    }
   }
 
   /**

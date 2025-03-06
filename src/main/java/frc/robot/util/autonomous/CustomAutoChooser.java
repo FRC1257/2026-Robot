@@ -60,9 +60,9 @@ public class CustomAutoChooser {
 
     // initializes the choosers
     startChooser = new LoggedDashboardChooser<>("Starting Position ");
-    startChooser.addDefaultOption("Starting Position 1", StartPositions.s1);
-    startChooser.addOption("Starting Position 2", StartPositions.s2);
-    startChooser.addOption("Starting Position 3", StartPositions.s3);
+    startChooser.addDefaultOption("s1", StartPositions.s1);
+    startChooser.addOption("s2", StartPositions.s2);
+    startChooser.addOption("s3", StartPositions.s3);
 
     // add all options for position
     for (int i = 0; i < positionChoosers.length; i++) {
@@ -78,7 +78,7 @@ public class CustomAutoChooser {
 
     // add all options for levels
     for (int i = 0; i < levelChoosers.length; i++) {
-      levelChoosers[i] = new LoggedDashboardChooser<>("Reef Position " + (i + 1) + " Level");
+      levelChoosers[i] = new LoggedDashboardChooser<>("Reef Level " + (i + 1));
 
       // add all enum options to the chooser
       for (ReefLevels level : ReefLevels.values()) {

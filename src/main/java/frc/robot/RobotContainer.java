@@ -248,7 +248,7 @@ public class RobotContainer {
         .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED)
         .withTimeout(0.1)
         .andThen(
-            coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.3));
+            coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.4));
   }
 
   public Command goToL1() {

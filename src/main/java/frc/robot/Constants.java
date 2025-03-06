@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 public final class Constants {
   public static final Mode mode = Mode.SIM;
-  public static final Drivers driver = Drivers.PROGRAMMERS;
+  public static final Drivers driver = Drivers.GABE;
   public static final Operators operator = Operators.KEVIN;
 
   public static final Mode currentMode = getRobotMode();
@@ -81,4 +81,5 @@ public final class Constants {
   // https://www.revrobotics.com/rev-11-1271/
 
   public static final int NEO_CURRENT_LIMIT = 80; // amps
+  public static final int NEO_VORTEX_CURRENT_LIMIT = 60;
 }

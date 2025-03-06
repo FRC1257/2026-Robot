@@ -30,8 +30,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.util.drive.AllianceFlipUtil;
@@ -140,98 +138,150 @@ public class DriveCommands {
         drive);
   }
 
-  /** Drive robot while pointing at a specific point on the field. */
+  //   /** Drive robot while pointing at a specific point on the field. */
+  //   public static Command joystickReefPoint(
+  //       Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
+  //     angleController.enableContinuousInput(-Math.PI, Math.PI);
+  //     return new InstantCommand(
+  //             () -> {
+  //               lastRotation = drive.getRotation();
+  //             })
+  //         .andThen(
+  //             Commands.run(
+  //                 () -> {
+  //                   Pose2d reefPose =
+  //                       new Pose2d(
+  //                           AllianceFlipUtil.apply(FieldConstants.Reef.center), new
+  // Rotation2d());
+
+  //                   // Apply deadband
+  //                   double linearMagnitude =
+  //                       MathUtil.applyDeadband(
+  //                           Math.hypot(
+  //                               xSupplier.getAsDouble() * slowMode,
+  //                               ySupplier.getAsDouble() * slowMode),
+  //                           DEADBAND);
+  //                   Rotation2d linearDirection =
+  //                       new Rotation2d(
+  //                           xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() *
+  // slowMode);
+  //                   Transform2d targetTransform = drive.getPose().minus(reefPose);
+  //                   Rotation2d targetDirection =
+  //                       new Rotation2d(targetTransform.getX(), targetTransform.getY())
+  //                           .plus(new Rotation2d(Math.PI));
+
+  //                   // Rotation2d deltaDirection = drive.getRotation().minus(targetDirection);
+
+  //                   Logger.recordOutput("AimAngle", targetDirection);
+
+  //                   double dtheta = targetDirection.minus(lastRotation).getRadians();
+  //                   if (dtheta > Constants.PI) {
+  //                     dtheta -= 2 * Constants.PI;
+  //                   } else if (dtheta < -Constants.PI) {
+  //                     dtheta += 2 * Constants.PI;
+  //                   }
+
+  //                   Logger.recordOutput("DTheta", dtheta);
+
+  //                   // Simple FF calculation of how much to turn the robot based on how the
+  // setpoint
+  //                   // is changing
+  //                   // This is corrected by PID
+  //                   double ffOutput =
+  //                       dtheta
+  //                           / (Timer.getFPGATimestamp() - lastTime)
+  //                           / drive.getMaxAngularSpeedRadPerSec();
+  //                   lastTime = Timer.getFPGATimestamp();
+  //                   lastRotation = targetDirection;
+
+  //                   double omega =
+  //                       angleController.calculate(
+  //                           MathUtil.angleModulus(drive.getRotation().getRadians()),
+  //                           MathUtil.angleModulus(targetDirection.getRadians()));
+
+  //                   // Square values
+  //                   linearMagnitude = linearMagnitude * linearMagnitude;
+  //                   omega = Math.copySign(omega * omega, omega);
+
+  //                   omega += ffOutput;
+
+  //                   // Calcaulate new linear velocity
+  //                   Translation2d linearVelocity =
+  //                       new Pose2d(new Translation2d(), linearDirection)
+  //                           .transformBy(new Transform2d(linearMagnitude, 0.0, new Rotation2d()))
+  //                           .getTranslation();
+
+  //                   // Convert to robot relative speeds & send command
+  //                   drive.runVelocity(
+  //                       ChassisSpeeds.fromFieldRelativeSpeeds(
+  //                           linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
+  //                           linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
+  //                           omega * drive.getMaxAngularSpeedRadPerSec(),
+  //                           getIsFlipped()
+  //                               ? drive.getRotation().plus(new Rotation2d(Math.PI))
+  //                               : drive.getRotation()));
+  //                 },
+  //                 drive));
+  //   }
+
+  /** Drive robot while pointing to the closest reef face. */
+
+  // This function checks which face robot is closest to and updates rotation based on that
   public static Command joystickReefPoint(
       Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
-    angleController.enableContinuousInput(-Math.PI, Math.PI);
-    return new InstantCommand(
-            () -> {
-              lastRotation = drive.getRotation();
-            })
-        .andThen(
-            Commands.run(
-                () -> {
-                  Pose2d reefPose =
-                      new Pose2d(
-                          AllianceFlipUtil.apply(FieldConstants.Reef.center), new Rotation2d());
+    return joystickAnglePoint(
+        drive,
+        xSupplier,
+        ySupplier,
+        () -> {
+          // Positions of the centers of each reef face
+          Pose2d[] reefFacePositions = FieldConstants.Reef.centerFaces;
 
-                  // Apply deadband
-                  double linearMagnitude =
-                      MathUtil.applyDeadband(
-                          Math.hypot(
-                              xSupplier.getAsDouble() * slowMode,
-                              ySupplier.getAsDouble() * slowMode),
-                          DEADBAND);
-                  Rotation2d linearDirection =
-                      new Rotation2d(
-                          xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
-                  Transform2d targetTransform = drive.getPose().minus(reefPose);
-                  Rotation2d targetDirection =
-                      new Rotation2d(targetTransform.getX(), targetTransform.getY())
-                          .plus(new Rotation2d(Math.PI));
+          // closestDistance represents the distance to the closest face
+          // closestFace represents the index of the closest face
+          double closestDistance = Double.MAX_VALUE;
+          int closestFace = 0;
 
-                  // Rotation2d deltaDirection = drive.getRotation().minus(targetDirection);
+          // Goes through all reef face positions and checks which one is closest
+          for (int i = 0; i < 6; i++) {
+            Pose2d reefPosition = AllianceFlipUtil.apply(reefFacePositions[i]);
 
-                  Logger.recordOutput("AimAngle", targetDirection);
+            Transform2d robotToReefFace = reefPosition.minus(drive.getPose());
 
-                  double dtheta = targetDirection.minus(lastRotation).getRadians();
-                  if (dtheta > Constants.PI) {
-                    dtheta -= 2 * Constants.PI;
-                  } else if (dtheta < -Constants.PI) {
-                    dtheta += 2 * Constants.PI;
-                  }
+            if (robotToReefFace.getTranslation().getNorm() < closestDistance) {
+              closestDistance = robotToReefFace.getTranslation().getNorm();
+              closestFace = i;
+            }
+          }
 
-                  Logger.recordOutput("DTheta", dtheta);
-
-                  // Simple FF calculation of how much to turn the robot based on how the setpoint
-                  // is changing
-                  // This is corrected by PID
-                  double ffOutput =
-                      dtheta
-                          / (Timer.getFPGATimestamp() - lastTime)
-                          / drive.getMaxAngularSpeedRadPerSec();
-                  lastTime = Timer.getFPGATimestamp();
-                  lastRotation = targetDirection;
-
-                  double omega =
-                      angleController.calculate(
-                          MathUtil.angleModulus(drive.getRotation().getRadians()),
-                          MathUtil.angleModulus(targetDirection.getRadians()));
-
-                  // Square values
-                  linearMagnitude = linearMagnitude * linearMagnitude;
-                  omega = Math.copySign(omega * omega, omega);
-
-                  omega += ffOutput;
-
-                  // Calcaulate new linear velocity
-                  Translation2d linearVelocity =
-                      new Pose2d(new Translation2d(), linearDirection)
-                          .transformBy(new Transform2d(linearMagnitude, 0.0, new Rotation2d()))
-                          .getTranslation();
-
-                  // Convert to robot relative speeds & send command
-                  drive.runVelocity(
-                      ChassisSpeeds.fromFieldRelativeSpeeds(
-                          linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
-                          linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                          omega * drive.getMaxAngularSpeedRadPerSec(),
-                          getIsFlipped()
-                              ? drive.getRotation().plus(new Rotation2d(Math.PI))
-                              : drive.getRotation()));
-                },
-                drive));
+          // Returns angle based on which face is closest
+          Logger.recordOutput("Closest Reef Face", closestFace);
+          Logger.recordOutput("Closest Reef Distance", closestDistance);
+          return AllianceFlipUtil.apply(Rotation2d.fromDegrees(-60 * closestFace));
+          // return new Rotation2d();
+        });
   }
 
-  public static Command joystickStationPoint(Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
-    return joystickAnglePoint(drive, xSupplier, ySupplier, () -> {
-        Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
-        Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-125));
-        if(currentPose.getY() > FieldConstants.fieldWidth / 2) {
+  public static Command joystickStationPoint(
+      Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
+    return joystickAnglePoint(
+        drive,
+        xSupplier,
+        ySupplier,
+        () -> {
+          Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
+          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-125));
+          if (currentPose.getY() > FieldConstants.fieldWidth / 2) {
             targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(125));
-        }
-        return targetRotation;
-    });
+          }
+          return targetRotation;
+        });
+  }
+
+  public static Command joystickProcessorPoint(
+      Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
+    return joystickAnglePoint(
+        drive, xSupplier, ySupplier, () -> AllianceFlipUtil.apply(Rotation2d.fromDegrees(90)));
   }
 
   private static boolean getIsFlipped() {

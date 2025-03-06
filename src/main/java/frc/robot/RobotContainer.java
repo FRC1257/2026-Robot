@@ -231,8 +231,12 @@ public class RobotContainer {
     TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());
     DRIVE_TO_REEF.onTrue(drive.driveToReef());
 
-    JOYSTICK_REEF_POINT.whileTrue(DriveCommands.joystickReefPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
-    JOYSTICK_STATION_POINT.whileTrue(DriveCommands.joystickStationPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
+    JOYSTICK_REEF_POINT.whileTrue(
+        DriveCommands.joystickReefPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
+    JOYSTICK_STATION_POINT.whileTrue(
+        DriveCommands.joystickStationPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
+    JOYSTICK_PROCESSOR_POINT.whileTrue(
+        DriveCommands.joystickProcessorPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
   }
 
   /**

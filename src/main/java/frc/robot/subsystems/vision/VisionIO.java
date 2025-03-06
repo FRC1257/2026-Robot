@@ -5,6 +5,7 @@ import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
 
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.numbers.N1;
@@ -171,7 +172,9 @@ public interface VisionIO {
     // Decrease std devs if multiple targets are visible
     if (numTags > 1) estStdDevs = kMultiTagStdDevs;
     // Increase std devs based on (average) distance
-    else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+    else if (avgDist > 4) {
+      estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+    } else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
 
     return estStdDevs;
   }

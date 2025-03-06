@@ -21,7 +21,7 @@ public class AlgaeIntake extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.processInputs("AlgaeIntake", inputs);
 
-    Logger.recordOutput("AlgaeIntake/AIntakeMotorConnected", inputs.velocityRadsPerSec != 0);
+    // Logger.recordOutput("AlgaeIntake/AIntakeMotorConnected", inputs.velocityRadsPerSec != 0);
   }
 
   @AutoLogOutput(key = "AlgaeIntake/Close")

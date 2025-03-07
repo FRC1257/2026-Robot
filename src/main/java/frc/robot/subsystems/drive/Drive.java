@@ -42,6 +42,7 @@ import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -278,7 +279,11 @@ public class Drive extends SubsystemBase {
     Logger.processInputs("Drive/Gyro", gyroInputs);
 
     if (useVision) {
-      visionIO.updateInputs(visionInputs, getPose());
+      if (RobotBase.isSimulation()) {
+        visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
+      } else {
+        visionIO.updateInputs(visionInputs, getPose());
+      }
       Logger.processInputs("Vision", visionInputs);
       if (visionInputs.hasEstimate) {
         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
@@ -337,6 +342,18 @@ public class Drive extends SubsystemBase {
 
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
     odometry.update(rawGyroRotation, modulePositions);
+    if(odometry.getPoseMeters().getY() < 0) {
+      odometry.resetPose(new Pose2d(
+        new Translation2d(odometry.getPoseMeters().getX(), 0),
+        odometry.getPoseMeters().getRotation()
+      ));
+    }
+    if(odometry.getPoseMeters().getX() < 0) {
+      odometry.resetPose(new Pose2d(
+        new Translation2d(0, odometry.getPoseMeters().getY()),
+        odometry.getPoseMeters().getRotation()
+      ));
+    }
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
 
@@ -445,6 +462,10 @@ public class Drive extends SubsystemBase {
   @AutoLogOutput(key = "Odometry/Robot")
   public Pose2d getPose() {
     return poseEstimator.getEstimatedPosition();
+  }
+
+  public Pose2d getOdometryPose() {
+    return odometry.getPoseMeters();
   }
 
   /** Returns the current odometry rotation. */

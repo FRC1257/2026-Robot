@@ -36,6 +36,9 @@ public interface VisionIO {
   /** Updates the set of loggable inputs. */
   public default void updateInputs(VisionIOInputs inputs, Pose2d estimate) {}
 
+  /** for sim */
+  public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Pose2d odometry) {}
+
   public default PhotonPipelineResult getLatestResult(int camIndex) {
     return new PhotonPipelineResult();
   }
@@ -165,16 +168,16 @@ public interface VisionIO {
       Optional<Pose3d> tagPose = kTagLayout.getTagPose(tgt);
       if (tagPose.isEmpty()) continue;
       numTags++;
-      avgDist += tagPose.get().toPose2d().getTranslation().getDistance(pose.getTranslation());
+      avgDist +=  tagPose.get().toPose2d().getTranslation().getDistance(pose.getTranslation());
     }
     if (numTags == 0) return estStdDevs;
     avgDist /= numTags;
     // Decrease std devs if multiple targets are visible
     if (numTags > 1) estStdDevs = kMultiTagStdDevs;
     // Increase std devs based on (average) distance
-    else if (avgDist > 4) {
+    /*if (numTags == 1 && avgDist > 4)
       estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
-    } else estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
+    else*/ estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 30));
 
     return estStdDevs;
   }

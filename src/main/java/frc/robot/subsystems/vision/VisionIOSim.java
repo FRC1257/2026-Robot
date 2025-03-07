@@ -38,7 +38,7 @@ public class VisionIOSim implements VisionIO {
           new PhotonPoseEstimator(
               kTagLayout,
               PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-              getSimVersion(camsRobotToCam[i]));
+              camsRobotToCam[i]);
       camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
       cameraResults[i] = new PhotonPipelineResult();
     }
@@ -51,28 +51,38 @@ public class VisionIOSim implements VisionIO {
     visionSim.addAprilTags(kTagLayout);
     // Create simulated cam1 properties. These can be set to mimic your actual
     // cam1.
-    var cam1Prop = new SimCameraProperties();
-    cam1Prop.setCalibration(960, 720, Rotation2d.fromDegrees(90));
-    cam1Prop.setCalibError(0.35, 0.10);
-    cam1Prop.setFPS(15);
-    cam1Prop.setAvgLatencyMs(50);
-    cam1Prop.setLatencyStdDevMs(15);
+
+    SimCameraProperties[] camProps = new SimCameraProperties[numCameras];
+
+    for (int i = 0; i < 4; i++) {
+      camProps[i] = new SimCameraProperties();
+      camProps[i].setCalibError(0.35, 0.10);
+      camProps[i].setAvgLatencyMs(50);
+      camProps[i].setLatencyStdDevMs(15);
+    }
+
+    camProps[0].setCalibration(800, 600, Rotation2d.fromDegrees(70));
+    camProps[0].setFPS(40);
+    camProps[1].setCalibration(640, 480, Rotation2d.fromDegrees(70));
+    camProps[1].setFPS(20);
+    camProps[2].setCalibration(640, 480, Rotation2d.fromDegrees(70));
+    camProps[2].setFPS(20);
+    camProps[3].setCalibration(800, 600, Rotation2d.fromDegrees(70));
+    camProps[3].setFPS(40);
 
     // Create a PhotonCameraSim which will update the linked PhotonCamera's values
     // with visible
     // targets.
     for (int i = 0; i < numCameras; i++) {
-      camSims[i] = new PhotonCameraSim(cameras[i], cam1Prop);
+      camSims[i] = new PhotonCameraSim(cameras[i], camProps[i]);
       visionSim.addCamera(camSims[i], camsRobotToCam[i]);
     }
-
-    camSims[0].enableDrawWireframe(true);
   }
 
   @Override
-  public void updateInputs(VisionIOInputs inputs, Pose2d currentEstimate) {
+  public void updateInputs(VisionIOInputs inputs, Pose2d currentEstimate, Pose2d odometry) {
     lastEstimate = currentEstimate;
-    visionSim.update(currentEstimate);
+    visionSim.update(odometry);
 
     for (PhotonPoseEstimator estimator : camEstimators) {
       estimator.setReferencePose(currentEstimate);
@@ -138,13 +148,13 @@ public class VisionIOSim implements VisionIO {
   @Override
   public boolean goodResult(PhotonPipelineResult result) {
     return result.hasTargets()
-        && result.getBestTarget().getPoseAmbiguity() < AMBIGUITY_THRESHOLD
-        && kTagLayout
-                .getTagPose(result.getBestTarget().getFiducialId())
-                .get()
-                .toPose2d()
-                .getTranslation()
-                .getDistance(lastEstimate.getTranslation())
-            < MAX_DISTANCE;
+        && result.getBestTarget().getPoseAmbiguity() < AMBIGUITY_THRESHOLD;
+        // && kTagLayout
+        //         .getTagPose(result.getBestTarget().getFiducialId())
+        //         .get()
+        //         .toPose2d()
+        //         .getTranslation()
+        //         .getDistance(lastEstimate.getTranslation())
+        //     < MAX_DISTANCE;
   }
 }

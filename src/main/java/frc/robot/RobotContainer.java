@@ -286,8 +286,9 @@ public class RobotContainer {
   }
 
   public Command goToL1Auto() {
-    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT)
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE));
+    return coralPivot
+        .PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE)
+        .andThen(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
   }
 
   public Command goToL2Auto() {
@@ -319,7 +320,7 @@ public class RobotContainer {
   }
 
   public Command coralIntake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(2);
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.5);
   }
 
   public Command coralFeeder() {

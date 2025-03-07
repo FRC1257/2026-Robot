@@ -348,7 +348,7 @@ public class Drive extends SubsystemBase {
     // Update Elastic things
     field.setRobotPose(getPose());
 
-    matchTime.set(DriverStation.getMatchTime());
+    matchTime.set(Timer.getMatchTime());
     rotation.set(AllianceFlipUtil.apply(getRotation()).getDegrees());
   }
 

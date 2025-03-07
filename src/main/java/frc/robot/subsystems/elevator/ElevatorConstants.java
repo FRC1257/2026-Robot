@@ -44,8 +44,8 @@ public class ElevatorConstants {
   public static final double ELEVATOR_L3_HEIGHT = 0.95;
 
   // PID Constants
-  public static final double[] ELEVATOR_REAL_PID = {3, 0, 0};
-  public static final double[] ELEVATOR_REAL_FF = {0.2354, 0.35, 8.6, 0.17};
+  public static final double[] ELEVATOR_REAL_PID = {15, 0, 0};
+  public static final double[] ELEVATOR_REAL_FF = {0.2354, 0.28, 7.8, 0.17};
 
   /** Tolerance used when checking if the elevator is at the setpoint */
   public static double SETPOINT_TOLERANCE_METERS = 0.03;

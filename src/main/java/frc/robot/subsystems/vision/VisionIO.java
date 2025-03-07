@@ -167,7 +167,7 @@ public interface VisionIO {
       Optional<Pose3d> tagPose = kTagLayout.getTagPose(tgt);
       if (tagPose.isEmpty()) continue;
       numTags++;
-      avgDist +=  tagPose.get().toPose2d().getTranslation().getDistance(pose.getTranslation());
+      avgDist += tagPose.get().toPose2d().getTranslation().getDistance(pose.getTranslation());
     }
     if (numTags == 0) return estStdDevs;
     avgDist /= numTags;

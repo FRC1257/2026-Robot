@@ -1,16 +1,15 @@
 package frc.robot.subsystems.vision;
 
 import static frc.robot.subsystems.vision.VisionConstants.AMBIGUITY_THRESHOLD;
-import static frc.robot.subsystems.vision.VisionConstants.MAX_DISTANCE;
 import static frc.robot.subsystems.vision.VisionConstants.camNames;
 import static frc.robot.subsystems.vision.VisionConstants.camsRobotToCam;
-import static frc.robot.subsystems.vision.VisionConstants.getSimVersion;
 import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
 import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.PhotonCamera;
@@ -36,9 +35,7 @@ public class VisionIOSim implements VisionIO {
       cameras[i] = new PhotonCamera(camNames[i]);
       camEstimators[i] =
           new PhotonPoseEstimator(
-              kTagLayout,
-              PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,
-              camsRobotToCam[i]);
+              kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
       camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
       cameraResults[i] = new PhotonPipelineResult();
     }
@@ -86,6 +83,7 @@ public class VisionIOSim implements VisionIO {
 
     for (PhotonPoseEstimator estimator : camEstimators) {
       estimator.setReferencePose(currentEstimate);
+      estimator.addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
     }
 
     PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];
@@ -147,14 +145,13 @@ public class VisionIOSim implements VisionIO {
 
   @Override
   public boolean goodResult(PhotonPipelineResult result) {
-    return result.hasTargets()
-        && result.getBestTarget().getPoseAmbiguity() < AMBIGUITY_THRESHOLD;
-        // && kTagLayout
-        //         .getTagPose(result.getBestTarget().getFiducialId())
-        //         .get()
-        //         .toPose2d()
-        //         .getTranslation()
-        //         .getDistance(lastEstimate.getTranslation())
-        //     < MAX_DISTANCE;
+    return result.hasTargets() && result.getBestTarget().getPoseAmbiguity() < AMBIGUITY_THRESHOLD;
+    // && kTagLayout
+    //         .getTagPose(result.getBestTarget().getFiducialId())
+    //         .get()
+    //         .toPose2d()
+    //         .getTranslation()
+    //         .getDistance(lastEstimate.getTranslation())
+    //     < MAX_DISTANCE;
   }
 }

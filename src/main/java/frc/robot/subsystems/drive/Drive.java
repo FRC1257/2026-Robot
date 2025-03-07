@@ -342,18 +342,6 @@ public class Drive extends SubsystemBase {
 
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
     odometry.update(rawGyroRotation, modulePositions);
-    if(odometry.getPoseMeters().getY() < 0) {
-      odometry.resetPose(new Pose2d(
-        new Translation2d(odometry.getPoseMeters().getX(), 0),
-        odometry.getPoseMeters().getRotation()
-      ));
-    }
-    if(odometry.getPoseMeters().getX() < 0) {
-      odometry.resetPose(new Pose2d(
-        new Translation2d(0, odometry.getPoseMeters().getY()),
-        odometry.getPoseMeters().getRotation()
-      ));
-    }
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
 

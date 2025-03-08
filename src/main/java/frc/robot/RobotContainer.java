@@ -291,18 +291,22 @@ public class RobotContainer {
 
   public Command goToL1Auto() {
     return coralPivot
-        .PIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE)
-        .andThen(elevator.PIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
+        .InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L1_ANGLE)
+        .andThen(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L1_HEIGHT));
   }
 
   public Command goToL2Auto() {
-    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+    return coralPivot
+        .InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE)
+        .alongWith(coralShimmy())
+        .andThen(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT));
   }
 
   public Command goToL3Auto() {
-    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
+    return coralPivot
+        .InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE)
+        .alongWith(coralShimmy())
+        .andThen(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT));
   }
 
   public Command stowAuto() {

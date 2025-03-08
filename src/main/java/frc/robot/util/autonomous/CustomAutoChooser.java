@@ -15,7 +15,10 @@ public class CustomAutoChooser {
   public static enum StartPositions {
     s1,
     s2,
-    s3
+    s3,
+    s4,
+    s5,
+    s6
   }
 
   public static enum ReefPositions {
@@ -63,6 +66,9 @@ public class CustomAutoChooser {
     startChooser.addDefaultOption("s1", StartPositions.s1);
     startChooser.addOption("s2", StartPositions.s2);
     startChooser.addOption("s3", StartPositions.s3);
+    startChooser.addOption("s4", StartPositions.s4);
+    startChooser.addOption("s5", StartPositions.s5);
+    startChooser.addOption("s6", StartPositions.s6);
 
     // add all options for position
     for (int i = 0; i < positionChoosers.length; i++) {
@@ -79,7 +85,6 @@ public class CustomAutoChooser {
     // add all options for levels
     for (int i = 0; i < levelChoosers.length; i++) {
       levelChoosers[i] = new LoggedDashboardChooser<>("Reef Level " + (i + 1));
-
       // add all enum options to the chooser
       for (ReefLevels level : ReefLevels.values()) {
         levelChoosers[i].addOption(level.toString(), level);
@@ -118,6 +123,15 @@ public class CustomAutoChooser {
         break;
       case s3:
         startPose2d = FieldConstants.StartingPositions.startPos3;
+        break;
+      case s4:
+        startPose2d = FieldConstants.StartingPositions.startPos4;
+        break;
+      case s5:
+        startPose2d = FieldConstants.StartingPositions.startPos5;
+        break;
+      case s6:
+        startPose2d = FieldConstants.StartingPositions.startPos6;
         break;
       default:
         startPose2d = new Pose2d();

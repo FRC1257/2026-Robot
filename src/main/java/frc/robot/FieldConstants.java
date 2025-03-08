@@ -38,7 +38,12 @@ public class FieldConstants {
         new Translation2d(Units.inchesToMeters(345.428), Units.inchesToMeters(242.855));
     public static final Translation2d closeCage =
         new Translation2d(Units.inchesToMeters(345.428), Units.inchesToMeters(199.947));
-
+    public static final Translation2d farCageLow =
+        new Translation2d(Units.inchesToMeters(345.428), Units.inchesToMeters(30.221));
+    public static final Translation2d middleCageLow =
+        new Translation2d(Units.inchesToMeters(345.428), Units.inchesToMeters(74.145));
+    public static final Translation2d closeCageLow =
+        new Translation2d(Units.inchesToMeters(345.428), Units.inchesToMeters(117.053));
     // Measured from floor to bottom of cage
     public static final double deepHeight = Units.inchesToMeters(3.125);
     public static final double shallowHeight = Units.inchesToMeters(30.125);
@@ -194,6 +199,12 @@ public class FieldConstants {
         new Pose2d(startingLineX, Barge.middleCage.getY(), Rotation2d.fromDegrees(180));
     public static final Pose2d startPos3 =
         new Pose2d(startingLineX, Barge.closeCage.getY(), Rotation2d.fromDegrees(180));
+    public static final Pose2d startPos4 =
+        new Pose2d(startingLineX, Barge.closeCageLow.getY(), Rotation2d.fromDegrees(180));
+    public static final Pose2d startPos5 =
+        new Pose2d(startingLineX, Barge.middleCageLow.getY(), Rotation2d.fromDegrees(180));
+    public static final Pose2d startPos6 =
+        new Pose2d(startingLineX, Barge.farCageLow.getY(), Rotation2d.fromDegrees(180));
   }
 
   public static final double aprilTagWidth = Units.inchesToMeters(6.50);

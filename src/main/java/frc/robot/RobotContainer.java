@@ -328,7 +328,7 @@ public class RobotContainer {
   }
 
   public Command coralIntake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.5);
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(1);
   }
 
   public Command coralFeeder() {

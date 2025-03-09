@@ -96,7 +96,7 @@ public class CustomAutoChooser {
   public Command getElevatorAndPivotCommand(ReefLevels level) {
     switch (level) {
       case l1:
-        return robotContainer.goToL1Auto();
+        return robotContainer.goToL1Auto().alongWith(robotContainer.coralIntake());
       case l2:
         return robotContainer.goToL2Auto();
       case l3:

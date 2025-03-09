@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
@@ -269,14 +270,12 @@ public class RobotContainer {
 
   public Command goToL2() {
     return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L2_HEIGHT)
-        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE))
-        .andThen(coralShimmy());
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command goToL3() {
     return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_L3_HEIGHT)
-        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE))
-        .andThen(coralShimmy());
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_L2_L3_ANGLE));
   }
 
   public Command goToStation() {
@@ -326,7 +325,7 @@ public class RobotContainer {
   }
 
   public Command coralIntake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(1.0);
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(1.3);
   }
 
   public Command coralFeeder() {
@@ -342,7 +341,11 @@ public class RobotContainer {
   }
 
   public Command coralOuttake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(1.0);
+    return new WaitCommand(0.3)
+        .andThen(
+            coralIntake
+                .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED)
+                .withTimeout(1.0));
   }
 
   public Command processor() {

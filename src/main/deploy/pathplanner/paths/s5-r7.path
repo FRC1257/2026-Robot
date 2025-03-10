@@ -48,7 +48,7 @@
   "folder": "s5",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 179.0822691592788
   },
   "useDefaultConstraints": true
 }

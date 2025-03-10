@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.commands.FollowPathCommand;
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
@@ -89,6 +90,10 @@ public class Robot extends LoggedRobot {
 
     // Select the autonomous tab in elastic
     Elastic.selectTab("Autonomous");
+
+    // Pathplanner warmup command
+    // Doesn't actually do anything, just initializes everything early to improve performace
+    FollowPathCommand.warmupCommand().schedule();
   }
 
   /** This function is called periodically during all modes. */

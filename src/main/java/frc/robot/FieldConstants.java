@@ -163,18 +163,18 @@ public class FieldConstants {
   }
 
   public static final Pose2d[] REEF_POSITION = {
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d()),
-    new Pose2d(0, 0, new Rotation2d())
+    new Pose2d(3.108, 3.858, new Rotation2d()),
+    new Pose2d(3.108, 4.191, new Rotation2d()),
+    new Pose2d(3.651, 5.159, Rotation2d.fromDegrees(-60)),
+    new Pose2d(3.919, 5.343, Rotation2d.fromDegrees(-60)),
+    new Pose2d(5.049, 5.343, Rotation2d.fromDegrees(-120)),
+    new Pose2d(5.350, 5.159, Rotation2d.fromDegrees(-120)),
+    new Pose2d(5.890, 4.191, Rotation2d.fromDegrees(180)),
+    new Pose2d(5.890, 3.858, Rotation2d.fromDegrees(180)),
+    new Pose2d(5.350, 2.880, Rotation2d.fromDegrees(120)),
+    new Pose2d(5.049, 2.735, Rotation2d.fromDegrees(120)),
+    new Pose2d(3.919, 2.735, Rotation2d.fromDegrees(60)),
+    new Pose2d(3.651, 2.880, Rotation2d.fromDegrees(60))
   };
 
   public enum ReefHeight {

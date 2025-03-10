@@ -31,6 +31,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -51,6 +52,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.FieldConstants;
+import frc.robot.commands.AlignToPose;
 import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
@@ -136,9 +138,11 @@ public class Drive extends SubsystemBase {
     }
 
     // PID Constants used in AutoBuilder config
-    PIDConstants translationPID = new PIDConstants(kTranslationP, kTranslationI, kTranslationD);
+    PIDConstants translationPID =
+        new PIDConstants(
+            kPathplannerTranslationP, kPathplannerTranslationI, kPathplannerTranslationD);
     PIDConstants rotationPID =
-        new PIDConstants(kTurnPathplannerAngleP, kTurnPathplannerAngleI, kTurnPathplannerAngleD);
+        new PIDConstants(kPathplannerTurnAngleP, kPathplannerTurnAngleI, kPathplannerTurnAngleD);
 
     // Configure AutoBuilder for PathPlanner
     AutoBuilder.configure(
@@ -621,5 +625,34 @@ public class Drive extends SubsystemBase {
 
   public Command driveToReef() {
     return pathfindToPose(FieldConstants.REEF_POSITION[reefPoseIndex]);
+  }
+
+  /**
+   * A command that automatically aligns to the closest reef position
+   *
+   * @return
+   */
+  public Command alignToReef() {
+    return new AlignToPose(
+        this,
+        () -> {
+          Pose2d[] reefPoses = FieldConstants.REEF_POSITION;
+          Pose2d currentPose = getPose();
+
+          int closestPose = 0;
+          double closestDistance = Double.MAX_VALUE;
+
+          for (int i = 0; i < 12; i++) {
+            Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
+            double distance = currentToTarget.getTranslation().getNorm();
+
+            if (distance < closestDistance) {
+              closestPose = i;
+              closestDistance = distance;
+            }
+          }
+
+          return AllianceFlipUtil.apply(reefPoses[closestPose]);
+        });
   }
 }

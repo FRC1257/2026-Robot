@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.FieldConstants;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.util.drive.AllianceFlipUtil;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -270,9 +271,9 @@ public class DriveCommands {
         ySupplier,
         () -> {
           Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
-          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-125));
+          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-126));
           if (currentPose.getY() > FieldConstants.fieldWidth / 2) {
-            targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(125));
+            targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(126));
           }
           return targetRotation;
         });
@@ -315,7 +316,6 @@ public class DriveCommands {
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
-          omega = Math.copySign(omega * omega, omega);
 
           // Calcaulate new linear velocity
           Translation2d linearVelocity =
@@ -328,7 +328,10 @@ public class DriveCommands {
               ChassisSpeeds.fromFieldRelativeSpeeds(
                   linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
                   linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                  omega * drive.getMaxAngularSpeedRadPerSec(),
+                  MathUtil.clamp(
+                      omega * drive.getMaxAngularSpeedRadPerSec(),
+                      -DriveConstants.kAlignMaxAngularSpeed,
+                      DriveConstants.kAlignMaxAngularSpeed),
                   getIsFlipped()
                       ? drive.getRotation().plus(new Rotation2d(Math.PI))
                       : drive.getRotation()));

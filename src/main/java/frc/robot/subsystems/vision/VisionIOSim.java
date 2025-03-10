@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.PhotonCamera;
@@ -35,7 +36,7 @@ public class VisionIOSim implements VisionIO {
       camEstimators[i] =
           new PhotonPoseEstimator(
               kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
-      camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+      camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
       cameraResults[i] = new PhotonPipelineResult();
     }
 
@@ -82,6 +83,7 @@ public class VisionIOSim implements VisionIO {
 
     for (PhotonPoseEstimator estimator : camEstimators) {
       estimator.setReferencePose(currentEstimate);
+      estimator.addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
     }
 
     PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];

@@ -104,7 +104,7 @@ public class DriveControls {
 
         JOYSTICK_REEF_POINT = driver.b();
         JOYSTICK_STATION_POINT = driver.y();
-        JOYSTICK_PROCESSOR_POINT = driver.a();
+        JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
         break;
     }
 

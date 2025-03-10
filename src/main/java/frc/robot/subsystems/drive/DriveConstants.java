@@ -12,7 +12,7 @@ public final class DriveConstants {
   // the robot, rather the allowed maximum speeds
   public static final double periodicTime = 0.02;
   public static final double kMaxSpeedMetersPerSecond = 4.8;
-  public static final double kMaxAngularSpeed = 2 * Math.PI; // radians per second
+  public static final double kAlignMaxAngularSpeed = 2.5 * Math.PI; // radians per second
 
   public static final double kDirectionSlewRate = 1.2; // radians per second
   public static final double kMagnitudeSlewRate = 1.8; // percent per second (1 = 100%)
@@ -73,18 +73,22 @@ public final class DriveConstants {
           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
   public static final double kSlowModeConstant = 0.5;
-  public static final double kTurnPathplannerAngleP = 1.5;
-  public static final double kTurnPathplannerAngleI = 0;
-  public static final double kTurnPathplannerAngleD = 0;
+  public static final double kPathplannerTurnAngleP = 1.5;
+  public static final double kPathplannerTurnAngleI = 0;
+  public static final double kPathplannerTurnAngleD = 0;
+
+  public static final double kPathplannerTranslationP = 2;
+  public static final double kPathplannerTranslationI = 0.0;
+  public static final double kPathplannerTranslationD = 0.0;
 
   public static final double kTurnAngleTolerance = 0.05;
   public static final double kTurnAngleRateTolerance = 0.02;
 
-  public static final double kTurnAngleP = 0.9;
+  public static final double kTurnAngleP = 1.3;
   public static final double kTurnAngleI = 0;
   public static final double kTurnAngleD = 0;
 
-  public static final double kTranslationP = 2;
+  public static final double kTranslationP = 1;
   public static final double kTranslationI = 0.0;
   public static final double kTranslationD = 0.0;
 }

@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.988732710436349,
-        "y": 6.122829633019058
+        "x": 7.137015689773389,
+        "y": 5.664225754599794
       },
       "isLocked": false,
       "linkedName": "s2"
@@ -20,8 +20,8 @@
         "y": 4.182769691780822
       },
       "prevControl": {
-        "x": 5.64922352930579,
-        "y": 4.249804782521055
+        "x": 6.338228690438387,
+        "y": 4.372510786842397
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "s2",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -179.9529037509097
   },
   "useDefaultConstraints": true
 }

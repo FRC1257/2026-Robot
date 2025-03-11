@@ -16,12 +16,12 @@
     },
     {
       "anchor": {
-        "x": 3.921703767123288,
-        "y": 5.309696061643836
+        "x": 3.919,
+        "y": 5.33
       },
       "prevControl": {
-        "x": 4.705016447368421,
-        "y": 6.1802631578947365
+        "x": 4.702312680245133,
+        "y": 6.200567096250901
       },
       "nextControl": null,
       "isLocked": false,
@@ -48,7 +48,7 @@
   "folder": "s3",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 1.6365770416168393
+    "rotation": 179.57856155340403
   },
   "useDefaultConstraints": true
 }

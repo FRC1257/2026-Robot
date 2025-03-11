@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import org.littletonrobotics.junction.Logger;
 import org.photonvision.PhotonCamera;
@@ -35,7 +36,7 @@ public class VisionIOSim implements VisionIO {
       camEstimators[i] =
           new PhotonPoseEstimator(
               kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
-      camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+      camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
       cameraResults[i] = new PhotonPipelineResult();
     }
 
@@ -57,13 +58,13 @@ public class VisionIOSim implements VisionIO {
       camProps[i].setLatencyStdDevMs(15);
     }
 
-    camProps[0].setCalibration(800, 600, Rotation2d.fromDegrees(70));
+    camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[0].setFPS(40);
-    camProps[1].setCalibration(640, 480, Rotation2d.fromDegrees(70));
+    camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[1].setFPS(20);
-    camProps[2].setCalibration(640, 480, Rotation2d.fromDegrees(70));
+    camProps[2].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[2].setFPS(20);
-    camProps[3].setCalibration(800, 600, Rotation2d.fromDegrees(70));
+    camProps[3].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[3].setFPS(40);
 
     // Create a PhotonCameraSim which will update the linked PhotonCamera's values
@@ -82,6 +83,7 @@ public class VisionIOSim implements VisionIO {
 
     for (PhotonPoseEstimator estimator : camEstimators) {
       estimator.setReferencePose(currentEstimate);
+      estimator.addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
     }
 
     PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];
@@ -94,6 +96,8 @@ public class VisionIOSim implements VisionIO {
 
     // add code to check if the closest target is in front or back
     inputs.timestamp = estimateLatestTimestamp(results);
+
+    inputs.timestampArray = getTimestampArray(results);
 
     if (hasEstimate(results)) {
       inputs.estimate = getEstimatesArray(results, camEstimators);

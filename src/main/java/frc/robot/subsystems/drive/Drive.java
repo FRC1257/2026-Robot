@@ -31,6 +31,7 @@ import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -51,7 +52,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.FieldConstants;
-import frc.robot.subsystems.vision.VisionConstants;
+import frc.robot.commands.AlignToPose;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
 import frc.robot.util.autonomous.LocalADStarAK;
@@ -136,9 +137,11 @@ public class Drive extends SubsystemBase {
     }
 
     // PID Constants used in AutoBuilder config
-    PIDConstants translationPID = new PIDConstants(kTranslationP, kTranslationI, kTranslationD);
+    PIDConstants translationPID =
+        new PIDConstants(
+            kPathplannerTranslationP, kPathplannerTranslationI, kPathplannerTranslationD);
     PIDConstants rotationPID =
-        new PIDConstants(kTurnPathplannerAngleP, kTurnPathplannerAngleI, kTurnPathplannerAngleD);
+        new PIDConstants(kPathplannerTurnAngleP, kPathplannerTurnAngleI, kPathplannerTurnAngleD);
 
     // Configure AutoBuilder for PathPlanner
     AutoBuilder.configure(
@@ -289,15 +292,11 @@ public class Drive extends SubsystemBase {
         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
 
         for (int i = 0; i < visionInputs.estimate.length; i++) {
-          if (stdDeviations.size() <= i) {
+          if (visionInputs.estimate[i].equals(new Pose2d())) continue;
+          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i) continue;
+          else {
             poseEstimator.addVisionMeasurement(
-                visionInputs.estimate[i],
-                Timer.getFPGATimestamp(),
-                VisionConstants.kSingleTagStdDevs);
-            // System.out.println("Ignoring");
-          } else {
-            poseEstimator.addVisionMeasurement(
-                visionInputs.estimate[i], Timer.getFPGATimestamp(), stdDeviations.get(i));
+                visionInputs.estimate[i], visionInputs.timestampArray[i], stdDeviations.get(i));
             System.out.println(stdDeviations.get(i));
           }
         }
@@ -621,5 +620,50 @@ public class Drive extends SubsystemBase {
 
   public Command driveToReef() {
     return pathfindToPose(FieldConstants.REEF_POSITION[reefPoseIndex]);
+  }
+
+  /**
+   * A command that automatically aligns to the closest reef position
+   *
+   * @return
+   */
+  public Command alignToReef() {
+    return new AlignToPose(
+        this,
+        () -> {
+          Pose2d[] reefPoses = FieldConstants.REEF_POSITION;
+          Pose2d currentPose = getPose();
+
+          int closestPose = 0;
+          double closestDistance = Double.MAX_VALUE;
+
+          for (int i = 0; i < 12; i++) {
+            Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
+            double distance = currentToTarget.getTranslation().getNorm();
+
+            if (distance < closestDistance) {
+              closestPose = i;
+              closestDistance = distance;
+            }
+          }
+
+          return AllianceFlipUtil.apply(reefPoses[closestPose]);
+        });
+  }
+
+  /**
+   * A command that automatically aligns to the closest coral station
+   *
+   * @return
+   */
+  public Command alignToStation() {
+    return new AlignToPose(
+        this,
+        () -> {
+          if (AllianceFlipUtil.apply(getPose()).getY() > FieldConstants.fieldWidth / 2) {
+            return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[0]);
+          }
+          return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[1]);
+        });
   }
 }

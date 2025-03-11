@@ -32,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import frc.robot.FieldConstants;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.util.drive.AllianceFlipUtil;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
@@ -71,6 +72,11 @@ public class DriveCommands {
               new Rotation2d(
                   xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
           double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
+
+          // Normalize magnitude of velocity vector if it is greater than 1
+          if (linearMagnitude > 1) {
+            linearMagnitude = 1;
+          }
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
@@ -117,6 +123,11 @@ public class DriveCommands {
                   xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
           double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
 
+          // Normalize magnitude of velocity vector if it is greater than 1
+          if (linearMagnitude > 1) {
+            linearMagnitude = 1;
+          }
+
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
           omega = Math.copySign(omega * omega, omega);
@@ -138,7 +149,7 @@ public class DriveCommands {
         drive);
   }
 
-  //   /** Drive robot while pointing at a specific point on the field. */
+  /** Drive robot while pointing at a specific point on the field. */
   //   public static Command joystickReefPoint(
   //       Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
   //     angleController.enableContinuousInput(-Math.PI, Math.PI);
@@ -165,6 +176,12 @@ public class DriveCommands {
   //                       new Rotation2d(
   //                           xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() *
   // slowMode);
+
+  //                   // Normalize magnitude of velocity vector if it is greater than 1
+  //                   if(linearMagnitude > 1) {
+  //                     linearMagnitude = 1;
+  //                   }
+
   //                   Transform2d targetTransform = drive.getPose().minus(reefPose);
   //                   Rotation2d targetDirection =
   //                       new Rotation2d(targetTransform.getX(), targetTransform.getY())
@@ -184,13 +201,11 @@ public class DriveCommands {
   //                   Logger.recordOutput("DTheta", dtheta);
 
   //                   // Simple FF calculation of how much to turn the robot based on how the
-  // setpoint
-  //                   // is changing
+  //                   // setpoint is changing
   //                   // This is corrected by PID
   //                   double ffOutput =
   //                       dtheta
-  //                           / (Timer.getFPGATimestamp() - lastTime)
-  //                           / drive.getMaxAngularSpeedRadPerSec();
+  //                           / (Timer.getFPGATimestamp() - lastTime);
   //                   lastTime = Timer.getFPGATimestamp();
   //                   lastRotation = targetDirection;
 
@@ -201,9 +216,6 @@ public class DriveCommands {
 
   //                   // Square values
   //                   linearMagnitude = linearMagnitude * linearMagnitude;
-  //                   omega = Math.copySign(omega * omega, omega);
-
-  //                   omega += ffOutput;
 
   //                   // Calcaulate new linear velocity
   //                   Translation2d linearVelocity =
@@ -216,7 +228,10 @@ public class DriveCommands {
   //                       ChassisSpeeds.fromFieldRelativeSpeeds(
   //                           linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
   //                           linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-  //                           omega * drive.getMaxAngularSpeedRadPerSec(),
+  //                           MathUtil.clamp(omega * drive.getMaxAngularSpeedRadPerSec() +
+  // ffOutput,
+  //                             -DriveConstants.kAlignMaxAngularSpeed,
+  //                             DriveConstants.kAlignMaxAngularSpeed),
   //                           getIsFlipped()
   //                               ? drive.getRotation().plus(new Rotation2d(Math.PI))
   //                               : drive.getRotation()));
@@ -225,7 +240,6 @@ public class DriveCommands {
   //   }
 
   /** Drive robot while pointing to the closest reef face. */
-
   // This function checks which face robot is closest to and updates rotation based on that
   public static Command joystickReefPoint(
       Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
@@ -254,11 +268,10 @@ public class DriveCommands {
             }
           }
 
-          // Returns angle based on which face is closest
+          // Returns desired angle based on which face is closest
           Logger.recordOutput("Closest Reef Face", closestFace);
           Logger.recordOutput("Closest Reef Distance", closestDistance);
           return AllianceFlipUtil.apply(Rotation2d.fromDegrees(-60 * closestFace));
-          // return new Rotation2d();
         });
   }
 
@@ -270,9 +283,9 @@ public class DriveCommands {
         ySupplier,
         () -> {
           Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
-          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-125));
+          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-126));
           if (currentPose.getY() > FieldConstants.fieldWidth / 2) {
-            targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(125));
+            targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(126));
           }
           return targetRotation;
         });
@@ -308,6 +321,11 @@ public class DriveCommands {
               new Rotation2d(
                   xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
 
+          // Normalize magnitude of velocity vector if it is greater than 1
+          if (linearMagnitude > 1) {
+            linearMagnitude = 1;
+          }
+
           double omega =
               angleController.calculate(
                   MathUtil.angleModulus(drive.getRotation().getRadians()),
@@ -315,7 +333,6 @@ public class DriveCommands {
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
-          omega = Math.copySign(omega * omega, omega);
 
           // Calcaulate new linear velocity
           Translation2d linearVelocity =
@@ -328,7 +345,10 @@ public class DriveCommands {
               ChassisSpeeds.fromFieldRelativeSpeeds(
                   linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
                   linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-                  omega * drive.getMaxAngularSpeedRadPerSec(),
+                  MathUtil.clamp(
+                      omega * drive.getMaxAngularSpeedRadPerSec(),
+                      -DriveConstants.kAlignMaxAngularSpeed,
+                      DriveConstants.kAlignMaxAngularSpeed),
                   getIsFlipped()
                       ? drive.getRotation().plus(new Rotation2d(Math.PI))
                       : drive.getRotation()));

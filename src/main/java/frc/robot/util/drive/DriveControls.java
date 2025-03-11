@@ -33,6 +33,9 @@ public class DriveControls {
   public static Trigger JOYSTICK_STATION_POINT = EMPTY_TRIGGER;
   public static Trigger JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
 
+  public static Trigger ALIGN_REEF = EMPTY_TRIGGER;
+  public static Trigger ALIGN_STATION = EMPTY_TRIGGER;
+
   // Algae Pivot Controls
   public static DoubleSupplier ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
   public static Trigger ALGAE_PIVOT_STOW = EMPTY_TRIGGER;
@@ -104,7 +107,10 @@ public class DriveControls {
 
         JOYSTICK_REEF_POINT = driver.b();
         JOYSTICK_STATION_POINT = driver.y();
-        JOYSTICK_PROCESSOR_POINT = driver.a();
+        JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
+
+        ALIGN_REEF = driver.a();
+        ALIGN_STATION = driver.leftTrigger();
         break;
     }
 

@@ -72,7 +72,7 @@ public class AlignToPose extends Command {
 
     // Normalize x and y velocity vectors
     // if they want the robot to move faster than it physically can
-    double magnitude = Math.sqrt(xOutput * xOutput + yOutput * yOutput);
+    double magnitude = Math.hypot(xOutput, yOutput);
     if (magnitude > 1) {
       xOutput = xOutput / magnitude;
       yOutput = yOutput / magnitude;

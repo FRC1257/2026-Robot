@@ -177,6 +177,11 @@ public class FieldConstants {
     new Pose2d(3.651, 2.880, Rotation2d.fromDegrees(60))
   };
 
+  public static final Pose2d[] STATION_POSITION = {
+    new Pose2d(1.331, 6.822, Rotation2d.fromDegrees(126)),
+    new Pose2d(1.331, 1.178, Rotation2d.fromDegrees(-126))
+  };
+
   public enum ReefHeight {
     L4(Units.inchesToMeters(72), -90),
     L3(Units.inchesToMeters(47.625), -35),

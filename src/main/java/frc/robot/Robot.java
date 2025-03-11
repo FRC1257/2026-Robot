@@ -171,6 +171,6 @@ public class Robot extends LoggedRobot {
   /** This function is called periodically whilst in simulation. */
   @Override
   public void simulationPeriodic() {
-    DriverStationSim.setAllianceStationId(AllianceStationID.Blue1);
+    DriverStationSim.setAllianceStationId(AllianceStationID.Red1);
   }
 }

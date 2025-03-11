@@ -655,4 +655,20 @@ public class Drive extends SubsystemBase {
           return AllianceFlipUtil.apply(reefPoses[closestPose]);
         });
   }
+
+  /**
+   * A command that automatically aligns to the closest coral station
+   *
+   * @return
+   */
+  public Command alignToStation() {
+    return new AlignToPose(
+        this,
+        () -> {
+          if (AllianceFlipUtil.apply(getPose()).getY() > FieldConstants.fieldWidth / 2) {
+            return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[0]);
+          }
+          return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[1]);
+        });
+  }
 }

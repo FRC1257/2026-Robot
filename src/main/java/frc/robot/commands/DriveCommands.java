@@ -30,8 +30,6 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
-import frc.robot.Constants;
 import frc.robot.FieldConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
@@ -74,6 +72,11 @@ public class DriveCommands {
               new Rotation2d(
                   xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
           double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
+
+          // Normalize magnitude of velocity vector if it is greater than 1
+          if (linearMagnitude > 1) {
+            linearMagnitude = 1;
+          }
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
@@ -120,6 +123,11 @@ public class DriveCommands {
                   xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
           double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
 
+          // Normalize magnitude of velocity vector if it is greater than 1
+          if (linearMagnitude > 1) {
+            linearMagnitude = 1;
+          }
+
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
           omega = Math.copySign(omega * omega, omega);
@@ -141,7 +149,7 @@ public class DriveCommands {
         drive);
   }
 
-    /** Drive robot while pointing at a specific point on the field. */
+  /** Drive robot while pointing at a specific point on the field. */
   //   public static Command joystickReefPoint(
   //       Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
   //     angleController.enableContinuousInput(-Math.PI, Math.PI);
@@ -168,6 +176,12 @@ public class DriveCommands {
   //                       new Rotation2d(
   //                           xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() *
   // slowMode);
+
+  //                   // Normalize magnitude of velocity vector if it is greater than 1
+  //                   if(linearMagnitude > 1) {
+  //                     linearMagnitude = 1;
+  //                   }
+
   //                   Transform2d targetTransform = drive.getPose().minus(reefPose);
   //                   Rotation2d targetDirection =
   //                       new Rotation2d(targetTransform.getX(), targetTransform.getY())
@@ -214,7 +228,8 @@ public class DriveCommands {
   //                       ChassisSpeeds.fromFieldRelativeSpeeds(
   //                           linearVelocity.getX() * drive.getMaxLinearSpeedMetersPerSec(),
   //                           linearVelocity.getY() * drive.getMaxLinearSpeedMetersPerSec(),
-  //                           MathUtil.clamp(omega * drive.getMaxAngularSpeedRadPerSec() + ffOutput,
+  //                           MathUtil.clamp(omega * drive.getMaxAngularSpeedRadPerSec() +
+  // ffOutput,
   //                             -DriveConstants.kAlignMaxAngularSpeed,
   //                             DriveConstants.kAlignMaxAngularSpeed),
   //                           getIsFlipped()
@@ -253,11 +268,10 @@ public class DriveCommands {
             }
           }
 
-          // Returns angle based on which face is closest
+          // Returns desired angle based on which face is closest
           Logger.recordOutput("Closest Reef Face", closestFace);
           Logger.recordOutput("Closest Reef Distance", closestDistance);
           return AllianceFlipUtil.apply(Rotation2d.fromDegrees(-60 * closestFace));
-          // return new Rotation2d();
         });
   }
 
@@ -306,6 +320,11 @@ public class DriveCommands {
           Rotation2d linearDirection =
               new Rotation2d(
                   xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
+
+          // Normalize magnitude of velocity vector if it is greater than 1
+          if (linearMagnitude > 1) {
+            linearMagnitude = 1;
+          }
 
           double omega =
               angleController.calculate(

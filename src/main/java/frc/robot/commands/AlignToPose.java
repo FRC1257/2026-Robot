@@ -51,7 +51,7 @@ public class AlignToPose extends Command {
   @Override
   public void initialize() {
     // Set the setpoints once at the start of the command
-    // Prevents rapidly oscillating movement by guaranteeing only 1 setpoint at a time
+    // Prevents rapidly oscillating movement by going to only 1 setpoint at a time
     xPidController.setSetpoint(targetPoseSupplier.get().getX());
     yPidController.setSetpoint(targetPoseSupplier.get().getY());
     thetaPidController.setSetpoint(targetPoseSupplier.get().getRotation().getRadians());
@@ -62,17 +62,15 @@ public class AlignToPose extends Command {
     Pose2d currentPose = drive.getPose();
 
     // Field-relative PID calculations for how much to move in x and y directions
-    double xOutput =
-        xPidController.calculate(currentPose.getX()) * DriveConstants.kMaxSpeedMetersPerSecond;
-    double yOutput =
-        yPidController.calculate(currentPose.getY()) * DriveConstants.kMaxSpeedMetersPerSecond;
+    double xOutput = xPidController.calculate(currentPose.getX());
+    double yOutput = yPidController.calculate(currentPose.getY());
 
     // Normalize x and y velocity vectors
     // if they want the robot to move faster than it physically can
     double magnitude = Math.sqrt(xOutput * xOutput + yOutput * yOutput);
-    if (magnitude > DriveConstants.kMaxSpeedMetersPerSecond) {
-      xOutput = xOutput / magnitude * DriveConstants.kMaxSpeedMetersPerSecond;
-      yOutput = yOutput / magnitude * DriveConstants.kMaxSpeedMetersPerSecond;
+    if (magnitude > 1) {
+      xOutput = xOutput / magnitude;
+      yOutput = yOutput / magnitude;
     }
 
     // PID calculation for how much to turn
@@ -85,7 +83,11 @@ public class AlignToPose extends Command {
 
     // Convert field-relative speeds to robot-relative speeds
     ChassisSpeeds driveSpeeds =
-        ChassisSpeeds.fromFieldRelativeSpeeds(xOutput, yOutput, thetaOutput, drive.getRotation());
+        ChassisSpeeds.fromFieldRelativeSpeeds(
+            xOutput * DriveConstants.kMaxSpeedMetersPerSecond,
+            yOutput * DriveConstants.kMaxSpeedMetersPerSecond,
+            thetaOutput,
+            drive.getRotation());
 
     drive.runVelocity(driveSpeeds);
   }

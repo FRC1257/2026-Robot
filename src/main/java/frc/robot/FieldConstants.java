@@ -163,8 +163,8 @@ public class FieldConstants {
   }
 
   public static final Pose2d[] REEF_POSITION = {
-    new Pose2d(3.108, 3.858, new Rotation2d()),
-    new Pose2d(3.108, 4.191, new Rotation2d()),
+    new Pose2d(3.090, 3.858, new Rotation2d()),
+    new Pose2d(3.090, 4.191, new Rotation2d()),
     new Pose2d(3.651, 5.159, Rotation2d.fromDegrees(-60)),
     new Pose2d(3.919, 5.343, Rotation2d.fromDegrees(-60)),
     new Pose2d(5.049, 5.343, Rotation2d.fromDegrees(-120)),

@@ -94,7 +94,7 @@ public class DriveControls {
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
         DRIVE_ROTATE = () -> -driver.getRightX();
-        DRIVE_STOP = driver.x();
+        DRIVE_STOP = driver.rightBumper();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
@@ -109,8 +109,8 @@ public class DriveControls {
         JOYSTICK_STATION_POINT = driver.y();
         JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
 
-        ALIGN_REEF = driver.leftBumper();
-        ALIGN_STATION = driver.leftTrigger();
+        ALIGN_REEF = driver.a();
+        ALIGN_STATION = driver.x();
         break;
     }
 

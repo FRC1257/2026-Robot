@@ -281,28 +281,6 @@ public class Drive extends SubsystemBase {
     odometryLock.unlock();
     Logger.processInputs("Drive/Gyro", gyroInputs);
 
-    if (useVision) {
-      if (RobotBase.isSimulation()) {
-        visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
-      } else {
-        visionIO.updateInputs(visionInputs, getPose());
-      }
-      Logger.processInputs("Vision", visionInputs);
-      if (visionInputs.hasEstimate) {
-        List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
-
-        for (int i = 0; i < visionInputs.estimate.length; i++) {
-          if (visionInputs.estimate[i].equals(new Pose2d())) continue;
-          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i) continue;
-          else {
-            poseEstimator.addVisionMeasurement(
-                visionInputs.estimate[i], visionInputs.timestampArray[i], stdDeviations.get(i));
-            System.out.println(stdDeviations.get(i));
-          }
-        }
-      }
-    }
-
     for (var module : modules) {
       module.periodic();
     }
@@ -339,8 +317,30 @@ public class Drive extends SubsystemBase {
       rawGyroRotation = simRotation;
     }
 
-    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
     odometry.update(rawGyroRotation, modulePositions);
+
+    if (useVision) {
+      if (RobotBase.isSimulation()) {
+        visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
+      } else {
+        visionIO.updateInputs(visionInputs, getPose(), rawGyroRotation);
+      }
+      Logger.processInputs("Vision", visionInputs);
+      if (visionInputs.hasEstimate) {
+        List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
+
+        for (int i = 0; i < visionInputs.estimate.length; i++) {
+          if (visionInputs.estimate[i].equals(new Pose2d())) continue;
+          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i) continue;
+          else {
+            poseEstimator.addVisionMeasurement(
+                visionInputs.estimate[i], visionInputs.timestampArray[i], stdDeviations.get(i));
+          }
+        }
+      }
+    }
+
+    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
 

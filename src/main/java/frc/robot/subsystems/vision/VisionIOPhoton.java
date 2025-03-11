@@ -8,6 +8,7 @@ import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.net.PortForwarder;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -45,11 +46,11 @@ public class VisionIOPhoton implements VisionIO {
   }
 
   @Override
-  public void updateInputs(VisionIOInputs inputs, Pose2d currentEstimate) {
+  public void updateInputs(VisionIOInputs inputs, Pose2d currentEstimate, Rotation2d heading) {
     lastEstimate = currentEstimate;
 
     PhotonPipelineResult[] results = getAprilTagResults();
-    PhotonPoseEstimator[] photonEstimators = getAprilTagEstimators(currentEstimate);
+    PhotonPoseEstimator[] photonEstimators = getAprilTagEstimators(currentEstimate, heading);
 
     inputs.estimate = new Pose2d[] {new Pose2d()};
 
@@ -131,17 +132,17 @@ public class VisionIOPhoton implements VisionIO {
     }
   }
 
-  private PhotonPoseEstimator[] getAprilTagEstimators(Pose2d currentEstimate) {
+  private PhotonPoseEstimator[] getAprilTagEstimators(Pose2d currentEstimate, Rotation2d heading) {
     if (killSideCams.get()) {
       cameraEstimators[0].setReferencePose(currentEstimate);
-      cameraEstimators[0].addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
+      cameraEstimators[0].addHeadingData(Timer.getFPGATimestamp(), heading);
 
       return new PhotonPoseEstimator[] {cameraEstimators[0]};
     }
 
     for (PhotonPoseEstimator estimator : cameraEstimators) {
       estimator.setReferencePose(currentEstimate);
-      estimator.addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
+      estimator.addHeadingData(Timer.getFPGATimestamp(), heading);
     }
 
     return cameraEstimators;

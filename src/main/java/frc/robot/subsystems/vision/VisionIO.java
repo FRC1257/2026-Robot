@@ -3,10 +3,13 @@ package frc.robot.subsystems.vision;
 import static frc.robot.subsystems.vision.VisionConstants.kMultiTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
+import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import java.util.ArrayList;
@@ -33,43 +36,33 @@ public interface VisionIO {
   }
 
   /** Updates the set of loggable inputs. */
-  public default void updateInputs(VisionIOInputs inputs, Pose2d estimate) {}
+  // for real life
+  public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Rotation2d heading) {}
 
-  /** for sim */
+  /** Updates the set of loggable inputs. */
+  // for sim
   public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Pose2d odometry) {}
 
   public default PhotonPipelineResult getLatestResult(int camIndex) {
     return new PhotonPipelineResult();
   }
 
-  public default Optional<Pose2d>[] getEstimates(
-      PhotonPipelineResult[] results, PhotonPoseEstimator[] photonEstimator) {
-    ArrayList<Optional<Pose2d>> estimates = new ArrayList<>();
-    for (int i = 0; i < results.length; i++) {
-      PhotonPipelineResult result = results[i];
-      if (result.hasTargets()) {
-        var est = photonEstimator[i].update(result);
-        if (est.isPresent() && goodResult(result)) {
-          estimates.add(Optional.of(est.get().estimatedPose.toPose2d()));
-        } else {
-          estimates.add(Optional.empty());
-        }
-      } else {
-        estimates.add(Optional.empty());
-      }
-    }
-
-    Optional<Pose2d>[] estimatesArray = estimates.toArray(new Optional[0]);
-    return estimatesArray;
-  }
-
+  // An array containing all the current position estimates
+  // Ordered by camera index (estimate index i corresponds to camera i)
+  // If a camera has no estimate or its estimate isn't good enough, it is set as new Pose2d()
   public default Pose2d[] getEstimatesArray(
       PhotonPipelineResult[] results, PhotonPoseEstimator[] photonEstimator) {
-    Optional<Pose2d>[] estimates = getEstimates(results, photonEstimator);
-    Pose2d[] estimatesArray = new Pose2d[estimates.length];
-    for (int i = 0; i < estimates.length; i++) {
-      if (estimates[i].isPresent() && estimates[i].get() != null) {
-        estimatesArray[i] = estimates[i].get();
+
+    Pose2d[] estimatesArray = new Pose2d[numCameras];
+    for (int i = 0; i < numCameras; i++) {
+      PhotonPipelineResult result = results[i];
+      if (result.hasTargets()) {
+        var est = photonEstimator[i].update(results[i]);
+        if (est.isPresent() && goodResult(result)) {
+          estimatesArray[i] = est.get().estimatedPose.toPose2d();
+        } else {
+          estimatesArray[i] = new Pose2d();
+        }
       } else {
         estimatesArray[i] = new Pose2d();
       }
@@ -78,12 +71,17 @@ public interface VisionIO {
     return estimatesArray;
   }
 
+  // A list containing all current estimate standard deviations
+  // Ordered by camera index (std dev index i corresponds to camera i)
+  // If a camera has no targets, its corresponding std devs are set to Double.MAX_VALUE
   public default List<Matrix<N3, N1>> getStdArray(VisionIOInputs inputs, Pose2d currentPose) {
     List<Matrix<N3, N1>> stdsArray = new ArrayList<Matrix<N3, N1>>();
 
     for (int i = 0; i < getCameraTargets(inputs).length; i++) {
       if (getCameraTargets(inputs)[i].length != 0) {
         stdsArray.add(getEstimationStdDevs(inputs, currentPose, i));
+      } else {
+        stdsArray.add(VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
       }
     }
 
@@ -188,19 +186,16 @@ public interface VisionIO {
     return tags;
   }
 
+  // An array containing all latest camera result timestamps
+  // Ordered by camera index (timestamp index i corresponds to camera i)
   public default double[] getTimestampArray(PhotonPipelineResult[] results) {
-    List<Double> timestampList = new ArrayList<>();
-    for (int i = 0; i < results.length; i++) {
-      if (results[i].hasTargets()) {
-        timestampList.add(results[i].getTimestampSeconds());
-      }
+    double[] timestampArray = new double[VisionConstants.numCameras];
+
+    for (int i = 0; i < numCameras; i++) {
+      timestampArray[i] = results[i].getTimestampSeconds();
     }
 
-    double[] array = new double[timestampList.size()];
-    for (int i = 0; i < array.length; i++) {
-      array[i] = timestampList.get(i);
-    }
-    return array;
+    return timestampArray;
   }
 
   public default boolean hasEstimate(PhotonPipelineResult[] results) {

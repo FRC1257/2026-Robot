@@ -70,26 +70,12 @@ public interface VisionIO {
     for (int i = 0; i < estimates.length; i++) {
       if (estimates[i].isPresent() && estimates[i].get() != null) {
         estimatesArray[i] = estimates[i].get();
+      } else {
+        estimatesArray[i] = new Pose2d();
       }
     }
 
-    int count = 0;
-    for (int i = 0; i < estimatesArray.length; i++) {
-      if (estimatesArray[i] != null) {
-        count++;
-      }
-    }
-
-    Pose2d[] finalEstimates = new Pose2d[count];
-    int index = 0;
-    for (int i = 0; i < estimatesArray.length; i++) {
-      if (estimatesArray[i] != null) {
-        finalEstimates[index] = estimatesArray[i];
-        index++;
-      }
-    }
-
-    return finalEstimates;
+    return estimatesArray;
   }
 
   public default List<Matrix<N3, N1>> getStdArray(VisionIOInputs inputs, Pose2d currentPose) {
@@ -112,7 +98,7 @@ public interface VisionIO {
     double latestTimestamp = 0;
     int count = 0;
     for (PhotonPipelineResult result : results) {
-      latestTimestamp = result.getTimestampSeconds();
+      latestTimestamp += result.getTimestampSeconds();
       count++;
     }
     return latestTimestamp / count;
@@ -203,11 +189,18 @@ public interface VisionIO {
   }
 
   public default double[] getTimestampArray(PhotonPipelineResult[] results) {
-    double[] timestamps = new double[results.length];
+    List<Double> timestampList = new ArrayList<>();
     for (int i = 0; i < results.length; i++) {
-      timestamps[i] = results[i].getTimestampSeconds();
+      if (results[i].hasTargets()) {
+        timestampList.add(results[i].getTimestampSeconds());
+      }
     }
-    return timestamps;
+
+    double[] array = new double[timestampList.size()];
+    for (int i = 0; i < array.length; i++) {
+      array[i] = timestampList.get(i);
+    }
+    return array;
   }
 
   public default boolean hasEstimate(PhotonPipelineResult[] results) {

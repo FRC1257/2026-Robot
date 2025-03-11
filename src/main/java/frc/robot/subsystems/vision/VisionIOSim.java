@@ -58,13 +58,13 @@ public class VisionIOSim implements VisionIO {
       camProps[i].setLatencyStdDevMs(15);
     }
 
-    camProps[0].setCalibration(800, 600, Rotation2d.fromDegrees(70));
+    camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[0].setFPS(40);
-    camProps[1].setCalibration(640, 480, Rotation2d.fromDegrees(70));
+    camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[1].setFPS(20);
-    camProps[2].setCalibration(640, 480, Rotation2d.fromDegrees(70));
+    camProps[2].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[2].setFPS(20);
-    camProps[3].setCalibration(800, 600, Rotation2d.fromDegrees(70));
+    camProps[3].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[3].setFPS(40);
 
     // Create a PhotonCameraSim which will update the linked PhotonCamera's values
@@ -96,6 +96,8 @@ public class VisionIOSim implements VisionIO {
 
     // add code to check if the closest target is in front or back
     inputs.timestamp = estimateLatestTimestamp(results);
+
+    inputs.timestampArray = getTimestampArray(results);
 
     if (hasEstimate(results)) {
       inputs.estimate = getEstimatesArray(results, camEstimators);

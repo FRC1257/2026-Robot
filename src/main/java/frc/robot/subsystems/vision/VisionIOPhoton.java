@@ -9,6 +9,7 @@ import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.net.PortForwarder;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.littletonrobotics.junction.Logger;
 import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
@@ -54,6 +55,8 @@ public class VisionIOPhoton implements VisionIO {
 
     // add code to check if the closest target is in front or back
     inputs.timestamp = estimateLatestTimestamp(results);
+
+    inputs.timestampArray = getTimestampArray(results);
 
     if (hasEstimate(results)) {
       // inputs.results = results;
@@ -131,12 +134,14 @@ public class VisionIOPhoton implements VisionIO {
   private PhotonPoseEstimator[] getAprilTagEstimators(Pose2d currentEstimate) {
     if (killSideCams.get()) {
       cameraEstimators[0].setReferencePose(currentEstimate);
+      cameraEstimators[0].addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
 
       return new PhotonPoseEstimator[] {cameraEstimators[0]};
     }
 
     for (PhotonPoseEstimator estimator : cameraEstimators) {
       estimator.setReferencePose(currentEstimate);
+      estimator.addHeadingData(Timer.getFPGATimestamp(), currentEstimate.getRotation());
     }
 
     return cameraEstimators;

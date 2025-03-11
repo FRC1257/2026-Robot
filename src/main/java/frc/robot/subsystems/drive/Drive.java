@@ -53,7 +53,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.FieldConstants;
 import frc.robot.commands.AlignToPose;
-import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
 import frc.robot.util.autonomous.LocalADStarAK;
@@ -293,15 +292,11 @@ public class Drive extends SubsystemBase {
         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
 
         for (int i = 0; i < visionInputs.estimate.length; i++) {
-          if (stdDeviations.size() <= i) {
+          if (visionInputs.estimate[i].equals(new Pose2d())) continue;
+          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i) continue;
+          else {
             poseEstimator.addVisionMeasurement(
-                visionInputs.estimate[i],
-                Timer.getFPGATimestamp(),
-                VisionConstants.kSingleTagStdDevs);
-            // System.out.println("Ignoring");
-          } else {
-            poseEstimator.addVisionMeasurement(
-                visionInputs.estimate[i], Timer.getFPGATimestamp(), stdDeviations.get(i));
+                visionInputs.estimate[i], visionInputs.timestampArray[i], stdDeviations.get(i));
             System.out.println(stdDeviations.get(i));
           }
         }

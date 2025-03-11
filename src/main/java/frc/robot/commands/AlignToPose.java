@@ -50,6 +50,11 @@ public class AlignToPose extends Command {
 
   @Override
   public void initialize() {
+    // Resets state and integral term of PID controllers
+    xPidController.reset();
+    yPidController.reset();
+    thetaPidController.reset();
+
     // Set the setpoints once at the start of the command
     // Prevents rapidly oscillating movement by going to only 1 setpoint at a time
     xPidController.setSetpoint(targetPoseSupplier.get().getX());

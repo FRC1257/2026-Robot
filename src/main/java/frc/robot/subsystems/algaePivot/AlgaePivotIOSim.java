@@ -24,7 +24,7 @@ public class AlgaePivotIOSim implements AlgaePivotIO {
   // These variables are used to find the acceleration of the PID setpoint
   // (change in velocity / change in time = avg acceleration)
   double lastSpeed = 0;
-  double lastTime = Timer.getTimestamp();
+  double lastTime = Timer.getFPGATimestamp();
 
   // Simulation classes help us simulate what's going on, including gravity.
 
@@ -88,7 +88,7 @@ public class AlgaePivotIOSim implements AlgaePivotIO {
     // change in velocity / change in time = acceleration
     // Acceleration is used to calculate feedforward
     double acceleration =
-        (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getTimestamp() - lastTime);
+        (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
 
     Logger.recordOutput("CoralPivot/Acceleration", acceleration);
 
@@ -99,7 +99,7 @@ public class AlgaePivotIOSim implements AlgaePivotIO {
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
 
     lastSpeed = m_controller.getSetpoint().velocity;
-    lastTime = Timer.getTimestamp();
+    lastTime = Timer.getFPGATimestamp();
   }
 
   @Override

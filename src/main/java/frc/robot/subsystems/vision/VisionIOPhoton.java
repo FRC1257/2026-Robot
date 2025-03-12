@@ -135,14 +135,14 @@ public class VisionIOPhoton implements VisionIO {
   private PhotonPoseEstimator[] getAprilTagEstimators(Pose2d currentEstimate, Rotation2d heading) {
     if (killSideCams.get()) {
       cameraEstimators[0].setReferencePose(currentEstimate);
-      cameraEstimators[0].addHeadingData(Timer.getTimestamp(), heading);
+      cameraEstimators[0].addHeadingData(Timer.getFPGATimestamp(), heading);
 
       return new PhotonPoseEstimator[] {cameraEstimators[0]};
     }
 
     for (PhotonPoseEstimator estimator : cameraEstimators) {
       estimator.setReferencePose(currentEstimate);
-      estimator.addHeadingData(Timer.getTimestamp(), heading);
+      estimator.addHeadingData(Timer.getFPGATimestamp(), heading);
     }
 
     return cameraEstimators;

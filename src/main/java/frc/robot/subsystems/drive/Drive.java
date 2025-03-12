@@ -105,7 +105,7 @@ public class Drive extends SubsystemBase {
 
   private int reefPoseIndex;
 
-  private double lastTime = Timer.getTimestamp();
+  private double lastTime = Timer.getFPGATimestamp();
   private double deltaTime = 0;
 
   // Things that will be shown on Elastic Dashboard
@@ -270,8 +270,8 @@ public class Drive extends SubsystemBase {
   }
 
   public void periodic() {
-    deltaTime = Timer.getTimestamp() - lastTime;
-    lastTime = Timer.getTimestamp();
+    deltaTime = Timer.getFPGATimestamp() - lastTime;
+    lastTime = Timer.getFPGATimestamp();
 
     odometryLock.lock(); // Prevents odometry updates while reading data
     gyroIO.updateInputs(gyroInputs);
@@ -341,7 +341,7 @@ public class Drive extends SubsystemBase {
       }
     }
 
-    poseEstimator.updateWithTime(Timer.getTimestamp(), rawGyroRotation, modulePositions);
+    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
 

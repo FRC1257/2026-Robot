@@ -75,7 +75,7 @@ public class VisionConstants {
   // correction rate
   // (Fake values. Experiment and determine estimation noise on an actual robot.)
   public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, Double.MAX_VALUE);
-  public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, 20);
+  public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, Double.MAX_VALUE);
 
   public static Transform3d getSimVersion(Transform3d real) {
     return new Transform3d(real.getTranslation(), new Rotation3d(0, 0, real.getRotation().getZ()));

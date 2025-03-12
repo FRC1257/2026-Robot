@@ -1,5 +1,7 @@
 package frc.robot.commands;
 
+import static frc.robot.subsystems.drive.DriveConstants.kAlignMaxSpeed;
+
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -67,15 +69,17 @@ public class AlignToPose extends Command {
     Pose2d currentPose = drive.getPose();
 
     // Field-relative PID calculations for how much to move in x and y directions
-    double xOutput = xPidController.calculate(currentPose.getX());
-    double yOutput = yPidController.calculate(currentPose.getY());
+    double xOutput =
+        xPidController.calculate(currentPose.getX()) * DriveConstants.kMaxSpeedMetersPerSecond;
+    double yOutput =
+        yPidController.calculate(currentPose.getY()) * DriveConstants.kMaxSpeedMetersPerSecond;
 
     // Normalize x and y velocity vectors
-    // if they want the robot to move faster than it physically can
+    // if they want the robot to move faster than our constraint says it can
     double magnitude = Math.hypot(xOutput, yOutput);
-    if (magnitude > 1) {
-      xOutput = xOutput / magnitude;
-      yOutput = yOutput / magnitude;
+    if (magnitude > kAlignMaxSpeed) {
+      xOutput = xOutput / magnitude * kAlignMaxSpeed;
+      yOutput = yOutput / magnitude * kAlignMaxSpeed;
     }
 
     // PID calculation for how much to turn
@@ -88,11 +92,7 @@ public class AlignToPose extends Command {
 
     // Convert field-relative speeds to robot-relative speeds
     ChassisSpeeds driveSpeeds =
-        ChassisSpeeds.fromFieldRelativeSpeeds(
-            xOutput * DriveConstants.kMaxSpeedMetersPerSecond,
-            yOutput * DriveConstants.kMaxSpeedMetersPerSecond,
-            thetaOutput,
-            drive.getRotation());
+        ChassisSpeeds.fromFieldRelativeSpeeds(xOutput, yOutput, thetaOutput, drive.getRotation());
 
     drive.runVelocity(driveSpeeds);
   }

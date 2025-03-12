@@ -38,7 +38,7 @@ public class VisionIOPhoton implements VisionIO {
       cameraEstimators[i] =
           new PhotonPoseEstimator(
               kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
-      cameraEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+      cameraEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
       cameraResults[i] = new PhotonPipelineResult();
     }
 

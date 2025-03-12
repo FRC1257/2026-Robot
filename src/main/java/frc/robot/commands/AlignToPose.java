@@ -82,6 +82,12 @@ public class AlignToPose extends Command {
       yOutput = yOutput / magnitude * kAlignMaxSpeed;
     }
 
+    // If x and y outputs are very very small, set them to 0
+    if (xOutput < 0.01 && yOutput < 0.01) {
+      xOutput = 0;
+      yOutput = 0;
+    }
+
     // PID calculation for how much to turn
     double thetaOutput =
         MathUtil.clamp(

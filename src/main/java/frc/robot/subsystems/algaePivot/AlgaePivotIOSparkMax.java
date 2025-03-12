@@ -177,7 +177,8 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
       // change in velocity / change in time = acceleration
       // Acceleration is used to calculate feedforward
       double acceleration =
-          (pidController.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+          (pidController.getSetpoint().velocity - lastSpeed)
+              / (Timer.getFPGATimestamp() - lastTime);
 
       Logger.recordOutput("CoralPivot/Acceleration", acceleration);
 

@@ -462,8 +462,9 @@ public class Drive extends SubsystemBase {
   } */
   @AutoLogOutput(key = "Drive/Rotation")
   public Rotation2d getRotation() {
-    // return Rotation2d.fromDegrees(gyroIO.getYawAngle());
-    return getPose().getRotation();
+    if (gyroInputs.connected) return Rotation2d.fromDegrees(gyroIO.getYawAngle());
+    return simRotation;
+    // return getPose().getRotation();
   }
 
   /** Resets the current odometry pose. */

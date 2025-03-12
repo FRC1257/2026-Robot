@@ -83,7 +83,7 @@ public class VisionIOSim implements VisionIO {
 
     for (PhotonPoseEstimator estimator : camEstimators) {
       estimator.setReferencePose(currentEstimate);
-      estimator.addHeadingData(Timer.getFPGATimestamp(), odometry.getRotation());
+      estimator.addHeadingData(Timer.getTimestamp(), odometry.getRotation());
     }
 
     PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];

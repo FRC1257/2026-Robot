@@ -26,7 +26,7 @@ public class ElevatorIOSim implements ElevatorIO {
   // These variables are used to find the acceleration of the PID setpoint (change in velocity /
   // time = avg acceleration)
   double lastSpeed = 0;
-  double lastTime = Timer.getFPGATimestamp();
+  double lastTime = Timer.getTimestamp();
 
   // Simulation classes help us simulate what's going on, including gravity.
   // This arm sim represents an arm that can travel from -75 degrees (rotated down
@@ -90,14 +90,14 @@ public class ElevatorIOSim implements ElevatorIO {
     // change in velocity / change in time = acceleration
     // Acceleration is used to calculate feedforward
     double acceleration =
-        (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+        (m_controller.getSetpoint().velocity - lastSpeed) / (Timer.getTimestamp() - lastTime);
 
     double ffOutput = feedforward.calculate(m_controller.getSetpoint().velocity, acceleration);
 
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
 
     lastSpeed = m_controller.getSetpoint().velocity;
-    lastTime = Timer.getFPGATimestamp();
+    lastTime = Timer.getTimestamp();
   }
 
   @Override

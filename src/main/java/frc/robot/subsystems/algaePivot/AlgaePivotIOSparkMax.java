@@ -44,7 +44,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
   // These variables are used to find the acceleration of the PID setpoint
   // (change in velocity / change in time = avg acceleration)
   double lastSpeed = 0;
-  double lastTime = Timer.getFPGATimestamp();
+  double lastTime = Timer.getTimestamp();
 
   public AlgaePivotIOSparkMax() {
     pivotMotor = new SparkMax(AlgaePivotConstants.ALGAE_PIVOT_ID, MotorType.kBrushless);
@@ -160,7 +160,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
       // Acceleration is used to calculate feedforward
       double acceleration =
           (pidControllerActive.getSetpoint().velocity - lastSpeed)
-              / (Timer.getFPGATimestamp() - lastTime);
+              / (Timer.getTimestamp() - lastTime);
 
       Logger.recordOutput("CoralPivot/Acceleration", acceleration);
 
@@ -177,8 +177,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
       // change in velocity / change in time = acceleration
       // Acceleration is used to calculate feedforward
       double acceleration =
-          (pidController.getSetpoint().velocity - lastSpeed)
-              / (Timer.getFPGATimestamp() - lastTime);
+          (pidController.getSetpoint().velocity - lastSpeed) / (Timer.getTimestamp() - lastTime);
 
       Logger.recordOutput("CoralPivot/Acceleration", acceleration);
 
@@ -196,7 +195,7 @@ public class AlgaePivotIOSparkMax implements AlgaePivotIO {
 
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
 
-    lastTime = Timer.getFPGATimestamp();
+    lastTime = Timer.getTimestamp();
   }
 
   @Override

@@ -54,7 +54,7 @@ public class ModuleIOSim implements ModuleIO {
   private final PIDController turnFeedback = new PIDController(10.0, 0.0, 0.0);
 
   private double lastTurnSetpoint = 0;
-  private double lastTime = Timer.getFPGATimestamp();
+  private double lastTime = Timer.getTimestamp();
 
   public ModuleIOSim() {
     turnFeedback.enableContinuousInput(0, 2 * Constants.PI);
@@ -80,7 +80,7 @@ public class ModuleIOSim implements ModuleIO {
     inputs.turnAppliedVolts = turnAppliedVolts;
     inputs.turnCurrentAmps = new double[] {Math.abs(turnSim.getCurrentDrawAmps())};
 
-    inputs.odometryTimestamps = new double[] {Timer.getFPGATimestamp()};
+    inputs.odometryTimestamps = new double[] {Timer.getTimestamp()};
     inputs.odometryDrivePositionsRad = new double[] {inputs.drivePositionRad};
     inputs.odometryTurnPositions = new Rotation2d[] {inputs.turnPosition};
   }
@@ -114,8 +114,8 @@ public class ModuleIOSim implements ModuleIO {
       dtheta += 2 * Constants.PI;
     }
 
-    double setpointVelocity = dtheta / (Timer.getFPGATimestamp() - lastTime);
-    lastTime = Timer.getFPGATimestamp();
+    double setpointVelocity = dtheta / (Timer.getTimestamp() - lastTime);
+    lastTime = Timer.getTimestamp();
     lastTurnSetpoint = angle;
     double ffOutput = turnFeedforward.calculate(setpointVelocity);
     setTurnVoltage(turnFeedback.calculate(turnSim.getAngularPositionRad(), angle) + ffOutput);

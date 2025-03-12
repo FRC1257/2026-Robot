@@ -52,7 +52,7 @@ public class DriveCommands {
       new LoggedNetworkBoolean("/SmartDashboard/ShootSide", false);
 
   private static Rotation2d lastRotation = new Rotation2d();
-  private static double lastTime = Timer.getFPGATimestamp();
+  private static double lastTime = Timer.getTimestamp();
 
   /**
    * Field relative drive command using two joysticks (controlling linear and angular velocities).
@@ -203,8 +203,8 @@ public class DriveCommands {
                   // Simple FF calculation of how much to turn the robot based on how the
                   // setpoint is changing
                   // This is corrected by PID
-                  double ffOutput = dtheta / (Timer.getFPGATimestamp() - lastTime);
-                  lastTime = Timer.getFPGATimestamp();
+                  double ffOutput = dtheta / (Timer.getTimestamp() - lastTime);
+                  lastTime = Timer.getTimestamp();
                   lastRotation = targetDirection;
 
                   double omega =

@@ -48,7 +48,7 @@ public class ElevatorIOSparkMax implements ElevatorIO {
   // These variables are used to find the acceleration of the PID setpoint
   // (change in velocity / time = avg acceleration)
   double lastSpeed = 0;
-  double lastTime = Timer.getFPGATimestamp();
+  double lastTime = Timer.getTimestamp();
 
   public ElevatorIOSparkMax() {
     leftMotor = new SparkMax(ElevatorConstants.LEFT_MOTOR_ID, MotorType.kBrushless);
@@ -132,14 +132,14 @@ public class ElevatorIOSparkMax implements ElevatorIO {
     // change in velocity / change in time = acceleration
     // Acceleration is used to calculate feedforward
     double acceleration =
-        (pidController.getSetpoint().velocity - lastSpeed) / (Timer.getFPGATimestamp() - lastTime);
+        (pidController.getSetpoint().velocity - lastSpeed) / (Timer.getTimestamp() - lastTime);
 
     double ffOutput = feedforward.calculate(pidController.getSetpoint().velocity, acceleration);
 
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
 
     lastSpeed = pidController.getSetpoint().velocity;
-    lastTime = Timer.getFPGATimestamp();
+    lastTime = Timer.getTimestamp();
   }
 
   @Override

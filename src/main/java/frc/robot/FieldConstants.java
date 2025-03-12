@@ -162,20 +162,56 @@ public class FieldConstants {
         new Pose2d(Units.inchesToMeters(48), Units.inchesToMeters(86.5), new Rotation2d());
   }
 
-  public static final Pose2d[] REEF_POSITION = {
-    new Pose2d(3.090, 3.858, new Rotation2d()),
-    new Pose2d(3.090, 4.191, new Rotation2d()),
-    new Pose2d(3.651, 5.159, Rotation2d.fromDegrees(-60)),
-    new Pose2d(3.919, 5.343, Rotation2d.fromDegrees(-60)),
-    new Pose2d(5.049, 5.343, Rotation2d.fromDegrees(-120)),
-    new Pose2d(5.350, 5.159, Rotation2d.fromDegrees(-120)),
-    new Pose2d(5.890, 4.191, Rotation2d.fromDegrees(180)),
-    new Pose2d(5.890, 3.858, Rotation2d.fromDegrees(180)),
-    new Pose2d(5.350, 2.880, Rotation2d.fromDegrees(120)),
-    new Pose2d(5.049, 2.735, Rotation2d.fromDegrees(120)),
-    new Pose2d(3.919, 2.735, Rotation2d.fromDegrees(60)),
-    new Pose2d(3.651, 2.880, Rotation2d.fromDegrees(60))
-  };
+  public static final Pose2d[] ReefScoringPositions = getReefScoringPositions();
+
+  // The distance backward from the reef that the center of the robot should be when scoring
+  public static final double distanceBackFromReef = 0.65;
+
+  // Calculates all the reef scoring positions using the centers of the faces as a reference
+  public static Pose2d[] getReefScoringPositions() {
+    Pose2d[] positions = new Pose2d[12];
+
+    for (int i = 0; i < 12; i++) {
+      // Use center of face as a reference and rotate it 180 degrees to point towards reef instead
+      // of away
+      Pose2d centerFacePose = Reef.centerFaces[i / 2];
+      Pose2d scoringPose =
+          new Pose2d(
+              centerFacePose.getTranslation(),
+              centerFacePose.getRotation().rotateBy(Rotation2d.fromDegrees(180)));
+
+      // Alternate between translating each position to the left and right of the center of the face
+      switch (i % 2) {
+        case 0:
+          scoringPose =
+              translateCoordinates(
+                  scoringPose, centerFacePose.getRotation().getDegrees() + 90, 0.164338);
+          break;
+        case 1:
+          scoringPose =
+              translateCoordinates(
+                  scoringPose, centerFacePose.getRotation().getDegrees() - 90, 0.164338);
+          break;
+      }
+
+      // Move position backwards
+      positions[i] =
+          translateCoordinates(
+              scoringPose, centerFacePose.getRotation().getDegrees(), distanceBackFromReef);
+    }
+
+    return positions;
+  }
+
+  // Translates the coordinates of originalPose by some distance at some angle
+  // Stolen- uhhh taken inspiration from team 6964 BearBots
+  public static Pose2d translateCoordinates(
+      Pose2d originalPose, double degreesRotate, double distance) {
+    double newXCoord = originalPose.getX() + (Math.cos(Math.toRadians(degreesRotate)) * distance);
+    double newYCoord = originalPose.getY() + (Math.sin(Math.toRadians(degreesRotate)) * distance);
+
+    return new Pose2d(newXCoord, newYCoord, originalPose.getRotation());
+  }
 
   public static final Pose2d[] STATION_POSITION = {
     new Pose2d(1.331, 6.822, Rotation2d.fromDegrees(126)),

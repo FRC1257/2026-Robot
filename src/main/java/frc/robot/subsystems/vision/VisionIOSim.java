@@ -92,7 +92,8 @@ public class VisionIOSim implements VisionIO {
       results[i] = getLatestResult(i);
     }
 
-    inputs.estimate = new Pose2d[] {new Pose2d()};
+    inputs.positionEstimates = new Pose2d[] {new Pose2d()};
+    inputs.rotationEstimates = new Rotation2d[] {odometry.getRotation()};
 
     // add code to check if the closest target is in front or back
     inputs.timestamp = estimateLatestTimestamp(results);
@@ -100,7 +101,8 @@ public class VisionIOSim implements VisionIO {
     inputs.timestampArray = getTimestampArray(results);
 
     if (hasEstimate(results)) {
-      inputs.estimate = getEstimatesArray(results, camEstimators);
+      inputs.positionEstimates = getEstimatesArray(results, camEstimators);
+      inputs.rotationEstimates = getRotationEstimates(odometry);
       inputs.hasEstimate = true;
 
       inputs.cameraTargets = getCameraTargets(results);
@@ -138,6 +140,16 @@ public class VisionIOSim implements VisionIO {
     }
 
     return cameraResults[camIndex];
+  }
+
+  private Rotation2d[] getRotationEstimates(Pose2d referencePose) {
+    Rotation2d[] rotationEstimates = new Rotation2d[numCameras];
+
+    for (int i = 0; i < numCameras; i++) {
+      rotationEstimates[i] = referencePose.getRotation();
+    }
+
+    return rotationEstimates;
   }
 
   /** A Field2d for visualizing our robot and objects on the field. */

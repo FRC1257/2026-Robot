@@ -28,6 +28,7 @@ import com.pathplanner.lib.path.Waypoint;
 import com.pathplanner.lib.pathfinding.Pathfinding;
 import com.pathplanner.lib.util.PathPlannerLogging;
 import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -321,21 +322,39 @@ public class Drive extends SubsystemBase {
 
     if (useVision) {
       if (RobotBase.isSimulation()) {
+        // Use odometry as "actual robot position" in vision simulation
         visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
       } else {
-        visionIO.updateInputs(visionInputs, getPose(), rawGyroRotation);
+        // Estimate current heading using previous heading and current angular velocity
+        visionIO.updateInputs(
+            visionInputs,
+            getPose(),
+            getRotation()
+                .rotateBy(Rotation2d.fromRadians(fieldVelocity.omegaRadiansPerSecond * deltaTime)));
       }
       Logger.processInputs("Vision", visionInputs);
       if (visionInputs.hasEstimate) {
         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
 
-        for (int i = 0; i < visionInputs.estimate.length; i++) {
-          if (visionInputs.estimate[i].equals(new Pose2d())) continue; // Camera i has no estimate
+        for (int i = 0; i < visionInputs.positionEstimates.length; i++) {
+          Matrix<N3, N1> allStdDevs = stdDeviations.get(i);
+          Matrix<N3, N1> positionStdDevs =
+              VecBuilder.fill(allStdDevs.get(0, 0), allStdDevs.get(1, 0), Double.MAX_VALUE);
+          Matrix<N3, N1> rotationStdDevs =
+              VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, allStdDevs.get(2, 0));
+
+          if (visionInputs.positionEstimates[i].equals(new Pose2d()))
+            continue; // Camera i has no estimate
           else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i)
             continue; // Avoids index out of bounds exceptions
           else {
+            // Position and rotation estimates are done separately by different algorithms
             poseEstimator.addVisionMeasurement(
-                visionInputs.estimate[i], visionInputs.timestampArray[i], stdDeviations.get(i));
+                visionInputs.positionEstimates[i], visionInputs.timestampArray[i], positionStdDevs);
+            poseEstimator.addVisionMeasurement(
+                new Pose2d(0, 0, visionInputs.rotationEstimates[i]),
+                visionInputs.timestampArray[i],
+                rotationStdDevs);
           }
         }
       }
@@ -462,9 +481,9 @@ public class Drive extends SubsystemBase {
   } */
   @AutoLogOutput(key = "Drive/Rotation")
   public Rotation2d getRotation() {
-    if (gyroInputs.connected) return Rotation2d.fromDegrees(gyroIO.getYawAngle());
-    return simRotation;
-    // return getPose().getRotation();
+    // if (gyroInputs.connected) return Rotation2d.fromDegrees(gyroIO.getYawAngle());
+    // return simRotation;
+    return getPose().getRotation();
   }
 
   /** Resets the current odometry pose. */
@@ -621,7 +640,7 @@ public class Drive extends SubsystemBase {
   }
 
   public Command driveToReef() {
-    return pathfindToPose(FieldConstants.REEF_POSITION[reefPoseIndex]);
+    return pathfindToPose(FieldConstants.ReefScoringPositions[reefPoseIndex]);
   }
 
   /**
@@ -633,7 +652,7 @@ public class Drive extends SubsystemBase {
     return new AlignToPose(
         this,
         () -> {
-          Pose2d[] reefPoses = FieldConstants.REEF_POSITION;
+          Pose2d[] reefPoses = FieldConstants.ReefScoringPositions;
           Pose2d currentPose = getPose();
 
           int closestPose = 0;

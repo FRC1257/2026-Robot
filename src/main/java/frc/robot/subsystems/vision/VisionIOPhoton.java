@@ -22,7 +22,8 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 
 public class VisionIOPhoton implements VisionIO {
   private final PhotonCamera[] cameras = new PhotonCamera[numCameras];
-  private final PhotonPoseEstimator[] cameraEstimators = new PhotonPoseEstimator[numCameras];
+  private final PhotonPoseEstimator[] positionEstimators = new PhotonPoseEstimator[numCameras];
+  private final PhotonPoseEstimator[] rotationEstimators = new PhotonPoseEstimator[numCameras];
   private final PhotonPipelineResult[] cameraResults = new PhotonPipelineResult[numCameras];
 
   private Pose2d lastEstimate = new Pose2d();
@@ -35,10 +36,20 @@ public class VisionIOPhoton implements VisionIO {
 
     for (int i = 0; i < numCameras; i++) {
       cameras[i] = new PhotonCamera(camNames[i]);
-      cameraEstimators[i] =
+
+      positionEstimators[i] =
           new PhotonPoseEstimator(
               kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
-      cameraEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+      positionEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+
+      // These estimators are used specifically to mitigate gyro drifting
+      // LOWEST_AMBIGUITY is unreliable at estimating position but any additional rotation data is
+      // worth it
+      rotationEstimators[i] =
+          new PhotonPoseEstimator(
+              kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
+      rotationEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+
       cameraResults[i] = new PhotonPipelineResult();
     }
 
@@ -51,8 +62,10 @@ public class VisionIOPhoton implements VisionIO {
 
     PhotonPipelineResult[] results = getAprilTagResults();
     PhotonPoseEstimator[] photonEstimators = getAprilTagEstimators(currentEstimate, heading);
+    PhotonPoseEstimator[] photonRotationEstimators = getRotationEstimators(currentEstimate);
 
-    inputs.estimate = new Pose2d[] {new Pose2d()};
+    inputs.positionEstimates = new Pose2d[] {new Pose2d()};
+    inputs.rotationEstimates = new Rotation2d[] {heading};
 
     // add code to check if the closest target is in front or back
     inputs.timestamp = estimateLatestTimestamp(results);
@@ -61,7 +74,8 @@ public class VisionIOPhoton implements VisionIO {
 
     if (hasEstimate(results)) {
       // inputs.results = results;
-      inputs.estimate = getEstimatesArray(results, photonEstimators);
+      inputs.positionEstimates = getEstimatesArray(results, photonEstimators);
+      inputs.rotationEstimates = getRotationEstimates(results, photonRotationEstimators);
       inputs.hasEstimate = true;
 
       inputs.cameraTargets = getCameraTargets(results);
@@ -134,18 +148,32 @@ public class VisionIOPhoton implements VisionIO {
 
   private PhotonPoseEstimator[] getAprilTagEstimators(Pose2d currentEstimate, Rotation2d heading) {
     if (killSideCams.get()) {
-      cameraEstimators[0].setReferencePose(currentEstimate);
-      cameraEstimators[0].addHeadingData(Timer.getFPGATimestamp(), heading);
+      positionEstimators[0].setReferencePose(currentEstimate);
+      positionEstimators[0].addHeadingData(Timer.getFPGATimestamp(), heading);
 
-      return new PhotonPoseEstimator[] {cameraEstimators[0]};
+      return new PhotonPoseEstimator[] {positionEstimators[0]};
     }
 
-    for (PhotonPoseEstimator estimator : cameraEstimators) {
+    for (PhotonPoseEstimator estimator : positionEstimators) {
       estimator.setReferencePose(currentEstimate);
       estimator.addHeadingData(Timer.getFPGATimestamp(), heading);
     }
 
-    return cameraEstimators;
+    return positionEstimators;
+  }
+
+  private PhotonPoseEstimator[] getRotationEstimators(Pose2d currentEstimate) {
+    if (killSideCams.get()) {
+      positionEstimators[0].setReferencePose(currentEstimate);
+
+      return new PhotonPoseEstimator[] {positionEstimators[0]};
+    }
+
+    for (PhotonPoseEstimator estimator : positionEstimators) {
+      estimator.setReferencePose(currentEstimate);
+    }
+
+    return positionEstimators;
   }
 
   @Override

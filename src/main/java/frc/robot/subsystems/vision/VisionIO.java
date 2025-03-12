@@ -24,7 +24,8 @@ public interface VisionIO {
 
   @AutoLog
   public static class VisionIOInputs {
-    public Pose2d[] estimate = new Pose2d[0];
+    public Pose2d[] positionEstimates = new Pose2d[0];
+    public Rotation2d[] rotationEstimates = new Rotation2d[0];
     public double timestamp = 0;
     public double[] timestampArray = new double[0];
 
@@ -65,6 +66,30 @@ public interface VisionIO {
         }
       } else {
         estimatesArray[i] = new Pose2d();
+      }
+    }
+
+    return estimatesArray;
+  }
+
+  // An array containing all the current rotation estimates
+  // Ordered by camera index (estimate index i corresponds to camera i)
+  // If a camera has no estimate or its estimate isn't good enough, it is set as new Rotation2d()
+  public default Rotation2d[] getRotationEstimates(
+      PhotonPipelineResult[] results, PhotonPoseEstimator[] estimators) {
+
+    Rotation2d[] estimatesArray = new Rotation2d[numCameras];
+    for (int i = 0; i < numCameras; i++) {
+      PhotonPipelineResult result = results[i];
+      if (result.hasTargets()) {
+        var est = estimators[i].update(results[i]);
+        if (est.isPresent() && goodResult(result)) {
+          estimatesArray[i] = est.get().estimatedPose.toPose2d().getRotation();
+        } else {
+          estimatesArray[i] = new Rotation2d();
+        }
+      } else {
+        estimatesArray[i] = new Rotation2d();
       }
     }
 

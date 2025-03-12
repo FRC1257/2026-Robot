@@ -330,8 +330,9 @@ public class Drive extends SubsystemBase {
         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
 
         for (int i = 0; i < visionInputs.estimate.length; i++) {
-          if (visionInputs.estimate[i].equals(new Pose2d())) continue;
-          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i) continue;
+          if (visionInputs.estimate[i].equals(new Pose2d())) continue; // Camera i has no estimate
+          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i)
+            continue; // Avoids index out of bounds exceptions
           else {
             poseEstimator.addVisionMeasurement(
                 visionInputs.estimate[i], visionInputs.timestampArray[i], stdDeviations.get(i));

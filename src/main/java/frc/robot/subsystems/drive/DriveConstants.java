@@ -74,22 +74,24 @@ public final class DriveConstants {
           kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
 
   public static final double kSlowModeConstant = 0.5;
-  public static final double kPathplannerTurnAngleP = 1.5;
+  public static final double kPathplannerTurnAngleP = 3;
   public static final double kPathplannerTurnAngleI = 0;
   public static final double kPathplannerTurnAngleD = 0;
 
-  public static final double kPathplannerTranslationP = 2;
+  public static final double kPathplannerTranslationP = 5;
   public static final double kPathplannerTranslationI = 0.0;
   public static final double kPathplannerTranslationD = 0.0;
 
   public static final double kTurnAngleTolerance = 0.05;
   public static final double kTurnAngleRateTolerance = 0.02;
 
+  public static final double kAlignPositionTolerance = 0.03;
+
   public static final double kTurnAngleP = 0.4;
   public static final double kTurnAngleI = 0;
   public static final double kTurnAngleD = 0;
 
-  public static final double kTranslationP = 0.6;
+  public static final double kTranslationP = 0.7;
   public static final double kTranslationI = 0.0;
   public static final double kTranslationD = 0.0;
 }

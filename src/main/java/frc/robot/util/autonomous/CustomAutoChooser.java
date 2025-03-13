@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
 import frc.robot.RobotContainer;
+import frc.robot.subsystems.algaePivot.AlgaePivot;
+import frc.robot.subsystems.algaePivot.AlgaePivotConstants;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.util.drive.AllianceFlipUtil;
 import java.util.ArrayList;
@@ -56,10 +58,12 @@ public class CustomAutoChooser {
 
   private Drive drive;
   private RobotContainer robotContainer;
+  private AlgaePivot algaePivot;
 
-  public CustomAutoChooser(RobotContainer robotContainer, Drive drive) {
+  public CustomAutoChooser(RobotContainer robotContainer, Drive drive, AlgaePivot algaePivot) {
     this.drive = drive;
     this.robotContainer = robotContainer;
+    this.algaePivot = algaePivot;
 
     // initializes the choosers
     startChooser = new LoggedDashboardChooser<>("Starting Position ");
@@ -96,7 +100,7 @@ public class CustomAutoChooser {
   public Command getElevatorAndPivotCommand(ReefLevels level) {
     switch (level) {
       case l1:
-        return robotContainer.goToL1Auto().alongWith(robotContainer.coralIntake());
+        return robotContainer.goToL1Auto();
       case l2:
         return robotContainer.goToL2Auto();
       case l3:
@@ -144,7 +148,8 @@ public class CustomAutoChooser {
             () -> {
               drive.setPose(AllianceFlipUtil.apply(startPose2d));
             },
-            drive));
+            drive),
+        algaePivot.InstantPIDCommand(AlgaePivotConstants.ALGAE_PIVOT_STOW_ANGLE));
 
     // make a ReefPos list that skips over all the NONE positions
     for (int i = 0; i < positionChoosers.length; i++) {
@@ -160,10 +165,14 @@ public class CustomAutoChooser {
 
     // Drive from start position to first reef position and drop preloaded coral
     Command driveStartToReef =
-        drive.followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString());
+        drive
+            .followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString())
+            .andThen(drive.alignToReefAuto());
 
     commandGroup.addCommands(
-        driveStartToReef.alongWith(getElevatorAndPivotCommand(reefLevels.get(0))),
+        driveStartToReef
+            .alongWith(getElevatorAndPivotCommand(reefLevels.get(0)))
+            .deadlineFor(robotContainer.coralIntakeForever()),
         (robotContainer.coralOuttake()));
 
     // returns poses for reef positions
@@ -200,19 +209,24 @@ public class CustomAutoChooser {
 
       // drives to the stations
       Command driveStationCommand =
-          drive.followPathFileCommand(
-              currentReefPosition.toString() + "-" + coralStationPos.toString());
+          drive
+              .followPathFileCommand(
+                  currentReefPosition.toString() + "-" + coralStationPos.toString())
+              .andThen(drive.alignToStationAuto());
 
       // drives to the reef position chosen
       Command driveReefCommand =
-          drive.followPathFileCommand(
-              coralStationPos.toString() + "-" + nextReefPosition.toString());
+          drive
+              .followPathFileCommand(coralStationPos.toString() + "-" + nextReefPosition.toString())
+              .andThen(drive.alignToReefAuto());
 
       // combines all the commands needed
       commandGroup.addCommands(
           driveStationCommand.alongWith(robotContainer.goToStationAuto()),
           robotContainer.coralIntake(),
-          driveReefCommand.alongWith(getElevatorAndPivotCommand(reefLevel)),
+          driveReefCommand
+              .alongWith(getElevatorAndPivotCommand(reefLevel))
+              .deadlineFor(robotContainer.coralIntakeForever()),
           robotContainer.coralOuttake());
     }
     return commandGroup;

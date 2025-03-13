@@ -670,7 +670,38 @@ public class Drive extends SubsystemBase {
           }
 
           return AllianceFlipUtil.apply(reefPoses[closestPose]);
-        });
+        },
+        false);
+  }
+
+  /**
+   * A command that automatically aligns to the closest reef position
+   *
+   * @return
+   */
+  public Command alignToReefAuto() {
+    return new AlignToPose(
+        this,
+        () -> {
+          Pose2d[] reefPoses = FieldConstants.ReefScoringPositions;
+          Pose2d currentPose = getPose();
+
+          int closestPose = 0;
+          double closestDistance = Double.MAX_VALUE;
+
+          for (int i = 0; i < 12; i++) {
+            Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
+            double distance = currentToTarget.getTranslation().getNorm();
+
+            if (distance < closestDistance) {
+              closestPose = i;
+              closestDistance = distance;
+            }
+          }
+
+          return AllianceFlipUtil.apply(reefPoses[closestPose]);
+        },
+        true);
   }
 
   /**
@@ -686,6 +717,24 @@ public class Drive extends SubsystemBase {
             return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[0]);
           }
           return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[1]);
-        });
+        },
+        false);
+  }
+
+  /**
+   * A command that automatically aligns to the closest coral station
+   *
+   * @return
+   */
+  public Command alignToStationAuto() {
+    return new AlignToPose(
+        this,
+        () -> {
+          if (AllianceFlipUtil.apply(getPose()).getY() > FieldConstants.fieldWidth / 2) {
+            return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[0]);
+          }
+          return AllianceFlipUtil.apply(FieldConstants.STATION_POSITION[1]);
+        },
+        true);
   }
 }

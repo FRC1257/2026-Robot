@@ -61,7 +61,7 @@ public class VisionIOPhoton implements VisionIO {
     lastEstimate = currentEstimate;
 
     PhotonPipelineResult[] results = getAprilTagResults();
-    PhotonPoseEstimator[] photonEstimators = getAprilTagEstimators(currentEstimate, heading);
+    PhotonPoseEstimator[] photonEstimators = getPositionEstimators(currentEstimate, heading);
     PhotonPoseEstimator[] photonRotationEstimators = getRotationEstimators(currentEstimate);
 
     inputs.positionEstimates = new Pose2d[] {new Pose2d()};
@@ -146,7 +146,7 @@ public class VisionIOPhoton implements VisionIO {
     }
   }
 
-  private PhotonPoseEstimator[] getAprilTagEstimators(Pose2d currentEstimate, Rotation2d heading) {
+  private PhotonPoseEstimator[] getPositionEstimators(Pose2d currentEstimate, Rotation2d heading) {
     if (killSideCams.get()) {
       positionEstimators[0].setReferencePose(currentEstimate);
       positionEstimators[0].addHeadingData(Timer.getFPGATimestamp(), heading);
@@ -164,16 +164,16 @@ public class VisionIOPhoton implements VisionIO {
 
   private PhotonPoseEstimator[] getRotationEstimators(Pose2d currentEstimate) {
     if (killSideCams.get()) {
-      positionEstimators[0].setReferencePose(currentEstimate);
+      rotationEstimators[0].setReferencePose(currentEstimate);
 
-      return new PhotonPoseEstimator[] {positionEstimators[0]};
+      return new PhotonPoseEstimator[] {rotationEstimators[0]};
     }
 
-    for (PhotonPoseEstimator estimator : positionEstimators) {
+    for (PhotonPoseEstimator estimator : rotationEstimators) {
       estimator.setReferencePose(currentEstimate);
     }
 
-    return positionEstimators;
+    return rotationEstimators;
   }
 
   @Override

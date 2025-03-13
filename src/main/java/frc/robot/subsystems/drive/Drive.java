@@ -108,6 +108,7 @@ public class Drive extends SubsystemBase {
 
   private double lastTime = Timer.getFPGATimestamp();
   private double deltaTime = 0;
+  private Rotation2d lastGyroRotation = new Rotation2d();
 
   // Things that will be shown on Elastic Dashboard
   private Field2d field;
@@ -318,6 +319,9 @@ public class Drive extends SubsystemBase {
       rawGyroRotation = simRotation;
     }
 
+    Rotation2d dtheta = rawGyroRotation.minus(lastGyroRotation);
+    lastGyroRotation = rawGyroRotation;
+
     odometry.update(rawGyroRotation, modulePositions);
 
     if (useVision) {
@@ -325,12 +329,8 @@ public class Drive extends SubsystemBase {
         // Use odometry as "actual robot position" in vision simulation
         visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
       } else {
-        // Estimate current heading using previous heading and current angular velocity
-        visionIO.updateInputs(
-            visionInputs,
-            getPose(),
-            getRotation()
-                .rotateBy(Rotation2d.fromRadians(fieldVelocity.omegaRadiansPerSecond * deltaTime)));
+        // Estimate current heading using the previous heading and the change in gyro angle
+        visionIO.updateInputs(visionInputs, getPose(), getRotation().rotateBy(dtheta));
       }
       Logger.processInputs("Vision", visionInputs);
       if (visionInputs.hasEstimate) {
@@ -491,6 +491,7 @@ public class Drive extends SubsystemBase {
     gyroIO.setYawAngle(pose.getRotation().getDegrees());
     simRotation = pose.getRotation();
     rawGyroRotation = pose.getRotation();
+    lastGyroRotation = pose.getRotation();
 
     // Yes I know it says that you don't need to reset the gyro rotation, but it tweaks out if you
     // don't

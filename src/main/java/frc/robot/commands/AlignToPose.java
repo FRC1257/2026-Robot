@@ -20,7 +20,9 @@ public class AlignToPose extends Command {
   private double yP, yI, yD;
   private double thetaP, thetaI, thetaD;
   private Supplier<Pose2d> targetPoseSupplier;
+  private Pose2d targetPose;
   private Drive drive;
+  private boolean isAuto;
 
   /**
    * A command that aligns the robot to a certain field-relative position
@@ -29,9 +31,10 @@ public class AlignToPose extends Command {
    * @param targetPoseSupplier A function returning the desired position (field-relative, using blue
    *     as the origin)
    */
-  public AlignToPose(Drive drive, Supplier<Pose2d> targetPoseSupplier) {
+  public AlignToPose(Drive drive, Supplier<Pose2d> targetPoseSupplier, boolean isAuto) {
     this.drive = drive;
     this.targetPoseSupplier = targetPoseSupplier;
+    this.isAuto = isAuto;
 
     addRequirements(drive);
 
@@ -52,6 +55,9 @@ public class AlignToPose extends Command {
 
   @Override
   public void initialize() {
+    // Sets position once at start of command
+    targetPose = targetPoseSupplier.get();
+
     // Resets state and integral term of PID controllers
     xPidController.reset();
     yPidController.reset();
@@ -105,6 +111,11 @@ public class AlignToPose extends Command {
 
   @Override
   public boolean isFinished() {
+    if (isAuto) {
+      // Finish if distance between current and desired position is close enough
+      return drive.getPose().getTranslation().minus(targetPose.getTranslation()).getNorm()
+          <= DriveConstants.kAlignPositionTolerance;
+    }
     return false;
   }
 }

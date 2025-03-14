@@ -48,7 +48,7 @@ public class VisionConstants {
   public static final Transform3d[] camsRobotToCam = {
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(7.375), Units.inchesToMeters(0.25), Units.inchesToMeters(7.5)),
+            Units.inchesToMeters(7.375), Units.inchesToMeters(0.5), Units.inchesToMeters(7.5)),
         new Rotation3d(0, Units.degreesToRadians(-15), 0)),
     new Transform3d(
         new Translation3d(

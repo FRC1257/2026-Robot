@@ -87,6 +87,27 @@ public class DriveControls {
   public static void configureControls() {
     switch (Constants.driver) {
       case MADDIE:
+        DRIVE_FORWARD = () -> -driver.getLeftY();
+        DRIVE_STRAFE = () -> -driver.getLeftX();
+        DRIVE_ROTATE = () -> -driver.getRightX();
+        DRIVE_STOP = driver.x();
+        DRIVE_SLOW = driver.rightTrigger();
+        DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
+
+        // TURN_90 = driver.y();
+        TURN_180 = driver.start();
+
+        TOGGLE_REEF_POSITION_UP = driver.getDPad(DPad.UP);
+        TOGGLE_REEF_POSITION_DOWN = driver.getDPad(DPad.DOWN);
+        DRIVE_TO_REEF = EMPTY_TRIGGER;
+
+        JOYSTICK_REEF_POINT = driver.b();
+        JOYSTICK_STATION_POINT = driver.y();
+        JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
+
+        ALIGN_REEF = driver.leftBumper();
+        ALIGN_STATION = driver.rightBumper();
+        break;
       case MICHAEL:
       case GABE:
       case PROGRAMMERS:

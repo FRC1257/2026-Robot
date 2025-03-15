@@ -318,8 +318,8 @@ public class RobotContainer {
   }
 
   public Command goToStationAuto() {
-    return elevator.PIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
-        .alongWith(coralPivot.PIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
+    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
+        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
   }
 
   public Command algaeIntake() {

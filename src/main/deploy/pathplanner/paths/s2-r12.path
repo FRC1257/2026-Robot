@@ -3,50 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.552254098360655,
-        "y": 6.11685450819672
+        "x": 7.132055876462125,
+        "y": 6.120358003646069
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.4877757840707275,
-        "y": 5.875312489106191
+        "x": 6.818629434461704,
+        "y": 5.270837429838737
       },
       "isLocked": false,
       "linkedName": "s2"
     },
     {
       "anchor": {
-        "x": 5.130737704918032,
-        "y": 2.2867827868852464
+        "x": 5.0767363176579465,
+        "y": 1.8779322447914852
       },
       "prevControl": {
-        "x": 6.142680992668079,
-        "y": 2.5694274036116576
+        "x": 6.065730317280244,
+        "y": 2.234835426850408
       },
       "nextControl": {
-        "x": 4.369769577388503,
-        "y": 2.074237728925709
+        "x": 4.247587690695755,
+        "y": 1.5787132571377596
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.5980985348368013,
-        "y": 2.817183471203912
+        "x": 3.4066521863363897,
+        "y": 2.497765171926111
       },
       "prevControl": {
-        "x": 3.460964385183248,
-        "y": 3.0531485419222943
+        "x": 3.179600516163428,
+        "y": 2.7596479311493476
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "r12"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.5,
+        "y": 4.0
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 0.32068935467047,
+      "maxWaypointRelativePos": 1.300997118209299,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
@@ -57,7 +68,7 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 2.0,
     "rotation": 60.06900000000001
   },
   "reversed": false,

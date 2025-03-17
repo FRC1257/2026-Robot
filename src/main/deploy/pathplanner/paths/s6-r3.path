@@ -3,34 +3,77 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.601151315789473,
-        "y": 0.8017269736842104
+        "x": 7.130944749454082,
+        "y": 0.8318571604705335
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.252138157894737,
-        "y": 2.264226973684211
+        "x": 5.948843979014644,
+        "y": 0.6844429168792961
       },
       "isLocked": false,
       "linkedName": "s6"
     },
     {
       "anchor": {
-        "x": 3.5795034098465885,
-        "y": 5.256944624936925
+        "x": 3.066078040753813,
+        "y": 2.7199774523354847
       },
       "prevControl": {
-        "x": 1.4484922346483184,
-        "y": 4.50737383366079
+        "x": 4.192309157206161,
+        "y": 1.6617745010637688
+      },
+      "nextControl": {
+        "x": 1.8708306598136895,
+        "y": 3.843027852500967
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 2.2214223109799662,
+        "y": 4.980226882900586
+      },
+      "prevControl": {
+        "x": 1.8773060416057148,
+        "y": 4.586287112604286
+      },
+      "nextControl": {
+        "x": 2.417535336342447,
+        "y": 5.204734489890204
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.066078040753813,
+        "y": 5.242246496119849
+      },
+      "prevControl": {
+        "x": 2.755065749473647,
+        "y": 5.298300121796938
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "r3"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.5,
+        "y": 4.0
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 0.7884152279887604,
+      "maxWaypointRelativePos": 1.1783470548790873,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
@@ -41,8 +84,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": -59.65675111576034
+    "velocity": 3.0,
+    "rotation": -52.30747029916823
   },
   "reversed": false,
   "folder": "s6",

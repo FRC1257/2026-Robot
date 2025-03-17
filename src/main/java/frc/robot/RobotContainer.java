@@ -282,8 +282,9 @@ public class RobotContainer {
   }
 
   public Command goToStation() {
-    return elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT)
-        .alongWith(coralPivot.InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE));
+    return coralPivot
+        .InstantPIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE)
+        .andThen(elevator.InstantPIDCommand(ElevatorConstants.ELEVATOR_STATION_HEIGHT));
   }
 
   public Command stow() {

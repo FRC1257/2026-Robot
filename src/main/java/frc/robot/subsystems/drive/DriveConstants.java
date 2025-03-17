@@ -13,7 +13,7 @@ public final class DriveConstants {
   public static final double periodicTime = 0.02;
   public static final double kMaxSpeedMetersPerSecond = 4.8;
   public static final double kAlignMaxAngularSpeed = 2.5 * Math.PI; // radians per second
-  public static final double kAlignMaxSpeed = 3.5; // meters per second
+  public static final double kAlignMaxSpeed = 3.0; // meters per second
 
   public static final double kDirectionSlewRate = 1.2; // radians per second
   public static final double kMagnitudeSlewRate = 1.8; // percent per second (1 = 100%)
@@ -91,7 +91,7 @@ public final class DriveConstants {
   public static final double kTurnAngleI = 0;
   public static final double kTurnAngleD = 0;
 
-  public static final double kTranslationP = 0.7;
+  public static final double kTranslationP = 0.6;
   public static final double kTranslationI = 0.0;
   public static final double kTranslationD = 0.0;
 }

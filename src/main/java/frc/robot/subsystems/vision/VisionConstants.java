@@ -53,11 +53,11 @@ public class VisionConstants {
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(6.4375), Units.inchesToMeters(10.5), Units.inchesToMeters(35)),
-        new Rotation3d(0, Units.degreesToRadians(-25.5), Units.degreesToRadians(0))),
+        new Rotation3d(0, Units.degreesToRadians(-37.5), Units.degreesToRadians(0))),
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(6.4375), Units.inchesToMeters(-10), Units.inchesToMeters(35)),
-        new Rotation3d(0, Units.degreesToRadians(-25.5), Units.degreesToRadians(0))),
+        new Rotation3d(0, Units.degreesToRadians(-37.5), Units.degreesToRadians(0))),
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25), Units.inchesToMeters(31.75)),
@@ -74,8 +74,8 @@ public class VisionConstants {
   // The standard deviations of our vision estimated poses, which affect
   // correction rate
   // (Fake values. Experiment and determine estimation noise on an actual robot.)
-  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, Double.MAX_VALUE);
-  public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, Double.MAX_VALUE);
+  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 20);
+  public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, 20);
 
   public static Transform3d getSimVersion(Transform3d real) {
     return new Transform3d(real.getTranslation(), new Rotation3d(0, 0, real.getRotation().getZ()));

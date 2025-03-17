@@ -105,8 +105,8 @@ public class DriveControls {
         JOYSTICK_STATION_POINT = driver.y();
         JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
 
-        ALIGN_REEF = driver.leftBumper();
-        ALIGN_STATION = driver.rightBumper();
+        ALIGN_REEF = driver.rightBumper();
+        ALIGN_STATION = driver.leftBumper();
         break;
       case MICHAEL:
       case GABE:

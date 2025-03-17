@@ -3,50 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.552254098360655,
-        "y": 6.11685450819672
+        "x": 7.132055876462125,
+        "y": 6.120358003646069
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.543421052631578,
-        "y": 4.688898026315789
+        "x": 6.936554588983301,
+        "y": 5.152820760713465
       },
       "isLocked": false,
       "linkedName": "s2"
     },
     {
       "anchor": {
-        "x": 5.349671052631578,
-        "y": 2.5721217105263157
+        "x": 5.5192147660627136,
+        "y": 2.168572175635526
       },
       "prevControl": {
-        "x": 5.986538590224329,
-        "y": 2.863771330545425
+        "x": 6.18653993312148,
+        "y": 2.614518480789708
       },
       "nextControl": {
-        "x": 4.320148026315788,
-        "y": 2.100657894736843
+        "x": 5.100679835586907,
+        "y": 1.8888822807582177
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.903218901874228,
-        "y": 2.6324614391029537
+        "x": 3.952873396501775,
+        "y": 2.168572175635526
       },
       "prevControl": {
-        "x": 3.6533869915753407,
-        "y": 2.6416274958564707
+        "x": 4.393787738315777,
+        "y": 1.6392021637982408
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "r11"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.5,
+        "y": 4.0
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 0.37375667894243864,
+      "maxWaypointRelativePos": 1.0720454327741824,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
@@ -57,8 +68,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 60.27676360973675
+    "velocity": 2.0,
+    "rotation": 74.31225064298356
   },
   "reversed": false,
   "folder": "s2",

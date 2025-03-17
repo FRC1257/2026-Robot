@@ -3,50 +3,61 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.552254098360655,
-        "y": 7.244
+        "x": 7.126382747046931,
+        "y": 7.232289281560477
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.795264338156651,
-        "y": 7.90687268762812
+        "x": 7.194834496439057,
+        "y": 5.802914963028753
       },
       "isLocked": false,
       "linkedName": "s1"
     },
     {
       "anchor": {
-        "x": 5.9818647540983605,
-        "y": 3.317725409836066
+        "x": 6.283936746508082,
+        "y": 3.1439729023616927
       },
       "prevControl": {
-        "x": 6.372420315039119,
-        "y": 3.933571982374909
+        "x": 6.587389828406418,
+        "y": 3.523474297353829
       },
       "nextControl": {
-        "x": 5.847974673234227,
-        "y": 3.106601166211143
+        "x": 6.079783839670197,
+        "y": 2.8886572784372238
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 5.388113707476575,
-        "y": 2.811163226427108
+        "x": 5.704155087205509,
+        "y": 2.710518856940662
       },
       "prevControl": {
-        "x": 5.057541170019543,
-        "y": 2.70441241363323
+        "x": 6.371015076353396,
+        "y": 3.1519685022371244
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "r9"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
-  "pointTowardsZones": [],
+  "pointTowardsZones": [
+    {
+      "fieldPosition": {
+        "x": 4.5,
+        "y": 4.0
+      },
+      "rotationOffset": 0.0,
+      "minWaypointRelativePos": 0.4909149086767711,
+      "maxWaypointRelativePos": 0.9118392902758856,
+      "name": "Point Towards Zone"
+    }
+  ],
   "eventMarkers": [],
   "globalConstraints": {
     "maxVelocity": 3.0,
@@ -57,8 +68,8 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 120.069
+    "velocity": 2.0,
+    "rotation": 130.74612136569718
   },
   "reversed": false,
   "folder": "s1",

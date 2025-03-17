@@ -165,7 +165,7 @@ public class FieldConstants {
   public static final Pose2d[] ReefScoringPositions = getReefScoringPositions();
 
   // The distance backward from the reef that the center of the robot should be when scoring
-  public static final double distanceBackFromReef = 0.65;
+  public static final double distanceBackFromReef = 0.67;
 
   // Calculates all the reef scoring positions using the centers of the faces as a reference
   public static Pose2d[] getReefScoringPositions() {

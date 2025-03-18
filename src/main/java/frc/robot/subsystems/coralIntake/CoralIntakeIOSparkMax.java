@@ -9,6 +9,7 @@ import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import edu.wpi.first.wpilibj.DigitalInput;
 import org.littletonrobotics.junction.Logger;
 
 /** Need to import Constants files/classes */
@@ -18,6 +19,7 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
 
   private SparkFlex motor;
   private RelativeEncoder encoder;
+  private DigitalInput breakBeam;
 
   public CoralIntakeIOSparkMax() {
     /** ID needs to be assigned from constants */
@@ -33,6 +35,8 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
         .inverted(true);
 
     motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+
+    breakBeam = new DigitalInput(CoralIntakeConstants.BREAK_BEAM_CHANNEL);
   }
 
   /** updates inputs from robot */
@@ -43,6 +47,7 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
     inputs.currentAmps = new double[] {motor.getOutputCurrent()};
     inputs.tempCelcius = new double[] {motor.getMotorTemperature()};
     inputs.velocityRadsPerSec = encoder.getVelocity();
+    inputs.isBreakBeamBroken = isBreakBeamBroken();
   }
 
   /** sets voltage to run motor if necessary */
@@ -58,5 +63,11 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
     SparkFlexConfig config = new SparkFlexConfig();
     config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
     motor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
+
+  /** Returns true if break beam is broken, false otherwise */
+  @Override
+  public boolean isBreakBeamBroken() {
+    return breakBeam.get();
   }
 }

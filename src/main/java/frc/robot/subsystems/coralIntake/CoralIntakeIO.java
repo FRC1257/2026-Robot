@@ -11,6 +11,8 @@ public interface CoralIntakeIO {
     public double appliedVoltage = 0.0;
     public double[] currentAmps = new double[] {};
     public double[] tempCelcius = new double[] {};
+
+    public boolean isBreakBeamBroken = false;
   }
 
   public default void setBrake(boolean brake) {}
@@ -18,7 +20,10 @@ public interface CoralIntakeIO {
   public default void updateInputs(CoralIntakeIOInputs inputs) {}
   /** sets voltage to run motor if necessary */
   public default void setVoltage(double voltage) {}
-  /** sets velocity setpoint */
+
+  public default boolean isBreakBeamBroken() {
+    return false;
+  }
 }
 
   /** sets brake mode */

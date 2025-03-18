@@ -23,7 +23,7 @@ import static frc.robot.subsystems.drive.ModuleConstants.kTurningI;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningP;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningS;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningV;
-import static frc.robot.subsystems.drive.ModuleConstants.kWheelDiameterMeters;
+import static frc.robot.subsystems.drive.ModuleConstants.kWheelRadiusMeters;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
@@ -32,7 +32,6 @@ import frc.robot.Constants;
 import org.littletonrobotics.junction.Logger;
 
 public class Module {
-  private static final double WHEEL_RADIUS = kWheelDiameterMeters / 2;
   public static final double ODOMETRY_FREQUENCY = 250.0;
 
   private final ModuleIO io;
@@ -121,7 +120,7 @@ public class Module {
     int sampleCount = inputs.odometryTimestamps.length; // All signals are sampled together
     odometryPositions = new SwerveModulePosition[sampleCount];
     for (int i = 0; i < sampleCount; i++) {
-      double positionMeters = inputs.odometryDrivePositionsRad[i] * WHEEL_RADIUS;
+      double positionMeters = inputs.odometryDrivePositionsRad[i] * kWheelRadiusMeters;
       Rotation2d angle =
           inputs.odometryTurnPositions[i].plus(
               turnRelativeOffset != null ? turnRelativeOffset : new Rotation2d());
@@ -134,10 +133,11 @@ public class Module {
     // Optimize state based on current angle
     // Controllers run in "periodic" when the setpoint is not null
     state.optimize(getAngle());
+    state.cosineScale(inputs.turnAbsolutePosition);
 
     // Update setpoints, controllers run in "periodic"
     angleSetpoint = state.angle;
-    speedSetpoint = state.speedMetersPerSecond;
+    speedSetpoint = state.speedMetersPerSecond / kWheelRadiusMeters;
 
     return state;
   }

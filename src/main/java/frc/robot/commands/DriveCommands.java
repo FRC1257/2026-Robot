@@ -77,18 +77,19 @@ public class DriveCommands {
           // Apply deadband
           double linearMagnitude =
               MathUtil.applyDeadband(
-                  Math.hypot(
-                      xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode),
-                  DEADBAND);
+                  Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()), DEADBAND);
           Rotation2d linearDirection =
-              new Rotation2d(
-                  xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
-          double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
+              new Rotation2d(xSupplier.getAsDouble(), ySupplier.getAsDouble());
+          double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble(), DEADBAND);
 
           // Normalize magnitude of velocity vector if it is greater than 1
           if (linearMagnitude > 1) {
             linearMagnitude = 1;
           }
+
+          // Multiply by slow mode factor
+          linearMagnitude *= slowMode;
+          omega *= slowMode;
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
@@ -127,18 +128,19 @@ public class DriveCommands {
           // Apply deadband
           double linearMagnitude =
               MathUtil.applyDeadband(
-                  Math.hypot(
-                      xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode),
-                  DEADBAND);
+                  Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()), DEADBAND);
           Rotation2d linearDirection =
-              new Rotation2d(
-                  xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
-          double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble() * slowMode, DEADBAND);
+              new Rotation2d(xSupplier.getAsDouble(), ySupplier.getAsDouble());
+          double omega = MathUtil.applyDeadband(omegaSupplier.getAsDouble(), DEADBAND);
 
           // Normalize magnitude of velocity vector if it is greater than 1
           if (linearMagnitude > 1) {
             linearMagnitude = 1;
           }
+
+          // Multiply by slow mode factor
+          linearMagnitude *= slowMode;
+          omega *= slowMode;
 
           // Square values
           linearMagnitude = linearMagnitude * linearMagnitude;
@@ -179,18 +181,17 @@ public class DriveCommands {
                   // Apply deadband
                   double linearMagnitude =
                       MathUtil.applyDeadband(
-                          Math.hypot(
-                              xSupplier.getAsDouble() * slowMode,
-                              ySupplier.getAsDouble() * slowMode),
-                          DEADBAND);
+                          Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()), DEADBAND);
                   Rotation2d linearDirection =
-                      new Rotation2d(
-                          xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
+                      new Rotation2d(xSupplier.getAsDouble(), ySupplier.getAsDouble());
 
                   // Normalize magnitude of velocity vector if it is greater than 1
                   if (linearMagnitude > 1) {
                     linearMagnitude = 1;
                   }
+
+                  // Multiply by slow mode factor
+                  linearMagnitude *= slowMode;
 
                   Transform2d targetTransform = drive.getPose().minus(reefPose);
                   Rotation2d targetDirection =
@@ -322,17 +323,17 @@ public class DriveCommands {
           // Apply deadband
           double linearMagnitude =
               MathUtil.applyDeadband(
-                  Math.hypot(
-                      xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode),
-                  DEADBAND);
+                  Math.hypot(xSupplier.getAsDouble(), ySupplier.getAsDouble()), DEADBAND);
           Rotation2d linearDirection =
-              new Rotation2d(
-                  xSupplier.getAsDouble() * slowMode, ySupplier.getAsDouble() * slowMode);
+              new Rotation2d(xSupplier.getAsDouble(), ySupplier.getAsDouble());
 
           // Normalize magnitude of velocity vector if it is greater than 1
           if (linearMagnitude > 1) {
             linearMagnitude = 1;
           }
+
+          // Multiply by slow mode factor
+          linearMagnitude *= slowMode;
 
           double omega =
               angleController.calculate(

@@ -35,7 +35,7 @@ import static frc.robot.subsystems.drive.ModuleConstants.kTurningMaxOutput;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningMinOutput;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningMotorCurrentLimit;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningMotorIdleMode;
-import static frc.robot.subsystems.drive.ModuleConstants.kWheelDiameterMeters;
+import static frc.robot.subsystems.drive.ModuleConstants.kWheelRadiusMeters;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
@@ -54,7 +54,6 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Constants;
-
 import java.util.Queue;
 
 /**
@@ -216,10 +215,10 @@ public class ModuleIOSparkMax implements ModuleIO {
 
   @Override
   public void updateInputs(ModuleIOInputs inputs) {
-    inputs.drivePositionRad = driveEncoder.getPosition() / (kWheelDiameterMeters / 2);
-    inputs.drivePositionMeters = driveEncoder.getPosition();
-    inputs.driveVelocityMeterPerSec = driveEncoder.getVelocity();
-    inputs.driveVelocityRadPerSec = driveEncoder.getVelocity() / (kWheelDiameterMeters / 2);
+    inputs.drivePositionRad = driveEncoder.getPosition();
+    inputs.drivePositionMeters = driveEncoder.getPosition() * kWheelRadiusMeters;
+    inputs.driveVelocityMeterPerSec = driveEncoder.getVelocity() * kWheelRadiusMeters;
+    inputs.driveVelocityRadPerSec = driveEncoder.getVelocity() / kWheelRadiusMeters;
     inputs.driveAppliedVolts = driveSparkMax.getAppliedOutput() * driveSparkMax.getBusVoltage();
     inputs.driveCurrentAmps = new double[] {driveSparkMax.getOutputCurrent()};
 
@@ -289,7 +288,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     } else if (dtheta < -Constants.PI) {
       dtheta += 2 * Constants.PI;
     }
-    
+
     double setpointVelocity = dtheta / (Timer.getFPGATimestamp() - lastTime);
     lastTime = Timer.getFPGATimestamp();
     lastTurnSetpoint = angle;

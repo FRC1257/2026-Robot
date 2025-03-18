@@ -53,4 +53,8 @@ public class CoralIntake extends SubsystemBase {
   public Command ManualCommand(double velocity) {
     return ManualCommand(() -> velocity);
   }
+
+  public boolean hasCoral() {
+    return io.isBreakBeamBroken();
+  }
 }

@@ -332,7 +332,10 @@ public class RobotContainer {
   }
 
   public Command coralIntake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(1.3);
+    return coralIntake
+        .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED)
+        .withTimeout(1.3)
+        .until(() -> coralIntake.hasCoral());
   }
 
   public Command coralIntakeForever() {

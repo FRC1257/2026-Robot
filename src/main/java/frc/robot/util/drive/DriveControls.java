@@ -290,6 +290,12 @@ public class DriveControls {
     }
   }
 
+  public static void updateDriverAndOperator() {
+    driverChooser.getDriver();
+    operatorChooser.getOperator();
+    configureControls();
+  }
+
   private static Command getRumbleCommand(CommandSnailController driver) {
     return new InstantCommand(() -> driver.rumble(1))
         .andThen(new WaitCommand(1))

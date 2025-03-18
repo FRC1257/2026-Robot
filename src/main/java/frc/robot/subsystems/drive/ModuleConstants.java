@@ -52,7 +52,8 @@ public final class ModuleConstants {
   public static final double kTurningP = 1;
   public static final double kTurningI = 0;
   public static final double kTurningD = 0;
-  public static final double kTurningFF = 0;
+  public static final double kTurningS = 0;
+  public static final double kTurningV = 0;
   public static final double kTurningMinOutput = -1;
   public static final double kTurningMaxOutput = 1;
 

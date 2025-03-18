@@ -56,7 +56,9 @@ public interface ModuleIO {
 
   public default void setDriveFF(double kS, double kV) {}
 
-  public default void setTurnPIDFF(double p, double i, double d, double ff) {}
+  public default void setTurnPID(double p, double i, double d) {}
+
+  public default void setTurnFF(double kS, double kV) {}
 
   public default void setDriveVelocity(double velocityRadPerSec) {}
 

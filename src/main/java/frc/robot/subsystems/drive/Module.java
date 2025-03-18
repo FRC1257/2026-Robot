@@ -19,9 +19,10 @@ import static frc.robot.subsystems.drive.ModuleConstants.kDrivingP;
 import static frc.robot.subsystems.drive.ModuleConstants.kDrivingS;
 import static frc.robot.subsystems.drive.ModuleConstants.kDrivingV;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningD;
-import static frc.robot.subsystems.drive.ModuleConstants.kTurningFF;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningI;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningP;
+import static frc.robot.subsystems.drive.ModuleConstants.kTurningS;
+import static frc.robot.subsystems.drive.ModuleConstants.kTurningV;
 import static frc.robot.subsystems.drive.ModuleConstants.kWheelDiameterMeters;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -55,17 +56,20 @@ public class Module {
       case REPLAY:
         io.setDrivePID(kDrivingP, kDrivingI, kDrivingD);
         io.setDriveFF(kDrivingS, kDrivingV);
-        io.setTurnPIDFF(kTurningP, kTurningI, kTurningD, kTurningFF);
+        io.setTurnPID(kTurningP, kTurningI, kTurningD);
+        io.setTurnFF(kTurningS, kTurningV);
         break;
       case SIM:
         io.setDrivePID(1, 0, 0);
         io.setDriveFF(0.02567, 0.09360);
-        io.setTurnPIDFF(5, 0, 0, 0.12);
+        io.setTurnPID(5, 0, 0);
+        io.setTurnFF(0, 0.12);
         break;
       default:
         io.setDrivePID(0, 0, 0);
         io.setDriveFF(0, 0);
-        io.setTurnPIDFF(0, 0, 0, 0);
+        io.setTurnPID(0, 0, 0);
+        io.setTurnFF(0, 0);
         break;
     }
 

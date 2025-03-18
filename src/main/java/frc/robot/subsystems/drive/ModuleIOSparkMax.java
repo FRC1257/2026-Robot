@@ -52,6 +52,9 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.Timer;
+import frc.robot.Constants;
+
 import java.util.Queue;
 
 /**
@@ -78,6 +81,7 @@ public class ModuleIOSparkMax implements ModuleIO {
   private final SparkClosedLoopController turnPIDController;
 
   private final SimpleMotorFeedforward driveFeedforward;
+  private final SimpleMotorFeedforward turnFeedforward;
 
   private final RelativeEncoder driveEncoder;
   private final AbsoluteEncoder turnAbsoluteEncoder;
@@ -87,6 +91,9 @@ public class ModuleIOSparkMax implements ModuleIO {
   private final Queue<Double> turnPositionQueue;
 
   private final double absoluteEncoderOffset;
+
+  private double lastTurnSetpoint = 0;
+  private double lastTime = 0;
 
   public ModuleIOSparkMax(int index) {
     switch (index) {
@@ -201,6 +208,10 @@ public class ModuleIOSparkMax implements ModuleIO {
         SparkMaxOdometryThread.getInstance().registerSignal(turnAbsoluteEncoder::getPosition);
 
     driveFeedforward = new SimpleMotorFeedforward(0, 0);
+    turnFeedforward = new SimpleMotorFeedforward(0, 0);
+
+    lastTurnSetpoint = getTurnPosition().getRadians();
+    lastTime = Timer.getFPGATimestamp();
   }
 
   @Override
@@ -247,10 +258,16 @@ public class ModuleIOSparkMax implements ModuleIO {
   }
 
   @Override
-  public void setTurnPIDFF(double p, double i, double d, double ff) {
-    turnConfig.closedLoop.pidf(p, i, d, ff);
+  public void setTurnPID(double p, double i, double d) {
+    turnConfig.closedLoop.pid(p, i, d);
     turnSparkMax.configure(
         turnConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
+
+  @Override
+  public void setTurnFF(double kS, double kV) {
+    turnFeedforward.setKs(kS);
+    turnFeedforward.setKv(kV);
   }
 
   @Override
@@ -266,7 +283,23 @@ public class ModuleIOSparkMax implements ModuleIO {
 
   @Override
   public void setTurnPosition(double angle) {
-    turnPIDController.setReference(angle + absoluteEncoderOffset, SparkMax.ControlType.kPosition);
+    double dtheta = angle - lastTurnSetpoint;
+    if (dtheta > Constants.PI) {
+      dtheta -= 2 * Constants.PI;
+    } else if (dtheta < -Constants.PI) {
+      dtheta += 2 * Constants.PI;
+    }
+    
+    double setpointVelocity = dtheta / (Timer.getFPGATimestamp() - lastTime);
+    lastTime = Timer.getFPGATimestamp();
+    lastTurnSetpoint = angle;
+    double ffOutput = turnFeedforward.calculate(setpointVelocity);
+    turnPIDController.setReference(
+        angle + absoluteEncoderOffset,
+        SparkMax.ControlType.kPosition,
+        ClosedLoopSlot.kSlot0,
+        ffOutput,
+        ArbFFUnits.kVoltage);
   }
 
   public Rotation2d getTurnPosition() {

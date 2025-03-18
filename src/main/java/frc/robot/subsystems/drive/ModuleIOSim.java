@@ -133,9 +133,14 @@ public class ModuleIOSim implements ModuleIO {
   }
 
   @Override
-  public void setTurnPIDFF(double p, double i, double d, double ff) {
+  public void setTurnPID(double p, double i, double d) {
     turnFeedback.setPID(p, i, d);
-    turnFeedforward.setKv(ff);
+  }
+
+  @Override
+  public void setTurnFF(double kS, double kV) {
+    turnFeedforward.setKs(kS);
+    turnFeedforward.setKv(kV);
   }
 
   @Override

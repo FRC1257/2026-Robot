@@ -167,7 +167,7 @@ public class CustomAutoChooser {
     Command driveStartToReef =
         drive
             .followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString())
-            .andThen(drive.alignToReefAuto());
+            .andThen(drive.alignToReefAuto(reefPoses.get(0), reefLevels.get(0)));
 
     commandGroup.addCommands(
         driveStartToReef
@@ -218,7 +218,7 @@ public class CustomAutoChooser {
       Command driveReefCommand =
           drive
               .followPathFileCommand(coralStationPos.toString() + "-" + nextReefPosition.toString())
-              .andThen(drive.alignToReefAuto());
+              .andThen(drive.alignToReefAuto(nextReefPosition, reefLevel));
 
       // combines all the commands needed
       commandGroup.addCommands(

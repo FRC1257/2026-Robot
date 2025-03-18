@@ -235,17 +235,35 @@ public class FieldConstants {
 
   public static class StartingPositions {
     public static final Pose2d startPos1 =
-        new Pose2d(startingLineX, Barge.farCage.getY(), Rotation2d.fromDegrees(180));
+        new Pose2d(
+            startingLineX - Units.inchesToMeters(15),
+            Barge.farCage.getY(),
+            Rotation2d.fromDegrees(180));
     public static final Pose2d startPos2 =
-        new Pose2d(startingLineX, Barge.middleCage.getY(), Rotation2d.fromDegrees(180));
+        new Pose2d(
+            startingLineX - Units.inchesToMeters(15),
+            Barge.middleCage.getY(),
+            Rotation2d.fromDegrees(180));
     public static final Pose2d startPos3 =
-        new Pose2d(startingLineX, Barge.closeCage.getY(), Rotation2d.fromDegrees(180));
+        new Pose2d(
+            startingLineX - Units.inchesToMeters(15),
+            Barge.closeCage.getY(),
+            Rotation2d.fromDegrees(180));
     public static final Pose2d startPos4 =
-        new Pose2d(startingLineX, Barge.closeCageLow.getY(), Rotation2d.fromDegrees(180));
+        new Pose2d(
+            startingLineX - Units.inchesToMeters(15),
+            Barge.closeCageLow.getY(),
+            Rotation2d.fromDegrees(180));
     public static final Pose2d startPos5 =
-        new Pose2d(startingLineX, Barge.middleCageLow.getY(), Rotation2d.fromDegrees(180));
+        new Pose2d(
+            startingLineX - Units.inchesToMeters(15),
+            Barge.middleCageLow.getY(),
+            Rotation2d.fromDegrees(180));
     public static final Pose2d startPos6 =
-        new Pose2d(startingLineX, Barge.farCageLow.getY(), Rotation2d.fromDegrees(180));
+        new Pose2d(
+            startingLineX - Units.inchesToMeters(15),
+            Barge.farCageLow.getY(),
+            Rotation2d.fromDegrees(180));
   }
 
   public static final double aprilTagWidth = Units.inchesToMeters(6.50);

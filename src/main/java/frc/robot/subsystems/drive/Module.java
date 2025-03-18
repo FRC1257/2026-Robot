@@ -188,6 +188,11 @@ public class Module {
     return inputs.drivePositionMeters;
   }
 
+  /** Returns the module position in radians. */
+  public double getWheelRadiusCharacterizationPosition() {
+    return inputs.drivePositionRad;
+  }
+
   /** Returns the current drive velocity of the module in meters per second. */
   public double getVelocityMetersPerSec() {
     return inputs.driveVelocityMeterPerSec;

@@ -252,8 +252,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoChooser.get();
-    // return customAutoChooser.getAutoCommand();
-    return DriveCommands.feedforwardCharacterization(drive);
+    return customAutoChooser.getAutoCommand();
+    // return DriveCommands.feedforwardCharacterization(drive);
+    // return DriveCommands.wheelRadiusCharacterization(drive);
   }
 
   // Subsystem compound commands

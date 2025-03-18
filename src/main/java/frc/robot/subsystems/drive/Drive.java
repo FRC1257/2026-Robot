@@ -56,6 +56,8 @@ import frc.robot.FieldConstants;
 import frc.robot.commands.AlignToPose;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
+import frc.robot.util.autonomous.CustomAutoChooser.ReefLevels;
+import frc.robot.util.autonomous.CustomAutoChooser.ReefPositions;
 import frc.robot.util.autonomous.LocalADStarAK;
 import frc.robot.util.drive.AllianceFlipUtil;
 import java.util.List;
@@ -68,9 +70,8 @@ import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
 public class Drive extends SubsystemBase {
   // private static final double DRIVE_BASE_RADIUS = Math.hypot(kTrackWidthX / 2.0, kTrackWidthY /
   // 2.0);
-  private static final double DRIVE_BASE_RADIUS =
-      Math.hypot(kTrackWidthX / 2.0, kTrackWidthY / 2.0);
-  private static final double MAX_ANGULAR_SPEED = kMaxSpeedMetersPerSecond / DRIVE_BASE_RADIUS;
+  public static final double DRIVE_BASE_RADIUS = Math.hypot(kTrackWidthX / 2.0, kTrackWidthY / 2.0);
+  public static final double MAX_ANGULAR_SPEED = kMaxSpeedMetersPerSecond / DRIVE_BASE_RADIUS;
 
   private RobotConfig config;
 
@@ -465,6 +466,15 @@ public class Drive extends SubsystemBase {
         kinematics.toChassisSpeeds(getModuleStates()), getRotation());
   }
 
+  /** Returns the position of each module in radians. */
+  public double[] getWheelRadiusCharacterizationPositions() {
+    double[] values = new double[4];
+    for (int i = 0; i < 4; i++) {
+      values[i] = modules[i].getWheelRadiusCharacterizationPosition();
+    }
+    return values;
+  }
+
   /** Returns the current odometry pose. */
   @AutoLogOutput(key = "Odometry/Robot")
   public Pose2d getPose() {
@@ -679,27 +689,18 @@ public class Drive extends SubsystemBase {
    *
    * @return
    */
-  public Command alignToReefAuto() {
+  public Command alignToReefAuto(ReefPositions reefPosition, ReefLevels reefLevel) {
     return new AlignToPose(
         this,
         () -> {
-          Pose2d[] reefPoses = FieldConstants.ReefScoringPositions;
-          Pose2d currentPose = getPose();
+          int index = Integer.parseInt(reefPosition.toString().substring(1)) - 1;
+          Pose2d pose = AllianceFlipUtil.apply(FieldConstants.ReefScoringPositions[index]);
 
-          int closestPose = 0;
-          double closestDistance = Double.MAX_VALUE;
-
-          for (int i = 0; i < 12; i++) {
-            Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
-            double distance = currentToTarget.getTranslation().getNorm();
-
-            if (distance < closestDistance) {
-              closestPose = i;
-              closestDistance = distance;
-            }
+          if (reefLevel == ReefLevels.l1) {
+            pose = FieldConstants.translateCoordinates(pose, pose.getRotation().getDegrees(), 0.2);
           }
 
-          return AllianceFlipUtil.apply(reefPoses[closestPose]);
+          return pose;
         },
         true);
   }

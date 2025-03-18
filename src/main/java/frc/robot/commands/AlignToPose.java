@@ -110,11 +110,18 @@ public class AlignToPose extends Command {
   }
 
   @Override
+  public void end(boolean interrupted) {
+    drive.stop();
+  }
+
+  @Override
   public boolean isFinished() {
     if (isAuto) {
       // Finish if distance between current and desired position is close enough
       return drive.getPose().getTranslation().minus(targetPose.getTranslation()).getNorm()
-          <= DriveConstants.kAlignPositionTolerance;
+              <= DriveConstants.kAlignPositionTolerance
+          && drive.getRotation().getRadians() - targetPose.getRotation().getRadians()
+              <= DriveConstants.kAlignRotationTolerance;
     }
     return false;
   }

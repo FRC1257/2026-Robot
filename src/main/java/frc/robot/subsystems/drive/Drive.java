@@ -418,7 +418,7 @@ public class Drive extends SubsystemBase {
   }
 
   /** Runs forwards at the commanded voltage. */
-  public void runCharacterizationVolts(double volts) {
+  public void runCharacterization(double volts) {
     for (int i = 0; i < 4; i++) {
       modules[i].runCharacterization(volts);
     }

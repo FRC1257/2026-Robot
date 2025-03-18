@@ -14,9 +14,10 @@
 package frc.robot.subsystems.drive;
 
 import static frc.robot.subsystems.drive.ModuleConstants.kDrivingD;
-import static frc.robot.subsystems.drive.ModuleConstants.kDrivingFF;
 import static frc.robot.subsystems.drive.ModuleConstants.kDrivingI;
 import static frc.robot.subsystems.drive.ModuleConstants.kDrivingP;
+import static frc.robot.subsystems.drive.ModuleConstants.kDrivingS;
+import static frc.robot.subsystems.drive.ModuleConstants.kDrivingV;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningD;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningFF;
 import static frc.robot.subsystems.drive.ModuleConstants.kTurningI;
@@ -52,15 +53,18 @@ public class Module {
     switch (Constants.currentMode) {
       case REAL:
       case REPLAY:
-        io.setDrivePIDFF(kDrivingP, kDrivingI, kDrivingD, kDrivingFF);
+        io.setDrivePID(kDrivingP, kDrivingI, kDrivingD);
+        io.setDriveFF(kDrivingS, kDrivingV);
         io.setTurnPIDFF(kTurningP, kTurningI, kTurningD, kTurningFF);
         break;
       case SIM:
-        io.setDrivePIDFF(1, 0, 0, 0.0935);
+        io.setDrivePID(1, 0, 0);
+        io.setDriveFF(0.02567, 0.09360);
         io.setTurnPIDFF(5, 0, 0, 0.12);
         break;
       default:
-        io.setDrivePIDFF(0, 0, 0, 0);
+        io.setDrivePID(0, 0, 0);
+        io.setDriveFF(0, 0);
         io.setTurnPIDFF(0, 0, 0, 0);
         break;
     }

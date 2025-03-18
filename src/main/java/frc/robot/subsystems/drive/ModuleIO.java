@@ -52,7 +52,9 @@ public interface ModuleIO {
   /** Enable or disable brake mode on the turn motor. */
   public default void setTurnBrakeMode(boolean enable) {}
 
-  public default void setDrivePIDFF(double p, double i, double d, double ff) {}
+  public default void setDrivePID(double p, double i, double d) {}
+
+  public default void setDriveFF(double kS, double kV) {}
 
   public default void setTurnPIDFF(double p, double i, double d, double ff) {}
 

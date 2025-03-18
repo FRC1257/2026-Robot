@@ -163,13 +163,9 @@ public class RobotContainer {
     autoChooser.addOption(
         "Drive FF Characterization",
         new FeedForwardCharacterization(
-            drive, drive::runCharacterizationVolts, drive::getCharacterizationVelocity));
+            drive, drive::runCharacterization, drive::getCharacterizationVelocity));
 
     customAutoChooser = new CustomAutoChooser(this, drive, algaePivot);
-
-    // Configure the button bindings
-    configureControls();
-    configureButtonBindings();
   }
 
   /**
@@ -178,7 +174,9 @@ public class RobotContainer {
    * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a {@link
    * edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
-  private void configureButtonBindings() {
+  public void configureButtonBindings() {
+    configureControls();
+
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
     algaePivot.setDefaultCommand(algaePivot.ManualCommand(ALGAE_PIVOT_SPEED));
@@ -254,7 +252,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return autoChooser.get();
-    return customAutoChooser.getAutoCommand();
+    // return customAutoChooser.getAutoCommand();
+    return DriveCommands.feedforwardCharacterization(drive);
   }
 
   // Subsystem compound commands

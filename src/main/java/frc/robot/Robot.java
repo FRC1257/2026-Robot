@@ -29,6 +29,7 @@ import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 public class Robot extends LoggedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
+  private boolean controlsConfigured = false;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -95,6 +96,9 @@ public class Robot extends LoggedRobot {
     // Pathplanner warmup command
     // Doesn't actually do anything, just initializes everything early to improve performace
     FollowPathCommand.warmupCommand().schedule();
+
+    // Initializes driver and operator choosers
+    DriveControls.updateDriverAndOperator();
   }
 
   /** This function is called periodically during all modes. */
@@ -149,7 +153,11 @@ public class Robot extends LoggedRobot {
       Elastic.selectTab("Teleoperated Blue");
     }
 
-    DriveControls.updateDriverAndOperator();
+    // Configures controls once at the start of teleop
+    if (!controlsConfigured) {
+      robotContainer.configureButtonBindings();
+      controlsConfigured = true;
+    }
   }
 
   /** This function is called periodically during operator control. */

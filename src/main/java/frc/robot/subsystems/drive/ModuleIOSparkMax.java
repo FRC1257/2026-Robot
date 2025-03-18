@@ -39,14 +39,17 @@ import static frc.robot.subsystems.drive.ModuleConstants.kWheelDiameterMeters;
 
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
+import com.revrobotics.spark.SparkClosedLoopController.ArbFFUnits;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import java.util.Queue;
@@ -73,6 +76,8 @@ public class ModuleIOSparkMax implements ModuleIO {
 
   private final SparkClosedLoopController drivePIDController;
   private final SparkClosedLoopController turnPIDController;
+
+  private final SimpleMotorFeedforward driveFeedforward;
 
   private final RelativeEncoder driveEncoder;
   private final AbsoluteEncoder turnAbsoluteEncoder;
@@ -165,8 +170,17 @@ public class ModuleIOSparkMax implements ModuleIO {
     turnSparkMax.setCANTimeout(0);
 
     // Log things?
-    driveConfig.signals.primaryEncoderPositionPeriodMs((int) (1000.0 / Module.ODOMETRY_FREQUENCY));
-    turnConfig.signals.primaryEncoderPositionPeriodMs((int) (1000.0 / Module.ODOMETRY_FREQUENCY));
+    driveConfig
+        .signals
+        .primaryEncoderPositionAlwaysOn(true)
+        .primaryEncoderPositionPeriodMs((int) (1000.0 / Module.ODOMETRY_FREQUENCY))
+        .primaryEncoderVelocityAlwaysOn(true);
+
+    turnConfig
+        .signals
+        .absoluteEncoderPositionAlwaysOn(true)
+        .absoluteEncoderPositionPeriodMs((int) (1000.0 / Module.ODOMETRY_FREQUENCY))
+        .absoluteEncoderVelocityAlwaysOn(true);
 
     // Save our settings
     driveSparkMax.configure(
@@ -185,6 +199,8 @@ public class ModuleIOSparkMax implements ModuleIO {
         SparkMaxOdometryThread.getInstance().registerSignal(driveEncoder::getPosition);
     turnPositionQueue =
         SparkMaxOdometryThread.getInstance().registerSignal(turnAbsoluteEncoder::getPosition);
+
+    driveFeedforward = new SimpleMotorFeedforward(0, 0);
   }
 
   @Override
@@ -218,10 +234,16 @@ public class ModuleIOSparkMax implements ModuleIO {
   }
 
   @Override
-  public void setDrivePIDFF(double p, double i, double d, double ff) {
-    driveConfig.closedLoop.pidf(p, i, d, ff);
+  public void setDrivePID(double p, double i, double d) {
+    driveConfig.closedLoop.pid(p, i, d);
     driveSparkMax.configure(
         driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
+
+  @Override
+  public void setDriveFF(double kS, double kV) {
+    driveFeedforward.setKs(kS);
+    driveFeedforward.setKv(kV);
   }
 
   @Override
@@ -233,7 +255,13 @@ public class ModuleIOSparkMax implements ModuleIO {
 
   @Override
   public void setDriveVelocity(double velocityRadPerSec) {
-    drivePIDController.setReference(velocityRadPerSec, SparkMax.ControlType.kVelocity);
+    double ffOutput = driveFeedforward.calculate(velocityRadPerSec);
+    drivePIDController.setReference(
+        velocityRadPerSec,
+        SparkMax.ControlType.kVelocity,
+        ClosedLoopSlot.kSlot0,
+        ffOutput,
+        ArbFFUnits.kVoltage);
   }
 
   @Override

@@ -122,9 +122,14 @@ public class ModuleIOSim implements ModuleIO {
   }
 
   @Override
-  public void setDrivePIDFF(double p, double i, double d, double ff) {
+  public void setDrivePID(double p, double i, double d) {
     driveFeedback.setPID(p, i, d);
-    driveFeedforward.setKv(ff);
+  }
+
+  @Override
+  public void setDriveFF(double kS, double kV) {
+    driveFeedforward.setKs(kS);
+    driveFeedforward.setKv(kV);
   }
 
   @Override

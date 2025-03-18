@@ -4,11 +4,9 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.Drivers;
-import frc.robot.Constants.Operators;
+import frc.robot.Constants;
 import frc.robot.util.drive.CommandSnailController.DPad;
 import java.util.function.DoubleSupplier;
-import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 public class DriveControls {
   // Controllers
@@ -85,57 +83,9 @@ public class DriveControls {
   public static Trigger COMBINED_STATION = EMPTY_TRIGGER;
   public static Trigger COMBINED_STOW = EMPTY_TRIGGER;
 
-  // Creates Elastic dropdown menu for Drivers
-  public static class DriverChooser {
-
-    private LoggedDashboardChooser<Drivers> driverChooser;
-
-    public DriverChooser() {
-      driverChooser = new LoggedDashboardChooser<>("Driver Selection");
-      driverChooser.addDefaultOption("Maddie", Drivers.MADDIE);
-      driverChooser.addOption("Michael", Drivers.MICHAEL);
-      driverChooser.addOption("Gabe", Drivers.GABE);
-      driverChooser.addOption("Programmers", Drivers.PROGRAMMERS);
-    }
-
-    public Drivers getDriver() {
-      Drivers driver = driverChooser.get();
-      if (driver == null) {
-        return Drivers.MADDIE;
-      }
-      return driver;
-    }
-  }
-
-  // Creates Elastic dropdown menu for Operators
-  public static class OperatorChooser {
-
-    private LoggedDashboardChooser<Operators> operatorChooser;
-
-    public OperatorChooser() {
-      operatorChooser = new LoggedDashboardChooser<>("Operator Selection");
-      operatorChooser.addDefaultOption("Kevin", Operators.KEVIN);
-      operatorChooser.addOption("Arboria", Operators.ARBORIA);
-      operatorChooser.addOption("Antonios", Operators.ANTONIOS);
-      operatorChooser.addOption("Programmers", Operators.PROGRAMMERS);
-    }
-
-    public Operators getOperator() {
-      Operators operator = operatorChooser.get();
-      if (operator == null) {
-        return Operators.KEVIN;
-      }
-      return operator;
-    }
-  }
-
-  // Instantiate the choosers
-  private static final DriverChooser driverChooser = new DriverChooser();
-  private static final OperatorChooser operatorChooser = new OperatorChooser();
-
   // Setup the controls
   public static void configureControls() {
-    switch (driverChooser.getDriver()) {
+    switch (Constants.driver) {
       case MADDIE:
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
@@ -185,7 +135,7 @@ public class DriveControls {
         break;
     }
 
-    switch (operatorChooser.getOperator()) {
+    switch (Constants.operator) {
       case ARBORIA:
         COMBINED_L1 = operator.getDPad(DPad.LEFT);
         COMBINED_L2 = operator.getDPad(DPad.RIGHT);

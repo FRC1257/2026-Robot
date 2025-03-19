@@ -49,7 +49,7 @@
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {
-    "maxVelocity": 3.0,
+    "maxVelocity": 3.5,
     "maxAcceleration": 2.93,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
@@ -58,7 +58,7 @@
   },
   "goalEndState": {
     "velocity": 3.0,
-    "rotation": -79.06768763746719
+    "rotation": -79.0676876374672
   },
   "reversed": false,
   "folder": "s3",

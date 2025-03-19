@@ -11,7 +11,7 @@ public final class DriveConstants {
   // Driving Parameters - Note that these are not the maximum capable speeds of
   // the robot, rather the allowed maximum speeds
   public static final double periodicTime = 0.02;
-  public static final double kMaxSpeedMetersPerSecond = 4.8;
+  public static final double kMaxSpeedMetersPerSecond = 4.6;
   public static final double kAlignMaxAngularSpeed = 2.5 * Math.PI; // radians per second
   public static final double kAlignMaxSpeed = 3.0; // meters per second
 
@@ -24,6 +24,9 @@ public final class DriveConstants {
   public static final double kTrackWidthY = Units.inchesToMeters(26.5);
   // Distance between centers of right and left wheels on robot
   public static final double kWheelBase = Units.inchesToMeters(26.5);
+  // Width of robot, including bumpers
+  public static final double kRobotWidth = Units.inchesToMeters(35);
+
   // Distance between front and back wheels on robot
   public static final SwerveDriveKinematics kDriveKinematics =
       new SwerveDriveKinematics(

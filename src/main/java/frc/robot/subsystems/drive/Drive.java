@@ -103,8 +103,6 @@ public class Drive extends SubsystemBase {
   private SysIdRoutine sysId;
   private SysIdRoutine turnRoutine;
 
-  private Rotation2d simRotation = new Rotation2d();
-
   private int reefPoseIndex;
 
   private double lastTime = Timer.getFPGATimestamp();
@@ -312,12 +310,10 @@ public class Drive extends SubsystemBase {
     if (gyroInputs.connected) {
       // Use the real gyro angle
       rawGyroRotation = Rotation2d.fromDegrees(gyroIO.getYawAngle());
-      simRotation = rawGyroRotation;
     } else {
-      simRotation =
-          simRotation.rotateBy(
+      rawGyroRotation =
+          rawGyroRotation.rotateBy(
               Rotation2d.fromRadians(fieldVelocity.omegaRadiansPerSecond * deltaTime));
-      rawGyroRotation = simRotation;
     }
 
     Rotation2d dtheta = rawGyroRotation.minus(lastGyroRotation);
@@ -499,7 +495,6 @@ public class Drive extends SubsystemBase {
   /** Resets the current odometry pose. */
   public void setPose(Pose2d pose) {
     gyroIO.setYawAngle(pose.getRotation().getDegrees());
-    simRotation = pose.getRotation();
     rawGyroRotation = pose.getRotation();
     lastGyroRotation = pose.getRotation();
 
@@ -697,7 +692,7 @@ public class Drive extends SubsystemBase {
           Pose2d pose = AllianceFlipUtil.apply(FieldConstants.ReefScoringPositions[index]);
 
           if (reefLevel == ReefLevels.l1) {
-            pose = FieldConstants.translateCoordinates(pose, pose.getRotation().getDegrees(), 0.2);
+            pose = FieldConstants.translateCoordinates(pose, pose.getRotation().getDegrees(), 0.1);
           }
 
           return pose;

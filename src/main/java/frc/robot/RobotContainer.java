@@ -40,6 +40,7 @@ import frc.robot.subsystems.coralPivot.CoralPivotIO;
 import frc.robot.subsystems.coralPivot.CoralPivotIOSim;
 import frc.robot.subsystems.coralPivot.CoralPivotIOSparkMax;
 import frc.robot.subsystems.drive.Drive;
+import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.subsystems.drive.GyroIO;
 import frc.robot.subsystems.drive.GyroIOReal;
 import frc.robot.subsystems.drive.ModuleIO;
@@ -342,6 +343,10 @@ public class RobotContainer {
     return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED);
   }
 
+  public Command coralOuttakeForever() {
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED);
+  }
+
   public Command coralFeeder() {
     return coralPivot
         .PIDCommand(CoralPivotConstants.CORAL_PIVOT_STATION_ANGLE)
@@ -356,6 +361,42 @@ public class RobotContainer {
 
   public Command coralOuttake() {
     return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(0.5);
+  }
+
+  public Command knockAlgaeDownFromLeft() {
+    double currentXDistFromReef =
+        FieldConstants.distanceBackFromReef - DriveConstants.kRobotWidth / 2;
+    double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
+
+    double xDistance = currentXDistFromReef - desiredXDistFromReef;
+    double yDistance = -0.164338;
+
+    double magnitude = Math.hypot(xDistance, yDistance);
+    double xSpeed = xDistance / magnitude * 3;
+    double ySpeed = yDistance / magnitude * 3;
+
+    return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
+        .withTimeout(0.5)
+        .deadlineFor(coralOuttakeForever())
+        .andThen(coralOuttakeForever().withTimeout(0.3));
+  }
+
+  public Command knockAlgaeDownFromRight() {
+    double currentXDistFromReef =
+        FieldConstants.distanceBackFromReef - DriveConstants.kRobotWidth / 2;
+    double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
+
+    double xDistance = currentXDistFromReef - desiredXDistFromReef;
+    double yDistance = 0.164338;
+
+    double magnitude = Math.hypot(xDistance, yDistance);
+    double xSpeed = xDistance / magnitude * 3;
+    double ySpeed = yDistance / magnitude * 3;
+
+    return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
+        .withTimeout(0.5)
+        .deadlineFor(coralOuttakeForever())
+        .andThen(coralOuttakeForever().withTimeout(0.3));
   }
 
   public Command processor() {

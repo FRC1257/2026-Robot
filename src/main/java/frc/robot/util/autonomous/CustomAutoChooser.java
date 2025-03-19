@@ -2,6 +2,7 @@ package frc.robot.util.autonomous;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.FieldConstants;
@@ -60,6 +61,8 @@ public class CustomAutoChooser {
   private RobotContainer robotContainer;
   private AlgaePivot algaePivot;
 
+  private boolean[] algaesKnockedDown = new boolean[6];
+
   public CustomAutoChooser(RobotContainer robotContainer, Drive drive, AlgaePivot algaePivot) {
     this.drive = drive;
     this.robotContainer = robotContainer;
@@ -106,7 +109,26 @@ public class CustomAutoChooser {
       case l3:
         return robotContainer.goToL3Auto();
     }
-    return new InstantCommand(); //
+    return Commands.none(); //
+  }
+
+  // Returns a command to knock algae down if it is necessary
+  public Command getKnockAlgaeDownCommand(ReefLevels level, ReefPositions position) {
+    int reefPoseIndex = Integer.parseInt(position.toString().substring(1)) - 1;
+    if (level == ReefLevels.l3 && !algaesKnockedDown[reefPoseIndex / 2]) {
+      algaesKnockedDown[reefPoseIndex / 2] = true;
+
+      // If reef pose index is even, you are on the right side
+      // Else, you are on the left side
+      if (reefPoseIndex % 2 == 0) {
+        return robotContainer.knockAlgaeDownFromRight();
+      } else {
+        return robotContainer.knockAlgaeDownFromLeft();
+      }
+    }
+
+    // If you aren't doing L3 or the algae is already knocked down, don't do anything
+    return Commands.none();
   }
 
   // returns the entire auto
@@ -167,13 +189,16 @@ public class CustomAutoChooser {
     Command driveStartToReef =
         drive
             .followPathFileCommand(startPos.toString() + "-" + reefPoses.get(0).toString())
-            .andThen(drive.alignToReefAuto(reefPoses.get(0), reefLevels.get(0)));
+            .andThen(drive.alignToReefAuto(reefPoses.get(0), reefLevels.get(0)))
+            .alongWith(new InstantCommand(() -> System.out.println("Driving start to reef")));
 
     commandGroup.addCommands(
         driveStartToReef
             .alongWith(getElevatorAndPivotCommand(reefLevels.get(0)))
             .deadlineFor(robotContainer.coralIntakeForever()),
-        (robotContainer.coralOuttake()));
+        (robotContainer.coralOuttake())
+            .alongWith(new InstantCommand(() -> System.out.println("Outtaking coral"))),
+        getKnockAlgaeDownCommand(reefLevels.get(0), reefPoses.get(0)));
 
     // returns poses for reef positions
     for (int i = 1; i < reefPoses.size(); i++) {
@@ -212,22 +237,35 @@ public class CustomAutoChooser {
           drive
               .followPathFileCommand(
                   currentReefPosition.toString() + "-" + coralStationPos.toString())
-              .andThen(drive.alignToStationAuto());
+              .alongWith(new InstantCommand(() -> System.out.println("Driving reef to station")))
+              .andThen(drive.alignToStationAuto())
+              .alongWith(new InstantCommand(() -> System.out.println("Aligning to station")));
 
       // drives to the reef position chosen
       Command driveReefCommand =
           drive
               .followPathFileCommand(coralStationPos.toString() + "-" + nextReefPosition.toString())
-              .andThen(drive.alignToReefAuto(nextReefPosition, reefLevel));
+              .alongWith(new InstantCommand(() -> System.out.println("Driving station to reef")))
+              .andThen(drive.alignToReefAuto(nextReefPosition, reefLevel))
+              .alongWith(new InstantCommand(() -> System.out.println("Aligning to reef")));
+
+      Command knockAlgaeDownCommand =
+          getKnockAlgaeDownCommand(reefLevel, nextReefPosition)
+              .alongWith(new InstantCommand(() -> System.out.println("Knocking down algae")));
 
       // combines all the commands needed
       commandGroup.addCommands(
           driveStationCommand.alongWith(robotContainer.goToStationAuto()),
-          robotContainer.coralIntake(),
+          robotContainer
+              .coralIntake()
+              .alongWith(new InstantCommand(() -> System.out.println("Intaking coral"))),
           driveReefCommand
               .alongWith(getElevatorAndPivotCommand(reefLevel))
               .deadlineFor(robotContainer.coralIntakeForever()),
-          robotContainer.coralOuttake());
+          robotContainer
+              .coralOuttake()
+              .alongWith(new InstantCommand(() -> System.out.println("Outtaking coral"))),
+          knockAlgaeDownCommand);
     }
     return commandGroup;
   }

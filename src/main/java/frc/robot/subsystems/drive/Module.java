@@ -133,7 +133,7 @@ public class Module {
     // Optimize state based on current angle
     // Controllers run in "periodic" when the setpoint is not null
     state.optimize(getAngle());
-    state.cosineScale(inputs.turnAbsolutePosition);
+    state.cosineScale(getAngle());
 
     // Update setpoints, controllers run in "periodic"
     angleSetpoint = state.angle;

@@ -686,11 +686,74 @@ public class Drive extends SubsystemBase {
   }
 
   /**
+   * A command that automatically aligns to the closest reef position's left score
+   *
+   * @return
+   */
+  public Command alignToReefLeft() {
+    return new AlignToPose(
+        this,
+        () -> {
+          Pose2d[] reefCenterPoses = FieldConstants.Reef.centerFaces;
+          Pose2d currentPose = getPose();
+
+          int closestPose = 0;
+          double closestDistance = Double.MAX_VALUE;
+
+          // Calculate distance to each reef pose and select closest one
+          for (int i = 0; i < 6; i++) {
+            Transform2d currentToTarget =
+                AllianceFlipUtil.apply(reefCenterPoses[i]).minus(currentPose);
+            double distance = currentToTarget.getTranslation().getNorm();
+
+            if (distance < closestDistance) {
+              closestPose = i;
+              closestDistance = distance;
+            }
+          }
+
+          return AllianceFlipUtil.apply(FieldConstants.ReefScoringPositions[closestPose * 2 + 1]);
+        },
+        false);
+  }
+
+  /**
+   * A command that automatically aligns to the closest reef position's right score
+   *
+   * @return
+   */
+  public Command alignToReefRight() {
+    return new AlignToPose(
+        this,
+        () -> {
+          Pose2d[] reefCenterPoses = FieldConstants.Reef.centerFaces;
+          Pose2d currentPose = getPose();
+
+          int closestPose = 0;
+          double closestDistance = Double.MAX_VALUE;
+
+          // Calculate distance to each reef pose and select closest one
+          for (int i = 0; i < 6; i++) {
+            Transform2d currentToTarget =
+                AllianceFlipUtil.apply(reefCenterPoses[i]).minus(currentPose);
+            double distance = currentToTarget.getTranslation().getNorm();
+
+            if (distance < closestDistance) {
+              closestPose = i;
+              closestDistance = distance;
+            }
+          }
+
+          return AllianceFlipUtil.apply(FieldConstants.ReefScoringPositions[closestPose * 2]);
+        },
+        false);
+  }
+
+  /**
    * A command that automatically aligns to a specific reef position
-   * 
+   *
    * @param reefPosition The desired position to align to
    * @param reefLevel The desired level to score on
-   *
    * @return the command, idk what else to put here
    */
   public Command alignToReefAuto(ReefPositions reefPosition, ReefLevels reefLevel) {

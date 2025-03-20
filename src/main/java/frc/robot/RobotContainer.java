@@ -241,6 +241,8 @@ public class RobotContainer {
         DriveCommands.joystickProcessorPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE));
 
     ALIGN_REEF.whileTrue(drive.alignToReef());
+    ALIGN_REEF_LEFT.whileTrue(drive.alignToReefLeft());
+    ALIGN_REEF_RIGHT.whileTrue(drive.alignToReefRight());
     ALIGN_STATION.whileTrue(drive.alignToStation());
 
     new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());

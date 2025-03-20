@@ -368,7 +368,7 @@ public class RobotContainer {
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
-    double yDistance = -0.164338;
+    double yDistance = -FieldConstants.reefFaceCenterToScoreDistance;
 
     double magnitude = Math.hypot(xDistance, yDistance);
     double xSpeed = xDistance / magnitude * 3;
@@ -388,7 +388,7 @@ public class RobotContainer {
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
-    double yDistance = 0.164338;
+    double yDistance = FieldConstants.reefFaceCenterToScoreDistance;
 
     double magnitude = Math.hypot(xDistance, yDistance);
     double xSpeed = xDistance / magnitude * 3;

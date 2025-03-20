@@ -706,12 +706,16 @@ public class Drive extends SubsystemBase {
             if (index % 2 == 0) {
               pose =
                   FieldConstants.translateCoordinates(
-                      pose, pose.getRotation().getDegrees() + 90, 0.164338);
+                      pose,
+                      pose.getRotation().getDegrees() + 90,
+                      FieldConstants.reefFaceCenterToScoreDistance);
             } else {
 
               pose =
                   FieldConstants.translateCoordinates(
-                      pose, pose.getRotation().getDegrees() - 90, 0.164338);
+                      pose,
+                      pose.getRotation().getDegrees() - 90,
+                      FieldConstants.reefFaceCenterToScoreDistance);
             }
           }
 

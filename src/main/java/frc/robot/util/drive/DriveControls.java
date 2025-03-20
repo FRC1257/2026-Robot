@@ -36,6 +36,8 @@ public class DriveControls {
   public static Trigger JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
 
   public static Trigger ALIGN_REEF = EMPTY_TRIGGER;
+  public static Trigger ALIGN_REEF_LEFT = EMPTY_TRIGGER;
+  public static Trigger ALIGN_REEF_RIGHT = EMPTY_TRIGGER;
   public static Trigger ALIGN_STATION = EMPTY_TRIGGER;
 
   // Algae Pivot Controls
@@ -137,6 +139,7 @@ public class DriveControls {
   public static void configureControls() {
     switch (driverChooser.getDriver()) {
       case MADDIE:
+      case MICHAEL:
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
         DRIVE_ROTATE = () -> -driver.getRightX();
@@ -155,10 +158,10 @@ public class DriveControls {
         JOYSTICK_STATION_POINT = driver.y();
         JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
 
-        ALIGN_REEF = driver.rightBumper();
-        ALIGN_STATION = driver.leftBumper();
+        ALIGN_REEF_LEFT = driver.leftBumper();
+        ALIGN_REEF_RIGHT = driver.rightBumper();
+        ALIGN_STATION = driver.leftTrigger();
         break;
-      case MICHAEL:
       case GABE:
       case PROGRAMMERS:
       default:

@@ -333,12 +333,15 @@ public class RobotContainer {
   }
 
   public Command coralIntake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.2)
-    .andThen(coralIntake
+    return coralIntake
         .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED)
-        .withTimeout(1)
-        .until(() -> coralIntake.hasCoral())
-        .until(() -> coralIntake.getVelocity() > -0.1));
+        .withTimeout(0.2)
+        .andThen(
+            coralIntake
+                .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED)
+                .withTimeout(1)
+                .until(() -> coralIntake.hasCoral())
+                .until(() -> coralIntake.getVelocity() > -0.2));
   }
 
   public Command coralIntakeForever() {
@@ -370,14 +373,20 @@ public class RobotContainer {
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
-    double yDistance = -FieldConstants.reefFaceCenterToScoreDistance;
+    double yDistance = -FieldConstants.reefFaceCenterToScoreDistance + 0.5 * 0.1;
 
     double magnitude = Math.hypot(xDistance, yDistance);
-    double xSpeed = xDistance / magnitude * 1;
-    double ySpeed = yDistance / magnitude * 1;
+    double xSpeed = xDistance / magnitude * 0.5;
+    double ySpeed = yDistance / magnitude * 0.5;
 
-    return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
-        .withTimeout(0.5)
+    Command driveCommand =
+        DriveCommands.joystickDriveRobotRelative(drive, () -> 0, () -> -0.5, () -> 0)
+            .withTimeout(0.1)
+            .andThen(
+                DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
+                    .withTimeout(0.4));
+
+    return driveCommand
         .deadlineFor(coralOuttakeForever())
         .andThen(
             coralOuttakeForever()
@@ -389,15 +398,23 @@ public class RobotContainer {
     double currentXDistFromReef = FieldConstants.distanceBackFromReef;
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
+    double robotSpeed = 0.5;
+
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
-    double yDistance = FieldConstants.reefFaceCenterToScoreDistance;
+    double yDistance = FieldConstants.reefFaceCenterToScoreDistance - robotSpeed * 0.1;
 
     double magnitude = Math.hypot(xDistance, yDistance);
-    double xSpeed = xDistance / magnitude * 1;
-    double ySpeed = yDistance / magnitude * 1;
+    double xSpeed = xDistance / magnitude * robotSpeed;
+    double ySpeed = yDistance / magnitude * robotSpeed;
 
-    return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
-        .withTimeout(0.5)
+    Command driveCommand =
+        DriveCommands.joystickDriveRobotRelative(drive, () -> 0, () -> 0.5, () -> 0)
+            .withTimeout(0.1)
+            .andThen(
+                DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
+                    .withTimeout(0.4));
+
+    return driveCommand
         .deadlineFor(coralOuttakeForever())
         .andThen(
             coralOuttakeForever()

@@ -38,7 +38,7 @@ public final class DriveConstants {
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
   public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2 + 1.924964;
-  public static final double kFrontRightChassisAngularOffset = Math.PI - 1.94004;
+  public static final double kFrontRightChassisAngularOffset = 2 * Math.PI - 6.141987682;
   public static final double kBackLeftChassisAngularOffset = -Math.PI + 5.41928;
   public static final double kBackRightChassisAngularOffset = -3 * Math.PI / 2 + 5.958595;
 

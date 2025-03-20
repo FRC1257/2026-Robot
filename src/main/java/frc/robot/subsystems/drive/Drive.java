@@ -687,10 +687,9 @@ public class Drive extends SubsystemBase {
 
   /**
    * A command that automatically aligns to a specific reef position
-   * 
+   *
    * @param reefPosition The desired position to align to
    * @param reefLevel The desired level to score on
-   *
    * @return the command, idk what else to put here
    */
   public Command alignToReefAuto(ReefPositions reefPosition, ReefLevels reefLevel) {

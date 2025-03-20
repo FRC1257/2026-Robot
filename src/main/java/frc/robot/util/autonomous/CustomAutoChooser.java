@@ -138,6 +138,11 @@ public class CustomAutoChooser {
     ArrayList<ReefLevels> reefLevels = new ArrayList<ReefLevels>();
     SequentialCommandGroup commandGroup = new SequentialCommandGroup();
 
+    // Resets algae knocking down
+    for (int i = 0; i < 6; i++) {
+      algaesKnockedDown[i] = false;
+    }
+
     // creates start position to reset our estimates
     Pose2d startPose2d;
     switch (startPos) {

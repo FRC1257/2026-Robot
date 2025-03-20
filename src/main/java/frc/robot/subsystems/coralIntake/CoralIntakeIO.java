@@ -25,7 +25,9 @@ public interface CoralIntakeIO {
     return false;
   }
 
-  public default double getVelocity() { return 0; }
+  public default double getVelocity() {
+    return 0;
+  }
 }
 
   /** sets brake mode */

@@ -218,10 +218,30 @@ public class FieldConstants {
     return new Pose2d(newXCoord, newYCoord, originalPose.getRotation());
   }
 
-  public static final Pose2d[] STATION_POSITION = {
-    new Pose2d(1.331, 6.822, Rotation2d.fromDegrees(126)),
-    new Pose2d(1.331, 1.178, Rotation2d.fromDegrees(-126))
-  };
+  public static final Pose2d[] STATION_POSITION = getStationPositions();
+
+  public static final double distanceBackFromStation = 0.72;
+
+  public static Pose2d[] getStationPositions() {
+    Pose2d[] stationPositions = new Pose2d[2];
+
+    stationPositions[0] = CoralStation.leftCenterFace;
+    stationPositions[1] = CoralStation.rightCenterFace;
+
+    for (int i = 0; i < 2; i++) {
+      stationPositions[i] =
+          translateCoordinates(
+              stationPositions[i],
+              stationPositions[i].getRotation().getDegrees(),
+              distanceBackFromStation);
+      stationPositions[i] =
+          new Pose2d(
+              stationPositions[i].getTranslation(),
+              stationPositions[i].getRotation().rotateBy(Rotation2d.fromDegrees(180)));
+    }
+
+    return stationPositions;
+  }
 
   public enum ReefHeight {
     L4(Units.inchesToMeters(72), -90),

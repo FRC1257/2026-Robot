@@ -669,6 +669,7 @@ public class Drive extends SubsystemBase {
           int closestPose = 0;
           double closestDistance = Double.MAX_VALUE;
 
+          // Calculate distance to each reef pose and select closest one
           for (int i = 0; i < 12; i++) {
             Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
             double distance = currentToTarget.getTranslation().getNorm();
@@ -699,10 +700,12 @@ public class Drive extends SubsystemBase {
           int index = Integer.parseInt(reefPosition.toString().substring(1)) - 1;
           Pose2d pose = AllianceFlipUtil.apply(FieldConstants.ReefScoringPositions[index]);
 
+          // If you're scoring on L1, move a bit forward and go to the center of the reef face
           if (reefLevel == ReefLevels.l1) {
             pose = FieldConstants.translateCoordinates(pose, pose.getRotation().getDegrees(), 0.1);
 
             // Move pose to center of reef face
+            // If you're on the right, move left, else move right
             if (index % 2 == 0) {
               pose =
                   FieldConstants.translateCoordinates(

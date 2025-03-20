@@ -379,6 +379,8 @@ public class Drive extends SubsystemBase {
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, kMaxSpeedMetersPerSecond);
 
+    Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
+
     // Send setpoints to modules
     SwerveModuleState[] optimizedSetpointStates = new SwerveModuleState[4];
     for (int i = 0; i < 4; i++) {
@@ -387,13 +389,18 @@ public class Drive extends SubsystemBase {
     }
 
     // Log setpoint states
-    Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
     Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
   }
 
   /** Stops the drive. */
   public void stop() {
-    runVelocity(new ChassisSpeeds());
+    for (int i = 0; i < 4; i++) {
+      modules[i].stop();
+    }
+
+    // Log empty setpoints
+    Logger.recordOutput("SwerveStates/Setpoints", new SwerveModuleState[] {});
+    Logger.recordOutput("SwerveStates/SetpointsOptimized", new SwerveModuleState[] {});
   }
 
   /** Resets the yaw angle of the estimated position */
@@ -425,7 +432,7 @@ public class Drive extends SubsystemBase {
   public double getCharacterizationVelocity() {
     double driveVelocityAverage = 0.0;
     for (var module : modules) {
-      driveVelocityAverage += module.getCharacterizationVelocity();
+      driveVelocityAverage += module.getFFCharacterizationVelocity();
     }
     return driveVelocityAverage / 4.0;
   }
@@ -487,9 +494,10 @@ public class Drive extends SubsystemBase {
   } */
   @AutoLogOutput(key = "Drive/Rotation")
   public Rotation2d getRotation() {
-    // if (gyroInputs.connected) return Rotation2d.fromDegrees(gyroIO.getYawAngle());
-    // return simRotation;
-    return getPose().getRotation();
+    Rotation2d changeSinceLastUpdate = new Rotation2d();
+    if (gyroInputs.connected)
+      changeSinceLastUpdate = Rotation2d.fromDegrees(gyroIO.getYawAngle()).minus(rawGyroRotation);
+    return getPose().getRotation().rotateBy(changeSinceLastUpdate);
   }
 
   /** Resets the current odometry pose. */
@@ -693,6 +701,18 @@ public class Drive extends SubsystemBase {
 
           if (reefLevel == ReefLevels.l1) {
             pose = FieldConstants.translateCoordinates(pose, pose.getRotation().getDegrees(), 0.1);
+
+            // Move pose to center of reef face
+            if (index % 2 == 0) {
+              pose =
+                  FieldConstants.translateCoordinates(
+                      pose, pose.getRotation().getDegrees() + 90, 0.164338);
+            } else {
+
+              pose =
+                  FieldConstants.translateCoordinates(
+                      pose, pose.getRotation().getDegrees() - 90, 0.164338);
+            }
           }
 
           return pose;

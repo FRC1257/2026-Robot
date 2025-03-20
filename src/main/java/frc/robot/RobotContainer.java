@@ -364,8 +364,7 @@ public class RobotContainer {
   }
 
   public Command knockAlgaeDownFromLeft() {
-    double currentXDistFromReef =
-        FieldConstants.distanceBackFromReef - DriveConstants.kRobotWidth / 2;
+    double currentXDistFromReef = FieldConstants.distanceBackFromReef;
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
@@ -378,12 +377,14 @@ public class RobotContainer {
     return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
         .withTimeout(0.5)
         .deadlineFor(coralOuttakeForever())
-        .andThen(coralOuttakeForever().withTimeout(0.3));
+        .andThen(
+            coralOuttakeForever()
+                .withTimeout(0.3)
+                .deadlineFor(DriveCommands.joystickDrive(drive, () -> 0, () -> 0, () -> 0)));
   }
 
   public Command knockAlgaeDownFromRight() {
-    double currentXDistFromReef =
-        FieldConstants.distanceBackFromReef - DriveConstants.kRobotWidth / 2;
+    double currentXDistFromReef = FieldConstants.distanceBackFromReef;
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
@@ -396,7 +397,10 @@ public class RobotContainer {
     return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
         .withTimeout(0.5)
         .deadlineFor(coralOuttakeForever())
-        .andThen(coralOuttakeForever().withTimeout(0.3));
+        .andThen(
+            coralOuttakeForever()
+                .withTimeout(0.3)
+                .deadlineFor(DriveCommands.joystickDrive(drive, () -> 0, () -> 0, () -> 0)));
   }
 
   public Command processor() {

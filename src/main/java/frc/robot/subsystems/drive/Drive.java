@@ -494,10 +494,7 @@ public class Drive extends SubsystemBase {
   } */
   @AutoLogOutput(key = "Drive/Rotation")
   public Rotation2d getRotation() {
-    Rotation2d changeSinceLastUpdate = new Rotation2d();
-    if (gyroInputs.connected)
-      changeSinceLastUpdate = Rotation2d.fromDegrees(gyroIO.getYawAngle()).minus(rawGyroRotation);
-    return getPose().getRotation().rotateBy(changeSinceLastUpdate);
+    return getPose().getRotation();
   }
 
   /** Resets the current odometry pose. */
@@ -688,9 +685,12 @@ public class Drive extends SubsystemBase {
   }
 
   /**
-   * A command that automatically aligns to the closest reef position
+   * A command that automatically aligns to a specific reef position
+   * 
+   * @param reefPosition The desired position to align to
+   * @param reefLevel The desired level to score on
    *
-   * @return
+   * @return the command, idk what else to put here
    */
   public Command alignToReefAuto(ReefPositions reefPosition, ReefLevels reefLevel) {
     return new AlignToPose(
@@ -710,7 +710,6 @@ public class Drive extends SubsystemBase {
                       pose.getRotation().getDegrees() + 90,
                       FieldConstants.reefFaceCenterToScoreDistance);
             } else {
-
               pose =
                   FieldConstants.translateCoordinates(
                       pose,

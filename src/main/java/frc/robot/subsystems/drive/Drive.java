@@ -379,6 +379,8 @@ public class Drive extends SubsystemBase {
     SwerveModuleState[] setpointStates = kinematics.toSwerveModuleStates(discreteSpeeds);
     SwerveDriveKinematics.desaturateWheelSpeeds(setpointStates, kMaxSpeedMetersPerSecond);
 
+    Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
+
     // Send setpoints to modules
     SwerveModuleState[] optimizedSetpointStates = new SwerveModuleState[4];
     for (int i = 0; i < 4; i++) {
@@ -387,13 +389,18 @@ public class Drive extends SubsystemBase {
     }
 
     // Log setpoint states
-    Logger.recordOutput("SwerveStates/Setpoints", setpointStates);
     Logger.recordOutput("SwerveStates/SetpointsOptimized", optimizedSetpointStates);
   }
 
   /** Stops the drive. */
   public void stop() {
-    runVelocity(new ChassisSpeeds());
+    for (int i = 0; i < 4; i++) {
+      modules[i].stop();
+    }
+
+    // Log empty setpoints
+    Logger.recordOutput("SwerveStates/Setpoints", new SwerveModuleState[] {});
+    Logger.recordOutput("SwerveStates/SetpointsOptimized", new SwerveModuleState[] {});
   }
 
   /** Resets the yaw angle of the estimated position */
@@ -425,7 +432,7 @@ public class Drive extends SubsystemBase {
   public double getCharacterizationVelocity() {
     double driveVelocityAverage = 0.0;
     for (var module : modules) {
-      driveVelocityAverage += module.getCharacterizationVelocity();
+      driveVelocityAverage += module.getFFCharacterizationVelocity();
     }
     return driveVelocityAverage / 4.0;
   }
@@ -487,8 +494,6 @@ public class Drive extends SubsystemBase {
   } */
   @AutoLogOutput(key = "Drive/Rotation")
   public Rotation2d getRotation() {
-    // if (gyroInputs.connected) return Rotation2d.fromDegrees(gyroIO.getYawAngle());
-    // return simRotation;
     return getPose().getRotation();
   }
 
@@ -664,6 +669,7 @@ public class Drive extends SubsystemBase {
           int closestPose = 0;
           double closestDistance = Double.MAX_VALUE;
 
+          // Calculate distance to each reef pose and select closest one
           for (int i = 0; i < 12; i++) {
             Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
             double distance = currentToTarget.getTranslation().getNorm();
@@ -680,9 +686,12 @@ public class Drive extends SubsystemBase {
   }
 
   /**
-   * A command that automatically aligns to the closest reef position
+   * A command that automatically aligns to a specific reef position
+   * 
+   * @param reefPosition The desired position to align to
+   * @param reefLevel The desired level to score on
    *
-   * @return
+   * @return the command, idk what else to put here
    */
   public Command alignToReefAuto(ReefPositions reefPosition, ReefLevels reefLevel) {
     return new AlignToPose(
@@ -691,8 +700,25 @@ public class Drive extends SubsystemBase {
           int index = Integer.parseInt(reefPosition.toString().substring(1)) - 1;
           Pose2d pose = AllianceFlipUtil.apply(FieldConstants.ReefScoringPositions[index]);
 
+          // If you're scoring on L1, move a bit forward and go to the center of the reef face
           if (reefLevel == ReefLevels.l1) {
             pose = FieldConstants.translateCoordinates(pose, pose.getRotation().getDegrees(), 0.1);
+
+            // Move pose to center of reef face
+            // If you're on the right, move left, else move right
+            if (index % 2 == 0) {
+              pose =
+                  FieldConstants.translateCoordinates(
+                      pose,
+                      pose.getRotation().getDegrees() + 90,
+                      FieldConstants.reefFaceCenterToScoreDistance);
+            } else {
+              pose =
+                  FieldConstants.translateCoordinates(
+                      pose,
+                      pose.getRotation().getDegrees() - 90,
+                      FieldConstants.reefFaceCenterToScoreDistance);
+            }
           }
 
           return pose;

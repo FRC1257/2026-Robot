@@ -220,13 +220,13 @@ public class ModuleIOSparkMax implements ModuleIO {
     inputs.driveVelocityMeterPerSec = driveEncoder.getVelocity() * kWheelRadiusMeters;
     inputs.driveVelocityRadPerSec = driveEncoder.getVelocity();
     inputs.driveAppliedVolts = driveSparkMax.getAppliedOutput() * driveSparkMax.getBusVoltage();
-    inputs.driveCurrentAmps = new double[] {driveSparkMax.getOutputCurrent()};
+    inputs.driveCurrentAmps = driveSparkMax.getOutputCurrent();
 
     inputs.turnAbsolutePosition = getTurnPosition();
     inputs.turnPosition = getTurnPosition();
     inputs.turnVelocityRadPerSec = turnAbsoluteEncoder.getVelocity();
     inputs.turnAppliedVolts = turnSparkMax.getAppliedOutput() * turnSparkMax.getBusVoltage();
-    inputs.turnCurrentAmps = new double[] {turnSparkMax.getOutputCurrent()};
+    inputs.turnCurrentAmps = turnSparkMax.getOutputCurrent();
 
     inputs.odometryTimestamps =
         timestampQueue.stream().mapToDouble((Double value) -> value).toArray();

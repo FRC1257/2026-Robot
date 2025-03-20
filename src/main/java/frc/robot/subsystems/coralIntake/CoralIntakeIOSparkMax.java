@@ -70,4 +70,9 @@ public class CoralIntakeIOSparkMax implements CoralIntakeIO {
   public boolean isBreakBeamBroken() {
     return breakBeam.get();
   }
+
+  @Override
+  public double getVelocity() {
+    return encoder.getVelocity();
+  }
 }

@@ -333,10 +333,12 @@ public class RobotContainer {
   }
 
   public Command coralIntake() {
-    return coralIntake
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED).withTimeout(0.2)
+    .andThen(coralIntake
         .ManualCommand(CoralIntakeConstants.CORAL_INTAKE_IN_SPEED)
-        .withTimeout(1.3)
-        .until(() -> coralIntake.hasCoral());
+        .withTimeout(1)
+        .until(() -> coralIntake.hasCoral())
+        .until(() -> coralIntake.getVelocity() > -0.1));
   }
 
   public Command coralIntakeForever() {
@@ -360,7 +362,7 @@ public class RobotContainer {
   }
 
   public Command coralOuttake() {
-    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(0.5);
+    return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(0.25);
   }
 
   public Command knockAlgaeDownFromLeft() {
@@ -372,8 +374,8 @@ public class RobotContainer {
     double yDistance = -0.164338;
 
     double magnitude = Math.hypot(xDistance, yDistance);
-    double xSpeed = xDistance / magnitude * 3;
-    double ySpeed = yDistance / magnitude * 3;
+    double xSpeed = xDistance / magnitude * 1;
+    double ySpeed = yDistance / magnitude * 1;
 
     return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
         .withTimeout(0.5)
@@ -390,8 +392,8 @@ public class RobotContainer {
     double yDistance = 0.164338;
 
     double magnitude = Math.hypot(xDistance, yDistance);
-    double xSpeed = xDistance / magnitude * 3;
-    double ySpeed = yDistance / magnitude * 3;
+    double xSpeed = xDistance / magnitude * 1;
+    double ySpeed = yDistance / magnitude * 1;
 
     return DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
         .withTimeout(0.5)

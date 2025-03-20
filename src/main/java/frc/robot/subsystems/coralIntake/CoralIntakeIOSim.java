@@ -31,4 +31,9 @@ public class CoralIntakeIOSim implements CoralIntakeIO {
     appliedVoltage = volts;
     sim.setInputVoltage(volts);
   }
+
+  @Override
+  public double getVelocity() {
+    return sim.getAngularVelocityRadPerSec();
+  }
 }

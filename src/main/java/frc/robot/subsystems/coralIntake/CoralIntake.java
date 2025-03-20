@@ -57,4 +57,8 @@ public class CoralIntake extends SubsystemBase {
   public boolean hasCoral() {
     return io.isBreakBeamBroken();
   }
+
+  public double getVelocity() {
+    return io.getVelocity();
+  }
 }

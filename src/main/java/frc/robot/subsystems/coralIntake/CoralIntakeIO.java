@@ -24,6 +24,8 @@ public interface CoralIntakeIO {
   public default boolean isBreakBeamBroken() {
     return false;
   }
+
+  public default double getVelocity() { return 0; }
 }
 
   /** sets brake mode */

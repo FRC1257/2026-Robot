@@ -370,19 +370,28 @@ public class RobotContainer {
     return coralIntake.ManualCommand(CoralIntakeConstants.CORAL_INTAKE_OUT_SPEED).withTimeout(0.25);
   }
 
+  // Moves right for 0.1 seconds, diagonally for 0.4 seconds, and stops for 0.3 seconds
+  // All while running the outtake to knock down algae
   public Command knockAlgaeDownFromLeft() {
+    // Calculate the x and y distance we want to move so our speed can be in the same direction
     double currentXDistFromReef = FieldConstants.distanceBackFromReef;
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
+    double robotSpeed = 0.5; // Half of max speed (like a joystick value of 0.5)
+
+    // We realized that 0.5 m/s isn't actually the speed we're moving at
+    // But we're keeping this convoluted calculation method because it works (DON'T TOUCH IT)
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
-    double yDistance = -FieldConstants.reefFaceCenterToScoreDistance + 0.5 * 0.1;
+    double yDistance = -FieldConstants.reefFaceCenterToScoreDistance + robotSpeed * 0.1;
 
+    // Normalize distances and scale them to get diagonal speeds in the same direction
     double magnitude = Math.hypot(xDistance, yDistance);
-    double xSpeed = xDistance / magnitude * 0.5;
-    double ySpeed = yDistance / magnitude * 0.5;
+    double xSpeed = xDistance / magnitude * robotSpeed;
+    double ySpeed = yDistance / magnitude * robotSpeed;
 
+    // Drive robot relative using calculated speeds
     Command driveCommand =
-        DriveCommands.joystickDriveRobotRelative(drive, () -> 0, () -> -0.5, () -> 0)
+        DriveCommands.joystickDriveRobotRelative(drive, () -> 0, () -> -robotSpeed, () -> 0)
             .withTimeout(0.1)
             .andThen(
                 DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)
@@ -396,21 +405,28 @@ public class RobotContainer {
                 .deadlineFor(DriveCommands.joystickDrive(drive, () -> 0, () -> 0, () -> 0)));
   }
 
+  // Moves left for 0.1 seconds, diagonally for 0.4 seconds, and stops for 0.3 seconds
+  // All while running the outtake to knock down algae
   public Command knockAlgaeDownFromRight() {
+    // Calculate the x and y distance we want to move so our speed can be in the same direction
     double currentXDistFromReef = FieldConstants.distanceBackFromReef;
     double desiredXDistFromReef = DriveConstants.kRobotWidth / 2;
 
-    double robotSpeed = 0.5;
+    double robotSpeed = 0.5; // Half of max speed (like a joystick value of 0.5)
 
+    // We realized that 0.5 m/s isn't actually the speed we're moving at
+    // But we're keeping this convoluted calculation method because it works (DON'T TOUCH IT)
     double xDistance = currentXDistFromReef - desiredXDistFromReef;
     double yDistance = FieldConstants.reefFaceCenterToScoreDistance - robotSpeed * 0.1;
 
+    // Normalize distances and scale them to get diagonal speeds in the same direction
     double magnitude = Math.hypot(xDistance, yDistance);
     double xSpeed = xDistance / magnitude * robotSpeed;
     double ySpeed = yDistance / magnitude * robotSpeed;
 
+    // Drive robot relative using calculated speeds
     Command driveCommand =
-        DriveCommands.joystickDriveRobotRelative(drive, () -> 0, () -> 0.5, () -> 0)
+        DriveCommands.joystickDriveRobotRelative(drive, () -> 0, () -> robotSpeed, () -> 0)
             .withTimeout(0.1)
             .andThen(
                 DriveCommands.joystickDriveRobotRelative(drive, () -> xSpeed, () -> ySpeed, () -> 0)

@@ -686,7 +686,7 @@ public class Drive extends SubsystemBase {
   }
 
   /**
-   * A command that automatically aligns to the closest reef position's left score
+   * A command that automatically aligns to the closest reef left scoring location
    *
    * @return
    */
@@ -718,7 +718,7 @@ public class Drive extends SubsystemBase {
   }
 
   /**
-   * A command that automatically aligns to the closest reef position's right score
+   * A command that automatically aligns to the closest reef right scoring location
    *
    * @return
    */

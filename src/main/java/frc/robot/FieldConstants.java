@@ -222,12 +222,15 @@ public class FieldConstants {
 
   public static final double distanceBackFromStation = 0.72;
 
+  // Returns an array of positions using the station center faces and moving the poses back
   public static Pose2d[] getStationPositions() {
     Pose2d[] stationPositions = new Pose2d[2];
 
+    // Set poses to station center faces
     stationPositions[0] = CoralStation.leftCenterFace;
     stationPositions[1] = CoralStation.rightCenterFace;
 
+    // Move each pose back and flip it 180 degrees
     for (int i = 0; i < 2; i++) {
       stationPositions[i] =
           translateCoordinates(

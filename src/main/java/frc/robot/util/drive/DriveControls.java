@@ -39,6 +39,7 @@ public class DriveControls {
   public static Trigger ALIGN_REEF_LEFT = EMPTY_TRIGGER;
   public static Trigger ALIGN_REEF_RIGHT = EMPTY_TRIGGER;
   public static Trigger ALIGN_STATION = EMPTY_TRIGGER;
+  public static Trigger ALIGN_REEF_CENTER = EMPTY_TRIGGER;
 
   // Algae Pivot Controls
   public static DoubleSupplier ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
@@ -161,6 +162,7 @@ public class DriveControls {
         ALIGN_REEF_LEFT = driver.leftBumper();
         ALIGN_REEF_RIGHT = driver.rightBumper();
         ALIGN_STATION = driver.leftTrigger();
+        ALIGN_REEF_CENTER = driver.rightTrigger();
         break;
       case GABE:
       case PROGRAMMERS:

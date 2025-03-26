@@ -292,9 +292,9 @@ public class DriveCommands {
         ySupplier,
         () -> {
           Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
-          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-126));
+          Rotation2d targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(-125.989));
           if (currentPose.getY() > FieldConstants.fieldWidth / 2) {
-            targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(126));
+            targetRotation = AllianceFlipUtil.apply(Rotation2d.fromDegrees(125.989));
           }
           return targetRotation;
         });

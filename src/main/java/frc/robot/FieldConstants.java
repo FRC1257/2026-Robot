@@ -163,6 +163,7 @@ public class FieldConstants {
   }
 
   public static final Pose2d[] ReefScoringPositions = getReefScoringPositions();
+  public static final Pose2d[] ReefCenterPositions = getCenterScoringPositions();
 
   // The distance backward from the reef that the center of the robot should be when scoring
   public static final double distanceBackFromReef = 0.67;
@@ -208,6 +209,19 @@ public class FieldConstants {
     return positions;
   }
 
+  public static Pose2d[] getCenterScoringPositions() {
+    Pose2d[] positions = new Pose2d[6];
+
+    for (int i = 0; i < 6; i++) {
+      positions[i] =
+          translateCoordinates(
+              Reef.centerFaces[i],
+              Reef.centerFaces[i].getRotation().getDegrees(),
+              distanceBackFromReef);
+    }
+    return positions;
+  }
+
   // Translates the coordinates of originalPose by some distance at some angle
   // Stolen- uhhh taken inspiration from team 6964 BearBots
   public static Pose2d translateCoordinates(
@@ -222,12 +236,15 @@ public class FieldConstants {
 
   public static final double distanceBackFromStation = 0.72;
 
+  // Returns an array of positions using the station center faces and moving the poses back
   public static Pose2d[] getStationPositions() {
     Pose2d[] stationPositions = new Pose2d[2];
 
+    // Set poses to station center faces
     stationPositions[0] = CoralStation.leftCenterFace;
     stationPositions[1] = CoralStation.rightCenterFace;
 
+    // Move each pose back and flip it 180 degrees
     for (int i = 0; i < 2; i++) {
       stationPositions[i] =
           translateCoordinates(

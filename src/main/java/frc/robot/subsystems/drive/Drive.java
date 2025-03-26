@@ -685,8 +685,34 @@ public class Drive extends SubsystemBase {
         false);
   }
 
+  public Command alignToCenterReef() {
+    return new AlignToPose(
+        this,
+        () -> {
+          Pose2d[] reefPoses = FieldConstants.ReefCenterPositions;
+          Pose2d currentPose = getPose();
+
+          int closestPose = 0;
+          double closestDistance = Double.MAX_VALUE;
+
+          // Calculate distance to each reef pose and select closest one
+          for (int i = 0; i < 6; i++) {
+            Transform2d currentToTarget = AllianceFlipUtil.apply(reefPoses[i]).minus(currentPose);
+            double distance = currentToTarget.getTranslation().getNorm();
+
+            if (distance < closestDistance) {
+              closestPose = i;
+              closestDistance = distance;
+            }
+          }
+
+          return AllianceFlipUtil.apply(FieldConstants.Reef.centerFaces[closestPose]);
+        },
+        false);
+  }
+
   /**
-   * A command that automatically aligns to the closest reef position's left score
+   * A command that automatically aligns to the closest reef left scoring location
    *
    * @return
    */
@@ -718,7 +744,7 @@ public class Drive extends SubsystemBase {
   }
 
   /**
-   * A command that automatically aligns to the closest reef position's right score
+   * A command that automatically aligns to the closest reef right scoring location
    *
    * @return
    */

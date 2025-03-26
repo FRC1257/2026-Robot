@@ -163,6 +163,7 @@ public class FieldConstants {
   }
 
   public static final Pose2d[] ReefScoringPositions = getReefScoringPositions();
+  public static final Pose2d[] ReefCenterPositions = getCenterScoringPositions();
 
   // The distance backward from the reef that the center of the robot should be when scoring
   public static final double distanceBackFromReef = 0.67;
@@ -205,6 +206,19 @@ public class FieldConstants {
               scoringPose, centerFacePose.getRotation().getDegrees(), distanceBackFromReef);
     }
 
+    return positions;
+  }
+
+  public static Pose2d[] getCenterScoringPositions() {
+    Pose2d[] positions = new Pose2d[6];
+
+    for (int i = 0; i < 6; i++) {
+      positions[i] =
+          translateCoordinates(
+              Reef.centerFaces[i],
+              Reef.centerFaces[i].getRotation().getDegrees(),
+              distanceBackFromReef);
+    }
     return positions;
   }
 

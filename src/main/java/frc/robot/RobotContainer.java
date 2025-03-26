@@ -182,7 +182,7 @@ public class RobotContainer {
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
     algaePivot.setDefaultCommand(algaePivot.ManualCommand(ALGAE_PIVOT_SPEED));
 
-    DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
+    // DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
 
     DRIVE_STOP.onTrue(
         new InstantCommand(
@@ -227,7 +227,7 @@ public class RobotContainer {
     COMBINED_L2.onTrue(goToL2());
     COMBINED_L3.onTrue(goToL3());
     COMBINED_STATION.onTrue(goToStation());
-    COMBINED_STOW.onTrue(stow());
+    // COMBINED_STOW.onTrue(stow());
 
     TOGGLE_REEF_POSITION_UP.onTrue(drive.reefPoseChooserIncrement());
     TOGGLE_REEF_POSITION_DOWN.onTrue(drive.reefPoseChooserDecrement());

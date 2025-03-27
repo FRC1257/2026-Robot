@@ -711,7 +711,7 @@ public class Drive extends SubsystemBase {
             }
           }
 
-          return AllianceFlipUtil.apply(FieldConstants.Reef.centerFaces[closestPose]);
+          return AllianceFlipUtil.apply(FieldConstants.ReefCenterPositions[closestPose]);
         },
         false);
   }

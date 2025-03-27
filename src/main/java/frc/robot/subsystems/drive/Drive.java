@@ -685,6 +685,11 @@ public class Drive extends SubsystemBase {
         false);
   }
 
+  /**
+   * A command that automatically aligns to the closest reef center position
+   *
+   * @return
+   */
   public Command alignToCenterReef() {
     return new AlignToPose(
         this,
@@ -706,7 +711,7 @@ public class Drive extends SubsystemBase {
             }
           }
 
-          return AllianceFlipUtil.apply(FieldConstants.Reef.centerFaces[closestPose]);
+          return AllianceFlipUtil.apply(FieldConstants.ReefCenterPositions[closestPose]);
         },
         false);
   }

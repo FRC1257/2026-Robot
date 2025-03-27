@@ -213,11 +213,14 @@ public class FieldConstants {
     Pose2d[] positions = new Pose2d[6];
 
     for (int i = 0; i < 6; i++) {
+      Pose2d scoringPose =
+          new Pose2d(
+              Reef.centerFaces[i].getTranslation(),
+              Reef.centerFaces[i].getRotation().rotateBy(Rotation2d.fromDegrees(180)));
+
       positions[i] =
           translateCoordinates(
-              Reef.centerFaces[i],
-              Reef.centerFaces[i].getRotation().getDegrees(),
-              distanceBackFromReef);
+              scoringPose, Reef.centerFaces[i].getRotation().getDegrees(), distanceBackFromReef);
     }
     return positions;
   }

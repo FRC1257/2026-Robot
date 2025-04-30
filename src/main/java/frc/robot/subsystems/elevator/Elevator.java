@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -51,13 +52,6 @@ public class Elevator extends SubsystemBase {
 
   private SysIdRoutine SysId;
 
-  public static enum State {
-    MANUAL,
-    PID,
-    SYSID
-  }
-
-  private State elevatorState = State.MANUAL;
   private double manualSpeed = 0;
 
   public Elevator(ElevatorIO io) {
@@ -99,18 +93,6 @@ public class Elevator extends SubsystemBase {
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
 
-    // Move elevator based on state
-    switch (elevatorState) {
-      case MANUAL:
-        move(manualSpeed);
-        break;
-      case PID:
-        runPID();
-        break;
-      default:
-        break;
-    }
-
     elevatorMechanism.setLength(io.getPosition());
 
     // Update the PID constants if they have changed
@@ -130,7 +112,6 @@ public class Elevator extends SubsystemBase {
 
     // Log Inputs
     Logger.processInputs("Elevator", inputs);
-    Logger.recordOutput("Elevator/Elevator State", elevatorState);
   }
 
   public void setPID(double setpoint) {
@@ -138,16 +119,11 @@ public class Elevator extends SubsystemBase {
       setpoint = ElevatorConstants.ELEVATOR_MAX_HEIGHT;
     else if (setpoint < ElevatorConstants.ELEVATOR_MIN_HEIGHT)
       setpoint = ElevatorConstants.ELEVATOR_MIN_HEIGHT;
-
     io.setSetpoint(setpoint);
-    elevatorState = State.PID;
   }
 
   public void setManual(double speed) {
     manualSpeed = speed;
-    if (speed != 0) {
-      elevatorState = State.MANUAL;
-    }
   }
 
   public void setMechanism(MechanismLigament2d mechanism) {
@@ -213,9 +189,16 @@ public class Elevator extends SubsystemBase {
     return new InstantCommand(() -> setPID(setpoint));
   }
 
+  public Command HoldSetpointCommand() {
+    return Commands.startRun(
+      () -> setPID(io.getPosition()),
+      () -> runPID(),
+      this);
+  }
+
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(double speed) {
-    return new RunCommand(() -> setManual(speed), this)
+    return new RunCommand(() -> move(speed), this)
         .finallyDo(
             () -> {
               manualSpeed = 0;
@@ -225,7 +208,7 @@ public class Elevator extends SubsystemBase {
 
   /** Control the elevator by providing a velocity from -1 to 1 */
   public Command ManualCommand(DoubleSupplier speedSupplier) {
-    return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
+    return new RunCommand(() -> move(speedSupplier.getAsDouble()), this)
         .finallyDo(
             () -> {
               manualSpeed = 0;
@@ -234,7 +217,6 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command quasistaticForward() {
-    elevatorState = State.SYSID;
     return SysId.quasistatic(Direction.kForward)
         .until(
             () ->
@@ -243,13 +225,11 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command quasistaticBack() {
-    elevatorState = State.SYSID;
     return SysId.quasistatic(Direction.kReverse)
         .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT);
   }
 
   public Command dynamicForward() {
-    elevatorState = State.SYSID;
     return SysId.dynamic(Direction.kForward)
         .until(
             () ->
@@ -258,7 +238,6 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command dynamicBack() {
-    elevatorState = State.SYSID;
     return SysId.dynamic(Direction.kReverse)
         .until(() -> io.getPosition() <= ElevatorConstants.ELEVATOR_MIN_HEIGHT);
   }

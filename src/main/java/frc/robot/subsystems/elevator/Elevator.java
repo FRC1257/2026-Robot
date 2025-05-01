@@ -190,10 +190,8 @@ public class Elevator extends SubsystemBase {
   }
 
   public Command HoldSetpointCommand() {
-    return Commands.startRun(
-      () -> setPID(io.getPosition()),
-      () -> runPID(),
-      this);
+    return Commands.startRun(() -> setPID(io.getPosition()), () -> runPID(), this)
+        .withName("HoldSetpoint");
   }
 
   /** Control the elevator by providing a velocity from -1 to 1 */

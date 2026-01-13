@@ -171,12 +171,10 @@ out/
 # Simulation GUI and other tools window save file
 networktables.json
 simgui.json
-simgui-ds.json
 *-window.json
 
 # Simulation data log directory
 logs/
-sim_logs/
 
 # Folder that has CTRE Phoenix Sim device config storage
 ctre_sim/
@@ -188,5 +186,5 @@ compile_commands.json
 # Eclipse generated file for annotation processors
 .factorypath
 
-# Build constants file
+# Build Constants
 src/main/java/frc/robot/BuildConstants.java

@@ -27,33 +27,6 @@ public class DriveControls {
   public static Trigger DRIVE_STOP = EMPTY_TRIGGER;
   public static Trigger DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
-  public static Trigger TOGGLE_REEF_POSITION_UP = EMPTY_TRIGGER;
-  public static Trigger TOGGLE_REEF_POSITION_DOWN = EMPTY_TRIGGER;
-  public static Trigger DRIVE_TO_REEF = EMPTY_TRIGGER;
-
-  public static Trigger JOYSTICK_REEF_POINT = EMPTY_TRIGGER;
-  public static Trigger JOYSTICK_STATION_POINT = EMPTY_TRIGGER;
-  public static Trigger JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
-
-  public static Trigger ALIGN_REEF = EMPTY_TRIGGER;
-  public static Trigger ALIGN_REEF_LEFT = EMPTY_TRIGGER;
-  public static Trigger ALIGN_REEF_RIGHT = EMPTY_TRIGGER;
-  public static Trigger ALIGN_STATION = EMPTY_TRIGGER;
-  public static Trigger ALIGN_REEF_CENTER = EMPTY_TRIGGER;
-
-  // Algae Pivot Controls
-  public static DoubleSupplier ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
-  public static Trigger ALGAE_PIVOT_STOW = EMPTY_TRIGGER;
-  public static Trigger ALGAE_PIVOT_DOWN = EMPTY_TRIGGER;
-  public static Trigger ALGAE_PIVOT_PROCESSOR = EMPTY_TRIGGER;
-
-  // Coral pivot controls
-  public static DoubleSupplier CORAL_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
-  public static Trigger CORAL_PIVOT_L1 = EMPTY_TRIGGER;
-  public static Trigger CORAL_PIVOT_L2_L3 = EMPTY_TRIGGER;
-  public static Trigger CORAL_PIVOT_STOW = EMPTY_TRIGGER;
-  public static Trigger CORAL_PIVOT_STATION = EMPTY_TRIGGER;
-
   // Drive Turns
   public static Trigger TURN_90 = EMPTY_TRIGGER;
   public static Trigger TURN_180 = EMPTY_TRIGGER;
@@ -61,32 +34,6 @@ public class DriveControls {
   // Rumble Controls
   public static Trigger TIMED_RUMBLE = EMPTY_TRIGGER;
   public static Trigger INTAKE_RUMBLE = EMPTY_TRIGGER;
-
-  // Potential Hail Marry Program [Suggested by Owen]
-  public static Trigger SHOOT_FROM_SOURCE = EMPTY_TRIGGER;
-
-  // Algae Intake Controls
-  public static Trigger INTAKE_ALGAE = EMPTY_TRIGGER;
-  public static Trigger EJECT_ALGAE = EMPTY_TRIGGER;
-
-  // Coral Intake Controls
-  public static Trigger INTAKE_CORAL = EMPTY_TRIGGER;
-  public static Trigger EJECT_CORAL = EMPTY_TRIGGER;
-
-  // Elevator Controls
-  public static DoubleSupplier ELEVATOR_SPEED = EMPTY_DOUBLE_SUPPLIER;
-  public static Trigger ELEVATOR_L1 = EMPTY_TRIGGER;
-  public static Trigger ELEVATOR_L2 = EMPTY_TRIGGER;
-  public static Trigger ELEVATOR_L3 = EMPTY_TRIGGER;
-  public static Trigger ELEVATOR_DOWN = EMPTY_TRIGGER;
-  public static Trigger ELEVATOR_STATION = EMPTY_TRIGGER;
-
-  // Combined elevator and coral pivot controls
-  public static Trigger COMBINED_L1 = EMPTY_TRIGGER;
-  public static Trigger COMBINED_L2 = EMPTY_TRIGGER;
-  public static Trigger COMBINED_L3 = EMPTY_TRIGGER;
-  public static Trigger COMBINED_STATION = EMPTY_TRIGGER;
-  public static Trigger COMBINED_STOW = EMPTY_TRIGGER;
 
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
@@ -150,19 +97,6 @@ public class DriveControls {
 
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
-
-        TOGGLE_REEF_POSITION_UP = driver.getDPad(DPad.UP);
-        TOGGLE_REEF_POSITION_DOWN = driver.getDPad(DPad.DOWN);
-        DRIVE_TO_REEF = EMPTY_TRIGGER;
-
-        JOYSTICK_REEF_POINT = driver.b();
-        JOYSTICK_STATION_POINT = driver.y();
-        JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
-
-        ALIGN_REEF_LEFT = driver.leftBumper();
-        ALIGN_REEF_RIGHT = driver.rightBumper();
-        ALIGN_STATION = driver.leftTrigger();
-        ALIGN_REEF_CENTER = driver.rightTrigger();
         break;
       case GABE:
       case PROGRAMMERS:
@@ -176,121 +110,20 @@ public class DriveControls {
 
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
-
-        TOGGLE_REEF_POSITION_UP = driver.getDPad(DPad.UP);
-        TOGGLE_REEF_POSITION_DOWN = driver.getDPad(DPad.DOWN);
-        DRIVE_TO_REEF = EMPTY_TRIGGER;
-
-        JOYSTICK_REEF_POINT = driver.b();
-        JOYSTICK_STATION_POINT = driver.y();
-        JOYSTICK_PROCESSOR_POINT = EMPTY_TRIGGER;
-
-        ALIGN_REEF = driver.leftBumper();
-        ALIGN_STATION = driver.leftTrigger();
         break;
     }
 
     switch (operatorChooser.getOperator()) {
       case ARBORIA:
-        COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        COMBINED_L3 = operator.getDPad(DPad.UP);
-        COMBINED_STOW = operator.getDPad(DPad.DOWN);
-        COMBINED_STATION = operator.a();
-
-        ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
-
-        ALGAE_PIVOT_STOW = operator.x();
-        ALGAE_PIVOT_PROCESSOR = operator.y();
-        ALGAE_PIVOT_DOWN = operator.b();
-
-        INTAKE_CORAL = operator.rightBumper();
-        EJECT_CORAL = operator.leftBumper();
-
-        INTAKE_ALGAE = operator.rightTrigger();
-        EJECT_ALGAE = operator.leftTrigger();
         break;
       case KEVIN:
-        COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        COMBINED_L3 = operator.getDPad(DPad.UP);
-        COMBINED_STOW = operator.getDPad(DPad.DOWN);
-        COMBINED_STATION = operator.a();
-
-        ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
-
-        ALGAE_PIVOT_STOW = operator.x();
-        ALGAE_PIVOT_PROCESSOR = operator.y();
-        ALGAE_PIVOT_DOWN = operator.b();
-
-        INTAKE_CORAL = operator.rightBumper();
-        EJECT_CORAL = operator.leftBumper();
-
-        INTAKE_ALGAE = operator.rightTrigger();
-        EJECT_ALGAE = operator.leftTrigger();
         break;
 
       case ANTONIOS:
-        COMBINED_L1 = operator.getDPad(DPad.LEFT);
-        COMBINED_L2 = operator.getDPad(DPad.RIGHT);
-        COMBINED_L3 = operator.getDPad(DPad.UP);
-        COMBINED_STOW = operator.getDPad(DPad.DOWN);
-        COMBINED_STATION = operator.a();
-
-        // ELEVATOR_DOWN = operator.getDPad(DPad.DOWN);
-        // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
-        // ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
-        // ELEVATOR_L3 = operator.getDPad(DPad.UP);
-
-        // CORAL_PIVOT_STATION = operator.a();
-
-        // CORAL_PIVOT_STOW = operator.getDPad(DPad.DOWN);
-        // CORAL_PIVOT_STATION = operator.getDPad(DPad.UP);
-
-        ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        CORAL_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
-
-        ALGAE_PIVOT_STOW = operator.x();
-        ALGAE_PIVOT_PROCESSOR = operator.y();
-        ALGAE_PIVOT_DOWN = operator.b();
-        // ALGAE_PIVOT_SPEED = () -> -operator.getRightYD() * 0.1;
-
-        INTAKE_CORAL = operator.leftBumper();
-        EJECT_CORAL = operator.rightBumper();
-
-        INTAKE_ALGAE = operator.leftTrigger();
-        EJECT_ALGAE = operator.rightTrigger();
         break;
       case PROGRAMMERS:
       default:
         // Operator controls
-        ALGAE_PIVOT_SPEED = EMPTY_DOUBLE_SUPPLIER;
-        ALGAE_PIVOT_DOWN = EMPTY_TRIGGER;
-        ALGAE_PIVOT_STOW = EMPTY_TRIGGER;
-        ALGAE_PIVOT_PROCESSOR = EMPTY_TRIGGER;
-
-        INTAKE_CORAL = EMPTY_TRIGGER;
-        EJECT_CORAL = EMPTY_TRIGGER;
-        EJECT_CORAL = EMPTY_TRIGGER;
-
-        CORAL_PIVOT_SPEED = () -> -operator.getLeftYD();
-        CORAL_PIVOT_L1 = operator.a();
-        CORAL_PIVOT_L2_L3 = operator.b();
-        CORAL_PIVOT_STOW = operator.x();
-        CORAL_PIVOT_STATION = operator.y();
-
-        INTAKE_ALGAE = EMPTY_TRIGGER;
-        EJECT_ALGAE = EMPTY_TRIGGER;
-        EJECT_ALGAE = EMPTY_TRIGGER;
-
-        // ELEVATOR_SPEED = () -> -operator.getLeftYD();
-        // ELEVATOR_L1 = operator.getDPad(DPad.LEFT);
-        ELEVATOR_L2 = operator.getDPad(DPad.RIGHT);
-        ELEVATOR_L3 = operator.getDPad(DPad.UP);
-        // ELEVATOR_DOWN = operator.b();
-        ELEVATOR_STATION = operator.getDPad(DPad.DOWN);
         break;
     }
   }

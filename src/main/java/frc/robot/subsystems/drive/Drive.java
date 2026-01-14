@@ -101,8 +101,6 @@ public class Drive extends SubsystemBase {
   private SysIdRoutine sysId;
   private SysIdRoutine turnRoutine;
 
-  private int reefPoseIndex;
-
   private double lastTime = Timer.getFPGATimestamp();
   private double deltaTime = 0;
   private Rotation2d lastGyroRotation = new Rotation2d();
@@ -218,8 +216,6 @@ public class Drive extends SubsystemBase {
                 },
                 null,
                 this));
-
-    reefPoseIndex = 0;
 
     // Things that will be shown on elastic
 

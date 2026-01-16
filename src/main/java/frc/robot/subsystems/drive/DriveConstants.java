@@ -44,17 +44,17 @@ public final class DriveConstants {
 
   // SPARK MAX CAN IDs
   // Subject to change depending on what robot side is the front
-  public static final int kFrontLeftDrivingCanId = 9;
+  public static final int kFrontLeftDrivingCanId = 7;
   public static final int kRearLeftDrivingCanId = 12;
-  public static final int kFrontRightDrivingCanId = 7;
-  public static final int kRearRightDrivingCanId = 4;
+  public static final int kFrontRightDrivingCanId = 4;
+  public static final int kRearRightDrivingCanId = 9;
 
   // drive motors are timing out for some reason in the logs
 
-  public static final int kFrontLeftTurningCanId = 8;
+  public static final int kFrontLeftTurningCanId = 6;
   public static final int kRearLeftTurningCanId = 11;
-  public static final int kFrontRightTurningCanId = 6;
-  public static final int kRearRightTurningCanId = 3;
+  public static final int kFrontRightTurningCanId = 3;
+  public static final int kRearRightTurningCanId = 8;
 
   public static final boolean kGyroReversed = false;
 

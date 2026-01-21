@@ -51,10 +51,10 @@ public final class DriveConstants {
 
   // drive motors are timing out for some reason in the logs
 
-  public static final int kFrontLeftTurningCanId = 6;
-  public static final int kRearLeftTurningCanId = 11;
+  public static final int kFrontLeftTurningCanId = 1;
+  public static final int kRearLeftTurningCanId = 2;
   public static final int kFrontRightTurningCanId = 3;
-  public static final int kRearRightTurningCanId = 8;
+  public static final int kRearRightTurningCanId = 11;
 
   public static final boolean kGyroReversed = false;
 

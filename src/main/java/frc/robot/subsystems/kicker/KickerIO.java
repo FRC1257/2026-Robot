@@ -11,4 +11,8 @@ public interface KickerIO {
         public double temperature=0; //celcius
     }
     public default void updateInputs(KickerIOInputs inputs) {}
+
+    public default void setVoltage(double voltage) {}
+
+    public default void setVelocity(double rpm) {};
 }

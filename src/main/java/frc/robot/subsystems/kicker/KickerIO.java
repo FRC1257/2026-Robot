@@ -14,5 +14,15 @@ public interface KickerIO {
 
     public default void setVoltage(double voltage) {}
 
+    public default void getVoltage() {
+        return 0; //not sure if this is supposed to be here
+    }
+
     public default void setVelocity(double rpm) {};
+
+    public default void getVelocity() {
+        return 0;
+    }
+
+    public default void setPIDGains(double Kp, double Ki, double Kd) {};
 }

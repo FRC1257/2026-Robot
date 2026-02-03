@@ -1,5 +1,8 @@
 package frc.robot.subsystems.Shooter;
 
+import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+
 public class ShooterTrajectoryCalculator {
 
     private static ShooterTrajectoryCalculator instance; 
@@ -11,9 +14,8 @@ public class ShooterTrajectoryCalculator {
 
     public record ShooterTrajectoryParameters(
         boolean isValid, 
-        double flywheelVelocity,
-        double hoodAngle,
-        double hoodVelocity
+        AngularVelocity flywheelVelocity,
+        Angle hoodAngle
     ) {}
 
     private ShooterTrajectoryParameters latestParameters = null; 

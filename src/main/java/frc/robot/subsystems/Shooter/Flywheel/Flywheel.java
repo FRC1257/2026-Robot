@@ -1,10 +1,15 @@
 package frc.robot.subsystems.Shooter.Flywheel;
 
+import static edu.wpi.first.units.Units.Volts;
+
 import java.util.function.DoubleSupplier;
+import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
@@ -27,20 +32,28 @@ public class Flywheel extends SubsystemBase {
     }
 
     @AutoLogOutput(key = "AlgaeIntake/Close")
-    public boolean isVoltageClose(double setVoltage) {
-        return Math.abs(setVoltage - inputs.flywheelVoltage) <= FlywheelConstants.FLYWHEEL_VOLTAGE_TOLERANCE;
+    public boolean isVoltageClose(Voltage appliedVoltage) {
+        return Math.abs(appliedVoltage.in(Volts) - inputs.flywheelVoltage.in(Volts)) <= FlywheelConstants.FLYWHEEL_VOLTAGE_TOLERANCE;
     }
 
-    private void runVelocity(double velocityRadsPerSec) { 
+    private void runVelocity(AngularVelocity velocityRadsPerSec) { 
         io.setVelocity(velocityRadsPerSec);
+    }
+
+    private void runVoltage(Voltage voltage){
+        io.setVoltage(voltage);
     }
 
     private void stop(){
         io.stop();
     }
 
-    public Command runFixedVelocityCommand(DoubleSupplier velocityRadsPerSec) {
-        return runEnd(() -> runVelocity(velocityRadsPerSec.getAsDouble()), this::stop)
+    public Command runVoltageCommand(Supplier<Voltage> voltage) {
+        return runEnd(() -> runVoltage(voltage.get()), this::stop);
+    }
+
+    public Command runFixedVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
+        return runEnd(() -> runVelocity(velocityRadsPerSec.get()), this::stop)
             .withName("Shooter/Flywheel/FixedVelocityCommand/" + velocityRadsPerSec.toString());
     }
 

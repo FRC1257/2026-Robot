@@ -25,4 +25,8 @@ public class ShooterTrajectoryCalculator {
 
         return latestParameters;
     }
+
+    public void resetParameters() {
+        latestParameters = null;
+    }
 }

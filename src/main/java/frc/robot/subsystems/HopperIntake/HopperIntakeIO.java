@@ -1,7 +1,10 @@
 package frc.robot.subsystems.HopperIntake;
 
+import org.littletonrobotics.junction.AutoLog;
+
 public interface HopperIntakeIO {
-    @Autolog
+
+    @AutoLog
     public static class HopperIntakeIOInputs {
 
     public double velocityRadsPerSec = 0.0;

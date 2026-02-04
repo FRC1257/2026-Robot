@@ -28,7 +28,7 @@ public class KickerIOSparkMax implements KickerIO {
 
         encoder = kickermotor.getEncoder();
 
-        SparkMaxConfig kickerConfig = new SparkMaxConfig();
+        SparkMaxConfig kickerConfig = new SparkMaxConfig(); //TODO add some configuration
 
         limitSwitch=new DigitalInput(0); //TODO: add this to constants later
     }

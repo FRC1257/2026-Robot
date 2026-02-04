@@ -9,6 +9,7 @@ public interface KickerIO {
         public double appliedVoltage=0;
         public double current=0; //amps
         public double temperature=0; //celcius
+        public boolean limitSwitchPressed=false;
     }
     public default void updateInputs(KickerIOInputs inputs) {}
 

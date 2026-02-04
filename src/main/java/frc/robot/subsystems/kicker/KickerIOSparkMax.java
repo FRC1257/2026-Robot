@@ -7,6 +7,7 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 
 import static edu.wpi.first.units.Units.RPM;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import org.littletonrobotics.junction.Logger;
 
 import com.revrobotics.spark.SparkLowLevel;
@@ -20,6 +21,7 @@ public class KickerIOSparkMax implements KickerIO {
 
     private PIDController controller = new PIDController(0, 0, 0);
     private RelativeEncoder encoder;
+    private DigitalInput limitSwitch;
 
     public KickerIOSparkMax() {
         kickermotor = new SparkMax(0, SparkLowLevel.MotorType.kBrushless); //random id; change it 
@@ -27,6 +29,8 @@ public class KickerIOSparkMax implements KickerIO {
         encoder = kickermotor.getEncoder();
 
         SparkMaxConfig kickerConfig = new SparkMaxConfig();
+
+        limitSwitch=new DigitalInput(0); //TODO: add this to constants later
     }
 
 
@@ -41,6 +45,7 @@ public class KickerIOSparkMax implements KickerIO {
         inputs.appliedVoltage = kickermotor.getAppliedOutput() * kickermotor.getBusVoltage();
         inputs.current = kickermotor.getOutputCurrent();
         inputs.temperature = kickermotor.getMotorTemperature();
+        inputs.limitSwitchPressed=limitSwitchPressed();
     }
     @Override
     public double getVelocity() {
@@ -61,6 +66,10 @@ public class KickerIOSparkMax implements KickerIO {
     public void setVoltage(double voltage) {
         kickermotor.setVoltage(voltage);
         Logger.recordOutput("Kicker/SetVoltage", voltage);
+    }
+
+    public boolean limitSwitchPressed() {
+        return !limitSwitch.get();
     }
 
 

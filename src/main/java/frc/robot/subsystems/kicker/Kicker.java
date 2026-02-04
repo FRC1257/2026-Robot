@@ -15,5 +15,19 @@ public class Kicker extends SubsystemBase {
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs("Kicker",inputs);
+
+    }
+
+    public void stop() {
+        stop.voltage(0.0);
+
+    }
+
+    public Command runKickerCommand() {
+        return this.runEnd(
+            () -> io.setVoltage()
+            () -> io.setVoltage(0.0)
+
+            );
     }
 }

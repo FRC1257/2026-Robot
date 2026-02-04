@@ -1,6 +1,7 @@
 package frc.robot.subsystems.kicker;
 
 
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -12,10 +13,13 @@ import com.revrobotics.spark.SparkLowLevel;
 
 import edu.wpi.first.math.controller.PIDController;
 
+import java.beans.Encoder;
+
 public class KickerIOSparkMax implements KickerIO {
     private SparkMax kickermotor;
 
-    private PIDController controller = new PIDController(0, 0, 0); 
+    private PIDController controller = new PIDController(0, 0, 0);
+    private RelativeEncoder encoder;
 
     public KickerIOSparkMax() {
         kickermotor = new SparkMax(0, SparkLowLevel.MotorType.kBrushless); //random id; change it 
@@ -23,40 +27,41 @@ public class KickerIOSparkMax implements KickerIO {
         encoder = kickermotor.getEncoder();
 
         SparkMaxConfig kickerConfig = new SparkMaxConfig();
-
-
-        @Override 
-        public void setPIDGains(double Kp, double Ki, double Kd) {
-            controller.setPID(Kp, Ki, Kd);
-        }
-
-        @Override 
-        public void updateInputs(KickerIOInputs inputs) {
-            inputs.velocity = getRPM();
-            inputs.appliedVoltage = kickermotor.getAppliedOutput() * kickermotor.getBusVoltage();
-            inputs.current = kickermotor.getOutputCurrent();
-            inputs.temperature = kickermotor.getMotorTemperature();
-        }
-        @Override
-        public double getRPM() {
-            return encoder.getVelocity();
-        }
-        
-        @Override
-        public void setRPM(double rpm) {
-            double voltage = controller.calculate(getRPM(), rpm);
-            kickermotor.setVoltage(voltage);
-        }
-        @Override
-        public double getVoltage() {
-            return kickermotor.getAppliedVoltage * kickermotor.getBusVoltage(); //added the getBusVoltage from warren temple because why not
-        }
-
-        @Override
-        public double setVoltage() {
-            kickermotor.setVoltage(voltage);
-            Logger.recordOutput("Kicker/SetVoltage", voltage);
-        }
-
     }
+
+
+    @Override
+    public void setPIDGains(double Kp, double Ki, double Kd) {
+        controller.setPID(Kp, Ki, Kd);
+    }
+
+    @Override
+    public void updateInputs(KickerIOInputs inputs) {
+        inputs.velocity = getVelocity();
+        inputs.appliedVoltage = kickermotor.getAppliedOutput() * kickermotor.getBusVoltage();
+        inputs.current = kickermotor.getOutputCurrent();
+        inputs.temperature = kickermotor.getMotorTemperature();
+    }
+    @Override
+    public double getVelocity() {
+        return encoder.getVelocity();
+    }
+
+    @Override
+    public void setVelocity(double rpm) {
+        double voltage = controller.calculate(getVelocity(), rpm);
+        kickermotor.setVoltage(voltage);
+    }
+    @Override
+    public double getVoltage() {
+        return kickermotor.getAppliedOutput() * kickermotor.getBusVoltage(); //added the getBusVoltage from warren temple because why not
+    }
+
+    @Override
+    public void setVoltage(double voltage) {
+        kickermotor.setVoltage(voltage);
+        Logger.recordOutput("Kicker/SetVoltage", voltage);
+    }
+
+
 }

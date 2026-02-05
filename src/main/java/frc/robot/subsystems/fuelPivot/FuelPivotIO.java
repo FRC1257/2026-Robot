@@ -1,8 +1,9 @@
 package frc.robot.subsystems.fuelPivot;
 
-import org.littletonrobotics.junction.AutoLog;a
+import org.littletonrobotics.junction.AutoLog;
 
 public interface FuelPivotIO {
+    @AutoLog
     public static class FuelPivotIOInputs {
         //fill with inputs plz
     }
@@ -29,19 +30,9 @@ public interface FuelPivotIO {
         return false;
     }
 
-    public default void setP(double p) {}
+    public default void setPIDGains(double kP, double kI, double kD){}
 
-    public default void setI(double i) {}
-
-    public default void setD(double d) {}
-
-    public default void setkS(double kS) {}
-
-    public default void setkV(double kV) {}
-
-    public default void setkG(double kG) {}
-
-    public default void setkA(double kA) {}
+    public default void setFeedForward(double kS, double kG, double kV, double kA){}
 
     public default double getP() {
         return 0.0;

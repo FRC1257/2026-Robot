@@ -24,7 +24,43 @@ public class HopperIntake extends SubsystemBase {
         Logger.processInputs("HopperIntake", inputs);
     }
 
+ 
+ 
+  public void setVoltage(double voltage) {
+    io.setVoltage(voltage);
+  }
 
+  public void setBrake(boolean brake) {
+    io.setBrake(brake);
+  }
+ 
+public Command runVoltage(DoubleSupplier voltage){
+
+}
+
+public Command runOuttake(){
+
+}
+
+// public Command runIntake(DoubleSupplier voltage){
+
+// }
+
+
+ 
+    public Command manualCommand(DoubleSupplier velocitySupplier) {
+    return new FunctionalCommand(
+        () -> {},
+        () -> setVoltage(velocitySupplier.getAsDouble() * 12),
+        (stop) -> setVoltage(0),
+        () -> false,
+        this);
+  }
+
+  
+  public Command manualCommand(double velocity) {
+    return manualCommand(() -> velocity);
+  }
 
 
 }

@@ -7,7 +7,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 
-public class AlgaeIntakeIOSim implements ActiveFloorIO {
+public class ActiveFloorIntakeIOSim implements ActiveFloorIO {
   private final FlywheelSim sim =
       new FlywheelSim(
           LinearSystemId.createFlywheelSystem(
@@ -17,7 +17,7 @@ public class AlgaeIntakeIOSim implements ActiveFloorIO {
 
   private double appliedVoltage = 0.0;
 
-  public AlgaeIntakeIOSim() {}
+  public ActiveFloorIntakeIOSim() {}
 
   @Override
   public void updateInputs(ActiveFloorIOInputs inputs) {

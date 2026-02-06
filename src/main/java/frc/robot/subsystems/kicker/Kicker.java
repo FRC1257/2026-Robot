@@ -1,10 +1,11 @@
 package frc.robot.subsystems.kicker;
 
-import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.Voltage;
+import java.lang.System.Logger;
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import java.util.function.Supplier;
 
 public class Kicker extends SubsystemBase {
 
@@ -18,21 +19,20 @@ public class Kicker extends SubsystemBase {
     @Override
     public void periodic() {
         kickerIO.updateInputs(inputs);
-        if(inputs.ballDetected && shooter.getVoltage() > 0){
-            kickerIO.setVoltage(4); //probably a different number just guessed here
-        }
-        else{
-            kickerIO.setVoltage(0);
-        }
+        Logger.processInputs("Kicker", inputs);
     }
 
-    public Command runVoltageCommand(){
-        return run (() -> kickerIO.setVoltage(voltage.get())).withName("Voltage");
+    public Command runRPMCommand(DoubleSupplier rpm){
+        return run(() -> kickerIO.setRPM(rpm.getVoltage())).withName("RPM");
     }
 
-    public Command runRPMCommand(){
-        return run(() -> kickerIO.setRPM(rpm.get())).withName("RPM");
-    }
+    public Command runVoltage(DoubleSupplier voltage) {
+    return new StartEndCommand(
+        () -> setVoltage(voltage.getAsDouble()),
+        () -> setVoltage(0.0),
+        this).withName("voltage");
+}
+
 
     public Command stopCommand(){
         return run(() -> kickerIO.stop()).withName("Stop");

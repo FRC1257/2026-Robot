@@ -1,16 +1,19 @@
-import com.revrobotics.RelativeEncoder;
+package frc.robot.subsystems.kicker;
+
+import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.RelativeEncoder;
 
 public class KickerIOSparkMax implements KickerIO{
     private SparkMax motor;
     private RelativeEncoder encoder; 
     
     public KickerIOSparkMax(){
-        motor = new SparkMax(KickerConstants.motorID, MotorType.kBrushless); //error
+        motor = new SparkMax(KickerConstants.motorID, MotorType.kBrushless);
         encoder = motor.getEncoder();
         SparkMaxConfig config = new SparkMaxConfig();
         config.idleMode(IdleMode.kCoast);
@@ -18,8 +21,8 @@ public class KickerIOSparkMax implements KickerIO{
         config.voltageCompensation(12.0);
         motor.configure(
             config, 
-            ResetMode.kResetSafeParameters, //error
-            PersistMode.kPersistParameters //error
+            ResetMode.kResetSafeParameters,
+            PersistMode.kPersistParameters
         );
     }
     

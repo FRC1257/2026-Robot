@@ -6,6 +6,8 @@ public interface KickerIO {
         public double velocityRPM = 0.0;
         public double appliedVoltage = 0.0;
         public double motorCurrent = 0.0;
+        public double TemperatureCelsius = 0.0;
+        
     }
     public default void updateInputs(KickerIOInputs inputs){}
 

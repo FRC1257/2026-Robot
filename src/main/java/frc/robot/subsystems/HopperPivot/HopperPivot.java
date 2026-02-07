@@ -39,14 +39,7 @@ public class HopperPivot extends SubsystemBase {
   private LoggedNetworkNumber logkV;
   private LoggedNetworkNumber logkA;
 
-  private LoggedNetworkNumber logActiveP;
-  private LoggedNetworkNumber logActiveI;
-  private LoggedNetworkNumber logActiveD;
-
-  private LoggedNetworkNumber logActivekS;
-  private LoggedNetworkNumber logActivekG;
-  private LoggedNetworkNumber logActivekV;
-  private LoggedNetworkNumber logActivekA;
+  
 
   // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
   private final MutVoltage m_appliedVoltage = Volts.mutable(0);
@@ -87,15 +80,7 @@ public class HopperPivot extends SubsystemBase {
     logkV = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/kV", io.getkV());
     logkA = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/kA", io.getkA());
 
-    logActiveP = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active P", io.getP());
-    logActiveI = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active I", io.getI());
-    logActiveD = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active D", io.getD());
-
-    logActivekS = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active kS", io.getkS());
-    logActivekG = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active kG", io.getkG());
-    logActivekV = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active kV", io.getkV());
-    logActivekA = new LoggedNetworkNumber("/SmartDashboard/HopperPivot/Active kA", io.getkA());
-
+   
     SysId =
         new SysIdRoutine(
             new SysIdRoutine.Config(
@@ -151,20 +136,7 @@ public class HopperPivot extends SubsystemBase {
 
     if (logkA.get() != io.getkA()) io.setkA(logkA.get());
 
-    if (logActiveP.get() != io.getActiveP()) io.setActiveP(logActiveP.get());
-
-    if (logActiveI.get() != io.getActiveI()) io.setActiveI(logActiveI.get());
-
-    if (logActiveD.get() != io.getActiveD()) io.setActiveD(logActiveD.get());
-
-    if (logActivekS.get() != io.getActivekS()) io.setActivekS(logActivekS.get());
-
-    if (logActivekG.get() != io.getActivekG()) io.setActivekG(logActivekG.get());
-
-    if (logActivekV.get() != io.getActivekV()) io.setActivekV(logActivekV.get());
-
-    if (logActivekA.get() != io.getActivekA()) io.setActivekA(logActivekA.get());
-
+    
     // Log Inputs
     Logger.processInputs("HopperPivot", inputs);
 
@@ -183,7 +155,30 @@ public class HopperPivot extends SubsystemBase {
     return voltageDifference <= HopperPivotConstants.HOPPER_PIVOT_TOLERANCE;
   }
 
- 
+public void move(double speed) { //move and runPID are from 2025 robot
+    // limit the arm if its past the limit
+    if (io.getAngle() > HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE && speed > 0) {
+      speed = 0;
+    } else if (io.getAngle() < HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE && speed < 0) {
+      speed = 0;
+    }
+  }
+
+ public void runPID() {
+    if (setpoint > HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE) {
+      setpoint = HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE;
+    } else if (setpoint < HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE) {
+      setpoint = HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE;
+    }
+    if ((io.getAngle() <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE && io.getAngVelocity() < 0)
+        || (io.getAngle() >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE
+            && io.getAngVelocity() > 0)) {
+      io.setVoltage(0);
+    } else {
+      io.goToSetpoint();
+    }
+  }
+
 
  
   

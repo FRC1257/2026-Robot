@@ -40,15 +40,10 @@ public Command runVoltage(DoubleSupplier voltage) {
 }
 
 
-public Command runOuttake(){
-
+public Command runOuttake(Double voltage){
+    return runVoltage(() -> -voltage);
 }
 
- public Command breakIntake(DoubleSupplier voltage){ //want to stop when floor fills up
- } 
-
-
- 
     public Command manualCommand(DoubleSupplier velocitySupplier) {
     return new FunctionalCommand(
         () -> {},

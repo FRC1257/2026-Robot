@@ -12,8 +12,6 @@ public class HopperPivotConstants {
   public static final double[] HOPPER_PIVOT_PID_REAL = {1, 0, 0};
   public static final double[] HOPPER_PIVOT_FEEDFORWARD_REAL = {0.123, 0.6465, 0.22, 0.04};
 
-  public static final double[] HOPPER_PIVOT_PID_REAL_ACTIVE = {0, 0, 0};
-  public static final double[] HOPPER_PIVOT_FEEDFORWARD_REAL_ACTIVE = {0, 0, 0, 0};
 
   public static final double HOPPER_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
   public static final double HOPPER_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;
@@ -29,7 +27,7 @@ public class HopperPivotConstants {
   public static final double HOPPER_PIVOT_STOW_ANGLE = Units.degreesToRadians(105);
   public static final double HOPPER_PIVOT_AUTO_INTAKE_ANGLE = Units.degreesToRadians(45);
   public static final double HOPPER_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(55);
-  // Will have to add constants for placing ALGAE
+  
 
   public static final double SYSID_RAMP_RATE = 0.5;
   public static final double SYSID_STEP_VOLTAGE = 1.0;

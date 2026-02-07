@@ -3,6 +3,7 @@ package frc.robot.subsystems.ActiveFloor;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -16,11 +17,16 @@ public class ActiveFloor extends SubsystemBase {
     this.io = io;
     SmartDashboard.putData(getName(), this);
   }
-
+public void setVoltage(double voltage) {
+    io.setVoltage(voltage);
+  }
+  
   public void periodic() {
     io.updateInputs(inputs);
     Logger.processInputs("ActiveFloor", inputs);
-
-    // Logger.recordOutput("ActiveFloor/AIntakeMotorConnected", inputs.velocityRadsPerSec != 0);
-
+}
+public Command runVoltage(DoubleSupplier voltage) {
+    return new RunCommand(()->setVoltage(voltage.getAsDouble()), this)
+.withName("voltage");
+}
 }

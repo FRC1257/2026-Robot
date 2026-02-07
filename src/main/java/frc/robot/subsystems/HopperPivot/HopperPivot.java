@@ -177,7 +177,7 @@ public class HopperPivot extends SubsystemBase {
     io.setBrake(brake);
   }
 
-  @AutoLogOutput(key = "AlgaePivot/Is Voltage Close")
+  @AutoLogOutput(key = "HopperPivot/Is Voltage Close")
   public boolean isVoltageClose(double setVoltage) {
     double voltageDifference = Math.abs(setVoltage - inputs.appliedVolts);
     return voltageDifference <= HopperPivotConstants.HOPPER_PIVOT_TOLERANCE;

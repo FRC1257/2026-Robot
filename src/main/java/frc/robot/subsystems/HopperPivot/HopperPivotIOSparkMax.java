@@ -1,5 +1,6 @@
 package frc.robot.subsystems.HopperPivot;
-
+//add encoders everywhere, define them but maybe wont be used.
+//remove everything with "active"
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -21,7 +22,6 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   private SparkMax pivotMotor;
   private SparkMaxConfig config;
   private final ProfiledPIDController pidController;
-  private final ProfiledPIDController pidControllerActive;
   private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
   private ArmFeedforward feedforwardActive = new ArmFeedforward(0, 0, 0, 0);
 
@@ -34,9 +34,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   private double kP = HopperPivotConstants.HOPPER_PIVOT_PID_REAL[0],
       kI = HopperPivotConstants.HOPPER_PIVOT_PID_REAL[1],
       kD = HopperPivotConstants.HOPPER_PIVOT_PID_REAL[2];
-  private double kActiveP = HopperPivotConstants.HOPPER_PIVOT_PID_REAL_ACTIVE[0],
-      kActiveI = HopperPivotConstants.HOPPER_PIVOT_PID_REAL_ACTIVE[1],
-      kActiveD = HopperPivotConstants.HOPPER_PIVOT_PID_REAL_ACTIVE[2];
+ 
 
   // These variables are used to find the acceleration of the PID setpoint
   // (change in velocity / change in time = avg acceleration)
@@ -74,14 +72,6 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
                 HopperPivotConstants.HOPPER_PIVOT_MAX_VELOCITY,
                 HopperPivotConstants.HOPPER_PIVOT_MAX_ACCELERATION));
 
-    pidControllerActive =
-        new ProfiledPIDController(
-            kActiveP,
-            kActiveI,
-            kActiveD,
-            new TrapezoidProfile.Constraints(
-                HopperPivotConstants.HOPPER_PIVOT_MAX_VELOCITY,
-                HopperPivotConstants.HOPPER_PIVOT_MAX_ACCELERATION));
 
     pivotMotor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
     configureFeedForward();
@@ -120,7 +110,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   /** Run open loop at the specified voltage. */
   @Override
   public void setVoltage(double motorVolts) {
-    Logger.recordOutput("AlgaePivot/Desired Voltage", motorVolts);
+    Logger.recordOutput("HopperPivot/Desired Voltage", motorVolts);
     pivotMotor.setVoltage(motorVolts);
   }
 
@@ -139,8 +129,6 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   public void setSetpoint(double setpoint) {
     pidController.setGoal(setpoint);
     pidController.reset(getAngle(), getAngVelocity());
-    pidControllerActive.setGoal(setpoint);
-    pidControllerActive.reset(getAngle(), getAngVelocity());
     Logger.recordOutput("HopperPivot/Actual Setpoint", pidController.getSetpoint().position);
   }
 
@@ -148,46 +136,8 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   public void goToSetpoint() {
     double pidOutput = 0, ffOutput = 0;
 
-    if (isBreakBeamBroken()) {
-      pidOutput = pidControllerActive.calculate(getAngle());
+   
 
-      // change in velocity / change in time = acceleration
-      // Acceleration is used to calculate feedforward
-      double acceleration =
-          (pidControllerActive.getSetpoint().velocity - lastSpeed)
-              / (Timer.getFPGATimestamp() - lastTime);
-
-      Logger.recordOutput("HopperPivot/Acceleration", acceleration);
-
-      ffOutput =
-          feedforwardActive.calculate(
-              pidControllerActive.getSetpoint().position,
-              pidControllerActive.getSetpoint().velocity,
-              acceleration);
-
-      lastSpeed = pidControllerActive.getSetpoint().velocity;
-    } else {
-      pidOutput = pidController.calculate(getAngle());
-
-      // change in velocity / change in time = acceleration
-      // Acceleration is used to calculate feedforward
-      double acceleration =
-          (pidController.getSetpoint().velocity - lastSpeed)
-              / (Timer.getFPGATimestamp() - lastTime);
-
-      Logger.recordOutput("HopperPivot/Acceleration", acceleration);
-
-      ffOutput =
-          feedforward.calculate(
-              pidController.getSetpoint().position,
-              pidController.getSetpoint().velocity,
-              acceleration);
-
-      lastSpeed = pidController.getSetpoint().velocity;
-
-      Logger.recordOutput("HopperPivot/PID output", pidOutput);
-      Logger.recordOutput("HopperPivot/FF output", ffOutput);
-    }
 
     setVoltage(MathUtil.clamp(pidOutput + ffOutput, -12, 12));
 

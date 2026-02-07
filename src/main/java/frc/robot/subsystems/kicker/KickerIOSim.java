@@ -9,7 +9,7 @@ public class KickerIOSim implements KickerIO{
     private double appliedVoltage;    
     
     public KickerIOSim(){
-        motorSim = new DCMotorSim(DCMotor.getNEO(1), 1.0, 0.001);
+        motorSim = new DCMotorSim(DCMotor.getNEO(1), 1.0, 0.001); //error here
     }
 
     @Override

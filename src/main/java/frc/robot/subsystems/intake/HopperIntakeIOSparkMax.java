@@ -6,6 +6,7 @@ import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkFlex;
+import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
@@ -27,12 +28,12 @@ public HopperIntakeIOSparkMax() {
 config
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12)
-        .smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT) //why not working
+        .smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT) 
         .inverted(true);
 
 encoder = motor.getEncoder(); //cant convert from rel to abs
 
-motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+  motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
   }
 
  
@@ -55,7 +56,7 @@ motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistPara
   @Override
   public void setBrake(boolean brake) {
     config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
-    motor.configure(config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+    motor.configure(config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
   }
 
 

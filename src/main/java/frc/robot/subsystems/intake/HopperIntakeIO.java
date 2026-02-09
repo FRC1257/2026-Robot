@@ -1,4 +1,4 @@
-package frc.robot.subsystems.HopperIntake;
+package frc.robot.subsystems.intake;
 
 import org.littletonrobotics.junction.AutoLog;
 
@@ -13,4 +13,11 @@ public interface HopperIntakeIO {
     public double[] currentAmps = new double[] {};
     public double[] tempCelcius = new double[] {};
   }
+
+  public default void updateInputs(HopperIntakeIOInputs inputs) {}
+  
+  public default void setVoltage(double voltage) {}
+
+
+  public default void setBrake(boolean brake) {}
 }

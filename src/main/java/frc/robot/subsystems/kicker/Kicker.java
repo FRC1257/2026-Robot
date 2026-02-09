@@ -1,6 +1,10 @@
 package frc.robot.subsystems.kicker;
 
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import java.util.function.DoubleSupplier;
+
 import org.littletonrobotics.junction.Logger;
 
 public class Kicker extends SubsystemBase {
@@ -18,16 +22,15 @@ public class Kicker extends SubsystemBase {
 
     }
 
-    public void stop() {
-        stop.voltage(0.0);
-
+    public Command stop() {
+        return run(()->io.setVoltage(0.0));
     }
 
-    public Command runKickerCommand() {
+    public Command runKickerCommand(DoubleSupplier voltage) {
         return this.runEnd(
-            () -> io.setVoltage()
+            () -> io.setVoltage(voltage.getAsDouble()),
             () -> io.setVoltage(0.0)
-
+            
             );
     }
 }

@@ -8,6 +8,8 @@ public interface FuelPivotIO {
         public double angleRads = 0.0;
         public double angVelocityRadsPerSec = 0.0;
         public double appliedVolts = 0.0;
+        public double velocity = 0.0;
+        public double angle = 0.0;
     }
 
     public default void updateInputs(FuelPivotIOInputs inputs) {}

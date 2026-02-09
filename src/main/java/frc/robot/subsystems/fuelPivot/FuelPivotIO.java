@@ -5,7 +5,9 @@ import org.littletonrobotics.junction.AutoLog;
 public interface FuelPivotIO {
     @AutoLog
     public static class FuelPivotIOInputs {
-        //fill with inputs plz
+        public double angleRads = 0.0;
+        public double angVelocityRadsPerSec = 0.0;
+        public double appliedVolts = 0.0;
     }
 
     public default void updateInputs(FuelPivotIOInputs inputs) {}

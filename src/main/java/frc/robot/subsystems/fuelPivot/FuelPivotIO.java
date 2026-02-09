@@ -26,7 +26,7 @@ public interface FuelPivotIO {
 
     public default void goToSetpoint(){}
 
-    public default void setBrake() {}
+    public default void stop() {}
 
     public default boolean atSetpoint(){
         return false;

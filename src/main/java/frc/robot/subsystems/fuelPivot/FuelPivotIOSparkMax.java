@@ -1,35 +1,56 @@
 package frc.robot.subsystems.fuelPivot;
 
-import com.revrobotics.RelativeEncoder;
-import com.revrobotics.spark.SparkClosedLoopController;
-import com.revrobotics.spark.SparkFlex;
-import com.revrobotics.spark.SparkLowLevel.MotorType;
+import org.littletonrobotics.junction.Logger;
 
-import edu.wpi.first.math.controller.SimpleMotorFeedforward;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.units.measure.Voltage;
+import com.revrobotics.PersistMode;
+import com.revrobotics.RelativeEncoder;
+import com.revrobotics.ResetMode;
+import com.revrobotics.spark.SparkAbsoluteEncoder;
+import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkMaxConfig;
+
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 
 public class FuelPivotIOSparkMax implements FuelPivotIO{
-
-    private SparkFlex pivotMotor = new SparkFlex(FuelPivotConstants.PIVOT_MOTOR_ID, MotorType.kBrushless);
-
-    private final RelativeEncoder pivotEncoder = pivotMotor.getEncoder();
-
     
-    private ProfiledPIDController pivotController = new ProfiledPIDController(0,0,0, new TrapezoidProfile.Constraints(0,0));
-    private ArmFeedforward pivotFeedforward = new ArmFeedforward(0, 0, 0);
-    
+    private SparkMax pivotMotor;
+    private SparkMaxConfig config;
+
+    private final ProfiledPIDController pivotController;
+    private ArmFeedforward pivotFeedforward = new ArmFeedforward(0, 0, 0, 0);
+    private RelativeEncoder pivotEncoder;
+    private double setpoint = 0.0;
+
+
+    public FuelPivotIOSparkMax(){
+        pivotMotor = new SparkMax(FuelPivotConstants.PIVOT_MOTOR_ID, MotorType.kBrushless);
+
+        config = new SparkMaxConfig();
+        pivotMotor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters );
+        
+        pivotEncoder = pivotMotor.getEncoder();
+        //configure ???
+
+        
+        pivotController = new ProfiledPIDController(0,0,0, new TrapezoidProfile.Constraints(0,0));
+        ArmFeedforward pivotFeedforward = new ArmFeedforward(0, 0, 0);
+    }
+
+
     
     @Override
     public void updateInputs(FuelPivotIOInputs inputs) {
-        //Change inputs here 
+        inputs.angleRads = getAngle();
+        inputs.angVelocityRadsPerSec = pivotEncoder.getVelocity();
+        inputs.appliedVolts = pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
     }
 
     @Override
     public void setVoltage (double motorVolts) {
-        Logger.recordOuptput("Pivot Voltage", motorVolts);
+        Logger.recordOutput("Pivot Voltage", motorVolts);
         pivotMotor.setVoltage(motorVolts);
     }
 
@@ -50,17 +71,17 @@ public class FuelPivotIOSparkMax implements FuelPivotIO{
 
     @Override
     public void goToSetpoint(){
-        //code later
+        //Code Later
     }
 
     @Override
-    public void setBrake() {
-        //code later
+    public void stop() {
+        pivotMotor.stopMotor();
     }
 
     @Override
     public boolean atSetpoint(){
-        //code later
+       return Math.abs(getAngle() - setpoint) < FuelPivotConstants.FUEL_PIVOT_PID_TOLERANCE;
     }
 
     @Override

@@ -3,13 +3,13 @@ package frc.robot.subsystems.intake;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
-import com.revrobotics.spark.SparkFlex;
+// import com.revrobotics.spark.SparkBase.PersistMode;
+// import com.revrobotics.spark.SparkBase.ResetMode;
+//import com.revrobotics.spark.SparkFlex;
 import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
-import com.revrobotics.spark.config.SparkFlexConfig;
+//import com.revrobotics.spark.config.SparkFlexConfig;
 
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.Logger;
@@ -31,7 +31,7 @@ config
         .smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT) 
         .inverted(true);
 
-encoder = motor.getEncoder(); //cant convert from rel to abs
+//encoder = motor.getEncoder(); //cant convert from rel to abs
 
   motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
   }

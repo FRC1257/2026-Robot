@@ -2,11 +2,11 @@ package frc.robot.subsystems.active_floor;
 import com.revrobotics.CANSparkFlex;
 import com.revrobotics.RelativeEncoder;
 
-public class ActiveFloorIOSparkMax implements Active_FloorIO {
+public class Active_FloorIOSparkMax implements Active_FloorIO {
     private final CANSparkFlex motor;
     private RelativeEncoder motorEncoder;
-    public ActiveFloorIOSparkMax() {
-        motor = new CANSparkFlex(ActiveFloorConstants.Floor_Motor_ID, MotorType.kBrushless);
+    public Active_FloorIOSparkMax() {
+        motor = new CANSparkFlex(Active_FloorConstants.Floor_Motor_ID, MotorType.kBrushless);
     }
     @Override
     public void updateInputs(Active_FloorIOInputs inputs) {

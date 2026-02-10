@@ -20,7 +20,7 @@ public class ShooterIOSparkMax implements ShooterIO{
     public ShooterIOSparkMax() {
         motor = new SparkFlex(ShooterConstants.MOTOR_ID, SparkLowLevel.MotorType.kBrushless);
         SparkFlexConfig config = new SparkFlexConfig();
-
+        encoder = motor.getEncoder();
         config 
             .idleMode(SparkBaseConfig.IdleMode.kBrake)
             .voltageCompensation(12)
@@ -63,5 +63,10 @@ public class ShooterIOSparkMax implements ShooterIO{
     public void setRPM(double rpm) {
         double voltage = pidController.calculate(getRPM(), rpm); 
         motor.setVoltage(voltage);
+    }
+
+    @Override
+    public void stop(){
+        motor.stopMotor();
     }
 }

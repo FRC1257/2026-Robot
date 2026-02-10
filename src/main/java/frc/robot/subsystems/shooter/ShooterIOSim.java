@@ -1,29 +1,30 @@
+package frc.robot.subsystems.shooter;
+
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.math.system.plant.LinearSystemId;
+import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 
 public class ShooterIOSim implements ShooterIO{
-    private final DCMotorSim motorSim;
+    private final FlywheelSim motorSim;
     private double appliedVoltage;
     private PIDController pidController = new PIDController(0, 0, 0);
-    
     public ShooterIOSim() {
-        motorSim = new DCMotorSim(
-            DCMotor.getNEO(1), 
-            ShooterConstants.gearRatio, 
-            ShooterConstants.flywheelInertia); //something wrong here
+    final DCMotor motorGearbox = DCMotor.getNEO(1);
+
+    motorSim = new FlywheelSim(LinearSystemId.createFlywheelSystem(DCMotor.getNEO(1), ShooterConstants.kMomentOfInertia, ShooterConstants.kIntakeGearing), motorGearbox);
     }
-    
     @Override
-    public void updateInputs(ShooterIOInputs inputs){
+    public void updateInputs(ShooterIOInputs inputs) {
+        // Update motor simulation with current voltage
         motorSim.setInputVoltage(appliedVoltage);
-        motorSim.update(0.02);
-        inputs.velocityRPM = motorSim.getAngularVelocityRadPerSec();
+        motorSim.update(0.02);  // 20ms loop time
+        
+        // Update inputs from simulation
+        inputs.velocityRPM = motorSim.getAngularVelocityRPM();
         inputs.appliedVoltage = appliedVoltage;
         inputs.motorCurrent = motorSim.getCurrentDrawAmps();
     }
-    
-    @Override 
     public void setVoltage(double voltage){
         appliedVoltage = voltage;
     }
@@ -42,9 +43,9 @@ public class ShooterIOSim implements ShooterIO{
 
     @Override
     public double getRPM(){
-        return motorSim.getAngularVelocityRPM();
+        double velRadPerSec = motorSim.getAngularVelocityRadPerSec();
+        return velRadPerSec * 60.0 / (2.0 * Math.PI);
     }
-
     @Override
     public void setPIDGains(double Kp, double Ki, double Kd) {
         pidController.setPID(Kp, Ki, Kd);

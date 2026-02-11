@@ -29,4 +29,12 @@ public Command runVoltage(DoubleSupplier voltage) {
     return new RunCommand(()->setVoltage(voltage.getAsDouble()), this)
 .withName("voltage");
 }
+
+//public Command runVoltage(DoubleSupplier voltage) {
+ // return runEnd(
+   //   () -> setVoltage(voltage.getAsDouble()), // run while scheduled
+    //  () -> setVoltage(0.0),                   // stop when finished/interrupted
+    //  this)
+ //   .withName("ActiveFloor/RunVoltage");
+//}
 }

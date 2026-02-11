@@ -14,7 +14,7 @@ public class HopperIntakeSimIO implements HopperIntakeIO {
           LinearSystemId.createFlywheelSystem(
               DCMotor.getNEO(1), HopperIntakeConstants.HopperIntakeSimConstants.kMomentOfInertia, HopperIntakeConstants.HopperIntakeSimConstants.kHopperIntakeGearing),
           DCMotor.getNEO(1));
-  private PIDController controller = new PIDController(0, 0, 0);
+  private PIDController controller = new PIDController(0, 0, 0); //do we need this?
 
   private double appliedVoltage = 0.0;
 

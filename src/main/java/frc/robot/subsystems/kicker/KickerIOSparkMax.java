@@ -21,11 +21,7 @@ public class KickerIOSparkMax implements KickerIO{
         config.idleMode(IdleMode.kCoast);
         config.smartCurrentLimit(KickerConstants.currentLimit);
         config.voltageCompensation(12.0);
-        motor.configure(
-            config,
-            ResetMode.kResetSafeParameters,
-            PersistMode.kPersistParameters
-        );
+        motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
     }
    
     @Override

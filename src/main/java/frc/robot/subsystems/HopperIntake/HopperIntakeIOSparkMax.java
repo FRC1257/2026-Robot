@@ -15,8 +15,8 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
 
     private SparkFlexConfig config = new SparkFlexConfig();
 
-    public HopperIntakeIOSparkMax(int motorID) {
-        motor = new SparkFlex(motorID, MotorType.kBrushless);
+    public HopperIntakeIOSparkMax() {
+        motor = new SparkFlex(HopperIntakeConstants.HOPPER_INTAKE_MOTOR_ID, MotorType.kBrushless);
         encoder = motor.getEncoder();
 
         // Configure motor
@@ -25,7 +25,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
         config.smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT);
         config.inverted(true);
 
-        encoder = motor.getEncoder();
+
        
 
         motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 

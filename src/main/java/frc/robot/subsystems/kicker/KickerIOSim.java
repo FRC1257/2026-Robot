@@ -2,6 +2,7 @@ package frc.robot.subsystems.kicker;
 
 
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 
 
@@ -12,7 +13,11 @@ public class KickerIOSim implements KickerIO{
     private double appliedVoltage;    
    
     public KickerIOSim(){
-        motorSim = new DCMotorSim(DCMotor.getNEO(1), 1.0, 0.001); //error here
+        
+        motorSim =
+            new DCMotorSim(
+                LinearSystemId.createDCMotorSystem(DCMotor.getNEO(1), 0.01, 1.0),
+                DCMotor.getNEO(1));
     }
 
 

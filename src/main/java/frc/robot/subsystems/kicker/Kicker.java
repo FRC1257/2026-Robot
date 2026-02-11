@@ -21,6 +21,8 @@ public class Kicker extends SubsystemBase {
         kickerIO.updateInputs(inputs);
         Logger.processInputs("Kicker", inputs);
     }
+    
+
 
     public Command runRPMCommand(DoubleSupplier rpm){
         return run(() -> kickerIO.setRPM(rpm.getVoltage())).withName("RPM");

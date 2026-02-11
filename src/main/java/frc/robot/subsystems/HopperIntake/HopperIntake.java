@@ -3,9 +3,9 @@ package frc.robot.subsystems.HopperIntake;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.DoubleSupplier;
-import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 public class HopperIntake extends SubsystemBase {
@@ -34,20 +34,16 @@ public class HopperIntake extends SubsystemBase {
     io.setBrake(brake);
   }
  
-public Command runVoltage(DoubleSupplier voltage){
-
+public Command runVoltage(DoubleSupplier voltage) {
+    return new RunCommand(()->setVoltage(voltage.getAsDouble()), this)
+.withName("voltage");
 }
 
-public Command runOuttake(){
 
+public Command runOuttake(Double voltage){
+    return runVoltage(() -> -voltage);
 }
 
-// public Command runIntake(DoubleSupplier voltage){
-
-// }
-
-
- 
     public Command manualCommand(DoubleSupplier velocitySupplier) {
     return new FunctionalCommand(
         () -> {},

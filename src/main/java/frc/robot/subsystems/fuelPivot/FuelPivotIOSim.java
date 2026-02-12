@@ -8,7 +8,6 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
-import edu.wpi.first.wpilibj.simulation.DCMotorSim;
 import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 public class FuelPivotIOSim implements FuelPivotIO{
@@ -23,6 +22,7 @@ public class FuelPivotIOSim implements FuelPivotIO{
     private ProfiledPIDController pivotPIDControllerSim = new ProfiledPIDController(0,0,0, new TrapezoidProfile.Constraints(0,0));
     private ArmFeedforward pivotFeedforwardSim = new ArmFeedforward(0, 0, 0);
     
+
     private SingleJointedArmSim sim = new SingleJointedArmSim(
         // Sim Values, idk what to do here, mostly last years stuff
         pivotMotorGearbox,
@@ -66,6 +66,7 @@ public class FuelPivotIOSim implements FuelPivotIO{
     @Override
     public void setVoltage (double motorVolts) {
         pivotMotor.setVoltage(motorVolts);
+        //
     }
 
     @Override

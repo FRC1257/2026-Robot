@@ -2,6 +2,7 @@ package frc.robot.subsystems.shooter;
 import org.littletonrobotics.junction.AutoLog;
 
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Voltage;
 
 public interface ShooterIO {
     public static class ShooterIOInputs {
@@ -19,7 +20,10 @@ public interface ShooterIO {
 
     public default double getRPM() {return 0;}
 
+    public default void setBreak(boolean brake) {}
+
     public default void setPIDGains(double Kp, double Ki, double Kd) {}
 
     public default void stop() {}
+
 }

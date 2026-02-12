@@ -44,8 +44,8 @@ public class Shooter extends SubsystemBase {
     shooterIO.stop();
   }
 
-  public void setBreak(boolean break) {
-    shooterIO.setBreak(break);
+  public void setBreak(boolean brake) {
+    shooterIO.setBreak(brake);
   }
 
   public Command runRPMCommand(Supplier<AngularVelocity> rpm) {

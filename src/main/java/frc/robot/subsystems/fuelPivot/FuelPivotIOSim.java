@@ -1,8 +1,12 @@
 package frc.robot.subsystems.fuelPivot;
 
+import com.revrobotics.PersistMode;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
@@ -85,6 +89,14 @@ public class FuelPivotIOSim implements FuelPivotIO{
     public void stop() {
         pivotMotor.setVoltage(0);
     }
+
+    @Override
+    public void setBrake(boolean brake) {
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
+        pivotMotor.configure(
+        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
 
     @Override
     public void setPIDGains(double kP, double kI, double kD){

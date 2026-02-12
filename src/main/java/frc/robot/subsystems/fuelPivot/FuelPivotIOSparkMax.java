@@ -8,6 +8,7 @@ import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -80,6 +81,14 @@ public class FuelPivotIOSparkMax implements FuelPivotIO{
     public void stop() {
         pivotMotor.setVoltage(0);
     }
+
+    @Override
+    public void setBrake(boolean brake) {
+        SparkMaxConfig config = new SparkMaxConfig();
+        config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
+        pivotMotor.configure(
+        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+  }
 
     @Override
     public boolean atSetpoint(){

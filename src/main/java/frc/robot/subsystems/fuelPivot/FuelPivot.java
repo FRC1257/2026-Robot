@@ -1,15 +1,20 @@
 package frc.robot.subsystems.fuelPivot;
 
-public class FuelPivot extends subsystemBase{
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.subsystems.fuelPivot.FuelPivotIO.FuelPivotIOInputs;
 
-    private final fuelPivotIO io;
+public class FuelPivot extends SubsystemBase{
 
+    private final FuelPivotIOInputs inputs = new FuelPivotIOInputs();//idk
+    private final FuelPivotIO io;
+    
+    public FuelPivot(FuelPivotIO io) {
+        this.io = io;
+    }
 
-    @overide
+    @Override
     public void periodic(){
         io.updateInputs(inputs);
-
-
     }
 
     public void setBrake(boolean brake) {
@@ -20,5 +25,13 @@ public class FuelPivot extends subsystemBase{
         io.stop();
     }
     
+    public void move(double speed) {
+
+    if (io.getAngle() > FuelPivotConstants.FUEL_PIVOT_MAX_ANGLE && speed > 0) {
+      speed = 0;
+    } else if (io.getAngle() < FuelPivotConstants.FUEL_PIVOT_MIN_ANGLE && speed < 0) {
+      speed = 0;
+    }
+  }
 
 }

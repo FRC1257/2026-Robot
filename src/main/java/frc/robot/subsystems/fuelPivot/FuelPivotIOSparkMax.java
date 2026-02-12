@@ -70,13 +70,15 @@ public class FuelPivotIOSparkMax implements FuelPivotIO{
     }
 
     @Override
-    public void goToSetpoint(){
-        //Code Later
+    public void goToSetpoint(){ //honestly idk what to do here
+        double pidOutput = pivotController.calculate(getAngle());
+        double feedforwardOutput = pivotFeedforward.calculate(pivotController.getSetpoint().position, pivotController.getSetpoint().velocity);
+        setVoltage(pidOutput + feedforwardOutput);
     }
 
     @Override
     public void stop() {
-        pivotMotor.stopMotor();
+        pivotMotor.setVoltage(0);
     }
 
     @Override

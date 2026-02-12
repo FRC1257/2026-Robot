@@ -6,9 +6,14 @@ import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.wpilibj.simulation.DCMotorSim;
+import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 
 public class FuelPivotIOSim implements FuelPivotIO{
+
+    private final DCMotor pivotMotorGearbox = DCMotor.getNEO(1);
 
     private SparkFlex pivotMotor = new SparkFlex(FuelPivotConstants.PIVOT_MOTOR_ID, MotorType.kBrushless);
 
@@ -18,9 +23,23 @@ public class FuelPivotIOSim implements FuelPivotIO{
     private ProfiledPIDController pivotPIDControllerSim = new ProfiledPIDController(0,0,0, new TrapezoidProfile.Constraints(0,0));
     private ArmFeedforward pivotFeedforwardSim = new ArmFeedforward(0, 0, 0);
     
+    private SingleJointedArmSim sim = new SingleJointedArmSim(
+        // Sim Values, idk what to do here, mostly last years stuff
+        pivotMotorGearbox,
+          FuelPivotConstants.FuelPivotSimConstants.kArmReduction,
+          SingleJointedArmSim.estimateMOI(
+              FuelPivotConstants.FuelPivotSimConstants.kArmLength,
+              FuelPivotConstants.FuelPivotSimConstants.kArmMass),
+          FuelPivotConstants.FuelPivotSimConstants.kArmLength,
+          FuelPivotConstants.FuelPivotSimConstants.kMinAngleRads,
+          FuelPivotConstants.FuelPivotSimConstants.kMaxAngleRads,
+          true,
+          0.1
+    );
+
     @Override
     public void updateInputs(FuelPivotIOInputs inputs) {
-        sim.update(0.02);//////////////////////////////////
+        sim.update(0.02);
         inputs.appliedVolts =
             pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
         inputs.angVelocityRadsPerSec = pivotEncoder.getVelocity() * 2 * pi / 60;
@@ -31,38 +50,51 @@ public class FuelPivotIOSim implements FuelPivotIO{
 
     @Override
     public double getAngle() {
-        return FuelPivotIOInputs.angle;//////////////////////////////////////
+        return sim.getAngleRads();
     }
 
     @Override
     public double getAngleVelocity() {
-        return FuelPivotIOInputs.velocity; /////////////////////////////////////////////
+        return sim.getVelocityRadPerSec();
     }
     
     @Override
     public boolean atSetpoint(){
-        return false;
+        return pivotPIDControllerSim.atGoal();
     }
     
     @Override
-    public void setVoltage (double motorVolts) {}
+    public void setVoltage (double motorVolts) {
+        pivotMotor.setVoltage(motorVolts);
+    }
 
     @Override
-    public void setSetpoint(double setpoint) {}
+    public void setSetpoint(double setpoint) {
+        pivotPIDControllerSim.setGoal(setpoint);
+    }
 
     @Override
-    public void goToSetpoint(){}
+    public void goToSetpoint(){
+        double pidOutput = pivotPIDControllerSim.calculate(getAngle());
+        double feedforwardOutput = pivotFeedforwardSim.calculate(pivotPIDControllerSim.getSetpoint().position, pivotPIDControllerSim.getSetpoint().velocity);
+        setVoltage(pidOutput + feedforwardOutput);
+    }
 
     @Override
-    public void stop() {}
+    public void stop() {
+        pivotMotor.setVoltage(0);
+    }
 
     @Override
-    public void setPIDGains(double kP, double kI, double kD){}
+    public void setPIDGains(double kP, double kI, double kD){
+        pivotPIDControllerSim  = new ProfiledPIDController(kP, kI, kD, null);
+    }
 
     @Override
-    public void setFeedForward(double kS, double kG, double kV, double kA){}
+    public void setFeedForward(double kS, double kG, double kV, double kA){
+        pivotFeedforwardSim = new ArmFeedforward(kS, kG, kV, kA);
+    }
 
-    //stuff
 
     @Override
     public double getP() {
@@ -96,7 +128,7 @@ public class FuelPivotIOSim implements FuelPivotIO{
 
     @Override
     public double getkA() {
-        return pivotFeedforwardSim.get;/////////////////////////////
+        return pivotFeedforwardSim.getKa();
     }
 
 }

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.active_floor;
+package main.java.frc.robot.subsystems.active_floor;
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -17,12 +17,13 @@ public class Active_Floor extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("Active_Floor", inputs);
     }
-
-    public void runFloor() {
+    public void runFloor(double voltage) {
         io.floor_on(ActiveFloorConstants.Floor_Voltage_On);
     }
-
     public void stopFloor() {
         io.floor_off();
+    }
+    private void setBrake(boolean brake) {
+        io.setBrake(brake);
     }
 }

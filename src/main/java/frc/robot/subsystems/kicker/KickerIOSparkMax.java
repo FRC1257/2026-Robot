@@ -68,6 +68,11 @@ public class KickerIOSparkMax implements KickerIO {
         Logger.recordOutput("Kicker/SetVoltage", voltage);
     }
 
+    @Override
+    public void stop() {
+        kickermotor.setVoltage(0);
+    }
+
     public boolean limitSwitchPressed() {
         return !limitSwitch.get();
     }

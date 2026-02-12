@@ -17,4 +17,8 @@ public class HopperIntakeConstants {
   }
 
   public static final int HOPPER_INTAKE_MOTOR_ID = 0;
+  public static final int HOPPER_INTAKE_VOLTAGE = 12;
+   public static final int HOPPER_OUTTAKE_VOLTAGE = -0;
+  
+
 }

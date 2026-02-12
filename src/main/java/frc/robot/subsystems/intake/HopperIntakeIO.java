@@ -20,4 +20,6 @@ public interface HopperIntakeIO {
 
 
   public default void setBrake(boolean brake) {}
+
+  public default void stop(boolean stop){}
 }

@@ -6,7 +6,6 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import static edu.wpi.first.units.Units.RPM;
-import static frc.robot.subsystems.kicker.KickerConstants.LIMIT_SWITCH_CHANNEL;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import org.littletonrobotics.junction.Logger;
@@ -31,7 +30,7 @@ public class KickerIOSparkMax implements KickerIO {
 
         SparkMaxConfig kickerConfig = new SparkMaxConfig(); //TODO add some configuration
 
-        limitSwitch=new DigitalInput(LIMIT_SWITCH_CHANNEL);
+        limitSwitch = new DigitalInput(LIMIT_SWITCH_CHANNEL); //TODO: add this to constants later
     }
 
 

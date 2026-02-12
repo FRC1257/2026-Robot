@@ -11,16 +11,21 @@ import com.revrobotics.spark.SparkLowLevel;
 import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import edu.wpi.first.math.controller.PIDController;
+import static edu.wpi.first.units.Units.RPM;  
+import static edu.wpi.first.units.Units.Volts; 
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Voltage;
 
-public class ShooterIOSparkMax implements ShooterIO{
+public class ShooterIOSparkMax implements ShooterIO {
     private SparkFlex motor;
     private RelativeEncoder encoder;
     private PIDController pidController = new PIDController(0, 0, 0);
 
     public ShooterIOSparkMax() {
         motor = new SparkFlex(ShooterConstants.MOTOR_ID, SparkLowLevel.MotorType.kBrushless);
-        SparkFlexConfig config = new SparkFlexConfig();
         encoder = motor.getEncoder();
+        
+        SparkFlexConfig config = new SparkFlexConfig();
         config 
             .idleMode(SparkBaseConfig.IdleMode.kBrake)
             .voltageCompensation(12)
@@ -28,9 +33,8 @@ public class ShooterIOSparkMax implements ShooterIO{
 
         motor.configure(
             config,
-            SparkBase.ResetMode.kResetSafeParameters,
-            SparkBase.PersistMode.kPersistParameters);
-
+            com.revrobotics.ResetMode.kResetSafeParameters,
+            com.revrobotics.PersistMode.kPersistParameters);
     }   
 
     @Override
@@ -41,7 +45,9 @@ public class ShooterIOSparkMax implements ShooterIO{
     }
 
     @Override
-    public double getRPM() {return encoder.getVelocity();}
+    public double getRPM() {
+        return encoder.getVelocity();
+    }
 
     @Override
     public void setPIDGains(double Kp, double Ki, double Kd) {
@@ -49,9 +55,9 @@ public class ShooterIOSparkMax implements ShooterIO{
     }
 
     @Override
-    public void setVoltage(double voltage) {
-        motor.setVoltage(voltage);
-        Logger.recordOutput("Shooter/Set Voltage", voltage);
+    public void setVoltage(Voltage voltage) {
+        motor.setVoltage(voltage.in(Volts)); 
+        Logger.recordOutput("Shooter/SetVoltage", voltage.in(Volts));
     }
 
     @Override
@@ -60,13 +66,14 @@ public class ShooterIOSparkMax implements ShooterIO{
     }
 
     @Override
-    public void setRPM(double rpm) {
-        double voltage = pidController.calculate(getRPM(), rpm); 
+    public void setRPM(AngularVelocity rpm) {
+        double targetRPM = rpm.in(RPM);  
+        double voltage = pidController.calculate(getRPM(), targetRPM); 
         motor.setVoltage(voltage);
     }
 
     @Override
-    public void stop(){
+    public void stop() {
         motor.stopMotor();
     }
 }

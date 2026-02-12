@@ -23,8 +23,22 @@ public class Active_Floor extends SubsystemBase {
     public void stopFloor() {
         io.floor_off();
     }
+    public void setVoltage(double voltage) {
+        io.setVoltage(voltage);
+    }
     private void setBrake(boolean brake) {
         io.setBrake(brake);
     }
-    
+    private Command runVoltage(DoubleSupplier voltage) {
+        return run(() -> setVoltage(voltage.get()));
+    }
+    private Command intake(double voltage) {
+        return runVoltage(()->Active_FloorConstants.Floor_Intake_Voltage);
+    }
+    private Command outtake(double voltage) {
+        return runVoltage(()->Active_FloorConstants.Floor_Outtake_Voltage);
+    }
+    private Command stopCommand() {
+        return runOnce(this::stop);
+    }
 }

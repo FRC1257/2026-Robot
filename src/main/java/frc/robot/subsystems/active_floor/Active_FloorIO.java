@@ -12,5 +12,6 @@ public interface Active_FloorIO {
     public default void updateInputs(ActiveFloorIOInputs inputs) {}
     public default void floor_on(double voltage) {};
     public default void floor_off() {};
+    public default void setVoltage(double voltage) {};
     public default void setBrake(boolean brake) {};
 }

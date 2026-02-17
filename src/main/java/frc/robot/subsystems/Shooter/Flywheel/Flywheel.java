@@ -31,11 +31,6 @@ public class Flywheel extends SubsystemBase {
         Logger.processInputs("Flywheel", inputs);
     }
 
-    @AutoLogOutput(key = "Shooter/Flywheel/Close")
-    public boolean isVoltageClose(Voltage appliedVoltage) {
-        return Math.abs(appliedVoltage.in(Volts) - inputs.flywheelVoltage.in(Volts)) <= FlywheelConstants.FLYWHEEL_VOLTAGE_TOLERANCE;
-    }
-
     private void runVelocity(AngularVelocity velocityRadsPerSec) { 
         io.setVelocity(velocityRadsPerSec);
     }

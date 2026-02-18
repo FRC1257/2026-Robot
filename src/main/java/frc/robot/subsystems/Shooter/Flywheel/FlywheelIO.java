@@ -11,6 +11,7 @@ public interface FlywheelIO {
     public static class FlywheelIOInputs {
         public AngularVelocity flywheelAngularVelocity;
         public Voltage flywheelVoltage;
+
     }
 
     public default void updateInputs(FlywheelIOInputs inputs) {}

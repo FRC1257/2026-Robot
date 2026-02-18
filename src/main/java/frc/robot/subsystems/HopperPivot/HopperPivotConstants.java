@@ -5,7 +5,8 @@ import edu.wpi.first.math.util.Units;
 public class HopperPivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
 
-  public static final int HOPPER_PIVOT_ID = 16; // Change later
+  public static final int HOPPER_PIVOT_LEFT_ID = 16;
+  public static final int HOPPER_PIVOT_RIGHT_ID = 17;
 
   public static final double HOPPER_PIVOT_GEARING = 1.0 / 16.0;
 

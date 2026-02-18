@@ -16,12 +16,16 @@ import org.littletonrobotics.junction.Logger;
 
 public class HopperPivotIOSparkMax implements HopperPivotIO {
   // Motor and Encoders
-  private SparkMax pivotMotor;
-  private SparkMaxConfig config;
+  private SparkMax leftMotor;
+  private SparkMax rightMotor;
+  
+  private SparkMaxConfig leftConfig;
+  private SparkMaxConfig rightConfig;
   private final ProfiledPIDController pidController;
   private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
 
-  private SparkAbsoluteEncoder motorEncoder;
+  private SparkAbsoluteEncoder leftEncoder;
+  private SparkAbsoluteEncoder rightEncoder;
 
   //private DigitalInput breakBeam;
 
@@ -38,27 +42,39 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   double lastTime = Timer.getFPGATimestamp();
 
   public HopperPivotIOSparkMax() {
-    pivotMotor = new SparkMax(HopperPivotConstants.HOPPER_PIVOT_ID, MotorType.kBrushless);
+    leftMotor = new SparkMax(HopperPivotConstants.HOPPER_PIVOT_LEFT_ID, MotorType.kBrushless);
+    rightMotor = new SparkMax(HopperPivotConstants.HOPPER_PIVOT_RIGHT_ID, MotorType.kBrushless);
 
-    config = new SparkMaxConfig();
 
-    config
+
+    leftEncoder = leftMotor.getAbsoluteEncoder();
+    rightEncoder = rightMotor.getAbsoluteEncoder();
+
+    leftConfig = new SparkMaxConfig();
+
+    leftConfig
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12.0)
         .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
         .inverted(true);
 
-    motorEncoder = pivotMotor.getAbsoluteEncoder();
 
-    config
+
+
+    leftConfig
         .absoluteEncoder
         .zeroCentered(true)
         .zeroOffset(HopperPivotConstants.HOPPER_PIVOT_OFFSET)
         .positionConversionFactor(2 * Constants.PI)
         .velocityConversionFactor(2 * Constants.PI);
 
+    rightConfig = new SparkMaxConfig();
+    rightConfig.apply(leftConfig);
+    rightConfig.follow(leftMotor);
 
 
+
+    
     pidController =
         new ProfiledPIDController(
             kP,
@@ -69,7 +85,8 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
                 HopperPivotConstants.HOPPER_PIVOT_MAX_ACCELERATION));
 
 
-    pivotMotor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
+    leftMotor.configure(leftConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
+    rightMotor.configure(rightConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
     configureFeedForward();
     
    // breakBeam = new DigitalInput(HopperPivotConstants.BREAK_BEAM_CHANNEL);
@@ -88,31 +105,31 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   @Override
   public void updateInputs(HopperPivotIOInputs inputs) {
     inputs.angleRads = getAngle();
-    inputs.angVelocityRadsPerSec = motorEncoder.getVelocity();
-    inputs.appliedVolts = pivotMotor.getAppliedOutput() * pivotMotor.getBusVoltage();
+    inputs.angVelocityRadsPerSec = leftEncoder.getVelocity();
+    inputs.appliedVolts = leftMotor.getAppliedOutput() * leftMotor.getBusVoltage();
     inputs.setpointAngleRads = pidController.getSetpoint().position;
     //inputs.breakBeamBroken = isBreakBeamBroken();
 
-    inputs.currentAmps = new double[] {pivotMotor.getOutputCurrent()};
-    inputs.tempCelsius = new double[] {pivotMotor.getMotorTemperature()};
+    inputs.currentAmps = new double[] {leftMotor.getOutputCurrent(), rightMotor.getOutputCurrent()};
+    inputs.tempCelsius = new double[] {leftMotor.getMotorTemperature(), rightMotor.getMotorTemperature()};
   }
 
   /** Run open loop at the specified voltage. */
   @Override
   public void setVoltage(double motorVolts) {
     Logger.recordOutput("HopperPivot/Desired Voltage", motorVolts);
-    pivotMotor.setVoltage(motorVolts);
+    leftMotor.setVoltage(motorVolts);
   }
 
   /** Returns the current distance measurement. */
   @Override
   public double getAngle() {
-    return motorEncoder.getPosition();
+    return leftEncoder.getPosition();
   }
 
   @Override
   public double getAngVelocity() {
-    return motorEncoder.getVelocity();
+    return leftEncoder.getVelocity();
   }
 
   @Override
@@ -138,7 +155,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   public void setBrake(boolean brake) {
     SparkMaxConfig config = new SparkMaxConfig();
     config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
-    pivotMotor.configure(config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters); 
+    leftMotor.configure(config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters); 
   }
 
   @Override

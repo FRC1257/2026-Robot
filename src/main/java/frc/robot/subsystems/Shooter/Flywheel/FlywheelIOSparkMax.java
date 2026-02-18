@@ -1,13 +1,18 @@
 package frc.robot.subsystems.Shooter.Flywheel;
 
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.FeedbackSensor;
+import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
+import edu.wpi.first.units.Units;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Voltage;
 import frc.robot.Constants;
 
 public class FlywheelIOSparkMax implements FlywheelIO {
@@ -58,6 +63,38 @@ public class FlywheelIOSparkMax implements FlywheelIO {
         followerConfig.follow(motor);
 
 
+        controller = motor.getClosedLoopController();
+        feedforward = new SimpleMotorFeedforward(0.0, 0.0, 0.0);
+
+    }
+
+    @Override
+    public void updateInputs(FlywheelIOInputs inputs) {
+        inputs.flywheelAngularVelocity = Units.RPM.of(encoder.getVelocity());
+        inputs.flywheelVoltage = Units.Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+
+    }
+
+    @Override
+    public void setVelocity(AngularVelocity velocityRadsPerSec) {
+        double velocityRadPerSec = velocityRadsPerSec.in(Units.RadiansPerSecond);
+        double velocityRPM = velocityRadPerSec * 60.0 / (2.0 * Math.PI);
+        double feedforwardVolts = feedforward.calculate(velocityRadPerSec);
+
+        
+        controller.setSetpoint(velocityRPM, ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedforwardVolts);
+    }
+
+    @Override
+    public void setVoltage(Voltage voltage) {
+        motor.setVoltage(voltage);
+        followerMotor.setVoltage(voltage);
+    }
+
+    @Override
+    public void stop() {
+        motor.stopMotor();
+        followerMotor.stopMotor();
     }
 
 }

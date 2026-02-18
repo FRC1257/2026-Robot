@@ -6,6 +6,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import static edu.wpi.first.units.Units.RPM;
+import static frc.robot.subsystems.kicker.KickerConstants.LIMIT_SWITCH_CHANNEL;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import org.littletonrobotics.junction.Logger;
@@ -68,7 +69,6 @@ public class KickerIOSparkMax implements KickerIO {
         Logger.recordOutput("Kicker/SetVoltage", voltage);
     }
 
-    @Override
     public void stop() {
         kickermotor.setVoltage(0);
     }

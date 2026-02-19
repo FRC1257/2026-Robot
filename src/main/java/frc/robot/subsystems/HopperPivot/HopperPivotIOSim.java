@@ -13,7 +13,7 @@ import org.littletonrobotics.junction.Logger;
 public class HopperPivotIOSim implements HopperPivotIO {
 
 
-  private final DCMotor m_armGearbox = DCMotor.getNEO(1);
+  private final DCMotor m_armGearbox = DCMotor.getNEO(2);
 
 
   private final ProfiledPIDController m_controller;

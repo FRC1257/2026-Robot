@@ -13,6 +13,8 @@ public static class ClimbIOInputs {
 
     public AngularVelocity velocityRadsPerSec; 
     public Voltage appliedVoltage;
+    public double[] tempCelcius;
+    public double[] currentAmps;
 
 }
 

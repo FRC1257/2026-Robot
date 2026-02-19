@@ -1,5 +1,3 @@
-import frc.robot.subsystems.Climb;
-
 import java.lang.System.Logger;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;

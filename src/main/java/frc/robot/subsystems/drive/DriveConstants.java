@@ -37,24 +37,24 @@ public final class DriveConstants {
 
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
-  public static final double kFrontLeftChassisAngularOffset = -Math.PI / 2 + 1.924964;
-  public static final double kFrontRightChassisAngularOffset = 2 * Math.PI - 6.141987682;
-  public static final double kBackLeftChassisAngularOffset = -Math.PI + 5.41928;
-  public static final double kBackRightChassisAngularOffset = -3 * Math.PI / 2 + 5.958595;
+  public static final double kFrontLeftChassisAngularOffset = 0;
+  public static final double kFrontRightChassisAngularOffset = 0; ///turn them 180 in revclient
+  public static final double kBackLeftChassisAngularOffset = 0;
+  public static final double kBackRightChassisAngularOffset = 0;
 
   // SPARK MAX CAN IDs
   // Subject to change depending on what robot side is the front
-  public static final int kFrontLeftDrivingCanId = 7;
-  public static final int kRearLeftDrivingCanId = 12;
-  public static final int kFrontRightDrivingCanId = 4;
+  public static final int kFrontLeftDrivingCanId = 4;
+  public static final int kRearLeftDrivingCanId = 7;
+  public static final int kFrontRightDrivingCanId = 12;
   public static final int kRearRightDrivingCanId = 9;
 
   // drive motors are timing out for some reason in the logs
 
-  public static final int kFrontLeftTurningCanId = 1;
-  public static final int kRearLeftTurningCanId = 2;
-  public static final int kFrontRightTurningCanId = 3;
-  public static final int kRearRightTurningCanId = 11;
+  public static final int kFrontLeftTurningCanId = 3;
+  public static final int kRearLeftTurningCanId = 1;
+  public static final int kFrontRightTurningCanId = 11;
+  public static final int kRearRightTurningCanId = 2;
 
   public static final boolean kGyroReversed = false;
 

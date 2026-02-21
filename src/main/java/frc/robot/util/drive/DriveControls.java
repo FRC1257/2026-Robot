@@ -35,6 +35,12 @@ public class DriveControls {
   public static Trigger TIMED_RUMBLE = EMPTY_TRIGGER;
   public static Trigger INTAKE_RUMBLE = EMPTY_TRIGGER;
 
+  // Kicker controls
+  public static Trigger KICKER_THING = EMPTY_TRIGGER;
+
+  //HopperIntake controls
+  public static Trigger HOPPER_INTAKE = EMPTY_TRIGGER;
+
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
 
@@ -95,6 +101,10 @@ public class DriveControls {
         DRIVE_SLOW = driver.rightTrigger();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
+
+        HOPPER_INTAKE = driver.getB();
+        KICKER_THING = driver.getA();
+
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
         break;
@@ -108,6 +118,8 @@ public class DriveControls {
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
+                HOPPER_INTAKE = driver.getB();
+        KICKER_THING = driver.getA();
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
         break;

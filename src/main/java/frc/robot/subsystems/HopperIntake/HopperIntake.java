@@ -29,7 +29,7 @@ public class HopperIntake extends SubsystemBase {
   }
 
  
-  private void setVoltage(Voltage voltage) {
+  private void setVoltage(double voltage) {
     io.setVoltage(voltage);
   }
 
@@ -41,21 +41,26 @@ public class HopperIntake extends SubsystemBase {
     io.setBrake(brake);
   }
 
-  private Command runVoltage(Supplier<Voltage> voltage) {
-    return run(() -> setVoltage(voltage.get()));
-  }
+  //private Command runVoltage(Supplier<Voltage> voltage) {
+    //return run(() -> setVoltage(voltage.get()));
+  //}
 
-  public Command runIntake() {
-    return runVoltage(() -> HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE);
-  }
+  // public Command runIntake() {
+  //   return runVoltage(() -> HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE);
+  // }
 
-  public Command runOutake() {
-    return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE);
-  }
+  // public Command runOutake() {
+  //   return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE);
+  // }
 
   public Command stopCommand() {
     return runOnce(this::stop);
   }
+
+  public Command manualCommand(double voltage) {
+    return new FunctionalCommand(()->{}, () -> setVoltage(voltage), (stop) -> setVoltage(0), () -> false, this);
+  }
+
 
 
 }

@@ -302,7 +302,7 @@ public class ModuleIOSparkMax implements ModuleIO {
   }
 
   public Rotation2d getTurnPosition() {
-    double angle = turnAbsoluteEncoder.getPosition() - absoluteEncoderOffset;
+    double angle = turnAbsoluteEncoder.getPosition() + absoluteEncoderOffset;
 
     return Rotation2d.fromRadians(angle);
   }

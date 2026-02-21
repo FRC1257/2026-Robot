@@ -2,11 +2,16 @@ package frc.robot.subsystems.HopperIntake;
 
 import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 
+import java.util.function.Supplier;
+
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkFlexConfig;
+
+import edu.wpi.first.units.measure.Voltage;
+
 import org.littletonrobotics.junction.Logger;
 
 public class HopperIntakeIOSparkMax implements HopperIntakeIO {

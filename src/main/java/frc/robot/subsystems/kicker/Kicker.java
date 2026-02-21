@@ -23,8 +23,12 @@ public class Kicker extends SubsystemBase {
     
 
 
-    public Command runRPMCommand(DoubleSupplier rpm){
-        return run(() -> kickerIO.setRPM(rpm.getAsDouble())).withName("RPM");
+    public Command runRPMCommand(double rpm){
+        return run(() -> kickerIO.setRPM(rpm)).withName("RPM");
+    }
+
+    public Command runVoltageCommand(double voltage) {
+        return run(() -> kickerIO.setVoltage(voltage)).withName("Voltage");
     }
 
    // public Command runRPMCommand(DoubleSupplier rpm) {

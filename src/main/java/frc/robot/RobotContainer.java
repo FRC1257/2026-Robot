@@ -30,6 +30,16 @@ import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import frc.robot.subsystems.kicker.KickerConstants;
+import frc.robot.subsystems.kicker.KickerIO;
+import frc.robot.subsystems.kicker.KickerIOSim;
+import frc.robot.subsystems.kicker.KickerIOSparkMax;
+import frc.robot.subsystems.kicker.Kicker;
+import frc.robot.subsystems.HopperIntake.HopperIntake;
+import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
+import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
+import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,6 +50,8 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+  private final Kicker kicker;
+  private final HopperIntake hopperIntake;
 
   private Mechanism2d coralPivotMech = new Mechanism2d(3, 3);
   private Mechanism2d elevatorMech = new Mechanism2d(3, 3);
@@ -61,7 +73,11 @@ public class RobotContainer {
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3),
                 new VisionIOPhoton());
-        break;
+        kicker
+         =  new Kicker(new KickerIOSparkMax());
+        hopperIntake 
+         =  new HopperIntake(new HopperIntakeIOSparkMax());
+         break;
 
         // Sim robot, instantiate physics sim IO implementations
       case SIM:
@@ -85,7 +101,8 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new VisionIO() {});
-        break;
+          kicker = new Kicker(new KickerIO() {});
+        hopperIntake = new HopperIntake(new HopperIntakeIO() {});
     }
 
     // Set up robot state manager
@@ -128,8 +145,13 @@ public class RobotContainer {
             drive));
 
 
+    HOPPER_INTAKE.onTrue(
+      hopperIntake.manualCommand(HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE)
+    );
+
     new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());
   }
+
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
@@ -141,4 +163,5 @@ public class RobotContainer {
     // return DriveCommands.feedforwardCharacterization(drive);
     // return DriveCommands.wheelRadiusCharacterization(drive);
   }
+
 }

@@ -10,14 +10,16 @@ public interface HopperIntakeIO {
     @AutoLog
     public static class HopperIntakeIOInputs {
 
-    public AngularVelocity velocityRadsPerSec; 
-    public Voltage appliedVoltage;
+    public double velocityRadsPerSec; 
+    public double appliedVoltage;
+    public double[] currentAmps;
+    public double[] tempCelcius;
 
   }
 
   public default void updateInputs(HopperIntakeIOInputs inputs) {}
 
-  public default void setVoltage(Voltage voltage) {}
+  public default void setVoltage(double voltage) {}
 
   public default void setBrake(boolean brake) {}
 

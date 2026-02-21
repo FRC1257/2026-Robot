@@ -25,10 +25,10 @@ public void setVoltage(double voltage) {
     io.updateInputs(inputs);
     Logger.processInputs("ActiveFloor", inputs);
 }
-public Command runVoltage(DoubleSupplier voltage) {
+public Command runVoltage(DoubleSupplier voltage) { //supplies voltage continuesly. 
     return new RunCommand(()->setVoltage(voltage.getAsDouble()), this)
 .withName("voltage");
-}
+}//Each tick calling voltage.get and feeding it to setvoltage
 
 //public Command runVoltage(DoubleSupplier voltage) {
  // return runEnd(

@@ -28,11 +28,11 @@ public class Climb extends SubsystemBase{
 
     public Command runVoltage(Voltage voltage) {
         return run(() -> setVoltage(voltage.get()));
-    }
+    }// gets voltage and sets setvoltage to that voltage. voltage voltage voltage voltage
 
     public Command stopCommand(){
         return run(() -> climbIO.stop()).withName("Climb/Stop");
-    }
+    }// 
 
     public void setBreak(boolean brake) {
         climbIO.setBreak(brake);

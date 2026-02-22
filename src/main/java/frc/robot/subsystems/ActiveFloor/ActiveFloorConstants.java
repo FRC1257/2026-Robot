@@ -23,4 +23,8 @@ public class ActiveFloorConstants {
   public static final double ALGAE_INTAKE_WEAK_IN_SPEED = 0;
   public static final double ALGAE_INTAKE_OUT_SPEED = -0.3;
   public static final double ALGAE_INTAKE_TOLERANCE = 1;
+
+  public static final double ACTIVE_FLOOR_VOLTAGE = 0.2;
+  public static final double ACTIVE_FLOOR_OUTTAKE_VOLTAGE = -0.2;
+
 }

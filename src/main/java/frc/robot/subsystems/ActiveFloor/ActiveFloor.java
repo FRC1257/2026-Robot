@@ -30,11 +30,25 @@ public Command runVoltage(DoubleSupplier voltage) { //supplies voltage continues
 .withName("voltage");
 }//Each tick calling voltage.get and feeding it to setvoltage
 
-//public Command runVoltage(DoubleSupplier voltage) {
- // return runEnd(
-   //   () -> setVoltage(voltage.getAsDouble()), // run while scheduled
-    //  () -> setVoltage(0.0),                   // stop when finished/interrupted
-    //  this)
- //   .withName("ActiveFloor/RunVoltage");
-//}
+
+
+
+
+
+//Adding manual commands for me to test with
+public Command manualCommand(DoubleSupplier velocitySupplier) {
+  return new FunctionalCommand(
+        () -> {},
+        () -> setVoltage(velocitySupplier.getAsDouble() * 12),
+        (stop) -> setVoltage(0),
+        () -> false,
+        this);
+  }
+
+
+  public Command manualCommand(double velocity) {
+    return manualCommand(() -> velocity);
+  }
+
+
 }

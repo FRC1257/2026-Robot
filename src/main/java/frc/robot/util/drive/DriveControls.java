@@ -35,11 +35,14 @@ public class DriveControls {
   public static Trigger TIMED_RUMBLE = EMPTY_TRIGGER;
   public static Trigger INTAKE_RUMBLE = EMPTY_TRIGGER;
 
-  // Kicker controls
-  public static Trigger KICKER_THING = EMPTY_TRIGGER;
 
   //HopperIntake controls
   public static Trigger HOPPER_INTAKE = EMPTY_TRIGGER;
+  public static Trigger HOPPER_OUTTAKE = EMPTY_TRIGGER;
+
+  //Active Floor Controls
+  public static Trigger ACTIVE_FLOOR = EMPTY_TRIGGER;
+  public static Trigger ACTIVE_FLOOR_OUTTAKE = EMPTY_TRIGGER;
 
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
@@ -101,9 +104,12 @@ public class DriveControls {
         DRIVE_SLOW = driver.rightTrigger();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
+        //EXTRA CONTROLS FOR ME TO TEST WITH (hopper intake + active floor)
+        HOPPER_INTAKE = driver.rightTrigger();
+        HOPPER_OUTTAKE = driver.leftTrigger();
+        ACTIVE_FLOOR = driver.rightBumper();
+        ACTIVE_FLOOR_OUTTAKE = driver.leftBumper();
 
-        HOPPER_INTAKE = driver.getB();
-        KICKER_THING = driver.getA();
 
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
@@ -118,8 +124,16 @@ public class DriveControls {
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
-                HOPPER_INTAKE = driver.getB();
-        KICKER_THING = driver.getA();
+
+        //MY TESTING STUFF
+
+                HOPPER_INTAKE = driver.rightTrigger();
+                HOPPER_OUTTAKE = driver.leftTrigger();
+
+                ACTIVE_FLOOR = driver.rightBumper();
+                ACTIVE_FLOOR_OUTTAKE = driver.leftBumper();
+
+
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
         break;

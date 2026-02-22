@@ -39,6 +39,12 @@ import frc.robot.subsystems.HopperIntake.HopperIntake;
 import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
+import frc.robot.subsystems.ActiveFloor.ActiveFloor;
+import frc.robot.subsystems.ActiveFloor.ActiveFloorIO;
+import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSparkMax;
+import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSim;
+import frc.robot.subsystems.ActiveFloor.ActiveFloorConstants;
+
 
 
 /**
@@ -50,8 +56,10 @@ import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+  //subsystems
   private final Kicker kicker;
   private final HopperIntake hopperIntake;
+  private final ActiveFloor activeFloor;
 
   private Mechanism2d coralPivotMech = new Mechanism2d(3, 3);
   private Mechanism2d elevatorMech = new Mechanism2d(3, 3);
@@ -73,11 +81,17 @@ public class RobotContainer {
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3),
                 new VisionIOPhoton());
-        kicker
-         =  new Kicker(new KickerIOSparkMax());
-        hopperIntake 
-         =  new HopperIntake(new HopperIntakeIOSparkMax());
+
+                //MY TESTING STUFF
+        kicker = new Kicker(new KickerIOSparkMax());
+        hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
+        activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
          break;
+
+
+
+
+
 
         // Sim robot, instantiate physics sim IO implementations
       case SIM:
@@ -101,8 +115,14 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new VisionIO() {});
-          kicker = new Kicker(new KickerIO() {});
+
+
+         //MY TESTING STUFF
+        kicker = new Kicker(new KickerIO() {});
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
+        activeFloor = new ActiveFloor(new ActiveFloorIO() {});
+
+         break;
     }
 
     // Set up robot state manager
@@ -145,9 +165,23 @@ public class RobotContainer {
             drive));
 
 
-    HOPPER_INTAKE.onTrue(
+    HOPPER_INTAKE.whileTrue(
       hopperIntake.manualCommand(HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE)
     );
+    HOPPER_OUTTAKE.whileTrue(
+      hopperIntake.manualCommand(HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE)
+      );
+    
+    ACTIVE_FLOOR.whileTrue(
+      activeFloor.manualCommand(ActiveFloorConstants.ACTIVE_FLOOR_VOLTAGE)
+    );
+
+    ACTIVE_FLOOR_OUTTAKE.whileTrue(
+      activeFloor.manualCommand(ActiveFloorConstants.ACTIVE_FLOOR_OUTTAKE_VOLTAGE)
+    );
+
+    
+  
 
     new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());
   }

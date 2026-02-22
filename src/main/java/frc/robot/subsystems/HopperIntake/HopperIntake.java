@@ -57,10 +57,28 @@ public class HopperIntake extends SubsystemBase {
     return runOnce(this::stop);
   }
 
-  public Command manualCommand(double voltage) {
-    return new FunctionalCommand(()->{}, () -> setVoltage(voltage), (stop) -> setVoltage(0), () -> false, this);
+
+
+
+
+  //Personal Stuff for me to Test
+
+
+
+  
+  public Command manualCommand(DoubleSupplier velocitySupplier) {
+    return new FunctionalCommand(
+        () -> {},
+        () -> setVoltage(velocitySupplier.getAsDouble() * 12),
+        (stop) -> setVoltage(0),
+        () -> false,
+        this);
   }
 
+  // Allows manual command of the flywheel for testing
+  public Command manualCommand(double velocity) {
+    return manualCommand(() -> velocity);
+  }
 
 
 }

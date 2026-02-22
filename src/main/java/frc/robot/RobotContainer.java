@@ -38,12 +38,18 @@ import frc.robot.subsystems.kicker.Kicker;
 import frc.robot.subsystems.HopperIntake.HopperIntake;
 import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
+import frc.robot.subsystems.HopperIntake.HopperIntakeIOSim;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
 import frc.robot.subsystems.ActiveFloor.ActiveFloor;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIO;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSparkMax;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSim;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorConstants;
+import frc.robot.subsystems.HopperPivot.HopperPivot;
+import frc.robot.subsystems.HopperPivot.HopperPivotConstants;
+import frc.robot.subsystems.HopperPivot.HopperPivotIO;
+import frc.robot.subsystems.HopperPivot.HopperPivotIOSim;
+import frc.robot.subsystems.HopperPivot.HopperPivotIOSparkMax;
 
 
 
@@ -54,16 +60,16 @@ import frc.robot.subsystems.ActiveFloor.ActiveFloorConstants;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  // Subsystems
+  // Drive stuff
   private final Drive drive;
   //subsystems
   private final Kicker kicker;
   private final HopperIntake hopperIntake;
   private final ActiveFloor activeFloor;
+  private final HopperPivot hopperPivot;
 
-  private Mechanism2d coralPivotMech = new Mechanism2d(3, 3);
-  private Mechanism2d elevatorMech = new Mechanism2d(3, 3);
-  private Mechanism2d algaePivotMech = new Mechanism2d(3, 3);
+  private Mechanism2d hopperPivotMech = new Mechanism2d(3, 3);
+
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -86,7 +92,10 @@ public class RobotContainer {
         kicker = new Kicker(new KickerIOSparkMax());
         hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
         activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
-         break;
+        hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
+
+
+      break;
 
 
 
@@ -103,6 +112,11 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new VisionIOSim());
+        // Initialize simulated subsystems so final fields are assigned on all paths
+        kicker = new Kicker(new KickerIOSim());
+        hopperIntake = new HopperIntake(new HopperIntakeIOSim() {});
+        activeFloor = new ActiveFloor(new ActiveFloorIOSim());
+        hopperPivot = new HopperPivot(new HopperPivotIOSim());
         break;
 
         // Replayed robot, disable IO implementations
@@ -121,9 +135,13 @@ public class RobotContainer {
         kicker = new Kicker(new KickerIO() {});
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
+          hopperPivot = new HopperPivot(new HopperPivotIO() {});
 
          break;
     }
+
+    MechanismRoot2d algaePivotRoot = hopperPivotMech.getRoot("pivot", 1, 0.5);
+    algaePivotRoot.append(hopperPivot.getArmMechanism());
 
     // Set up robot state manager
 
@@ -179,6 +197,11 @@ public class RobotContainer {
     ACTIVE_FLOOR_OUTTAKE.whileTrue(
       activeFloor.manualCommand(ActiveFloorConstants.ACTIVE_FLOOR_OUTTAKE_VOLTAGE)
     );
+
+    HOPPER_PIVOT_UP.onTrue(
+      hopperPivot.InstantPIDCommand(HopperPivotConstants.HOPPER_PIVOT_UP_ANGLE));
+    HOPPER_PIVOT_DOWN.onTrue(
+      hopperPivot.InstantPIDCommand(HopperPivotConstants.HOPPER_PIVOT_DOWN_ANGLE));
 
     
   

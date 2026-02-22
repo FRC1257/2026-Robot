@@ -7,7 +7,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.math.system.plant.LinearSystemId;
 import edu.wpi.first.wpilibj.simulation.FlywheelSim;
 
-public class HopperIntakeSimIO implements HopperIntakeIO {
+public class HopperIntakeIOSim implements HopperIntakeIO {
   private final FlywheelSim sim =
       new FlywheelSim(
         //figure out what's up with these
@@ -18,7 +18,7 @@ public class HopperIntakeSimIO implements HopperIntakeIO {
 
   private double appliedVoltage = 0.0;
 
-  public HopperIntakeSimIO() {}
+  public HopperIntakeIOSim() {}
 
   @Override
   public void updateInputs(HopperIntakeIOInputs inputs) {

@@ -21,7 +21,7 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
 
   public ActiveFloorIOSparkMax() {
 
-    motor = new SparkFlex(ActiveFloorConstants.ALGAE_INTAKE_MOTOR_ID, MotorType.kBrushless);
+    motor = new SparkFlex(ActiveFloorConstants.ACTIVE_FLOOR_MOTOR_ID, MotorType.kBrushless);
 
     config
         .idleMode(IdleMode.kBrake)

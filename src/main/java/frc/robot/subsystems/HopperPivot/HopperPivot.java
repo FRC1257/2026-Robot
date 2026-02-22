@@ -180,6 +180,96 @@ public void move(double speed) { //move and runPID are from 2025 robot
   }
 
 
+  //me adding stuff
+  public void setPID(double setpoint) {
+    this.setpoint = setpoint;
+    armState = State.PID;
+    io.setSetpoint(setpoint);
+    Logger.recordOutput("HopperPivot/Setpoint", setpoint);
+  }
+
+  public void setManual(double speed) {
+    manualSpeed = speed;
+    if (speed != 0) {
+      armState = State.MANUAL;
+    }
+  }
+
+  public boolean atSetpoint() {
+    return Math.abs(io.getAngle() - setpoint) < HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE
+        && Math.abs(io.getAngVelocity()) < HopperPivotConstants.HOPPER_PIVOT_PID_VELOCITY_TOLERANCE;
+  }
+
+
+
+  public Command PIDCommand(double setpoint) {
+    return new InstantCommand(() -> setPID(setpoint), this)
+        .andThen(new WaitUntilCommand(() -> atSetpoint()));
+  }
+
+  public Command InstantPIDCommand(double setpoint) {
+    return new InstantCommand(() -> setPID(setpoint));
+  }
+
+  // Allows manual control of the pivot arm for PID tuning
+  public Command ManualCommand(DoubleSupplier speedSupplier) {
+    return new RunCommand(() -> setManual(speedSupplier.getAsDouble()), this)
+        .finallyDo(
+            () -> {
+              manualSpeed = 0;
+              move(0);
+            });
+  }
+
+  public Command ManualCommand(double speed) {
+    return ManualCommand(() -> speed);
+  }
+
+  public boolean isBreakBeamBroken() { //is this necessary for this year?
+    return io.isBreakBeamBroken();
+  }
+
+  public Command quasistaticForward() {
+    armState = State.SYSID;
+    return SysId.quasistatic(Direction.kForward)
+        .until(() -> io.getAngle() >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE);
+  }
+
+  public Command quasistaticBack() {
+    armState = State.SYSID;
+    return SysId.quasistatic(Direction.kReverse)
+        .until(() -> io.getAngle() <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
+  }
+
+  public Command dynamicForward() {
+    armState = State.SYSID;
+    return SysId.dynamic(Direction.kForward)
+        .until(() -> io.getAngle() >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE);
+  }
+
+  public Command dynamicBack() {
+    armState = State.SYSID;
+    return SysId.dynamic(Direction.kReverse)
+        .until(() -> io.getAngle() <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
+  }
+}
+
+
+//SIM STUFF
+  public void setMechanism(MechanismLigament2d mechanism) {
+    armMechanism = mechanism;
+  }
+
+  public MechanismLigament2d append(MechanismLigament2d mechanism) {
+    return armMechanism.append(mechanism);
+  }
+
+  public MechanismLigament2d getArmMechanism() {
+    armMechanism = new MechanismLigament2d("Algae Pivot", 0.4, 0, 5, new Color8Bit(Color.kAqua));
+    return armMechanism;
+  }
+
+  
+
 //stuff appears to be missing 
   
-}

@@ -5,12 +5,8 @@ import edu.wpi.first.math.util.Units;
 public class HopperPivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
 
-<<<<<<< Updated upstream
-  public static final int HOPPER_PIVOT_LEFT_ID = 16;
-  public static final int HOPPER_PIVOT_RIGHT_ID = 17;
-=======
-  public static final int HOPPER_PIVOT_ID = 5; // Change later
->>>>>>> Stashed changes
+  public static final int HOPPER_PIVOT_LEFT_ID = 5;
+  public static final int HOPPER_PIVOT_RIGHT_ID = 6;
 
   public static final double HOPPER_PIVOT_GEARING = 1.0 / 16.0;
 
@@ -46,6 +42,7 @@ public class HopperPivotConstants {
 
   public static final int BREAK_BEAM_CHANNEL = 0;
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;
+  public static final double HOPPER_PIVOT_UP_ANGLE = 0;
 
   public static class HopperPivotSimConstants {
     public static final double[] kPivotSimPID = {15, 0, 0, 0};

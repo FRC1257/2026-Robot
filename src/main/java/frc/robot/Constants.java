@@ -16,8 +16,8 @@ import edu.wpi.first.wpilibj.RobotBase;
  */
 public final class Constants {
   public static final Mode mode = Mode.SIM;
-  public static final Drivers driver = Drivers.MADDIE;
-  public static final Operators operator = Operators.KEVIN;
+  //public static final Drivers driver = Drivers.MADDIE;
+  //public static final Operators operator = Operators.KEVIN;
 
   public static final Mode currentMode = getRobotMode();
 
@@ -39,9 +39,7 @@ public final class Constants {
 
   public static enum Drivers {
     PROGRAMMERS,
-    GABE,
-    MICHAEL,
-    MADDIE
+    RAGHAV
   }
 
   public static enum Operators {

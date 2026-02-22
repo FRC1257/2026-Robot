@@ -27,4 +27,8 @@ public class ActiveFloorConstants {
   public static final double ACTIVE_FLOOR_VOLTAGE = 0.2;
   public static final double ACTIVE_FLOOR_OUTTAKE_VOLTAGE = -0.2;
 
+  //WHY IS ALL OF THIS STUFF STILL ALGAE INTAKE???????
+
+  public static final int ACTIVE_FLOOR_MOTOR_ID = 17;
+
 }

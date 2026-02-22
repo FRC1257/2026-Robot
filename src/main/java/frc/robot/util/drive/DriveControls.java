@@ -44,6 +44,10 @@ public class DriveControls {
   public static Trigger ACTIVE_FLOOR = EMPTY_TRIGGER;
   public static Trigger ACTIVE_FLOOR_OUTTAKE = EMPTY_TRIGGER;
 
+  //Hopper Pivot Controls
+  public static Trigger HOPPER_PIVOT_UP = EMPTY_TRIGGER;
+  public static Trigger HOPPER_PIVOT_DOWN = EMPTY_TRIGGER;
+
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
 
@@ -51,16 +55,14 @@ public class DriveControls {
 
     public DriverChooser() {
       driverChooser = new LoggedDashboardChooser<>("Driver Selection");
-      driverChooser.addDefaultOption("Maddie", Drivers.MADDIE);
-      driverChooser.addOption("Michael", Drivers.MICHAEL);
-      driverChooser.addOption("Gabe", Drivers.GABE);
+      driverChooser.addDefaultOption("Raghav", Drivers.RAGHAV);
       driverChooser.addOption("Programmers", Drivers.PROGRAMMERS);
     }
 
     public Drivers getDriver() {
       Drivers driver = driverChooser.get();
       if (driver == null) {
-        return Drivers.MADDIE;
+        return Drivers.RAGHAV;
       }
       return driver;
     }
@@ -71,7 +73,7 @@ public class DriveControls {
 
     private LoggedDashboardChooser<Operators> operatorChooser;
 
-    public OperatorChooser() {
+    public OperatorChooser() { //do we need operator this year??
       operatorChooser = new LoggedDashboardChooser<>("Operator Selection");
       operatorChooser.addDefaultOption("Kevin", Operators.KEVIN);
       operatorChooser.addOption("Arboria", Operators.ARBORIA);
@@ -95,8 +97,7 @@ public class DriveControls {
   // Setup the controls
   public static void configureControls() {
     switch (driverChooser.getDriver()) {
-      case MADDIE:
-      case MICHAEL:
+      case RAGHAV:
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
         DRIVE_ROTATE = () -> -driver.getRightX();
@@ -109,12 +110,15 @@ public class DriveControls {
         HOPPER_OUTTAKE = driver.leftTrigger();
         ACTIVE_FLOOR = driver.rightBumper();
         ACTIVE_FLOOR_OUTTAKE = driver.leftBumper();
+        HOPPER_PIVOT_UP = driver.b();
+        HOPPER_PIVOT_DOWN = driver.y();
 
 
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
         break;
-      case GABE:
+
+      
       case PROGRAMMERS:
       default:
         DRIVE_FORWARD = () -> -driver.getLeftY();

@@ -1,4 +1,5 @@
-import java.lang.System.Logger;
+package frc.robot.subsystems.Climb;
+import org.littletonrobotics.junction.Logger;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Climb extends SubsystemBase{
     private final ClimbIO climbIO;
-    private final ClimbIOInputsAutoLogged inputs = new ClimbIOInputsAutoLogged();
+    ClimbIOInputsAutoLogged inputs = new ClimbIOInputsAutoLogged();
 
     public Climb(ClimbIO io) {
         this.climbIO = io;

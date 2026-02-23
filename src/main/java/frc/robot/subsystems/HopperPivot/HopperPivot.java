@@ -225,9 +225,7 @@ public void move(double speed) { //move and runPID are from 2025 robot
     return ManualCommand(() -> speed);
   }
 
-  public boolean isBreakBeamBroken() { //is this necessary for this year?
-    return io.isBreakBeamBroken();
-  }
+
 
   public Command quasistaticForward() {
     armState = State.SYSID;
@@ -252,10 +250,7 @@ public void move(double speed) { //move and runPID are from 2025 robot
     return SysId.dynamic(Direction.kReverse)
         .until(() -> io.getAngle() <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
   }
-}
 
-
-//SIM STUFF
   public void setMechanism(MechanismLigament2d mechanism) {
     armMechanism = mechanism;
   }
@@ -268,6 +263,12 @@ public void move(double speed) { //move and runPID are from 2025 robot
     armMechanism = new MechanismLigament2d("Algae Pivot", 0.4, 0, 5, new Color8Bit(Color.kAqua));
     return armMechanism;
   }
+
+}
+
+
+//SIM STUFF
+  
 
   
 

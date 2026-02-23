@@ -30,15 +30,16 @@ import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import frc.robot.subsystems.kicker.KickerConstants;
-import frc.robot.subsystems.kicker.KickerIO;
-import frc.robot.subsystems.kicker.KickerIOSim;
-import frc.robot.subsystems.kicker.KickerIOSparkMax;
-import frc.robot.subsystems.kicker.Kicker;
+import frc.robot.subsystems.Kicker.KickerConstants;
+import frc.robot.subsystems.Kicker.KickerIO;
+import frc.robot.subsystems.Kicker.KickerIOSim;
+import frc.robot.subsystems.Kicker.KickerIOSparkMax;
+import frc.robot.subsystems.Kicker.Kicker;
 import frc.robot.subsystems.HopperIntake.HopperIntake;
 import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
+import frc.robot.subsystems.HopperIntake.HopperIntakeSimIO;
 
 
 /**
@@ -89,6 +90,9 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new VisionIOSim());
+        
+        kicker = new Kicker(new KickerIOSim());
+        hopperIntake = new HopperIntake(new HopperIntakeSimIO());
         break;
 
         // Replayed robot, disable IO implementations

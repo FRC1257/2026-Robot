@@ -1,4 +1,4 @@
-package frc.robot.subsystems.kicker;
+package frc.robot.subsystems.Kicker;
 
 
 import com.revrobotics.spark.SparkMax;

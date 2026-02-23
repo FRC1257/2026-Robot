@@ -1,4 +1,4 @@
-package frc.robot.subsystems.kicker;
+package frc.robot.subsystems.Kicker;
 
 
 import edu.wpi.first.math.system.plant.DCMotor;

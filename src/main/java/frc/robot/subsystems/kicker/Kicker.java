@@ -1,4 +1,4 @@
-package frc.robot.subsystems.kicker;
+package frc.robot.subsystems.Kicker;
 
 import java.lang.System.Logger;
 import java.util.function.DoubleSupplier;

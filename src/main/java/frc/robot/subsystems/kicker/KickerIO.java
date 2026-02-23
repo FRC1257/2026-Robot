@@ -1,4 +1,4 @@
-package frc.robot.subsystems.kicker;
+package frc.robot.subsystems.Kicker;
 import org.littletonrobotics.junction.AutoLog;
 
 public interface KickerIO {

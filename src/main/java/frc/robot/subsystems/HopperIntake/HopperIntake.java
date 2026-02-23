@@ -13,8 +13,9 @@ import java.util.function.Supplier;
 import org.littletonrobotics.junction.Logger;
 
 public class HopperIntake extends SubsystemBase {
+
   private final HopperIntakeIO io;
-  HopperIntakeIOInputsAutoLogged inputs = new HopperIntakeIOInputsAutoLogged();
+  private HopperIntakeIOInputsAutoLogged inputs = new HopperIntakeIOInputsAutoLogged();
     
     
   public HopperIntake(HopperIntakeIO io) {
@@ -41,17 +42,17 @@ public class HopperIntake extends SubsystemBase {
     io.setBrake(brake);
   }
 
-  //private Command runVoltage(Supplier<Voltage> voltage) {
-    //return run(() -> setVoltage(voltage.get()));
-  //}
+  private Command runVoltage(Supplier<Voltage> voltage) {
+    return run(() -> setVoltage(voltage.get()));
+  }
 
-  // public Command runIntake() {
-  //   return runVoltage(() -> HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE);
-  // }
+  public Command runIntake() {
+    return runVoltage(() -> HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE);
+  }
 
-  // public Command runOutake() {
-  //   return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE);
-  // }
+  public Command runOutake() {
+    return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE);
+  }
 
   public Command stopCommand() {
     return runOnce(this::stop);

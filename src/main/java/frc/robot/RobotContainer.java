@@ -4,6 +4,7 @@
 
 package frc.robot;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static frc.robot.util.drive.DriveControls.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -35,6 +36,10 @@ import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
 import frc.robot.subsystems.HopperIntake.HopperIntakeSimIO;
+import frc.robot.subsystems.HopperPivot.HopperPivot;
+import frc.robot.subsystems.HopperPivot.HopperPivotIO;
+import frc.robot.subsystems.HopperPivot.HopperPivotIOSim;
+import frc.robot.subsystems.HopperPivot.HopperPivotIOSparkMax;
 
 
 /**
@@ -47,10 +52,7 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive;
   private final HopperIntake hopperIntake;
-
-  private Mechanism2d coralPivotMech = new Mechanism2d(3, 3);
-  private Mechanism2d elevatorMech = new Mechanism2d(3, 3);
-  private Mechanism2d algaePivotMech = new Mechanism2d(3, 3);
+  private final HopperPivot hopperPivot;
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
@@ -70,6 +72,8 @@ public class RobotContainer {
                 new VisionIOPhoton());
         hopperIntake 
          =  new HopperIntake(new HopperIntakeIOSparkMax());
+        
+         hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
          break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -84,6 +88,7 @@ public class RobotContainer {
                 new VisionIOSim());
         
         hopperIntake = new HopperIntake(new HopperIntakeSimIO());
+        hopperPivot = new HopperPivot(new HopperPivotIOSim());
         break;
 
         // Replayed robot, disable IO implementations
@@ -96,7 +101,9 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new VisionIO() {});
+
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
+        hopperPivot = new HopperPivot(new HopperPivotIO() {});
     }
 
     // Set up robot state manager
@@ -137,11 +144,11 @@ public class RobotContainer {
               drive.resetYaw();
             },
             drive));
-
-
     
-
     new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());
+
+    ANGLE_HOPPER.onTrue(hopperPivot.setPivotAngle(() -> Degrees.of(65.0)));
+    
   }
 
 

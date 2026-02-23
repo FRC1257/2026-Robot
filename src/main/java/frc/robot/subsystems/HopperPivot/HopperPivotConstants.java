@@ -1,5 +1,7 @@
 package frc.robot.subsystems.HopperPivot;
 
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
 
 public class HopperPivotConstants {
@@ -42,6 +44,8 @@ public class HopperPivotConstants {
   public static final int BREAK_BEAM_CHANNEL = 0;
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;
 
+  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(HOPPER_PIVOT_MAX_VELOCITY, HOPPER_PIVOT_MAX_ACCELERATION);
+
   public static class HopperPivotSimConstants {
     public static final double[] kPivotSimPID = {15, 0, 0, 0};
     public static final double[] kPivotSimFF = {0, 0.574, 0, 0};
@@ -56,5 +60,7 @@ public class HopperPivotConstants {
     public static final double kArmReduction = 200;
     public static final double kArmMass = 10.0; // Kilograms
     public static final double kArmLength = Units.inchesToMeters(20);
+    public static final double kArmAngleMin = Units.degreesToRadians(0);
+    public static final double kArmAngleMax = Units.degreesToRadians(100);
   }
 }

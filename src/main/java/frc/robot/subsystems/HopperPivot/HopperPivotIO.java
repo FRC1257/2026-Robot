@@ -21,8 +21,6 @@ public interface HopperPivotIO {
 
   default void updateInputs(HopperPivotIOInputs inputs) {}
 
-  default void runAngle(Angle radians) {}
-
   default void runVoltage(Voltage volts) {}
 
   default void setBreakMode(boolean enabled) {}

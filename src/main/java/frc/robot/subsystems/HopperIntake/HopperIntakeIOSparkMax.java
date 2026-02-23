@@ -47,7 +47,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
     }
 
     @Override
-    public void setVoltage(double voltage) {
+    public void setVoltage(Voltage voltage) {
         motor.setVoltage(voltage);
         Logger.recordOutput("HopperIntake/Desired Voltage", voltage);
     }

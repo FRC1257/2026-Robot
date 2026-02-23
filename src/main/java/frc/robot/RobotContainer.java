@@ -30,11 +30,6 @@ import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import frc.robot.subsystems.Kicker.KickerConstants;
-import frc.robot.subsystems.Kicker.KickerIO;
-import frc.robot.subsystems.Kicker.KickerIOSim;
-import frc.robot.subsystems.Kicker.KickerIOSparkMax;
-import frc.robot.subsystems.Kicker.Kicker;
 import frc.robot.subsystems.HopperIntake.HopperIntake;
 import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
@@ -51,7 +46,6 @@ import frc.robot.subsystems.HopperIntake.HopperIntakeSimIO;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-  private final Kicker kicker;
   private final HopperIntake hopperIntake;
 
   private Mechanism2d coralPivotMech = new Mechanism2d(3, 3);
@@ -74,8 +68,6 @@ public class RobotContainer {
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3),
                 new VisionIOPhoton());
-        kicker
-         =  new Kicker(new KickerIOSparkMax());
         hopperIntake 
          =  new HopperIntake(new HopperIntakeIOSparkMax());
          break;
@@ -91,7 +83,6 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new VisionIOSim());
         
-        kicker = new Kicker(new KickerIOSim());
         hopperIntake = new HopperIntake(new HopperIntakeSimIO());
         break;
 
@@ -105,7 +96,6 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new VisionIO() {});
-          kicker = new Kicker(new KickerIO() {});
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
     }
 
@@ -149,9 +139,7 @@ public class RobotContainer {
             drive));
 
 
-    HOPPER_INTAKE.onTrue(
-      hopperIntake.manualCommand(HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE)
-    );
+    
 
     new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());
   }

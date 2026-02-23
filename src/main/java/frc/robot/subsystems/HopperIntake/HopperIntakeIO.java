@@ -19,7 +19,7 @@ public interface HopperIntakeIO {
 
   public default void updateInputs(HopperIntakeIOInputs inputs) {}
 
-  public default void setVoltage(double voltage) {}
+  public default void setVoltage(Voltage voltage) {}
 
   public default void setBrake(boolean brake) {}
 

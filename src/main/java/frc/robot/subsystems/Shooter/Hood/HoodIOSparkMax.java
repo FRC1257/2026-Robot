@@ -17,8 +17,8 @@ import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.Constants;
+import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants;
 import frc.robot.subsystems.Shooter.Hood.HoodConstants;
-import frc.robot.subsystems.HopperPivot.HopperPivotConstants;
 
 public class HoodIOSparkMax implements HoodIO {
      private final SparkFlex motor; 

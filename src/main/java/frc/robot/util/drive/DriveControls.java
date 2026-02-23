@@ -42,6 +42,7 @@ public class DriveControls {
   public static Trigger HOPPER_INTAKE = EMPTY_TRIGGER;
 
   public static Trigger ANGLE_HOPPER = EMPTY_TRIGGER;
+  public static Trigger HOPPER_PIVOT_VOLTAGE = EMPTY_TRIGGER;
 
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
@@ -103,10 +104,6 @@ public class DriveControls {
         DRIVE_SLOW = driver.rightTrigger();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
 
-
-        HOPPER_INTAKE = driver.getB();
-        KICKER_THING = driver.getA();
-
         // TURN_90 = driver.y();
         TURN_180 = driver.start();
         break;
@@ -130,15 +127,12 @@ public class DriveControls {
 
     switch (operatorChooser.getOperator()) {
       case ARBORIA:
-        break;
       case KEVIN:
-        break;
-
       case ANTONIOS:
-        break;
       case PROGRAMMERS:
       default:
-        // Operator controls
+        ANGLE_HOPPER = operator.getA();
+        HOPPER_PIVOT_VOLTAGE = operator.getB();
         break;
     }
   }

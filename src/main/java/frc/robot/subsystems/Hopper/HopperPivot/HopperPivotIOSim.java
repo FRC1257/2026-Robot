@@ -1,4 +1,4 @@
-package frc.robot.subsystems.HopperPivot;
+package frc.robot.subsystems.Hopper.HopperPivot;
 
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
@@ -41,6 +41,11 @@ public class HopperPivotIOSim implements HopperPivotIO {
     @Override
     public void runVoltage(Voltage volts) {
         sim.setInputVoltage(volts.in(Volts));
+    }
+
+    @Override
+    public void stop() {
+        sim.setInputVoltage(0);
     }
 
 

@@ -1,4 +1,4 @@
-package frc.robot.subsystems.HopperPivot;
+package frc.robot.subsystems.Hopper.HopperPivot;
 
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
@@ -14,6 +14,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -31,11 +32,14 @@ public class HopperPivot extends SubsystemBase {
 
     public HopperPivot(HopperPivotIO io) {
         this.io = io; 
-        this.controller = new PIDController(0, 0, 0);
+        this.controller = new PIDController(5, 0, 0);
         this.feedforward = new ArmFeedforward(0, 0, 0);
 
         this.controller.setTolerance(HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
         this.profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
+
+        SmartDashboard.putData(getName(), this);
+
     }
 
     @Override
@@ -62,7 +66,9 @@ public class HopperPivot extends SubsystemBase {
         return this.run(() -> {
             goalAngle = angle.get().in(Degrees);
             runAngle(angle.get());})
-        .beforeStarting(() -> profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS))
+        .beforeStarting(() -> {
+            profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
+            setpointState = new TrapezoidProfile.State(inputs.pivotAngle.in(Degrees), 0.0);})
         .withName("Hopper/Pivot/AngleCommand");
     }
 
@@ -72,7 +78,7 @@ public class HopperPivot extends SubsystemBase {
             () -> io.stop()).withName("Hopper/Pivot/VoltageCommand");
     }
 
-    @AutoLogOutput
+    @AutoLogOutput(key = "AtGoal")
     public boolean atGoal(){
         return Math.abs(inputs.pivotAngle.in(Degrees) - goalAngle) 
             < HopperPivotConstants.HOPPER_PIVOT_TOLERANCE;

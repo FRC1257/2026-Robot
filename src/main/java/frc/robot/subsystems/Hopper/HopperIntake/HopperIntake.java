@@ -1,4 +1,4 @@
-package frc.robot.subsystems.HopperIntake;
+package frc.robot.subsystems.Hopper.HopperIntake;
 
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;

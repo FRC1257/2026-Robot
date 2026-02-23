@@ -1,4 +1,4 @@
-package frc.robot.subsystems.HopperIntake;
+package frc.robot.subsystems.Hopper.HopperIntake;
 
 import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 

@@ -5,6 +5,7 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.util.drive.DriveControls.*;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -31,15 +32,16 @@ import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
-import frc.robot.subsystems.HopperIntake.HopperIntake;
-import frc.robot.subsystems.HopperIntake.HopperIntakeConstants;
-import frc.robot.subsystems.HopperIntake.HopperIntakeIO;
-import frc.robot.subsystems.HopperIntake.HopperIntakeIOSparkMax;
-import frc.robot.subsystems.HopperIntake.HopperIntakeSimIO;
-import frc.robot.subsystems.HopperPivot.HopperPivot;
-import frc.robot.subsystems.HopperPivot.HopperPivotIO;
-import frc.robot.subsystems.HopperPivot.HopperPivotIOSim;
-import frc.robot.subsystems.HopperPivot.HopperPivotIOSparkMax;
+
+import frc.robot.subsystems.Hopper.HopperIntake.HopperIntake;
+import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeConstants;
+import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIO;
+import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIOSparkMax;
+import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeSimIO;
+import frc.robot.subsystems.Hopper.HopperPivot.HopperPivot;
+import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIO;
+import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSim;
+import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
 
 
 /**
@@ -135,6 +137,8 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
 
+    hopperPivot.setDefaultCommand(hopperPivot.setPivotVoltage(() -> Volts.of(0.0)));
+
     // DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
 
     DRIVE_STOP.onTrue(
@@ -148,7 +152,7 @@ public class RobotContainer {
     new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());
 
     ANGLE_HOPPER.onTrue(hopperPivot.setPivotAngle(() -> Degrees.of(65.0)));
-    
+    HOPPER_PIVOT_VOLTAGE.onTrue(hopperPivot.setPivotVoltage(() -> Volts.of(5.0)));
   }
 
 

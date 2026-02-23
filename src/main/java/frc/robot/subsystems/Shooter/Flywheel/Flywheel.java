@@ -18,7 +18,7 @@ import frc.robot.subsystems.Shooter.Flywheel.FlywheelIO.FlywheelIOInputs;
 public class Flywheel extends SubsystemBase {
 
     private final FlywheelIO io; 
-    private final FlywheelIOInputs inputs = new FlywheelIOInputsAutoLogged();
+    private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
 
     public Flywheel(FlywheelIO io) {
         this.io = io;

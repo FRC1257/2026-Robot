@@ -40,8 +40,6 @@ import static frc.robot.subsystems.drive.ModuleConstants.kWheelRadiusMeters;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkClosedLoopController.ArbFFUnits;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -189,10 +187,10 @@ public class ModuleIOSparkMax implements ModuleIO {
         .absoluteEncoderVelocityAlwaysOn(true);
 
     // Save our settings
-    driveSparkMax.configure(
-        driveConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    turnSparkMax.configure(
-        turnConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+    driveSparkMax.configure(driveConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
+    turnSparkMax.configure(turnConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
+     
+    
 
     driveEncoder = driveSparkMax.getEncoder();
     turnAbsoluteEncoder = turnSparkMax.getAbsoluteEncoder();
@@ -247,7 +245,7 @@ public class ModuleIOSparkMax implements ModuleIO {
   public void setDrivePID(double p, double i, double d) {
     driveConfig.closedLoop.pid(p, i, d);
     driveSparkMax.configure(
-        driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        driveConfig, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
   }
 
   @Override
@@ -260,7 +258,7 @@ public class ModuleIOSparkMax implements ModuleIO {
   public void setTurnPID(double p, double i, double d) {
     turnConfig.closedLoop.pid(p, i, d);
     turnSparkMax.configure(
-        turnConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        turnConfig, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
   }
 
   @Override
@@ -272,7 +270,7 @@ public class ModuleIOSparkMax implements ModuleIO {
   @Override
   public void setDriveVelocity(double velocityRadPerSec) {
     double ffOutput = driveFeedforward.calculate(velocityRadPerSec);
-    drivePIDController.setReference(
+    drivePIDController.setSetpoint(
         velocityRadPerSec,
         SparkMax.ControlType.kVelocity,
         ClosedLoopSlot.kSlot0,
@@ -293,7 +291,7 @@ public class ModuleIOSparkMax implements ModuleIO {
     lastTime = Timer.getFPGATimestamp();
     lastTurnSetpoint = angle;
     double ffOutput = turnFeedforward.calculate(setpointVelocity);
-    turnPIDController.setReference(
+    turnPIDController.setSetpoint(
         angle + absoluteEncoderOffset,
         SparkMax.ControlType.kPosition,
         ClosedLoopSlot.kSlot0,
@@ -321,14 +319,14 @@ public class ModuleIOSparkMax implements ModuleIO {
   public void setDriveBrakeMode(boolean enable) {
     driveConfig.idleMode(enable ? IdleMode.kBrake : IdleMode.kCoast);
     driveSparkMax.configure(
-        driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        driveConfig, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
   }
 
   @Override
   public void setTurnBrakeMode(boolean enable) {
     driveConfig.idleMode(enable ? IdleMode.kBrake : IdleMode.kCoast);
     driveSparkMax.configure(
-        driveConfig, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+        driveConfig, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
   }
 
   @Override

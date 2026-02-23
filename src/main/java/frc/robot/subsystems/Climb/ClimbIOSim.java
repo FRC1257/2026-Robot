@@ -27,7 +27,6 @@ public class ClimbIOSim implements ClimbIO {
     public void updateInputs(ClimbIOInputs inputs) {
         
         climbSim.update(0.02);
-        climbSim.setInput(appliedVoltage); //error
         double drumCircumference = 2 * Math.PI * ClimbConstants.DRUM_RADIUS;
         inputs.appliedVoltage = appliedVoltage;
         inputs.currentAmps = new double[] {climbSim.getCurrentDrawAmps()};
@@ -40,7 +39,7 @@ public class ClimbIOSim implements ClimbIO {
     }
     
     @Override
-    public void setBrake(boolean brake){ //error
+    public void setBrake(boolean brake){ 
         this.isBrakeMode = brake;
     }
     

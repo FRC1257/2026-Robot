@@ -44,7 +44,7 @@ public class HopperPivotConstants {
   public static final int BREAK_BEAM_CHANNEL = 0;
   public static final int ABSOLUTE_ENCODER_CHANNEL = 1;
 
-  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(4, 1);
+  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 3);
 
   public static class HopperPivotSimConstants {
     public static final double[] kPivotSimPID = {15, 0, 0, 0};

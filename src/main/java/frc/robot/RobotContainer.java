@@ -56,6 +56,9 @@ public class RobotContainer {
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
 
+  private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
+
+
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
 
@@ -109,6 +112,10 @@ public class RobotContainer {
     }
 
     // Set up robot state manager
+
+    MechanismRoot2d hopperPivotRoot = HopperPivotMechanism.getRoot("Hopper Pivot", 1.5, 0.5);
+    hopperPivotRoot.append(hopperPivot.getPivot());
+    SmartDashboard.putData("Hopper Pivot Mechanism", HopperPivotMechanism);
 
     // Set up auto routines
     /* NamedCommands.registerCommand(

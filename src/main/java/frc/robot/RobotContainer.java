@@ -37,7 +37,7 @@ import frc.robot.subsystems.Hopper.HopperIntake.HopperIntake;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIO;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIOSparkMax;
-import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeSimIO;
+import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIOSim;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivot;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIO;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSim;
@@ -89,7 +89,7 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new VisionIOSim());
         
-        hopperIntake = new HopperIntake(new HopperIntakeSimIO());
+        hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         break;
 
@@ -138,6 +138,7 @@ public class RobotContainer {
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
 
     hopperPivot.setDefaultCommand(hopperPivot.setPivotVoltage(() -> Volts.of(0.0)));
+    hopperIntake.setDefaultCommand(hopperIntake.stopIntake());
 
     // DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
 
@@ -153,6 +154,9 @@ public class RobotContainer {
 
     ANGLE_HOPPER.onTrue(hopperPivot.setPivotAngle(() -> Degrees.of(65.0)));
     HOPPER_PIVOT_VOLTAGE.onTrue(hopperPivot.setPivotVoltage(() -> Volts.of(5.0)));
+
+    HOPPER_INTAKE.onTrue(hopperIntake.runIntake());
+    HOPPER_OUTTAKE.onTrue(hopperIntake.runOutake());
   }
 
 

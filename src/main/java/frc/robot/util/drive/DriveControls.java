@@ -40,9 +40,11 @@ public class DriveControls {
 
   //HopperIntake controls
   public static Trigger HOPPER_INTAKE = EMPTY_TRIGGER;
+  public static Trigger HOPPER_OUTTAKE = EMPTY_TRIGGER;
 
   public static Trigger ANGLE_HOPPER = EMPTY_TRIGGER;
   public static Trigger HOPPER_PIVOT_VOLTAGE = EMPTY_TRIGGER;
+
 
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
@@ -116,12 +118,7 @@ public class DriveControls {
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
-
-                HOPPER_INTAKE = driver.getB();
-        ANGLE_HOPPER = driver.getA();
-        // TURN_90 = driver.y();
         TURN_180 = driver.start();
-
         break;
     }
 
@@ -133,6 +130,9 @@ public class DriveControls {
       default:
         ANGLE_HOPPER = operator.getA();
         HOPPER_PIVOT_VOLTAGE = operator.getB();
+        HOPPER_INTAKE = operator.getX();
+        HOPPER_OUTTAKE = operator.getY();
+        
         break;
     }
   }

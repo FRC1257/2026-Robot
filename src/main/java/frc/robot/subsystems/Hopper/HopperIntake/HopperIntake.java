@@ -7,6 +7,9 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.FunctionalCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+
+import static edu.wpi.first.units.Units.Volts;
+
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
@@ -31,7 +34,7 @@ public class HopperIntake extends SubsystemBase {
   
 
   private Command runVoltage(Supplier<Voltage> voltage) {
-    return run(() -> io.setVoltage(voltage.get()));
+    return this.run(() -> io.setVoltage(voltage.get()));
   }
 
   public Command runIntake() {
@@ -40,6 +43,10 @@ public class HopperIntake extends SubsystemBase {
 
   public Command runOutake() {
     return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE).withName("HopperIntake/OUTTAKE");
+  }
+
+  public Command stopIntake() {
+    return runVoltage(() -> Volts.of(0.0)).withName("HopperIntake/STOP");
   }
 
   public Command stopCommand() {

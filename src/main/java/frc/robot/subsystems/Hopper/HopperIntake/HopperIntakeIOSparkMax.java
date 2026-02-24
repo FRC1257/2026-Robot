@@ -1,5 +1,7 @@
 package frc.robot.subsystems.Hopper.HopperIntake;
 
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 
 import java.util.function.Supplier;
@@ -40,10 +42,8 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
 
     @Override
     public void updateInputs(HopperIntakeIOInputs inputs) {
-        inputs.appliedVoltage = motor.getAppliedOutput() * motor.getBusVoltage();
-        inputs.currentAmps = new double[] {motor.getOutputCurrent()};
-        inputs.tempCelcius = new double[] {motor.getMotorTemperature()};
-        inputs.velocityRadsPerSec = encoder.getVelocity();
+        inputs.intakeVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.intakeVelocity = RPM.of(encoder.getVelocity());
     }
 
     @Override

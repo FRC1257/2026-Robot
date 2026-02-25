@@ -79,9 +79,9 @@ public class HopperPivot extends SubsystemBase {
 
     public Command setPivotAngle(Supplier<Angle> angle) {
         return this.run(() -> {
+            goalAngle = angle.get().in(Radians);
             runAngle(angle.get());})
         .beforeStarting(() -> {
-            goalAngle = angle.get().in(Radians);
             profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
             setpointState = new TrapezoidProfile.State(inputs.pivotAngle.in(Radians), 0.0);
             })

@@ -11,16 +11,15 @@ public interface HoodIO {
 
     @AutoLog
     public static class HoodIOInputs {
-        Angle positionRads; 
-        AngularVelocity velocityRadsPerSec;
-        Voltage appliedVolts; 
+        Angle hoodAngle; 
+        AngularVelocity hoodVelocity;
+        Voltage hoodVolts; 
     }
 
     public default void updateInputs(HoodIOInputs inputs) {}
 
-    public default void setAngle(Angle angle) {}
+    public default void runVoltage(Voltage volts) {}
 
-    public default void zero() {}
-
+    
     
 }

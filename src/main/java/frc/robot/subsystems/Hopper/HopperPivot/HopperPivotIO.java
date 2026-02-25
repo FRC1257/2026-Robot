@@ -27,7 +27,4 @@ public interface HopperPivotIO {
 
   default void stop() {}
 
-
-
-
 }

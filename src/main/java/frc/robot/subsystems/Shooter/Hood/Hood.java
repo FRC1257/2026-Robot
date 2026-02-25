@@ -48,21 +48,40 @@ public class Hood extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("Hood", inputs);
     }
+    
+    /**
+     * @return the current angle of the hood in radians, accounting for any offset from zeroing
+     */
 
     @AutoLogOutput(key = "Shooter/Hood/MeasuredAngleRads")
     public double getMeasuredAngle() {
         return inputs.hoodAngle.in(Radians) + hoodOffset;
     }
 
+    /**
+     * @return true if the hood is at its goal angle and has been zeroed, false otherwise
+     */
+
     @AutoLogOutput(key = "Shooter/Hood/atGoal")
     public boolean isAtGoal() {
         return Math.abs(getMeasuredAngle() - goalAngle) < HoodConstants.HOOD_ANGLE_TOLERANCE && isZeroed;
     }
 
+    /**
+     * Sets the current position of the hood as the zero angle. 
+     * This should be called when the hood is at its minimum angle, as defined in HoodConstants,
+     * to ensure that all future angle commands are accurate.
+     */
+
     public void zero() {
         hoodOffset = HoodConstants.HOOD_MIN_ANGLE.in(Radians) - inputs.hoodAngle.in(Radians);
         isZeroed = true;
     }
+
+    /**
+     * Runs the hood at the specified angle using a PID controller and feedforward.
+     * @param angle the desired angle to run the hood to, in radians
+     */
 
     private void runAngle(Angle angle) {
         setpointState = 
@@ -80,6 +99,12 @@ public class Hood extends SubsystemBase {
         io.runVoltage(Volts.of(volts));
     }
 
+    /**
+     * Runs the hood to the specified angle using a PID controller and feedforward, with the angle supplied by a Supplier.
+     * @param angle a Supplier that provides the desired angle to run the hood to, in radians
+     * @return a Command that runs the hood to the specified angle when executed
+     */
+
     public Command runAngleCommand(Supplier<Angle> angle) {
         return run(() -> {
             goalAngle = angle.get().in(Radians);
@@ -91,12 +116,23 @@ public class Hood extends SubsystemBase {
         .withName("Shooter/Hood/AngleCommand");
     }
 
+    /**
+     * Runs the hood at the specified voltage, with the voltage supplied by a Supplier. 
+     * @param volts a Supplier that provides the desired voltage to run the hood at
+     * @return a Command that runs the hood at the specified voltage when executed
+     */
+
     public Command runVoltageCommand(Supplier<Voltage> volts) {
         return runEnd(
             () -> io.runVoltage(volts.get()),
             () -> io.runVoltage(Volts.of(0.0)))
         .withName("Shooter/Hood/VoltageCommand");
     }
+
+    /**
+     * Runs the hood to the angle specified by the {@link ShooterTrajectoryCalculator} using a PID controller and feedforward.
+     * @return a Command that runs the hood to the target angle when executed
+     */
 
     public Command runTargetedCommand() {
         return run(()-> {
@@ -109,6 +145,11 @@ public class Hood extends SubsystemBase {
         .withName("Shooter/Hood/TargetedCommand");
     }
 
+    /**
+     * Runs the hood at a constant voltage until it is zeroed, as determined by the hood velocity being below a certain threshold for a certain amount of time.
+     * @return a Command that runs the hood at a constant voltage until it is zeroed
+     */
+    
     public Command zeroCommand() {
         return runVoltageCommand(() -> HoodConstants.HOMING_VOLTAGE)
             .raceWith(Commands.waitSeconds(0.5)

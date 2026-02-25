@@ -18,8 +18,6 @@ public class Kicker extends SubsystemBase {
 
     private double goalVelocity = 0.0;
 
-    public Trigger atGoalVelocityTrigger = new Trigger(this::atGoalVelocity);
-
     public Kicker(KickerIO io) {
         this.io = io;
     }
@@ -30,10 +28,22 @@ public class Kicker extends SubsystemBase {
         Logger.processInputs(getName(), inputs);
     }
 
+    /**
+     * Runs the kicker at a given voltage. 
+     * @param voltage the voltage to run the kicker at, as a Supplier to allow for dynamic voltages
+     * @return a command that runs the kicker at the given voltage while it is scheduled
+     */
+
     public Command runVoltageCommand(Supplier<Voltage> voltage) {
         return runEnd(() -> io.setVoltage(voltage.get()), io::stop)
             .withName(getName() + "/RunVoltageCommand");
     }
+
+    /**
+     * Runs the kicker at a given velocity. This should be used whenever the kicker needs to be on, as it will allow for more consistent shooting by using velocity control instead of voltage control.
+     * @param velocity the velocity to run the kicker at, as a Supplier to allow for dynamic velocities
+     * @return a command that runs the kicker at the given velocity while it is scheduled
+     */
 
     public Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
         return runEnd(() -> {
@@ -43,17 +53,24 @@ public class Kicker extends SubsystemBase {
             .withName(getName() + "/RunVelocityCommand");
     }
     
+    /**
+     * Stops the kicker. 
+     * @return a command that stops the kicker when it is scheduled
+     */
+
     public Command stopCommand() {
         return runOnce(io::stop)
             .withName(getName() + "/StopCommand");
     }
 
-    private boolean atGoalVelocity() {
-        return Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
-            < KickerConstants.KICKER_VELOCITY_TOLERANCE;
+    /**
+     * A Trigger that returns true when the kicker is at the goal velocity within a certain tolerance specified in {@link KickerConstants}. This can be used to determine when the kicker is ready to shoot.
+     * @return a Trigger that is active when the kicker is at the goal velocity within the tolerance specified in {@link KickerConstants}
+     */
+
+    public Trigger atGoalVelocity() {
+        return new Trigger(() -> Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
+            < KickerConstants.KICKER_VELOCITY_TOLERANCE);
     }
 
-
-
-    
 }

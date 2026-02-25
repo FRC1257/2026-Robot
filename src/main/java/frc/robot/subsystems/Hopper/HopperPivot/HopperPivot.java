@@ -38,9 +38,6 @@ public class HopperPivot extends SubsystemBase {
 
     private double goalAngle = 0.0;
 
-    @AutoLogOutput
-    public Trigger atGoalTrigger = new Trigger(this::atGoal);
-
     public HopperPivot(HopperPivotIO io) {
         this.io = io; 
         this.controller = new PIDController(8, 0, 0);
@@ -61,6 +58,11 @@ public class HopperPivot extends SubsystemBase {
         pivot.setAngle(inputs.pivotAngle.in(Degrees));
     }
 
+    /**
+     * Runs the hopper pivot to a given angle using a PID Controller and feedforward.
+     * @param angle the angle to run the hopper pivot to in radians
+     */
+
     private void runAngle(Angle angle) {
         setpointState = 
             profile.calculate(
@@ -77,6 +79,12 @@ public class HopperPivot extends SubsystemBase {
         io.runVoltage(Volts.of(volts));
     }
 
+    /**
+     * Runs the hopper pivot to a given angle using a PID Controller and feedforward. This should be used whenever the hopper pivot needs to move to a specific angle.
+     * @param angle the angle to run the hopper pivot to in radians, as a Supplier to allow for dynamic angles
+     * @return a command that runs the hopper pivot to the given angle while it is scheduled
+     */
+
     public Command setPivotAngle(Supplier<Angle> angle) {
         return this.run(() -> {
             goalAngle = angle.get().in(Radians);
@@ -88,21 +96,42 @@ public class HopperPivot extends SubsystemBase {
         .withName("Hopper/Pivot/AngleCommand");
     }
 
+    /**
+     * Runs the hopper pivot at a given voltage. This should be used whenever the hopper pivot needs to be run at a specific voltage, such as when manually controlling the hopper pivot with a joystick.
+     * @param volts the voltage to run the hopper pivot at, as a Supplier to allow for dynamic voltages
+     * @return a command that runs the hopper pivot at the given voltage while it is scheduled
+     */
+
     public Command setPivotVoltage(Supplier<Voltage> volts) {
         return this.startEnd(
             () -> io.runVoltage(volts.get()), 
             () -> io.stop()).withName("Hopper/Pivot/VoltageCommand");
     }
 
-    private boolean atGoal(){
-        return Math.abs(inputs.pivotAngle.in(Radians) - goalAngle) 
-            < HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE;
+    /**
+     * Creates a Trigger that is active when the hopper pivot is at the goal angle within the tolerance specified in {@link HopperPivotConstants}.
+     * @return a Trigger that is active when the hopper pivot is at the goal angle within the specified tolerance
+     */
+
+    public Trigger atGoal(){
+        return new Trigger(() -> Math.abs(inputs.pivotAngle.in(Radians) - goalAngle) 
+            < HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
     }
+
+    /**
+     *  Appends a MechanismLigament2d to the pivot ligament for visualization purposes.
+     * @param mechanism the MechanismLigament2d to append to the pivot ligament
+     * @return the appended MechanismLigament2d
+     */
 
     public MechanismLigament2d append(MechanismLigament2d mechanism) {
         return pivot.append(mechanism);
     }
 
+    /**
+     * Gets the pivot ligament for visualization purposes.
+     * @return the pivot ligament
+     */
     public MechanismLigament2d getPivot() {
         return pivot;
     }

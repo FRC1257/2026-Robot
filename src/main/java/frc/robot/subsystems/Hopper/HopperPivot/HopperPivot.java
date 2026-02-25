@@ -23,8 +23,22 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.util.misc.LoggedTunableNumber;
 
 public class HopperPivot extends SubsystemBase {
+
+    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("HopperPivot/Kp", HopperPivotConstants.HOPPER_PIVOT_KP);
+    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("HopperPivot/Ki", HopperPivotConstants.HOPPER_PIVOT_KI);
+    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("HopperPivot/Kd", HopperPivotConstants.HOPPER_PIVOT_KD);
+
+    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("HopperPivot/Ks", HopperPivotConstants.HOPPER_PIVOT_KS);
+    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("HopperPivot/Kg", HopperPivotConstants.HOPPER_PIVOT_KG);
+    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("HopperPivot/Kv", HopperPivotConstants.HOPPER_PIVOT_KV);
+
+    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("HopperPivot/Tolerance", HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
+
+    private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("HopperPivot/MaxVelocity", HopperPivotConstants.HOPPER_CONSTRAINTS.maxVelocity);
+    private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("HopperPivot/MaxAcceleration", HopperPivotConstants.HOPPER_CONSTRAINTS.maxAcceleration);
 
     private final HopperPivotIO io;
     private HopperPivotIOInputsAutoLogged inputs = new HopperPivotIOInputsAutoLogged();
@@ -40,20 +54,37 @@ public class HopperPivot extends SubsystemBase {
 
     public HopperPivot(HopperPivotIO io) {
         this.io = io; 
-        this.controller = new PIDController(8, 0, 0);
-        this.feedforward = new ArmFeedforward(0, 4, 0);
+        this.controller = new PIDController(Kp.get(), Ki.get(), Kd.get());
+        this.feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
 
-        this.controller.setTolerance(HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
-        this.profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
+        this.controller.setTolerance(tolerance.get());
+        this.profile = new TrapezoidProfile(
+            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
 
         SmartDashboard.putData(getName(), this);
-
     }
 
     @Override
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs("HopperPivot", inputs);
+
+        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
+            controller.setPID(Kp.get(), Ki.get(), Kd.get());
+        }
+
+        if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+            feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
+        }
+
+        if(tolerance.hasChanged(hashCode())) {
+            controller.setTolerance(tolerance.get());
+        }
+
+        if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {
+            profile = new TrapezoidProfile(
+                new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
+        }
 
         pivot.setAngle(inputs.pivotAngle.in(Degrees));
     }

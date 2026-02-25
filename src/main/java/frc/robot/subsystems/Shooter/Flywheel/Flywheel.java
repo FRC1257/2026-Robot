@@ -89,6 +89,7 @@ public class Flywheel extends SubsystemBase {
      * Stops the flywheel. This is functionally the same as {@link #stop()}, but is provided for convenience when a command is needed that only stops the flywheel without any additional functionality.
      * @return a command that stops the flywheel while it is scheduled
      */
+    
     public Command stopCommand() {
         return runOnce(this::stop)
             .withName("Shooter/Flywheel/StopCommand");

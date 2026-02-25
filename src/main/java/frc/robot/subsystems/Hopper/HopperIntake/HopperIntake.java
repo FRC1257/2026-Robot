@@ -3,19 +3,18 @@ package frc.robot.subsystems.Hopper.HopperIntake;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Commands;
-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.util.misc.LoggedTunableNumber;
 
 import static edu.wpi.first.units.Units.Volts;
-
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
 
 public class HopperIntake extends SubsystemBase {
+
+  private static final LoggedTunableNumber IntakeVolts = new LoggedTunableNumber("HopperIntake/Voltage", HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE.magnitude());
+  private static final LoggedTunableNumber OuttakeVolts = new LoggedTunableNumber("HopperIntake/OuttakeVoltage", HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE.magnitude());
 
   private final HopperIntakeIO io;
   private HopperIntakeIOInputsAutoLogged inputs = new HopperIntakeIOInputsAutoLogged();
@@ -48,7 +47,7 @@ public class HopperIntake extends SubsystemBase {
    */
 
   public Command runIntake() {
-    return runVoltage(() -> HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE).withName("HopperIntake/INTAKE");
+    return runVoltage(() -> Volts.of(IntakeVolts.get())).withName("HopperIntake/INTAKE");
   }
 
   /**
@@ -56,7 +55,7 @@ public class HopperIntake extends SubsystemBase {
    * @return a command that runs the hopper intake in reverse at the voltage specified in {@link HopperIntakeConstants} while it is scheduled
    */
   public Command runOutake() {
-    return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE).withName("HopperIntake/OUTTAKE");
+    return runVoltage(() -> Volts.of(OuttakeVolts.get())).withName("HopperIntake/OUTTAKE");
   }
 
   /**
@@ -72,7 +71,7 @@ public class HopperIntake extends SubsystemBase {
    * Stops the hopper intake. This is functionally the same as {@link #stopIntake()}, but is provided for convenience when a command is needed that only stops the hopper intake without any additional functionality.
    * @return a command that stops the hopper intake while it is scheduled
    */
-  
+
   public Command stopCommand() {
     return runOnce(io::stop);
   }

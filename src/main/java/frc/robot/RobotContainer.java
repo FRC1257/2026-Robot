@@ -42,6 +42,8 @@ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivot;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIO;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSim;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
+import frc.robot.subsystems.Kicker.Kicker;
+import frc.robot.subsystems.Kicker.KickerIO;
 
 
 /**
@@ -53,8 +55,10 @@ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
+  private final Kicker kicker;
 
   private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
 
@@ -79,6 +83,7 @@ public class RobotContainer {
          =  new HopperIntake(new HopperIntakeIOSparkMax());
         
          hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
+         kicker = new Kicker(new KickerIO() {});
          break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -94,6 +99,7 @@ public class RobotContainer {
         
         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
+        kicker = new Kicker(new KickerIO() {});
         break;
 
         // Replayed robot, disable IO implementations
@@ -109,6 +115,8 @@ public class RobotContainer {
 
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
+        kicker = new Kicker(new KickerIO() {});
+         break;
     }
 
     // Set up robot state manager

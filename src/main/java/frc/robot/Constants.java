@@ -23,6 +23,10 @@ public final class Constants {
 
   public static final boolean useVision = (currentMode == Mode.SIM ? true : true);
 
+  public static final boolean tuningMode = true; // if true, tunable numbers will get values from dashboard, otherwise they will use default values. Should be true for testing and tuning, false for comp
+  public static final boolean disableHAL = false;
+
+
   public static enum Mode {
     /** Running on a real robot. */
     REAL,

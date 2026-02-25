@@ -32,9 +32,6 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
         config.smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT);
         config.inverted(true);
 
-
-       
-
         motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
         
 

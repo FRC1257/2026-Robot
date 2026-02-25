@@ -13,12 +13,29 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
+import frc.robot.util.misc.LoggedTunableNumber;
 
 public class Hood extends SubsystemBase {
+
+    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Hood/Kp", HoodConstants.kP);
+    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Hood/Ki", HoodConstants.kI);
+    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Hood/Kd", HoodConstants.kD);
+    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("Hood/Tolerance", HoodConstants.HOOD_ANGLE_TOLERANCE);
+
+    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Hood/Ks", 0.0);
+    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("Hood/Kg", 4.0);
+    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Hood/Kv", 0.0);
+
+    private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("Hood/MaxVelocity", HoodConstants.HOOD_CONSTRAINTS.maxVelocity);
+    private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("Hood/MaxAcceleration", HoodConstants.HOOD_CONSTRAINTS.maxAcceleration);
+
+    private static final LoggedTunableNumber homingVolts = new LoggedTunableNumber("Hood/HomingVoltage", HoodConstants.HOMING_VOLTAGE.in(Volts));
+    private static final LoggedTunableNumber homingVelocityThreshold = new LoggedTunableNumber("Hood/HomingVelocityThreshold", HoodConstants.HOMING_VELOCITY_THRESHOLD);
 
     private final HoodIO io; 
     private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
@@ -35,18 +52,37 @@ public class Hood extends SubsystemBase {
 
     public Hood(HoodIO io) {
         this.io = io; 
-        this.controller = new PIDController(HoodConstants.kP, HoodConstants.kI, HoodConstants.kD);
-        this.feedforward = new ArmFeedforward(0, 4, 0);
+        this.controller = new PIDController(Kp.get(), Ki.get(), Kd.get());
+        this.feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
 
-        this.controller.setTolerance(HoodConstants.HOOD_ANGLE_TOLERANCE);
-        this.profile = new TrapezoidProfile(HoodConstants.HOOD_CONSTRAINTS);
-
+        this.controller.setTolerance(tolerance.get());
+        this.profile = new TrapezoidProfile(
+            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
+        
+        SmartDashboard.putData(getName(), this);
     }
 
     @Override
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs("Hood", inputs);
+
+        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
+            controller.setPID(Kp.get(), Ki.get(), Kd.get());
+        }
+
+        if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+            feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
+        }
+
+         if(tolerance.hasChanged(hashCode())) {
+            controller.setTolerance(tolerance.get());
+        }
+
+         if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {
+            profile = new TrapezoidProfile(
+                new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
+        }
     }
     
     /**
@@ -149,11 +185,11 @@ public class Hood extends SubsystemBase {
      * Runs the hood at a constant voltage until it is zeroed, as determined by the hood velocity being below a certain threshold for a certain amount of time.
      * @return a Command that runs the hood at a constant voltage until it is zeroed
      */
-    
+
     public Command zeroCommand() {
-        return runVoltageCommand(() -> HoodConstants.HOMING_VOLTAGE)
+        return runVoltageCommand(() -> Volts.of(homingVolts.get()))
             .raceWith(Commands.waitSeconds(0.5)
-                .andThen(Commands.waitUntil(() -> Math.abs(inputs.hoodVelocity.magnitude()) <= HoodConstants.HOMING_VELOCITY_THRESHOLD)))
+                .andThen(Commands.waitUntil(() -> Math.abs(inputs.hoodVelocity.magnitude()) <= homingVelocityThreshold.get())))
             .andThen(this::zero)
             .withTimeout(3.0)
         .withName("Shooter/Hood/ZeroCommand");

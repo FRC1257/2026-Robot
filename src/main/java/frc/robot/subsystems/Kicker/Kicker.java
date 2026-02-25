@@ -8,11 +8,26 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.util.misc.LoggedTunableNumber;
 
 public class Kicker extends SubsystemBase {
+
+    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Kicker/Kp", KickerConstants.KICKER_KP);
+    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Kicker/Ki", KickerConstants.KICKER_KI);
+    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Kicker/Kd", KickerConstants.KICKER_KD);
+    
+    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Kicker/Ks", KickerConstants.KICKER_KS);
+    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Kicker/Kv", KickerConstants.KICKER_KV);
+
+    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("Kicker/Tolerance", KickerConstants.KICKER_VELOCITY_TOLERANCE);
+
+    private static final LoggedTunableNumber kickerIntakeVelocity = new LoggedTunableNumber("Kicker/IntakeVelocity", KickerConstants.KICKER_INTAKE_VELOCITY.magnitude()); 
+    private static final LoggedTunableNumber kickerOuttakeVelocity = new LoggedTunableNumber("Kicker/OuttakeVelocity", KickerConstants.KICKER_OUTTAKE_VELOCITY.magnitude());
+
     private final KickerIO io;
     private KickerIOInputsAutoLogged inputs = new KickerIOInputsAutoLogged();
 
@@ -26,6 +41,14 @@ public class Kicker extends SubsystemBase {
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs(getName(), inputs);
+
+        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
+            io.setPID(Kp.get(), Ki.get(), Kd.get());
+        }
+
+        if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+            io.setFF(Ks.get(), Kv.get());
+        }
     }
 
     /**
@@ -45,12 +68,32 @@ public class Kicker extends SubsystemBase {
      * @return a command that runs the kicker at the given velocity while it is scheduled
      */
 
-    public Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
+    private Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
         return runEnd(() -> {
             goalVelocity = velocity.get().in(RadiansPerSecond);
             io.setVelocity(velocity.get());
         }, io::stop)
             .withName(getName() + "/RunVelocityCommand");
+    }
+    
+    /**
+     * Runs the kicker at the intake velocity specified in {@link KickerConstants}. This should be used whenever the kicker needs to be intaking, as it will allow for more consistent intaking by using velocity control instead of voltage control.
+     * @return a command that runs the kicker at the intake velocity while it is scheduled
+     */
+
+    public Command runIntake() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(kickerIntakeVelocity.get()))
+            .withName(getName() + "/IntakeCommand");
+    }
+
+    /**
+     * Runs the kicker at the outtake velocity specified in {@link KickerConstants}. This should be used whenever the kicker needs to be outtaking, as it will allow for more consistent outtaking by using velocity control instead of voltage control.
+     * @return a command that runs the kicker at the outtake velocity while it is scheduled
+     */
+
+    public Command runOuttake() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(kickerOuttakeVelocity.get()))
+            .withName(getName() + "/OuttakeCommand");
     }
     
     /**
@@ -70,7 +113,7 @@ public class Kicker extends SubsystemBase {
 
     public Trigger atGoalVelocity() {
         return new Trigger(() -> Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
-            < KickerConstants.KICKER_VELOCITY_TOLERANCE);
+            < tolerance.get());
     }
 
 }

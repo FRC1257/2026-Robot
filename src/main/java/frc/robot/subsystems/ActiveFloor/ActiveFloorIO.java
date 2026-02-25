@@ -17,7 +17,7 @@ public interface ActiveFloorIO {
 
     default void setVoltage(Voltage voltage) {}
     
-     default void stop() {}
+    default void stop() {}
     
-     default void setBreakMode(boolean enabled) {}
+    default void setBreakMode(boolean enabled) {}
 }

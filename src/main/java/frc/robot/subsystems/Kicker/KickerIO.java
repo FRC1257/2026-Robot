@@ -24,5 +24,9 @@ public interface KickerIO {
 
     public default void stop() {}
 
+    public default void setPID(double kP, double kI, double kD) {}
+
+    public default void setFF(double kS, double kV) {}
+
     public default void setBreakMode(boolean enabled) {}
 }

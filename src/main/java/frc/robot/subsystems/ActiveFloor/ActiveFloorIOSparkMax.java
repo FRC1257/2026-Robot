@@ -15,13 +15,11 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
 public class ActiveFloorIOSparkMax implements ActiveFloorIO {
     private final SparkFlex motor;
-    private final RelativeEncoder encoder;
     private final SparkFlexConfig config;
 
     
     public ActiveFloorIOSparkMax() {
         motor = new SparkFlex(ActiveFloorConstants.ACTIVE_FLOOR_MOTOR_ID, SparkFlex.MotorType.kBrushless);
-        encoder = motor.getEncoder();
         config = new SparkFlexConfig();
 
         config
@@ -36,10 +34,6 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
             .encoder
             .positionConversionFactor(1.0)
             .velocityConversionFactor(1.0);
-
-        config
-            .closedLoop
-            .p(FlywheelConstants.FLYWHEEL_KP);
 
         motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
     }

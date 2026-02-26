@@ -33,8 +33,8 @@ public class KickerIOSparkMax implements KickerIO {
                 .smartCurrentLimit(KickerConstants.KICKER_CURRENT_LIMIT)
                 .inverted(false)
             .apply(new EncoderConfig()
-                .positionConversionFactor(1.0)
-                .velocityConversionFactor(1.0))
+                .positionConversionFactor(Math.PI * 2.0) // Convert encoder ticks to radians
+                .velocityConversionFactor(Math.PI * 2.0 / 60.0)) // Convert encoder ticks per second to radians per second
             .apply(new ClosedLoopConfig()
                 .p(KickerConstants.KICKER_KP)
                 .i(KickerConstants.KICKER_KI)

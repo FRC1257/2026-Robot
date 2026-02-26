@@ -1,6 +1,7 @@
 package frc.robot.subsystems.Hopper.HopperIntake;
 
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 
@@ -32,6 +33,10 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
         config.smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT);
         config.inverted(true);
 
+        config.encoder
+            .positionConversionFactor(Math.PI * 2.0) // Convert encoder ticks to radians
+            .velocityConversionFactor(Math.PI * 2.0 / 60.0); // Convert encoder ticks per second to radians per second
+
         motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
         
 
@@ -40,7 +45,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
     @Override
     public void updateInputs(HopperIntakeIOInputs inputs) {
         inputs.intakeVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
-        inputs.intakeVelocity = RPM.of(encoder.getVelocity());
+        inputs.intakeVelocity = RadiansPerSecond.of(encoder.getVelocity());
     }
 
     @Override

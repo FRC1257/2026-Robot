@@ -32,8 +32,8 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
         // NEEDS TO BE DETERMINED
         config
             .encoder
-            .positionConversionFactor(1.0)
-            .velocityConversionFactor(1.0);
+            .positionConversionFactor(Math.PI * 2.0)
+            .velocityConversionFactor(Math.PI * 2.0 / 60.0);
 
         motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
     }

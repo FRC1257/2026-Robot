@@ -18,10 +18,9 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     
     private SparkMaxConfig leftConfig;
     private SparkMaxConfig rightConfig;
-    private ArmFeedforward feedforward = new ArmFeedforward(0, 0, 0, 0);
 
-    private SparkAbsoluteEncoder leftEncoder;
-    private SparkAbsoluteEncoder rightEncoder;
+
+
 
   //private DigitalInput breakBeam;
 
@@ -34,8 +33,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
 
 
 
-    leftEncoder = leftMotor.getAbsoluteEncoder();
-    rightEncoder = rightMotor.getAbsoluteEncoder();
+
 
     leftConfig = new SparkMaxConfig();
 
@@ -75,8 +73,10 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   
 @Override
     public void updateInputs(HopperPivotIOInputs inputs) {
+      inputs.pivotVoltage = leftMotor.getAppliedOutput() * leftMotor.getBusVoltage();
+      inputs.pivotAngle = leftMotor.getAbsoluteEncoder().getPosition();
+      inputs.pivotVelocity = leftMotor.getAbsoluteEncoder().getVelocity();
     inputs.angleRads = getAngle();
-    inputs.angVelocityRadsPerSec = leftEncoder.getVelocity();
     inputs.appliedVolts = leftMotor.getAppliedOutput() * leftMotor.getBusVoltage();
     inputs.setpointAngleRads = setpoint;
     }

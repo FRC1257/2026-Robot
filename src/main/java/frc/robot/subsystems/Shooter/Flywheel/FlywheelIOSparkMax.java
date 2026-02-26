@@ -66,6 +66,10 @@ public class FlywheelIOSparkMax implements FlywheelIO {
         controller = motor.getClosedLoopController();
         feedforward = new SimpleMotorFeedforward(0.0, 0.0, 0.0);
 
+        motor.configure(flywheelConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
+        followerMotor.configure(followerConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters);
+
+
     }
 
     @Override
@@ -88,13 +92,12 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     @Override
     public void setVoltage(Voltage voltage) {
         motor.setVoltage(voltage);
-        followerMotor.setVoltage(voltage);
     }
 
     @Override
     public void stop() {
         motor.stopMotor();
-        followerMotor.stopMotor();
+
     }
 
 }

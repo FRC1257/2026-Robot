@@ -52,6 +52,12 @@ public class HopperPivotConstants {
 
   public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 3);
 
+public static final int HOPPER_PIVOT_LEFT_ID = 0;
+
+public static final int HOPPER_PIVOT_RIGHT_ID = 0;
+
+public static final Object[] HOPPER_PIVOT_FEEDFORWARD_REAL = null;
+
   public static class HopperPivotSimConstants {
     public static final double[] kPivotSimPID = {15, 0, 0, 0};
     public static final double[] kPivotSimFF = {0, 0.574, 0, 0};

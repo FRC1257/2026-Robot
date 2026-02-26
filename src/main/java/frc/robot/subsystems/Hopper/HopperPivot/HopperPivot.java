@@ -86,7 +86,7 @@ public class HopperPivot extends SubsystemBase {
                 new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
         }
 
-        pivot.setAngle(inputs.pivotAngle.in(Degrees));
+        pivot.setAngle(inputs.leftpivotAngle.in(Degrees));
     }
 
     /**
@@ -102,7 +102,7 @@ public class HopperPivot extends SubsystemBase {
                 new TrapezoidProfile.State(angle.in(Radians), 0.0));
         
         double volts = 
-            controller.calculate(inputs.pivotAngle.in(Radians), setpointState.position)
+            controller.calculate(inputs.leftpivotAngle.in(Radians), setpointState.position)
                 + feedforward.calculate(
                     setpointState.position, 
                     setpointState.velocity);
@@ -122,7 +122,7 @@ public class HopperPivot extends SubsystemBase {
             runAngle(angle.get());})
         .beforeStarting(() -> {
             profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
-            setpointState = new TrapezoidProfile.State(inputs.pivotAngle.in(Radians), 0.0);
+            setpointState = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), 0.0);
             })
         .withName("Hopper/Pivot/AngleCommand");
     }
@@ -145,7 +145,7 @@ public class HopperPivot extends SubsystemBase {
      */
 
     public Trigger atGoal(){
-        return new Trigger(() -> Math.abs(inputs.pivotAngle.in(Radians) - goalAngle) 
+        return new Trigger(() -> Math.abs(inputs.leftpivotAngle.in(Radians) - goalAngle) 
             < HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
     }
 

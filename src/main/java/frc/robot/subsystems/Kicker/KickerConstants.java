@@ -20,5 +20,7 @@ public class KickerConstants {
 
     public static final double KICKER_VELOCITY_TOLERANCE = 0.01; // Placholder Value
 
+    public static final int KICKER_CURRENT_LIMIT = 0;
+
 
 }

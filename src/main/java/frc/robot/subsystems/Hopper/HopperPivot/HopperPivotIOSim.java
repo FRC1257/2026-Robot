@@ -34,8 +34,7 @@ public class HopperPivotIOSim implements HopperPivotIO {
     @Override
     public void updateInputs(HopperPivotIOInputs inputs) { 
         sim.update(0.02);
-        inputs.pivotAngle = Radians.of(sim.getAngleRads());
-        inputs.pivotVelocity = RadiansPerSecond.of(sim.getVelocityRadPerSec());
+        
     }
 
     @Override

@@ -1,5 +1,11 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
+
+import com.revrobotics.PersistMode;
+import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
@@ -16,27 +22,15 @@ import edu.wpi.first.units.measure.AngularVelocity;
 import frc.robot.Constants;
 
 public class HopperPivotIOSparkMax implements HopperPivotIO {
-    private SparkMax leftMotor;
-    private SparkMax rightMotor;
+  private SparkMax leftMotor;
+  private SparkMax rightMotor;
     
-    private SparkMaxConfig leftConfig;
-    private SparkMaxConfig rightConfig;
+  private SparkMaxConfig leftConfig;
+  private SparkMaxConfig rightConfig;
 
-
-
-
-  //private DigitalInput breakBeam;
-
-  private double setpoint = 0;
-
-
-    public HopperPivotIOSparkMax() {
+  public HopperPivotIOSparkMax() {
     leftMotor = new SparkMax(HopperPivotConstants.HOPPER_PIVOT_LEFT_ID, MotorType.kBrushless);
     rightMotor = new SparkMax(HopperPivotConstants.HOPPER_PIVOT_RIGHT_ID, MotorType.kBrushless);
-
-
-
-
 
     leftConfig = new SparkMaxConfig();
 
@@ -48,8 +42,8 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
 
     leftConfig
             .encoder
-            .positionConversionFactor(1.0)
-            .velocityConversionFactor(1.0);
+            .positionConversionFactor(2* Math.PI)
+            .velocityConversionFactor(2* Math.PI / 60.0);
 
     rightConfig = new SparkMaxConfig();
     rightConfig.apply(leftConfig);
@@ -65,12 +59,12 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   
 @Override
     public void updateInputs(HopperPivotIOInputs inputs) {
-        inputs.leftpivotVelocity = Units.RPM.of(leftMotor.getEncoder().getVelocity());
-        inputs.leftpivotVoltage = Units.Volts.of(leftMotor.getAppliedOutput() * leftMotor.getBusVoltage());
-        inputs.rightpivotVelocity = Units.RPM.of(rightMotor.getEncoder().getVelocity());
-        inputs.rightpivotVoltage = Units.Volts.of(rightMotor.getAppliedOutput() * rightMotor.getBusVoltage());
-        inputs.leftpivotAngle = Units.Radians.of(leftMotor.getEncoder().getPosition());
-        inputs.rightpivotAngle = Units.Radians.of(rightMotor.getEncoder().getPosition());
+        inputs.leftpivotVelocity = RadiansPerSecond.of(leftMotor.getEncoder().getVelocity());
+        inputs.leftpivotVoltage = Volts.of(leftMotor.getAppliedOutput() * leftMotor.getBusVoltage());
+        inputs.rightpivotVelocity = RadiansPerSecond.of(rightMotor.getEncoder().getVelocity());
+        inputs.rightpivotVoltage = Volts.of(rightMotor.getAppliedOutput() * rightMotor.getBusVoltage());
+        inputs.leftpivotAngle = Radians.of(leftMotor.getEncoder().getPosition());
+        inputs.rightpivotAngle = Radians.of(rightMotor.getEncoder().getPosition());
     }
 @Override
   public void runVoltage(Voltage volts) {
@@ -81,12 +75,13 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     SparkMaxConfig config = new SparkMaxConfig();
     config.idleMode(enabled ? IdleMode.kBrake : IdleMode.kCoast);
     leftMotor.configure(
-        config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
+        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
     rightMotor.configure(
-        config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
+        config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
   }
 @Override
   public void stop() {
     leftMotor.stopMotor();
+    rightMotor.stopMotor();
   }
 }

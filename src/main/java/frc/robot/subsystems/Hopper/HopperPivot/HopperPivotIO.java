@@ -14,9 +14,12 @@ public interface HopperPivotIO {
 
   @AutoLog
   public static class HopperPivotIOInputs {
-    Voltage pivotVoltage = Volts.of(0.0);
-    Angle pivotAngle = Radians.of(0.0);
-    AngularVelocity pivotVelocity = RadiansPerSecond.of(0.0); 
+    Voltage leftpivotVoltage = Volts.of(0.0);
+    Angle leftpivotAngle = Radians.of(0.0);
+    AngularVelocity leftpivotVelocity = RadiansPerSecond.of(0.0); 
+    Voltage rightpivotVoltage = Volts.of(0.0);
+    Angle rightpivotAngle = Radians.of(0.0);
+    AngularVelocity rightpivotVelocity = RadiansPerSecond.of(0.0); 
   }
 
   default void updateInputs(HopperPivotIOInputs inputs) {}

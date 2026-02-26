@@ -101,7 +101,7 @@ public class DriveControls {
       case MICHAEL:
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
-        DRIVE_ROTATE = () -> -driver.getRightX();
+        DRIVE_ROTATE = () -> driver.getRightX();
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightTrigger();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;

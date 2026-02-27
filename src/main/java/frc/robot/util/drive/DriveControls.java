@@ -114,7 +114,7 @@ public class DriveControls {
       default:
         DRIVE_FORWARD = () -> -driver.getLeftY();
         DRIVE_STRAFE = () -> -driver.getLeftX();
-        DRIVE_ROTATE = () -> -driver.getRightX();
+        DRIVE_ROTATE = () -> driver.getRightX();
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
@@ -132,6 +132,8 @@ public class DriveControls {
         HOPPER_PIVOT_VOLTAGE = operator.getB();
         HOPPER_INTAKE = operator.getX();
         HOPPER_OUTTAKE = operator.getY();
+        KICKER_THING = operator.leftTrigger();
+
         
         break;
     }

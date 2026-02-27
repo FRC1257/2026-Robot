@@ -28,7 +28,7 @@ public class HopperPivotConstants {
 
   public static final double PIVOT_MAX_PID_TIME = 3;
 
-  public static final double HOPPER_PIVOT_MAX_ANGLE = 1.95;
+  public static final double HOPPER_PIVOT_MAX_ANGLE = Units.degreesToRadians(30);
   public static final double HOPPER_PIVOT_MIN_ANGLE = Units.degreesToRadians(-20);
 
   public static final double HOPPER_PIVOT_DOWN_ANGLE = Units.degreesToRadians(40);
@@ -52,9 +52,9 @@ public class HopperPivotConstants {
 
   public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 3);
 
-public static final int HOPPER_PIVOT_LEFT_ID = 0;
+public static final int HOPPER_PIVOT_LEFT_ID = 5;
 
-public static final int HOPPER_PIVOT_RIGHT_ID = 0;
+public static final int HOPPER_PIVOT_RIGHT_ID = 6;
 
 public static final Object[] HOPPER_PIVOT_FEEDFORWARD_REAL = null;
 

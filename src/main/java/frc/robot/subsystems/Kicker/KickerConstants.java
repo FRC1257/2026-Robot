@@ -6,7 +6,7 @@ import edu.wpi.first.units.measure.AngularVelocity;
 
 public class KickerConstants {
 
-    public static final int KICKER_MOTOR_ID = 0; // Placeholder Value  
+    public static final int KICKER_MOTOR_ID = 16; // Placeholder Value  
 
     public static final double KICKER_KP = 0.0; // Placeholder Value
     public static final double KICKER_KI = 0.0; // Placeholder Value
@@ -20,7 +20,7 @@ public class KickerConstants {
 
     public static final double KICKER_VELOCITY_TOLERANCE = 0.01; // Placholder Value
 
-    public static final int KICKER_CURRENT_LIMIT = 0;
+    public static final int KICKER_CURRENT_LIMIT = 60;
 
 
 }

@@ -33,6 +33,9 @@ import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
+import frc.robot.subsystems.ActiveFloor.ActiveFloor;
+import frc.robot.subsystems.ActiveFloor.ActiveFloorIO;
+import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSparkMax;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntake;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIO;
@@ -44,6 +47,7 @@ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSim;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
 import frc.robot.subsystems.Kicker.Kicker;
 import frc.robot.subsystems.Kicker.KickerIO;
+import frc.robot.subsystems.Kicker.KickerIOSparkMax;
 
 
 /**
@@ -59,6 +63,7 @@ public class RobotContainer {
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
+  private final ActiveFloor activeFloor;
 
   private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
 
@@ -83,7 +88,8 @@ public class RobotContainer {
          =  new HopperIntake(new HopperIntakeIOSparkMax());
         
          hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
-         kicker = new Kicker(new KickerIO() {});
+         kicker = new Kicker(new KickerIOSparkMax() {});
+         activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
          break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -100,6 +106,9 @@ public class RobotContainer {
         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         kicker = new Kicker(new KickerIO() {});
+        activeFloor = new ActiveFloor(new ActiveFloorIO() {
+          
+        });
         break;
 
         // Replayed robot, disable IO implementations
@@ -116,6 +125,7 @@ public class RobotContainer {
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
         kicker = new Kicker(new KickerIO() {});
+        activeFloor = new ActiveFloor(new ActiveFloorIO() {});
          break;
     }
 
@@ -154,6 +164,7 @@ public class RobotContainer {
 
     hopperPivot.setDefaultCommand(hopperPivot.setPivotVoltage(() -> Volts.of(0.0)));
     hopperIntake.setDefaultCommand(hopperIntake.stopIntake());
+    activeFloor.setDefaultCommand(activeFloor.runActiveFloor());
 
     // DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
 
@@ -172,6 +183,9 @@ public class RobotContainer {
 
     HOPPER_INTAKE.onTrue(hopperIntake.runIntake());
     HOPPER_OUTTAKE.onTrue(hopperIntake.runOutake());
+
+    KICKER_THING.whileTrue(kicker.runVoltageCommand(() -> Volts.of(-8.0)));
+
   }
 
 

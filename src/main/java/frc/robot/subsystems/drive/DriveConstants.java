@@ -38,7 +38,7 @@ public final class DriveConstants {
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
   public static final double kFrontLeftChassisAngularOffset = 0;
-  public static final double kFrontRightChassisAngularOffset = 0; ///turn them 180 in revclient
+  public static final double kFrontRightChassisAngularOffset = 0; 
   public static final double kBackLeftChassisAngularOffset = 0;
   public static final double kBackRightChassisAngularOffset = 0;
 

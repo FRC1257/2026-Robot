@@ -194,7 +194,7 @@ public class RobotContainer {
 
 
 
-    HOPPER_INTAKE.onTrue(hopperIntake.runIntake());
+    HOPPER_INTAKE.onTrue(activeFloor.runActiveFloor());
     HOPPER_OUTTAKE.onTrue(hopperIntake.runOutake());
 
     new Trigger(() -> Math.abs(KICKER_THING.getAsDouble()) > 0.1).whileTrue(kicker.runVoltageCommand(KICKER_THING));

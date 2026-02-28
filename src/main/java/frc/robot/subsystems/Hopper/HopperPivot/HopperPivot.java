@@ -4,8 +4,15 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
+
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 
 import java.util.function.Supplier;
+
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
 
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.AutoLogOutput;
@@ -15,6 +22,12 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.MutAngle;
+import edu.wpi.first.units.measure.MutAngularVelocity;
+import edu.wpi.first.units.measure.MutVoltage;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,6 +36,7 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 public class HopperPivot extends SubsystemBase {
@@ -40,6 +54,12 @@ public class HopperPivot extends SubsystemBase {
     private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("HopperPivot/MaxVelocity", HopperPivotConstants.HOPPER_CONSTRAINTS.maxVelocity);
     private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("HopperPivot/MaxAcceleration", HopperPivotConstants.HOPPER_CONSTRAINTS.maxAcceleration);
 
+      private final MutVoltage m_appliedVoltage = Volts.mutable(0);
+  // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
+  private final MutAngle m_angle = Radians.mutable(0);
+  // Mutable holder for unit-safe linear velocity values, persisted to avoid reall?ocation.
+  private final MutAngularVelocity m_velocity = RotationsPerSecond.mutable(0);
+
     private final HopperPivotIO io;
     private HopperPivotIOInputsAutoLogged inputs = new HopperPivotIOInputsAutoLogged();
 
@@ -47,6 +67,9 @@ public class HopperPivot extends SubsystemBase {
     private ArmFeedforward feedforward;
     private TrapezoidProfile profile;
     private TrapezoidProfile.State setpointState = new TrapezoidProfile.State();
+
+
+  private SysIdRoutine SysId;
 
     private MechanismLigament2d pivot = new MechanismLigament2d("Hopper Pivot", 0.4, 0, 5, new Color8Bit(Color.kAqua));
 
@@ -62,7 +85,28 @@ public class HopperPivot extends SubsystemBase {
             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
 
         SmartDashboard.putData(getName(), this);
+
+            SysId =
+        new SysIdRoutine(
+            new SysIdRoutine.Config(
+                Volts.per(Second).of(HopperPivotConstants.SYSID_RAMP_RATE),
+                Volts.of(HopperPivotConstants.SYSID_STEP_VOLTAGE),
+                Seconds.of(HopperPivotConstants.SYSID_TIME),
+                (state) -> Logger.recordOutput("/HopperPivot/SysIdTestState", state.toString())),
+            new SysIdRoutine.Mechanism(
+                (Voltage volts) -> io.runVoltage(volts),
+                (sysidLog) -> {
+                  sysidLog
+                      .motor("pivot")
+                      .voltage(m_appliedVoltage.mut_replace(inputs.leftpivotVoltage.in(Volts), Volts))
+                      .angularPosition(m_angle.mut_replace(inputs.leftpivotAngle.in(Radians), Radians))
+                      .angularVelocity(
+                          m_velocity.mut_replace(inputs.leftpivotVelocity.in(RadiansPerSecond), RadiansPerSecond));
+                },
+                this));
     }
+
+
 
     @Override
     public void periodic() {
@@ -87,6 +131,8 @@ public class HopperPivot extends SubsystemBase {
         }
 
         pivot.setAngle(inputs.leftpivotAngle.in(Degrees));
+
+ 
     }
 
     /**
@@ -166,4 +212,5 @@ public class HopperPivot extends SubsystemBase {
     public MechanismLigament2d getPivot() {
         return pivot;
     }
+
 }

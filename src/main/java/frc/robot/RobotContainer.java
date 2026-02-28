@@ -8,7 +8,11 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.util.drive.DriveControls.*;
 
+import java.util.function.Supplier;
+
 import com.pathplanner.lib.auto.AutoBuilder;
+
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.XboxController;
@@ -48,6 +52,9 @@ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
 import frc.robot.subsystems.Kicker.Kicker;
 import frc.robot.subsystems.Kicker.KickerIO;
 import frc.robot.subsystems.Kicker.KickerIOSparkMax;
+import frc.robot.subsystems.Shooter.Flywheel.Flywheel;
+import frc.robot.subsystems.Shooter.Flywheel.FlywheelIO;
+import frc.robot.subsystems.Shooter.Flywheel.FlywheelIOSparkMax;
 
 
 /**
@@ -64,6 +71,7 @@ public class RobotContainer {
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
   private final ActiveFloor activeFloor;
+  private final Flywheel flywheel;
 
   private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
 
@@ -90,6 +98,7 @@ public class RobotContainer {
          hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
          kicker = new Kicker(new KickerIOSparkMax() {});
          activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
+         flywheel = new Flywheel(new FlywheelIOSparkMax());
          break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -106,9 +115,8 @@ public class RobotContainer {
         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         kicker = new Kicker(new KickerIO() {});
-        activeFloor = new ActiveFloor(new ActiveFloorIO() {
-          
-        });
+        activeFloor = new ActiveFloor(new ActiveFloorIO() {});
+        flywheel = new Flywheel(new FlywheelIO() {});
         break;
 
         // Replayed robot, disable IO implementations
@@ -126,6 +134,7 @@ public class RobotContainer {
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
+        flywheel = new Flywheel(new FlywheelIO() {});
          break;
     }
 
@@ -165,7 +174,8 @@ public class RobotContainer {
 
     hopperPivot.setDefaultCommand(hopperPivot.setPivotVoltage(() -> Volts.of(0.0)));
     hopperIntake.setDefaultCommand(hopperIntake.stopIntake());
-    activeFloor.setDefaultCommand(activeFloor.runActiveFloor());
+    activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
+    flywheel.setDefaultCommand(flywheel.stopCommand());
 
     // DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
 
@@ -182,10 +192,13 @@ public class RobotContainer {
     ANGLE_HOPPER.onTrue(hopperPivot.setPivotAngle(() -> Degrees.of(65.0)));
     HOPPER_PIVOT_VOLTAGE.onTrue(hopperPivot.setPivotVoltage(() -> Volts.of(5.0)));
 
+
+
     HOPPER_INTAKE.onTrue(hopperIntake.runIntake());
     HOPPER_OUTTAKE.onTrue(hopperIntake.runOutake());
 
-    KICKER_THING.whileTrue(kicker.runVoltageCommand(() -> Volts.of(-8.0)));
+    new Trigger(() -> Math.abs(KICKER_THING.getAsDouble()) > 0.1).whileTrue(kicker.runVoltageCommand(KICKER_THING));
+    new Trigger(() -> Math.abs(FLYWHEEL_DYNAMIC_VOLTAGE.getAsDouble()) > 0.1).whileTrue(flywheel.runVoltageCommand(FLYWHEEL_DYNAMIC_VOLTAGE));
 
   }
 

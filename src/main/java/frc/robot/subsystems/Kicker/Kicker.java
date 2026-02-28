@@ -7,6 +7,8 @@ import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
+
+import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
@@ -109,6 +111,11 @@ public class Kicker extends SubsystemBase {
             .withName(getName() + "/RunVoltageCommand");
     }
 
+    public Command runVoltageCommand(DoubleSupplier voltage) {
+        return runEnd(() -> io.setVoltage(Volts.of(voltage.getAsDouble()*12)), io::stop)
+            .withName(getName() + "/RunVoltageCommand");
+    }
+
     /**
      * Runs the kicker at a given velocity. This should be used whenever the kicker needs to be on, as it will allow for more consistent shooting by using velocity control instead of voltage control.
      * @param velocity the velocity to run the kicker at, as a Supplier to allow for dynamic velocities
@@ -163,24 +170,20 @@ public class Kicker extends SubsystemBase {
             < tolerance.get());
     }
 
-        public Command quasistaticForward() {
-
+    public Command quasistaticForward() {
         return SysId.quasistatic(Direction.kForward)
             .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) >= KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
     }
 
+    public Command quasistaticBack() {
+        return SysId.quasistatic(Direction.kReverse)
+            .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) <= -KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
+    }
 
-
-  public Command quasistaticBack() {
-
-    return SysId.quasistatic(Direction.kReverse)
-        .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) <= -KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
-  }
-
-  public Command dynamicForward() {
-    return SysId.dynamic(Direction.kForward)
-        .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) >= KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
-  }
+    public Command dynamicForward() {
+        return SysId.dynamic(Direction.kForward)
+            .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) >= KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
+    }
 
   public Command dynamicBack() {
 

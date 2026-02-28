@@ -1,5 +1,9 @@
 package frc.robot.subsystems.Shooter.Flywheel;
 
+import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
+
 import com.revrobotics.PersistMode;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
@@ -52,8 +56,8 @@ public class FlywheelIOSparkMax implements FlywheelIO {
         // NEEDS TO BE DETERMINED
         flywheelConfig
             .encoder
-            .positionConversionFactor(1.0)
-            .velocityConversionFactor(1.0);
+            .positionConversionFactor(Math.PI*2)
+            .velocityConversionFactor(Math.PI*2 / 60);
 
         flywheelConfig
             .closedLoop
@@ -76,19 +80,15 @@ public class FlywheelIOSparkMax implements FlywheelIO {
 
     @Override
     public void updateInputs(FlywheelIOInputs inputs) {
-        inputs.flywheelAngularVelocity = Units.RPM.of(encoder.getVelocity());
-        inputs.flywheelVoltage = Units.Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.flywheelAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
+        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
 
     }
 
     @Override
     public void setVelocity(AngularVelocity velocityRadsPerSec) {
-        double velocityRadPerSec = velocityRadsPerSec.in(Units.RadiansPerSecond);
-        double velocityRPM = velocityRadPerSec * 60.0 / (2.0 * Math.PI);
-        double feedforwardVolts = feedforward.calculate(velocityRadPerSec);
-
-        
-        controller.setSetpoint(velocityRPM, ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedforwardVolts);
+        double feedforwardVolts = feedforward.calculate(velocityRadsPerSec.magnitude());
+        controller.setSetpoint(velocityRadsPerSec.in(RPM), ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedforwardVolts);
     }
 
     @Override

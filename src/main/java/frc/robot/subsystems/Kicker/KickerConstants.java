@@ -22,7 +22,7 @@ public class KickerConstants {
 
     public static final int KICKER_CURRENT_LIMIT = 60;
 
-    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(0.0); // Placeholder Value
+    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(450.0); // Placeholder Value
 
 
 }

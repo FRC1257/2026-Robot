@@ -36,7 +36,7 @@ public class DriveControls {
   public static Trigger INTAKE_RUMBLE = EMPTY_TRIGGER;
 
   // Kicker controls
-  public static Trigger KICKER_THING = EMPTY_TRIGGER;
+  public static DoubleSupplier KICKER_THING = EMPTY_DOUBLE_SUPPLIER;
 
   //HopperIntake controls
   public static Trigger HOPPER_INTAKE = EMPTY_TRIGGER;
@@ -44,6 +44,9 @@ public class DriveControls {
 
   public static Trigger ANGLE_HOPPER = EMPTY_TRIGGER;
   public static Trigger HOPPER_PIVOT_VOLTAGE = EMPTY_TRIGGER;
+
+  public static Trigger FLYWHEEL_FIXED_VOLTAGE = EMPTY_TRIGGER;
+  public static DoubleSupplier FLYWHEEL_DYNAMIC_VOLTAGE = EMPTY_DOUBLE_SUPPLIER;
 
 
   // Creates Elastic dropdown menu for Drivers
@@ -132,7 +135,8 @@ public class DriveControls {
         HOPPER_PIVOT_VOLTAGE = operator.getB();
         HOPPER_INTAKE = operator.getX();
         HOPPER_OUTTAKE = operator.getY();
-        KICKER_THING = operator.leftTrigger();
+        KICKER_THING = () -> operator.getRightY();
+        FLYWHEEL_DYNAMIC_VOLTAGE = () -> operator.getLeftY();
 
         
         break;

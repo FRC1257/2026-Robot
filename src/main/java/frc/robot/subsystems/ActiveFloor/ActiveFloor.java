@@ -1,5 +1,7 @@
 package frc.robot.subsystems.ActiveFloor;
 
+import static edu.wpi.first.units.Units.Volts;
+
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
@@ -41,6 +43,10 @@ public class ActiveFloor extends SubsystemBase {
     
     public Command runActiveFloor() {
         return runVoltage(() -> ActiveFloorConstants.ACTIVE_FLOOR_VOLTAGE).withName("ActiveFloor/ON");
+    }
+
+    public Command stopActiveFloor() {
+        return runVoltage(() -> Volts.of(0.0)).withName("ActiveFloor/OFF");
     }
     
 }

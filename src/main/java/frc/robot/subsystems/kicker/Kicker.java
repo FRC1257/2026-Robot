@@ -1,5 +1,6 @@
 package frc.robot.subsystems.kicker;
 
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -13,12 +14,11 @@ public class Kicker extends SubsystemBase {
     public Kicker(KickerIO io) {
         this.io = io;
         SmartDashboard.putData(getName(), this);
->>>>>>> 2177b5f2dc3c06486ba75b889a96cdf036bb6406
     }
 
-    private void setVoltage(Voltage voltage) {
-        io.setVoltage(voltage)
-    }
+//    private void setVoltage(double voltage) {
+//        io.setVoltage(voltage);
+//    }
 
     @Override
     public void periodic() {
@@ -26,32 +26,32 @@ public class Kicker extends SubsystemBase {
         Logger.processInputs("Kicker",inputs);
     }
 
-    private Command runOutake() {
-        return runVoltage(() -> )
-    }
-    public Command stopCommand() {
-        return runOnce(this::stop)
-    }
-
-    private void stop() {
-        io.stop()
-    }
+//    private Command runOutake() {
+//        return runVoltage(() -> );
+//    }
+//    public Command stopCommand() {
+//        return runOnce(this::stop)
+//    }
+//
+//    private void stop() {
+//        io.stop()
+//    }
 
     public Command runKickerCommand(DoubleSupplier voltage) {
         return this.runEnd(
-            () -> io.setVoltage(voltage.getAsDouble(12.0)),
+            () -> io.setVoltage(voltage.getAsDouble()),
             () -> io.setVoltage(0.0)
 
             );
     }
-    private void setVoltage(Voltage voltage) {
+    private void setVoltage(double voltage) {
         io.setVoltage(voltage);
     }
 
-    private Command runVoltage(Supplier<Voltage> voltage) {
-        return run(() -> setVoltage(voltage.get()));
+    private Command runVoltage(DoubleSupplier voltage) {
+        return run(() -> setVoltage(voltage.getAsDouble()));
     }
-    private void stop() {
-        io.stop();
+    private Command stop() {
+        return run(()->setVoltage(0));
     }
 }

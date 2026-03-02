@@ -213,4 +213,44 @@ public class HopperPivot extends SubsystemBase {
         return pivot;
     }
 
+    /**
+     * Runs the SysId routine for the hopper pivot in the forward direction until the hopper pivot reaches the maximum angle specified in {@link HopperPivotConstants}.
+     * @return a command that runs the SysId routine for the hopper pivot in the forward direction
+     */
+
+    public Command quasistaticForward() { 
+        return SysId.quasistatic(Direction.kForward)
+            .until(() -> inputs.leftpivotAngle.in(Radians) >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE);
+    }
+
+    /**
+     * Runs the SysId routine for the hopper pivot in the reverse direction until the hopper pivot reaches the minimum angle specified in {@link HopperPivotConstants}.
+     * @return a command that runs the SysId routine for the hopper pivot in the reverse direction
+     */
+
+    public Command quasistaticReverse() { 
+        return SysId.quasistatic(Direction.kReverse)
+            .until(() -> inputs.leftpivotAngle.in(Radians) <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
+    }
+
+    /**
+     * Runs the SysId routine for the hopper pivot in the forward direction with a step input until the hopper pivot reaches the maximum angle specified in {@link HopperPivotConstants}.
+     * @return a command that runs the SysId routine for the hopper pivot in the forward direction with a step input
+     */
+
+    public Command dynamicForward() {
+        return SysId.dynamic(Direction.kForward)
+            .until(() -> inputs.leftpivotAngle.in(Radians) >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE);
+    }
+
+    /**
+     * Runs the SysId routine for the hopper pivot in the reverse direction with a step input until the hopper pivot reaches the minimum angle specified in {@link HopperPivotConstants}.
+     * @return a command that runs the SysId routine for the hopper pivot in the reverse direction with a step input
+     */
+    
+    public Command dynamicReverse() {
+        return SysId.dynamic(Direction.kReverse)
+            .until(() -> inputs.leftpivotAngle.in(Radians) <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
+    }
+
 }

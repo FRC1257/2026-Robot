@@ -1,6 +1,9 @@
 package frc.robot.subsystems.Shooter.Hood;
 
 import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
 import java.util.function.Supplier;
@@ -12,11 +15,17 @@ import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.MutAngle;
+import edu.wpi.first.units.measure.MutAngularVelocity;
+import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.util.misc.LoggedTunableNumber;
 
@@ -45,6 +54,14 @@ public class Hood extends SubsystemBase {
     private TrapezoidProfile profile;
     private TrapezoidProfile.State setpointState = new TrapezoidProfile.State();
 
+    private final MutVoltage m_appliedVoltage = Volts.mutable(0.0);
+    private final MutAngularVelocity m_angularVelocity = RadiansPerSecond.mutable(0.0);
+    private final MutAngle m_angle = Radians.mutable(0.0);
+
+
+
+    private SysIdRoutine sysId; 
+
     private double goalAngle = 0.0;
 
     private double hoodOffset = 0.0;
@@ -58,8 +75,26 @@ public class Hood extends SubsystemBase {
         this.controller.setTolerance(tolerance.get());
         this.profile = new TrapezoidProfile(
             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
+
+        sysId =
+        new SysIdRoutine(
+            new SysIdRoutine.Config(
+                Volts.per(Second).of(HopperPivotConstants.SYSID_RAMP_RATE),
+                Volts.of(HopperPivotConstants.SYSID_STEP_VOLTAGE),
+                Seconds.of(HopperPivotConstants.SYSID_TIME),
+                (state) -> Logger.recordOutput("/HopperPivot/SysIdTestState", state.toString())),
+            new SysIdRoutine.Mechanism(
+                (Voltage volts) -> io.runVoltage(volts),
+                (sysidLog) -> {
+                  sysidLog
+                      .motor("pivot")
+                      .voltage(m_appliedVoltage.mut_replace(inputs.hoodVolts.in(Volts), Volts))
+                      .angularPosition(m_angle.mut_replace(inputs.hoodAngle.in(Radians), Radians))
+                      .angularVelocity(
+                          m_angularVelocity.mut_replace(inputs.hoodVelocity.in(RadiansPerSecond), RadiansPerSecond));
+                },
+                this));
         
-        SmartDashboard.putData(getName(), this);
     }
 
     @Override
@@ -193,6 +228,46 @@ public class Hood extends SubsystemBase {
             .andThen(this::zero)
             .withTimeout(3.0)
         .withName("Shooter/Hood/ZeroCommand");
+    }
+
+    /**
+     * Runs the hood at a constant voltage in the forward direction until it reaches the maximum angle, as defined in HoodConstants.
+     * @return a Command that runs the hood at a constant voltage in the forward direction until it reaches the maximum angle
+     */
+
+    public Command quasistaticForward() { 
+        return sysId.quasistatic(Direction.kForward)
+            .until(() -> inputs.hoodAngle.in(Radians) >= HoodConstants.HOOD_MAX_ANGLE.in(Radians));
+    }
+
+    /**
+     * Runs the hood at a constant voltage in the reverse direction until it reaches the minimum angle, as defined in HoodConstants.
+     * @return a Command that runs the hood at a constant voltage in the reverse direction until it reaches the minimum angle
+     */
+
+    public Command quasistaticReverse() { 
+        return sysId.quasistatic(Direction.kReverse)
+            .until(() -> inputs.hoodAngle.in(Radians) <= HoodConstants.HOOD_MIN_ANGLE.in(Radians));
+    }
+
+    /**
+     * Runs the hood using the voltage output from the SysId routine in the forward direction until it reaches the maximum angle, as defined in HoodConstants. This will allow for more accurate system identification by accounting for changes in velocity and acceleration during the test.
+     * @return a Command that runs the hood using the voltage output from the SysId routine in the forward direction until it reaches the maximum angle
+     */
+
+    public Command dynamicForward() {
+        return sysId.dynamic(Direction.kForward)
+            .until(() -> inputs.hoodAngle.in(Radians) >= HoodConstants.HOOD_MAX_ANGLE.in(Radians));
+    }
+    
+    /**
+     * Runs the hood using the voltage output from the SysId routine in the reverse direction until it reaches the minimum angle, as defined in HoodConstants. This will allow for more accurate system identification by accounting for changes in velocity and acceleration during the test.
+     * @return a Command that runs the hood using the voltage output from the SysId routine in the reverse direction until it reaches the minimum angle
+     */
+    
+    public Command dynamicReverse() {
+        return sysId.dynamic(Direction.kReverse)
+            .until(() -> inputs.hoodAngle.in(Radians) <= HoodConstants.HOOD_MIN_ANGLE.in(Radians));
     }
 
 }

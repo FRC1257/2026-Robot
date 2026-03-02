@@ -5,9 +5,11 @@
 package frc.robot;
 
 import static edu.wpi.first.units.Units.Degrees;
+import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.util.drive.DriveControls.*;
 
+import java.io.Flushable;
 import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -20,6 +22,7 @@ import edu.wpi.first.wpilibj.smartdashboard.Mechanism2d;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismRoot2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -35,6 +38,8 @@ import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.util.drive.CommandSnailController;
+
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import frc.robot.subsystems.ActiveFloor.ActiveFloor;
@@ -55,6 +60,9 @@ import frc.robot.subsystems.Kicker.KickerIOSparkMax;
 import frc.robot.subsystems.Shooter.Flywheel.Flywheel;
 import frc.robot.subsystems.Shooter.Flywheel.FlywheelIO;
 import frc.robot.subsystems.Shooter.Flywheel.FlywheelIOSparkMax;
+import frc.robot.subsystems.Shooter.Hood.Hood;
+import frc.robot.subsystems.Shooter.Hood.HoodIO;
+import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
 
 
 /**
@@ -70,8 +78,12 @@ public class RobotContainer {
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
+  private final Hood hood;
   private final ActiveFloor activeFloor;
   private final Flywheel flywheel;
+
+  public static final CommandSnailController driver = new CommandSnailController(0);
+  public static final CommandSnailController operator = new CommandSnailController(1);
 
   private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
 
@@ -99,6 +111,7 @@ public class RobotContainer {
          kicker = new Kicker(new KickerIOSparkMax() {});
          activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
          flywheel = new Flywheel(new FlywheelIOSparkMax());
+         hood = new Hood(new HoodIOSparkMax());
          break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -117,6 +130,7 @@ public class RobotContainer {
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIO() {});
+        hood = new Hood(new HoodIO() {});
         break;
 
         // Replayed robot, disable IO implementations
@@ -135,6 +149,7 @@ public class RobotContainer {
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIO() {});
+        hood = new Hood(new HoodIO() {});
          break;
     }
 
@@ -183,28 +198,31 @@ public class RobotContainer {
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
 
-    // DRIVE_SLOW.onTrue(new InstantCommand(DriveCommands::toggleSlowMode));
+    FieldConstants.Zones.composedTrench.contains(
+      () -> drive.getPose().getTranslation())
+        .whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
 
-    DRIVE_STOP.onTrue(
-        new InstantCommand(
-            () -> {
-              drive.stopWithX();
-              drive.resetYaw();
-            },
-            drive));
+    driver
+      .rightBumper().whileTrue(
+        hood.runTargetedCommand()
+          .alongWith(flywheel.runTargetedCommand())
+            .alongWith(
+              Commands.waitUntil(hood::isAtGoal)
+              .andThen(kicker.runIntake()
+                .alongWith(activeFloor.runActiveFloor())))
+      );
+
+    new Trigger(() -> operator.getLeftY() >= 0.1).whileTrue(hopperPivot.setPivotVoltage(() -> Volts.of(operator.getLeftY()*12)));
     
-    new Trigger(() -> (int) Timer.getMatchTime() == 20.0).onTrue(getRumbleBoth());
+    operator.a().onTrue(hopperPivot.quasistaticForward());
+    operator.b().onTrue(hopperPivot.quasistaticReverse());
+    operator.x().onTrue(hopperPivot.dynamicForward());
+    operator.y().onTrue(hopperPivot.dynamicReverse());
 
-    ANGLE_HOPPER.onTrue(hopperPivot.setPivotAngle(() -> Degrees.of(65.0)));
-    HOPPER_PIVOT_VOLTAGE.onTrue(hopperPivot.setPivotVoltage(() -> Volts.of(5.0)));
-
-
-
-    HOPPER_INTAKE.onTrue(activeFloor.runActiveFloor());
-    HOPPER_OUTTAKE.onTrue(hopperIntake.runOutake());
-
-    new Trigger(() -> Math.abs(KICKER_THING.getAsDouble()) > 0.1).whileTrue(kicker.runVoltageCommand(KICKER_THING));
-    new Trigger(() -> Math.abs(FLYWHEEL_DYNAMIC_VOLTAGE.getAsDouble()) > 0.1).whileTrue(flywheel.runVoltageCommand(FLYWHEEL_DYNAMIC_VOLTAGE));
+    // operator.a().onTrue(hood.quasistaticForward());
+    // operator.b().onTrue(hood.quasistaticReverse());
+    // operator.x().onTrue(hood.dynamicForward());
+    // operator.y().onTrue(hood.dynamicReverse());
 
   }
 

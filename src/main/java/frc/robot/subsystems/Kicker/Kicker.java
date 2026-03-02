@@ -1,30 +1,23 @@
 package frc.robot.subsystems.Kicker;
 
 import static edu.wpi.first.units.Units.RadiansPerSecond;
-import static edu.wpi.first.units.Units.Radians;
-import static edu.wpi.first.units.Units.Rotations;
-import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Second;
-import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.MutAngle;
 import edu.wpi.first.units.measure.MutAngularVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.subsystems.Shooter.Flywheel.FlywheelConstants;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 public class Kicker extends SubsystemBase {
@@ -41,50 +34,20 @@ public class Kicker extends SubsystemBase {
     private static final LoggedTunableNumber kickerIntakeVelocity = new LoggedTunableNumber("Kicker/IntakeVelocity", KickerConstants.KICKER_INTAKE_VELOCITY.magnitude()); 
     private static final LoggedTunableNumber kickerOuttakeVelocity = new LoggedTunableNumber("Kicker/OuttakeVelocity", KickerConstants.KICKER_OUTTAKE_VELOCITY.magnitude());
 
+    private final MutVoltage m_voltage = Volts.mutable(0.0);
+    private final MutAngularVelocity m_angularVelocity = RadiansPerSecond.mutable(0.0);
+
+
+    private SysIdRoutine sysId; 
+
     private final KickerIO io;
     private KickerIOInputsAutoLogged inputs = new KickerIOInputsAutoLogged();
 
-      // Mutable holder for unit-safe voltage values, persisted to avoid reallocation.
-    private final MutVoltage m_appliedVoltage = Volts.mutable(0);
-  // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
-    private final MutAngle m_angle = Radians.mutable(0);
-  // Mutable holder for unit-safe linear velocity values, persisted to avoid reallocation.
-    private final MutAngularVelocity m_velocity = RotationsPerSecond.mutable(0);
-
     private double goalVelocity = 0.0;
-
-      private SysIdRoutine SysId;
 
     public Kicker(KickerIO io) {
         this.io = io;
-
-             SysId =
-      new SysIdRoutine(
- 
-          new SysIdRoutine.Config(
-                Volts.per(Second).of(FlywheelConstants.SYSID_RAMP_RATE),
-                Volts.of(FlywheelConstants.SYSID_STEP_VOLTAGE),
-                Seconds.of(FlywheelConstants.SYSID_TIME),
-                (state) -> Logger.recordOutput("/Kicker/SysIdTestState", state.toString())),
-          
-            new SysIdRoutine.Mechanism(
-                v -> io.setVoltage(v),
-                (sysidLog) -> {
-                  sysidLog
-                      .motor("kicker")
-                      .voltage(m_appliedVoltage.mut_replace(inputs.kickerVoltage.in(Volts), Volts))
-                      .angularVelocity(m_velocity.mut_replace(inputs.kickerAngularVelocity.in(RotationsPerSecond), RotationsPerSecond));
-                
-              },
-              // Tell SysId to make generated commands require this subsystem, suffix test state in
-              // WPILog with this subsystem's name ("shooter")
-              this));
-
     }
-
-    
-
-
 
     @Override
     public void periodic() {
@@ -108,11 +71,6 @@ public class Kicker extends SubsystemBase {
 
     public Command runVoltageCommand(Supplier<Voltage> voltage) {
         return runEnd(() -> io.setVoltage(voltage.get()), io::stop)
-            .withName(getName() + "/RunVoltageCommand");
-    }
-
-    public Command runVoltageCommand(DoubleSupplier voltage) {
-        return runEnd(() -> io.setVoltage(Volts.of(voltage.getAsDouble()*12)), io::stop)
             .withName(getName() + "/RunVoltageCommand");
     }
 
@@ -169,27 +127,6 @@ public class Kicker extends SubsystemBase {
         return new Trigger(() -> Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
             < tolerance.get());
     }
-
-    public Command quasistaticForward() {
-        return SysId.quasistatic(Direction.kForward)
-            .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) >= KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
-    }
-
-    public Command quasistaticBack() {
-        return SysId.quasistatic(Direction.kReverse)
-            .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) <= -KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
-    }
-
-    public Command dynamicForward() {
-        return SysId.dynamic(Direction.kForward)
-            .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) >= KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
-    }
-
-  public Command dynamicBack() {
-
-    return SysId.dynamic(Direction.kReverse)
-        .until(() -> inputs.kickerAngularVelocity.in(RotationsPerSecond) <= -KickerConstants.MAX_VELOCITY.in(RotationsPerSecond));
-  }
 
 
 

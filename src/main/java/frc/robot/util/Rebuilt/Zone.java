@@ -3,6 +3,7 @@ package frc.robot.util.Rebuilt;
 import java.util.function.BinaryOperator;
 import java.util.function.Supplier;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 

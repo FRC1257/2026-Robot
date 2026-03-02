@@ -157,6 +157,12 @@ public class RobotContainer {
         "Drive FF Characterization",
         new FeedForwardCharacterization(
             drive, drive::runCharacterization, drive::getCharacterizationVelocity));
+
+    autoChooser.addOption(
+      "HopperPivot FF Characterization",
+      new FeedForwardCharacterization(
+        hopperPivot, hopperPivot::runCharacterization, hopperPivot::getCharacterizationVelocity)
+    );
             
   }
 

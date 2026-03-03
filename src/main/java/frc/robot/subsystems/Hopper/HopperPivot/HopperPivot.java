@@ -84,15 +84,13 @@ public class HopperPivot extends SubsystemBase {
         this.profile = new TrapezoidProfile(
             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
 
-        SmartDashboard.putData(getName(), this);
-
             SysId =
         new SysIdRoutine(
             new SysIdRoutine.Config(
                 Volts.per(Second).of(HopperPivotConstants.SYSID_RAMP_RATE),
                 Volts.of(HopperPivotConstants.SYSID_STEP_VOLTAGE),
                 Seconds.of(HopperPivotConstants.SYSID_TIME),
-                (state) -> Logger.recordOutput("/HopperPivot/SysIdTestState", state.toString())),
+                (state) -> Logger.recordOutput("HopperPivot/SysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 (Voltage volts) -> io.runVoltage(volts),
                 (sysidLog) -> {

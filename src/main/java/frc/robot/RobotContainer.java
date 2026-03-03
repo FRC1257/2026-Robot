@@ -6,6 +6,7 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.util.drive.DriveControls.*;
 
@@ -172,12 +173,6 @@ public class RobotContainer {
         "Drive FF Characterization",
         new FeedForwardCharacterization(
             drive, drive::runCharacterization, drive::getCharacterizationVelocity));
-
-    autoChooser.addOption(
-      "HopperPivot FF Characterization",
-      new FeedForwardCharacterization(
-        hopperPivot, hopperPivot::runCharacterization, hopperPivot::getCharacterizationVelocity)
-    );
             
   }
 
@@ -198,9 +193,9 @@ public class RobotContainer {
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
 
-    FieldConstants.Zones.composedTrench.contains(
-      () -> drive.getPose().getTranslation())
-        .whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
+    //FieldConstants.Zones.composedTrench.contains(
+      //() -> drive.getPose().getTranslation())
+        //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
 
     driver
       .rightBumper().whileTrue(
@@ -212,12 +207,23 @@ public class RobotContainer {
                 .alongWith(activeFloor.runActiveFloor())))
       );
 
-    new Trigger(() -> operator.getLeftY() >= 0.1).whileTrue(hopperPivot.setPivotVoltage(() -> Volts.of(operator.getLeftY()*12)));
-    
-    operator.a().onTrue(hopperPivot.quasistaticForward());
-    operator.b().onTrue(hopperPivot.quasistaticReverse());
-    operator.x().onTrue(hopperPivot.dynamicForward());
-    operator.y().onTrue(hopperPivot.dynamicReverse());
+   driver
+    .leftBumper().whileTrue(
+      flywheel.runVelocityCommand(() -> RadiansPerSecond.of(150))
+      .alongWith(
+        Commands.waitSeconds(1.0)
+        .alongWith(kicker.runVoltageCommand(() -> Volts.of(-12.0)))
+        .alongWith(activeFloor.runActiveFloor()
+        .alongWith(hopperIntake.runIntake())))
+    );
+
+   new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
+  
+   operator.a().onTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(400)));
+    //operator.a().onTrue(hopperPivot.quasistaticForward());
+    //operator.b().onTrue(hopperPivot.quasistaticReverse());
+    //operator.x().onTrue(hopperPivot.dynamicForward());
+    //operator.y().onTrue(hopperPivot.dynamicReverse());
 
     // operator.a().onTrue(hood.quasistaticForward());
     // operator.b().onTrue(hood.quasistaticReverse());

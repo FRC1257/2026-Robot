@@ -50,14 +50,16 @@ public class FlywheelIOSparkMax implements FlywheelIO {
             .smartCurrentLimit(Constants.NEO_VORTEX_CURRENT_LIMIT)
             .idleMode(IdleMode.kCoast)
             .voltageCompensation(12.0)
-            .inverted(false);
+            .inverted(true);
         
 
         // NEEDS TO BE DETERMINED
         flywheelConfig
             .encoder
-            .positionConversionFactor(Math.PI*2)
-            .velocityConversionFactor(Math.PI*2 / 60);
+            .positionConversionFactor(Math.PI*2*32/34)
+            .velocityConversionFactor(((Math.PI*2)*32/34) / 60)
+            .uvwMeasurementPeriod(10)
+            .uvwAverageDepth(2);
 
         flywheelConfig
             .closedLoop
@@ -66,11 +68,11 @@ public class FlywheelIOSparkMax implements FlywheelIO {
         followerConfig = new SparkFlexConfig();
 
         followerConfig.apply(flywheelConfig);
-        followerConfig.follow(motor);
+        followerConfig.follow(motor, true);
 
 
         controller = motor.getClosedLoopController();
-        feedforward = new SimpleMotorFeedforward(0.0, 0.0, 0.0);
+        feedforward = new SimpleMotorFeedforward(FlywheelConstants.FLYWHEEL_KS, FlywheelConstants.FLYWHEEL_KV);
 
         motor.configure(flywheelConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters); 
         followerMotor.configure(followerConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -81,7 +83,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     @Override
     public void updateInputs(FlywheelIOInputs inputs) {
         inputs.flywheelAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
-        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput()*12);
 
     }
 

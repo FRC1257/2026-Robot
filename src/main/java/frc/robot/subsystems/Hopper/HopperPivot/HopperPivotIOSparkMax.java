@@ -38,19 +38,19 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12.0)
         .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
-        .inverted(true);
+        .inverted(false);
 
     leftConfig
             .encoder
-            .positionConversionFactor(2* Math.PI)
-            .velocityConversionFactor(2* Math.PI / 60.0);
+            .positionConversionFactor(2* Math.PI*1/18)
+            .velocityConversionFactor((2* Math.PI*1/18) / 60.0);
 
     rightConfig = new SparkMaxConfig();
     rightConfig.apply(leftConfig);
-    rightConfig.follow(leftMotor);
+    rightConfig.follow(leftMotor,true);
 
-    leftMotor.configure(leftConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
-    rightMotor.configure(rightConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); ;
+    leftMotor.configure(leftConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
+    rightMotor.configure(rightConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
 
     
     }
@@ -60,9 +60,9 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
 @Override
     public void updateInputs(HopperPivotIOInputs inputs) {
         inputs.leftpivotVelocity = RadiansPerSecond.of(leftMotor.getEncoder().getVelocity());
-        inputs.leftpivotVoltage = Volts.of(leftMotor.getAppliedOutput() * leftMotor.getBusVoltage());
+        inputs.leftpivotVoltage = Volts.of(leftMotor.getAppliedOutput() *12);
         inputs.rightpivotVelocity = RadiansPerSecond.of(rightMotor.getEncoder().getVelocity());
-        inputs.rightpivotVoltage = Volts.of(rightMotor.getAppliedOutput() * rightMotor.getBusVoltage());
+        inputs.rightpivotVoltage = Volts.of(rightMotor.getAppliedOutput()*12);
         inputs.leftpivotAngle = Radians.of(leftMotor.getEncoder().getPosition());
         inputs.rightpivotAngle = Radians.of(rightMotor.getEncoder().getPosition());
     }

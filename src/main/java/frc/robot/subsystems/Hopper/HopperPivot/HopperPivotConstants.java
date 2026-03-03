@@ -28,18 +28,12 @@ public class HopperPivotConstants {
 
   public static final double PIVOT_MAX_PID_TIME = 3;
 
-  public static final double HOPPER_PIVOT_MAX_ANGLE = Units.degreesToRadians(30);
-  public static final double HOPPER_PIVOT_MIN_ANGLE = Units.degreesToRadians(-20);
-
-  public static final double HOPPER_PIVOT_DOWN_ANGLE = Units.degreesToRadians(40);
-  public static final double HOPPER_PIVOT_STOW_ANGLE = Units.degreesToRadians(105);
-  public static final double HOPPER_PIVOT_AUTO_INTAKE_ANGLE = Units.degreesToRadians(45);
-  public static final double HOPPER_PIVOT_PROCESSOR_ANGLE = Units.degreesToRadians(55);
+  public static final double HOPPER_PIVOT_MAX_ANGLE = 0.0;
+  public static final double HOPPER_PIVOT_MIN_ANGLE = 1.55;
   
-
   public static final double SYSID_RAMP_RATE = 0.5;
   public static final double SYSID_STEP_VOLTAGE = 1.0;
-  public static final double SYSID_TIME = 10;
+  public static final double SYSID_TIME = 5;
   public static final double HOPPER_PIVOT_TOLERANCE = 1.0;
 
   public static final double HOPPER_PIVOT_CONTROL_SPEED_FACTOR = 1.0;

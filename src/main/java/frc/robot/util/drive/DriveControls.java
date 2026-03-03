@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.Drivers;
 import frc.robot.Constants.Operators;
-import frc.robot.util.drive.CommandSnailController.DPad;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import static frc.robot.RobotContainer.driver;
+import static frc.robot.RobotContainer.operator;;
+
 
 public class DriveControls {
   // Controllers
-  public static final CommandSnailController driver = new CommandSnailController(0);
-  public static final CommandSnailController operator = new CommandSnailController(1);
 
   // Useful for things that don't need to be triggered
   private static final Trigger EMPTY_TRIGGER = new Trigger(() -> false);
@@ -131,14 +131,6 @@ public class DriveControls {
       case ANTONIOS:
       case PROGRAMMERS:
       default:
-        ANGLE_HOPPER = operator.getA();
-        HOPPER_PIVOT_VOLTAGE = operator.getB();
-        HOPPER_INTAKE = operator.getX();
-        HOPPER_OUTTAKE = operator.getY();
-        KICKER_THING = () -> operator.getRightY();
-        FLYWHEEL_DYNAMIC_VOLTAGE = () -> operator.getLeftY();
-
-        
         break;
     }
   }

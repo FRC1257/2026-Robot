@@ -7,6 +7,8 @@ import edu.wpi.first.units.measure.AngularVelocity;
 public class FlywheelConstants {
 
     public static final double FLYWHEEL_KP = 0.0; 
+    public static final double FLYWHEEL_KI = 0.0; 
+    public static final double FLYWHEEL_KD = 0.0; 
 
     public static final double FLYWHEEL_KS = 0.55;
     public static final double FLYWHEEL_KV = 0.036;
@@ -21,5 +23,5 @@ public class FlywheelConstants {
 
     public static final double SYSID_TIME = 0.5;
 
-    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(0.0); // Placeholder Value
+    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(500);
 }

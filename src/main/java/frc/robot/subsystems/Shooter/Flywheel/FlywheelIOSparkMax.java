@@ -1,5 +1,7 @@
 package frc.robot.subsystems.Shooter.Flywheel;
 
+import static edu.wpi.first.units.Units.Amps;
+import static edu.wpi.first.units.Units.Celsius;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
@@ -12,6 +14,8 @@ import com.revrobotics.spark.FeedbackSensor;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkFlex;
+import com.revrobotics.spark.config.ClosedLoopConfig;
+import com.revrobotics.spark.config.SparkBaseConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 
@@ -33,7 +37,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     private final SparkFlexConfig followerConfig;
 
     private final SparkClosedLoopController controller; 
-    private final SimpleMotorFeedforward feedforward;
+    private SimpleMotorFeedforward feedforward;
 
     public FlywheelIOSparkMax() {
 
@@ -63,10 +67,10 @@ public class FlywheelIOSparkMax implements FlywheelIO {
 
         flywheelConfig
             .closedLoop
-            .p(FlywheelConstants.FLYWHEEL_KP);
+            .pid(FlywheelConstants.FLYWHEEL_KP, FlywheelConstants.FLYWHEEL_KI, FlywheelConstants.FLYWHEEL_KD);
 
         followerConfig = new SparkFlexConfig();
-
+ 
         followerConfig.apply(flywheelConfig);
         followerConfig.follow(motor, true);
 
@@ -83,14 +87,16 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     @Override
     public void updateInputs(FlywheelIOInputs inputs) {
         inputs.flywheelAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
-        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput()*12);
+        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput()*motor.getBusVoltage());
+        inputs.flywheelCurrent = Amps.of(motor.getOutputCurrent());
+        inputs.flywheelTemperature = Celsius.of(motor.getMotorTemperature());
 
     }
 
     @Override
     public void setVelocity(AngularVelocity velocityRadsPerSec) {
-        double feedforwardVolts = feedforward.calculate(velocityRadsPerSec.magnitude());
-        controller.setSetpoint(velocityRadsPerSec.in(RPM), ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedforwardVolts);
+        double feedforwardVolts = feedforward.calculate(velocityRadsPerSec.in(RadiansPerSecond));
+        controller.setSetpoint(velocityRadsPerSec.in(RadiansPerSecond), ControlType.kVelocity, ClosedLoopSlot.kSlot0, feedforwardVolts);
     }
 
     @Override
@@ -102,6 +108,16 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     public void stop() {
         motor.stopMotor();
 
+    }
+
+    @Override
+    public void setPID(double kp, double ki, double kd) {
+        motor.configure(new SparkFlexConfig().apply(new ClosedLoopConfig().pid(kp, ki, kd)), ResetMode.kNoResetSafeParameters, PersistMode.kPersistParameters); 
+    }
+
+    @Override
+    public void setFF(double ks, double kv) {
+        feedforward = new SimpleMotorFeedforward(ks, kv);
     }
 
 }

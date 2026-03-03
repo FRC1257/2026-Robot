@@ -24,50 +24,52 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
+import frc.robot.util.misc.LoggedTunableMeasure;
+import frc.robot.util.misc.LoggedTunableNumber;
 
 
 public class Flywheel extends SubsystemBase {
-      private SysIdRoutine SysId;
+    
+    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Flywheel/Kp", FlywheelConstants.FLYWHEEL_KP);
+    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Flywheel/Ki", FlywheelConstants.FLYWHEEL_KI);
+    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Flywheel/Kd", FlywheelConstants.FLYWHEEL_KD);
+
+    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Flywheel/Ks", FlywheelConstants.FLYWHEEL_KS);
+    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Flywheel/Kv", FlywheelConstants.FLYWHEEL_KV);
+
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
 
-        private final MutVoltage m_appliedVoltage = Volts.mutable(0);
-  // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
-  private final MutAngle m_angle = Radians.mutable(0);
-  // Mutable holder for unit-safe linear velocity values, persisted to avoid reallocation.
-  private final MutAngularVelocity m_velocity = RadiansPerSecond.mutable(0);
+    private SysIdRoutine sysId;
 
-      public Flywheel(FlywheelIO io) {
+
+    public Flywheel(FlywheelIO io) {
         this.io = io;
 
-     SysId =
-      new SysIdRoutine(
- 
-          new SysIdRoutine.Config(
+        sysId = new SysIdRoutine(
+            new SysIdRoutine.Config(
                 Volts.per(Second).of(FlywheelConstants.SYSID_RAMP_RATE),
                 Volts.of(FlywheelConstants.SYSID_STEP_VOLTAGE),
                 Seconds.of(FlywheelConstants.SYSID_TIME),
-                (state) -> Logger.recordOutput("/Flywheel/SysIdTestState", state.toString())),
-          
+                (state) -> Logger.recordOutput("SysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
-                v -> io.setVoltage(v),
-                (sysidLog) -> {
-                  sysidLog
-                      .motor("flywheel")
-                      .voltage(m_appliedVoltage.mut_replace(inputs.flywheelVoltage.in(Volts), Volts))
-                      .angularVelocity(m_velocity.mut_replace(inputs.flywheelAngularVelocity.in(RotationsPerSecond), RotationsPerSecond));
-                
-              },
-              // Tell SysId to make generated commands require this subsystem, suffix test state in
-              // WPILog with this subsystem's name ("shooter")
-              this));
-
+                (volage) -> runVoltage(volage),
+                null,
+                this));
     }
     
 
     @Override
     public void periodic(){
         io.updateInputs(inputs);
+
+        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
+            io.setPID(Kp.get(), Ki.get(), Kd.get());
+        }
+
+        if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+            io.setFF(Ks.get(), Kv.get());
+        }
         Logger.processInputs("Flywheel", inputs);
     }
 
@@ -107,10 +109,6 @@ public class Flywheel extends SubsystemBase {
         return runEnd(() -> runVoltage(voltage.get()), this::stop);
     }
 
-    public Command runVoltageCommand(DoubleSupplier voltage) {
-        return runEnd(() -> runVoltage(Volts.of(voltage.getAsDouble())), this::stop);
-    }
-
     /**
      * Runs the flywheel at a given velocity. This should be used whenever the flywheel needs to be on, as it will allow for more consistent shooting by using velocity control instead of voltage control.
      * @param velocityRadsPerSec the velocity to run the flywheel at, as a Supplier to allow for dynamic velocities
@@ -119,7 +117,7 @@ public class Flywheel extends SubsystemBase {
 
     public Command runVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
         return runEnd(() -> runVelocity(velocityRadsPerSec.get()), this::stop)
-            .withName("Shooter/Flywheel/VelocityCommand/" + velocityRadsPerSec.toString());
+            .withName("/Shooter/Flywheel/VelocityCommand/" + velocityRadsPerSec.toString());
     }
 
     /**
@@ -129,7 +127,7 @@ public class Flywheel extends SubsystemBase {
 
     public Command runTargetedCommand() {
         return runEnd(()-> runVelocity(ShooterTrajectoryCalculator.getInstance().getParameters().flywheelVelocity()), this::stop)
-            .withName("Shooter/Flywheel/TargetedCommand");
+            .withName("/Flywheel/TargetedCommand");
     }
 
     /**
@@ -139,32 +137,28 @@ public class Flywheel extends SubsystemBase {
     
     public Command stopCommand() {
         return runOnce(this::stop)
-            .withName("Shooter/Flywheel/StopCommand");
+            .withName("/Flywheel/StopCommand");
     }
 
-    public Command quasistaticForward() {
-
-        return SysId.quasistatic(Direction.kForward)
-            .until(() -> inputs.flywheelAngularVelocity.in(RotationsPerSecond) >= FlywheelConstants.MAX_VELOCITY.in(RotationsPerSecond));
+    public Command quasistaticForward(){
+        return sysId.quasistatic(Direction.kForward)
+            .until(() -> inputs.flywheelAngularVelocity.gte(FlywheelConstants.MAX_VELOCITY));
     }
 
+    public Command quasistaticReverse(){
+        return sysId.quasistatic(Direction.kReverse)
+            .until(() -> inputs.flywheelAngularVelocity.lte(FlywheelConstants.MAX_VELOCITY.unaryMinus()));
+        
+    }
 
+    public Command dynamicForward(){
+        return sysId.dynamic(Direction.kForward)
+            .until(() -> inputs.flywheelAngularVelocity.gte(FlywheelConstants.MAX_VELOCITY));
+    }
 
-  public Command quasistaticBack() {
-
-    return SysId.quasistatic(Direction.kReverse)
-        .until(() ->inputs.flywheelAngularVelocity.in(RotationsPerSecond) <= -FlywheelConstants.MAX_VELOCITY.in(RotationsPerSecond));
-  }
-
-  public Command dynamicForward() {
-    return SysId.dynamic(Direction.kForward)
-        .until(() -> inputs.flywheelAngularVelocity.in(RotationsPerSecond) >= FlywheelConstants.MAX_VELOCITY.in(RotationsPerSecond));
-  }
-
-  public Command dynamicBack() {
-
-    return SysId.dynamic(Direction.kReverse)
-        .until(() -> inputs.flywheelAngularVelocity.in(RotationsPerSecond) <= -FlywheelConstants.MAX_VELOCITY.in(RotationsPerSecond));
-  }
+    public Command dynamicReverse(){
+        return sysId.dynamic(Direction.kReverse)
+            .until(() -> inputs.flywheelAngularVelocity.lte(FlywheelConstants.MAX_VELOCITY.unaryMinus()));
+    }
 
 }

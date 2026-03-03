@@ -245,7 +245,7 @@ public class HopperPivot extends SubsystemBase {
      * Runs the SysId routine for the hopper pivot in the reverse direction with a step input until the hopper pivot reaches the minimum angle specified in {@link HopperPivotConstants}.
      * @return a command that runs the SysId routine for the hopper pivot in the reverse direction with a step input
      */
-    
+
     public Command dynamicReverse() {
         return SysId.dynamic(Direction.kReverse)
             .until(() -> inputs.leftpivotAngle.in(Radians) <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);

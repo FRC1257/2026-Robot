@@ -217,9 +217,20 @@ public class RobotContainer {
         .alongWith(hopperIntake.runIntake())))
     );
 
+    driver
+      .rightTrigger().whileTrue(
+        hopperIntake.runIntake()
+      );
+
+    driver
+      .leftTrigger().whileTrue(
+        hopperIntake.runOutake()
+      );
+
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   
    operator.a().onTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(400)));
+   
     //operator.a().onTrue(hopperPivot.quasistaticForward());
     //operator.b().onTrue(hopperPivot.quasistaticReverse());
     //operator.x().onTrue(hopperPivot.dynamicForward());

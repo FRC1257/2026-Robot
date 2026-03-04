@@ -28,7 +28,7 @@ public class KickerIOSparkMax implements KickerIO {
 
         kickerMotor.configure(
             new SparkMaxConfig()
-                .idleMode(SparkBaseConfig.IdleMode.kBrake)
+                .idleMode(SparkBaseConfig.IdleMode.kCoast)
                 .voltageCompensation(12.0)
                 .smartCurrentLimit(KickerConstants.KICKER_CURRENT_LIMIT)
                 .inverted(false)

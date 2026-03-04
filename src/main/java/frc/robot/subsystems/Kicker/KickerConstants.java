@@ -17,12 +17,12 @@ public class KickerConstants {
 
     public static final AngularVelocity KICKER_INTAKE_VELOCITY = RadiansPerSecond.of(0.0); // Placeholder Value
     public static final AngularVelocity KICKER_OUTTAKE_VELOCITY = RadiansPerSecond.of(0.0); // Placeholder Value
+    public static final AngularVelocity KICKER_MAX_VELOCITY = RadiansPerSecond.of(550);
 
     public static final double KICKER_VELOCITY_TOLERANCE = 0.01; // Placholder Value
 
-    public static final int KICKER_CURRENT_LIMIT = 60;
+    public static final int KICKER_CURRENT_LIMIT = 80;
 
-    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(450.0); // Placeholder Value
 
 
 }

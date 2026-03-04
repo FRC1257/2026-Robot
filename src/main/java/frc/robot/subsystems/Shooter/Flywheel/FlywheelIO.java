@@ -2,11 +2,13 @@ package frc.robot.subsystems.Shooter.Flywheel;
 
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import org.littletonrobotics.junction.AutoLog;
 
+import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Temperature;
@@ -16,6 +18,7 @@ public interface FlywheelIO {
 
     @AutoLog
     public static class FlywheelIOInputs {
+        public Angle flywheelAngle = Radians.of(0.0);
         public AngularVelocity flywheelAngularVelocity = RadiansPerSecond.of(0.0);
         public Voltage flywheelVoltage = Volts.of(0.0);
         public Current flywheelCurrent = Amps.of(0.0);

@@ -231,6 +231,24 @@ public class RobotContainer {
   
    operator.a().onTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(400)));
    
+   operator.b().onTrue(
+    flywheel.quasistaticForward().andThen(
+      flywheel.quasistaticReverse().andThen(
+        flywheel.dynamicForward().andThen(
+          flywheel.dynamicReverse()
+        )
+      )
+    ));
+
+    operator.x().onTrue(
+      flywheel.quasistaticForward().andThen(
+        flywheel.quasistaticReverse().andThen(
+          flywheel.dynamicForward().andThen(
+            flywheel.dynamicReverse()
+        )
+      )
+    ));
+   
     //operator.a().onTrue(hopperPivot.quasistaticForward());
     //operator.b().onTrue(hopperPivot.quasistaticReverse());
     //operator.x().onTrue(hopperPivot.dynamicForward());

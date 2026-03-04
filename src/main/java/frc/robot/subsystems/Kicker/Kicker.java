@@ -2,6 +2,7 @@ package frc.robot.subsystems.Kicker;
 
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
 import java.util.function.Supplier;
@@ -18,6 +19,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.subsystems.Shooter.Flywheel.FlywheelConstants;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 public class Kicker extends SubsystemBase {
@@ -34,9 +37,6 @@ public class Kicker extends SubsystemBase {
     private static final LoggedTunableNumber kickerIntakeVelocity = new LoggedTunableNumber("Kicker/IntakeVelocity", KickerConstants.KICKER_INTAKE_VELOCITY.magnitude()); 
     private static final LoggedTunableNumber kickerOuttakeVelocity = new LoggedTunableNumber("Kicker/OuttakeVelocity", KickerConstants.KICKER_OUTTAKE_VELOCITY.magnitude());
 
-    private final MutVoltage m_voltage = Volts.mutable(0.0);
-    private final MutAngularVelocity m_angularVelocity = RadiansPerSecond.mutable(0.0);
-
 
     private SysIdRoutine sysId; 
 
@@ -47,6 +47,17 @@ public class Kicker extends SubsystemBase {
 
     public Kicker(KickerIO io) {
         this.io = io;
+
+        sysId = new SysIdRoutine(
+            new SysIdRoutine.Config(
+                null,
+                null,
+                null,
+                (state) -> Logger.recordOutput("Kicker/SysIdTestState", state.toString())),
+            new SysIdRoutine.Mechanism(
+                (volage) -> io.setVoltage(volage),
+                null,
+                this));
     }
 
     @Override
@@ -128,6 +139,25 @@ public class Kicker extends SubsystemBase {
             < tolerance.get());
     }
 
+        public Command quasistaticForward(){
+        return sysId.quasistatic(Direction.kForward)
+            .until(() -> inputs.kickerAngularVelocity.gte(KickerConstants.KICKER_MAX_VELOCITY));
+    }
 
+    public Command quasistaticReverse(){
+        return sysId.quasistatic(Direction.kReverse)
+            .until(() -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_MAX_VELOCITY.unaryMinus()));
+        
+    }
+
+    public Command dynamicForward(){
+        return sysId.dynamic(Direction.kForward)
+            .until(() -> inputs.kickerAngularVelocity.gte(KickerConstants.KICKER_MAX_VELOCITY));
+    }
+
+    public Command dynamicReverse(){
+        return sysId.dynamic(Direction.kReverse)
+            .until(() -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_MAX_VELOCITY.unaryMinus()));
+    }
 
 }

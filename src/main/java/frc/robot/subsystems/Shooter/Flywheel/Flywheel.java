@@ -48,10 +48,10 @@ public class Flywheel extends SubsystemBase {
 
         sysId = new SysIdRoutine(
             new SysIdRoutine.Config(
-                Volts.per(Second).of(FlywheelConstants.SYSID_RAMP_RATE),
-                Volts.of(FlywheelConstants.SYSID_STEP_VOLTAGE),
-                Seconds.of(FlywheelConstants.SYSID_TIME),
-                (state) -> Logger.recordOutput("SysIdTestState", state.toString())),
+                null,
+                null,
+                null,
+                (state) -> Logger.recordOutput("Flywheel/SysIdTestState", state.toString())),
             new SysIdRoutine.Mechanism(
                 (volage) -> runVoltage(volage),
                 null,

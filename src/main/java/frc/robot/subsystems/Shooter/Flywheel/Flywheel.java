@@ -109,6 +109,10 @@ public class Flywheel extends SubsystemBase {
         return runEnd(() -> runVoltage(voltage.get()), this::stop);
     }
 
+    public Command runStatic() {
+        return runVoltageCommand(() -> Volts.of(Ks.get()));
+    }
+
     /**
      * Runs the flywheel at a given velocity. This should be used whenever the flywheel needs to be on, as it will allow for more consistent shooting by using velocity control instead of voltage control.
      * @param velocityRadsPerSec the velocity to run the flywheel at, as a Supplier to allow for dynamic velocities

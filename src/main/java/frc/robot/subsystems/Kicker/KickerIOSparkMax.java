@@ -1,6 +1,7 @@
 package frc.robot.subsystems.Kicker;
 
 import static edu.wpi.first.units.Units.RPM;
+import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
@@ -34,7 +35,7 @@ public class KickerIOSparkMax implements KickerIO {
                 .inverted(false)
             .apply(new EncoderConfig()
                 .positionConversionFactor(Math.PI * 2.0) 
-                .velocityConversionFactor(Math.PI * 2.0 / 60.0)
+                .velocityConversionFactor((Math.PI * 2.0) / 60.0)
                 .uvwMeasurementPeriod(10)
                 .uvwAverageDepth(2)) 
             .apply(new ClosedLoopConfig()
@@ -49,6 +50,7 @@ public class KickerIOSparkMax implements KickerIO {
     public void updateInputs(KickerIOInputs inputs) {
         inputs.kickerVoltage = Volts.of(kickerMotor.getAppliedOutput() * 12.0);
         inputs.kickerAngularVelocity = RadiansPerSecond.of(kickerMotor.getEncoder().getVelocity());
+        inputs.kickerAngle = Radians.of(kickerMotor.getEncoder().getPosition());
     }
 
     @Override

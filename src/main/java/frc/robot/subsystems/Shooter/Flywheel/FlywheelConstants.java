@@ -6,12 +6,12 @@ import edu.wpi.first.units.measure.AngularVelocity;
 
 public class FlywheelConstants {
 
-    public static final double FLYWHEEL_KP = 0.56; 
+    public static final double FLYWHEEL_KP = 0.0; 
     public static final double FLYWHEEL_KI = 0.0; 
     public static final double FLYWHEEL_KD = 0.0; 
 
-    public static final double FLYWHEEL_KS = 0.55;
-    public static final double FLYWHEEL_KV = 0.18;
+    public static final double FLYWHEEL_KS = 0.268;
+    public static final double FLYWHEEL_KV = 0.017515;
 
     public static final double FLYWHEEL_VOLTAGE_TOLERANCE = 0.1;
     public static final int FLYWHEEL_MOTOR_ID = 13;
@@ -23,5 +23,5 @@ public class FlywheelConstants {
 
     public static final double SYSID_TIME = 10;
 
-    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(600);
+    public static final AngularVelocity MAX_VELOCITY = RadiansPerSecond.of(500);
 }

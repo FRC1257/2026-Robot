@@ -91,12 +91,16 @@ public class Kicker extends SubsystemBase {
      * @return a command that runs the kicker at the given velocity while it is scheduled
      */
 
-    private Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
+    public Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
         return runEnd(() -> {
             goalVelocity = velocity.get().in(RadiansPerSecond);
             io.setVelocity(velocity.get());
         }, io::stop)
             .withName(getName() + "/RunVelocityCommand");
+    }
+
+    public Command runStatic() {
+        return runVoltageCommand(() -> Volts.of(Ks.get()));
     }
     
     /**

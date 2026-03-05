@@ -197,15 +197,15 @@ public class RobotContainer {
       //() -> drive.getPose().getTranslation())
         //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
 
-    driver
-      .rightBumper().whileTrue(
-        hood.runTargetedCommand()
-          .alongWith(flywheel.runTargetedCommand())
-            .alongWith(
-              Commands.waitUntil(hood::isAtGoal)
-              .andThen(kicker.runIntake()
-                .alongWith(activeFloor.runActiveFloor())))
-      );
+    // driver
+    //   .rightBumper().whileTrue(
+    //     hood.runTargetedCommand()
+    //       .alongWith(flywheel.runTargetedCommand())
+    //         .alongWith(
+    //           Commands.waitUntil(hood::isAtGoal)
+    //           .andThen(kicker.runIntake()
+    //             .alongWith(activeFloor.runActiveFloor())))
+    //   );
 
    driver
     .leftBumper().whileTrue(
@@ -241,10 +241,10 @@ public class RobotContainer {
     ));
 
     operator.x().onTrue(
-      flywheel.quasistaticForward().andThen(
-        flywheel.quasistaticReverse().andThen(
-          flywheel.dynamicForward().andThen(
-            flywheel.dynamicReverse()
+      kicker.quasistaticForward().andThen(
+        kicker.quasistaticReverse().andThen(
+          kicker.dynamicForward().andThen(
+            kicker.dynamicReverse()
         )
       )
     ));

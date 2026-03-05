@@ -24,6 +24,12 @@ public interface HoodIO {
 
     public default void runVoltage(Voltage volts) {}
 
+    public default void runAngle(double angle, double velocity ) {}
+
+    public default void setPID(double Kp, double Ki, double Kd) {}
+
+    public default void setFF(double Ks, double Kv, double Kg) {}
+
 
     
 }

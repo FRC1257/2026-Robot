@@ -9,11 +9,13 @@ import static edu.wpi.first.units.Units.Volts;
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.AutoLogOutput;
+import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+import edu.wpi.first.units.measure.Acceleration;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.MutAngle;
 import edu.wpi.first.units.measure.MutAngularVelocity;
@@ -23,6 +25,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants;
@@ -37,7 +40,7 @@ public class Hood extends SubsystemBase {
     private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("Hood/Tolerance", HoodConstants.HOOD_ANGLE_TOLERANCE);
 
     private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Hood/Ks", 0.0);
-    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("Hood/Kg", 4.0);
+    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("Hood/Kg", 0.0);
     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Hood/Kv", 0.0);
 
     private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("Hood/MaxVelocity", HoodConstants.HOOD_CONSTRAINTS.maxVelocity);
@@ -49,52 +52,23 @@ public class Hood extends SubsystemBase {
     private final HoodIO io; 
     private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
 
-    private PIDController controller;
-    private ArmFeedforward feedforward;
     private TrapezoidProfile profile;
-    private TrapezoidProfile.State setpointState = new TrapezoidProfile.State();
-
-    private final MutVoltage m_appliedVoltage = Volts.mutable(0.0);
-    private final MutAngularVelocity m_angularVelocity = RadiansPerSecond.mutable(0.0);
-    private final MutAngle m_angle = Radians.mutable(0.0);
-
+    private TrapezoidProfile.State goal = new TrapezoidProfile.State();
+    private TrapezoidProfile.State setpoint = null;
 
 
     private SysIdRoutine sysId; 
 
-    private double goalAngle = 0.0;
+    private Angle goalAngle = Radians.of(0.0);
+    private Angle hoodOffset = Radians.of(0.0);
 
-    private double hoodOffset = 0.0;
     private boolean isZeroed = false;
 
     public Hood(HoodIO io) {
         this.io = io; 
-        this.controller = new PIDController(Kp.get(), Ki.get(), Kd.get());
-        this.feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
 
-        this.controller.setTolerance(tolerance.get());
         this.profile = new TrapezoidProfile(
-            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
-
-        sysId =
-        new SysIdRoutine(
-            new SysIdRoutine.Config(
-                Volts.per(Second).of(HopperPivotConstants.SYSID_RAMP_RATE),
-                Volts.of(HopperPivotConstants.SYSID_STEP_VOLTAGE),
-                Seconds.of(HopperPivotConstants.SYSID_TIME),
-                (state) -> Logger.recordOutput("/HopperPivot/SysIdTestState", state.toString())),
-            new SysIdRoutine.Mechanism(
-                (Voltage volts) -> io.runVoltage(volts),
-                (sysidLog) -> {
-                  sysidLog
-                      .motor("pivot")
-                      .voltage(m_appliedVoltage.mut_replace(inputs.hoodVolts.in(Volts), Volts))
-                      .angularPosition(m_angle.mut_replace(inputs.hoodAngle.in(Radians), Radians))
-                      .angularVelocity(
-                          m_angularVelocity.mut_replace(inputs.hoodVelocity.in(RadiansPerSecond), RadiansPerSecond));
-                },
-                this));
-        
+            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
     }
 
     @Override
@@ -103,15 +77,11 @@ public class Hood extends SubsystemBase {
         Logger.processInputs("Hood", inputs);
 
         if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
-            controller.setPID(Kp.get(), Ki.get(), Kd.get());
+            io.setPID(Kp.get(), Ki.get(), Kd.get());
         }
 
         if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
-            feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
-        }
-
-         if(tolerance.hasChanged(hashCode())) {
-            controller.setTolerance(tolerance.get());
+            io.setFF(Ks.get(), Kv.get(), Kg.get());
         }
 
          if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {
@@ -125,8 +95,8 @@ public class Hood extends SubsystemBase {
      */
 
     @AutoLogOutput(key = "Shooter/Hood/MeasuredAngleRads")
-    public double getMeasuredAngle() {
-        return inputs.hoodAngle.in(Radians) + hoodOffset;
+    public Angle getMeasuredAngle() {
+        return inputs.hoodAngle.plus(hoodOffset);
     }
 
     /**
@@ -134,8 +104,8 @@ public class Hood extends SubsystemBase {
      */
 
     @AutoLogOutput(key = "Shooter/Hood/atGoal")
-    public boolean isAtGoal() {
-        return Math.abs(getMeasuredAngle() - goalAngle) < HoodConstants.HOOD_ANGLE_TOLERANCE && isZeroed;
+    public Trigger isAtGoal() {
+        return new Trigger(() -> getMeasuredAngle().minus(goalAngle).abs(Radians) < HoodConstants.HOOD_ANGLE_TOLERANCE && isZeroed);
     }
 
     /**
@@ -145,29 +115,8 @@ public class Hood extends SubsystemBase {
      */
 
     public void zero() {
-        hoodOffset = HoodConstants.HOOD_MIN_ANGLE.in(Radians) - inputs.hoodAngle.in(Radians);
+        hoodOffset = HoodConstants.HOOD_MIN_ANGLE.minus(inputs.hoodAngle);
         isZeroed = true;
-    }
-
-    /**
-     * Runs the hood at the specified angle using a PID controller and feedforward.
-     * @param angle the desired angle to run the hood to, in radians
-     */
-
-    private void runAngle(Angle angle) {
-        setpointState = 
-            profile.calculate(
-                0.02,
-                setpointState,
-                new TrapezoidProfile.State(angle.in(Radians), 0.0));
-        
-        double volts = 
-            controller.calculate(getMeasuredAngle(), setpointState.position)
-                + feedforward.calculate(
-                    setpointState.position, 
-                    setpointState.velocity);
-        
-        io.runVoltage(Volts.of(volts));
     }
 
     /**
@@ -178,13 +127,20 @@ public class Hood extends SubsystemBase {
 
     public Command runAngleCommand(Supplier<Angle> angle) {
         return run(() -> {
-            goalAngle = angle.get().in(Radians);
-            runAngle(angle.get());})
-        .beforeStarting(() -> {
-            profile = new TrapezoidProfile(HoodConstants.HOOD_CONSTRAINTS);
-            setpointState = new TrapezoidProfile.State(getMeasuredAngle(), 0.0);
-            })
-        .withName("Shooter/Hood/AngleCommand");
+            goalAngle = angle.get();
+            goal = new TrapezoidProfile.State(angle.get().in(Radians),0);
+            setpoint = profile.calculate(LoggedRobot.defaultPeriodSecs, setpoint, goal);
+            io.runAngle(setpoint.position, setpoint.velocity);
+        }).beforeStarting(() -> {
+            goalAngle = angle.get();
+            setpoint = new TrapezoidProfile.State(inputs.hoodAngle.in(Radians), inputs.hoodVelocity.in(RadiansPerSecond));
+        }).finallyDo(() -> {
+            if(isAtGoal().getAsBoolean()) {
+                io.runAngle(goalAngle.in(Radians), 0.0);
+            } else {
+                io.runAngle(setpoint.position, 0.0);
+            }
+        });
     }
 
     /**
@@ -206,14 +162,7 @@ public class Hood extends SubsystemBase {
      */
 
     public Command runTargetedCommand() {
-        return run(()-> {
-            goalAngle = ShooterTrajectoryCalculator.getInstance().getParameters().hoodAngle().in(Radians);
-            runAngle(ShooterTrajectoryCalculator.getInstance().getParameters().hoodAngle());})
-        .beforeStarting(() -> {
-            profile = new TrapezoidProfile(HoodConstants.HOOD_CONSTRAINTS);
-            setpointState = new TrapezoidProfile.State(getMeasuredAngle(), 0.0);
-            })
-        .withName("Shooter/Hood/TargetedCommand");
+        return runAngleCommand(() -> ShooterTrajectoryCalculator.getInstance().getParameters().hoodAngle());
     }
 
     /**

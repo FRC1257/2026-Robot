@@ -34,14 +34,14 @@ import frc.robot.util.misc.LoggedTunableNumber;
 
 public class Hood extends SubsystemBase {
 
-    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Hood/Kp", HoodConstants.kP);
-    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Hood/Ki", HoodConstants.kI);
-    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Hood/Kd", HoodConstants.kD);
+    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Hood/Kp", HoodConstants.HOOD_KP);
+    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Hood/Ki", HoodConstants.HOOD_KI);
+    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Hood/Kd", HoodConstants.HOOD_KD);
     private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("Hood/Tolerance", HoodConstants.HOOD_ANGLE_TOLERANCE);
 
-    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Hood/Ks", 0.0);
-    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("Hood/Kg", 0.0);
-    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Hood/Kv", 0.0);
+    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Hood/Ks", HoodConstants.HOOD_KS);
+    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("Hood/Kg", HoodConstants.HOOD_KG);
+    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Hood/Kv", HoodConstants.HOOD_KV);
 
     private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("Hood/MaxVelocity", HoodConstants.HOOD_CONSTRAINTS.maxVelocity);
     private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("Hood/MaxAcceleration", HoodConstants.HOOD_CONSTRAINTS.maxAcceleration);

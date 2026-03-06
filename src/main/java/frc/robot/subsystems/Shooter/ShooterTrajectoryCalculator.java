@@ -60,6 +60,47 @@ public class ShooterTrajectoryCalculator {
     private static final InterpolatingTreeMap<Distance, Time> timeOfFlightMap =
         new InterpolatingTreeMap<>(UnitInterpolation.inverseInterpolate(), UnitInterpolation.Interpolator(Seconds));
 
+    static {
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
+
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+        timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
+    }
+
     private static final InterpolatingTreeMap<Distance, Angle> passingHoodAngleMap =
         new InterpolatingTreeMap<>(UnitInterpolation.inverseInterpolate(), UnitInterpolation.Interpolator(Radians));
     private static final InterpolatingTreeMap<Distance, AngularVelocity> passingFlywheelSpeedMap =
@@ -96,13 +137,27 @@ public class ShooterTrajectoryCalculator {
         ChassisSpeeds shooterVelocity = GeometryUtilities.transformVelocity(fieldRelativeVelocity, robotPose.getTranslation(), robotAngle);
 
         Time timeOfFlight = timeOfFlightMap.get(robotToTargetDistance);
+        Pose2d lookaheadPose = robotPose;
+        Distance lookaheadTargetDistance = robotToTargetDistance;
 
-        // do the virtual robot position loop here
+        for(int i = 0; i<20; i++) {
+            timeOfFlight = timeOfFlightMap.get(lookaheadTargetDistance);
+            lookaheadPose = 
+                new Pose2d(
+                    robotPose.getTranslation().plus(
+                        new Translation2d(
+                            shooterVelocity.vxMetersPerSecond*timeOfFlight.in(Seconds),
+                            shooterVelocity.vyMetersPerSecond*timeOfFlight.in(Seconds)
+                        )),
+                        robotPose.getRotation()
+                    );
+            lookaheadTargetDistance = Meters.of(target.getDistance(lookaheadPose.getTranslation()));     
+        }
 
-        Angle hoodAngle = hoodAngleMap.get(robotToTargetDistance);
+        Angle hoodAngle = hoodAngleMap.get(lookaheadTargetDistance);
+        AngularVelocity flywheeVelocity = flywheelSpeedMap.get(lookaheadTargetDistance);
 
-
-
+        latestParameters = new ShooterTrajectoryParameters(true, robotAngle, 0, flywheeVelocity, hoodAngle, false);
 
         return latestParameters;
     }

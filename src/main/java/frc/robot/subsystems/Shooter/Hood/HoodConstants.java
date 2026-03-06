@@ -13,14 +13,14 @@ import edu.wpi.first.units.measure.Voltage;
 
 public class HoodConstants {
 
-    public static final Angle HOOD_MIN_ANGLE = Radians.of(Units.degreesToRadians(0.0));
-    public static final Angle HOOD_MAX_ANGLE = Radians.of(Units.degreesToRadians(45.0));
+    public static final Angle HOOD_MIN_ANGLE = Radians.of(0);
+    public static final Angle HOOD_MAX_ANGLE = Radians.of(0.432);
 
     
 
-    public static final double HOOD_ANGLE_TOLERANCE = Degrees.of(1.0).in(Radians);
+    public static final double HOOD_ANGLE_TOLERANCE = Degrees.of(0.5).in(Radians);
 
-    public static final int HOOD_MOTOR_ID = 0;
+    public static final int HOOD_MOTOR_ID = 10;
 
     public static final double HOOD_KP = 0.0;
     public static final double HOOD_KI = 0.0;
@@ -32,10 +32,10 @@ public class HoodConstants {
     public static final TrapezoidProfile.Constraints HOOD_CONSTRAINTS = new TrapezoidProfile.Constraints(3.0, 6.0);
     public static final double HOMING_VELOCITY_THRESHOLD = 0.5; 
     public static final Voltage HOMING_VOLTAGE = Volts.of(-3.0);
-    public static final boolean HOOD_INVERTED = false;
-    public static final IdleMode HOOD_IDLE_MODE = null;
+    public static final boolean HOOD_INVERTED = true;
+    public static final IdleMode HOOD_IDLE_MODE = IdleMode.kBrake;
     public static final int HOOD_SMART_CURRENT_LIMIT = 80;
-    public static final double HOOD_POSITION_CONVERSION_FACTOR = 2*Math.PI*1/33;
+    public static final double HOOD_POSITION_CONVERSION_FACTOR = 2*Math.PI*1/34.6;
     public static final double HOOD_VELOCITY_CONVERSION_FACTOR = HOOD_POSITION_CONVERSION_FACTOR/60;
     public static final double ABSOLUTE_ENCODER_POSITION_CONVERSION_FACTOR = 2*Math.PI;
     public static final double ABSOLUTE_ENCODER_VELOCITY_CONVERSION_FACTOR = ABSOLUTE_ENCODER_POSITION_CONVERSION_FACTOR/60;

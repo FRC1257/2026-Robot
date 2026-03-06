@@ -27,7 +27,6 @@ public class HoodIOSparkMax implements HoodIO {
 
     private final SparkMax motor;
     private final RelativeEncoder encoderRelative;
-    private final AbsoluteEncoder encoderAbsolute;
     private final SparkClosedLoopController controller;
     private final ArmFeedforward feedforward;
 
@@ -48,32 +47,17 @@ public class HoodIOSparkMax implements HoodIO {
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2);
         motorConfig
-            .absoluteEncoder
-            .inverted(ABSOLUTE_ENCODER_INVERTED)
-            .positionConversionFactor(ABSOLUTE_ENCODER_POSITION_CONVERSION_FACTOR)
-            .velocityConversionFactor(ABSOLUTE_ENCODER_VELOCITY_CONVERSION_FACTOR);
-        motorConfig
             .closedLoop
-            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
             .pid(HOOD_KP, HOOD_KI, HOOD_KD);
-        motorConfig
-            .signals
-            .absoluteEncoderPositionAlwaysOn(true)
-            .absoluteEncoderVelocityAlwaysOn(true)
-            .primaryEncoderVelocityPeriodMs(20)
-            .appliedOutputPeriodMs(20)
-            .busVoltagePeriodMs(20)
-            .outputCurrentPeriodMs(20);
         motor.configure(motorConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
         encoderRelative = motor.getEncoder();
-        encoderAbsolute = motor.getAbsoluteEncoder();
         controller = motor.getClosedLoopController();
         feedforward = new ArmFeedforward(HOOD_KS, HOOD_KG, HOOD_KV);
     }
 
     @Override
     public void updateInputs(HoodIOInputs inputs) {
-        inputs.hoodAngle = Radians.of(encoderAbsolute.getPosition());
+        inputs.hoodAngle = Radians.of(encoderRelative.getPosition());
         inputs.hoodVelocity = RadiansPerSecond.of(encoderRelative.getVelocity());
         inputs.hoodVolts = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage()); 
         inputs.hoodCurrentDraw = Amps.of(motor.getOutputCurrent());
@@ -92,7 +76,7 @@ public class HoodIOSparkMax implements HoodIO {
             ControlType.kPosition,
             ClosedLoopSlot.kSlot0,
             feedforward.calculateWithVelocities(
-                encoderAbsolute.getPosition(),
+                encoderRelative.getPosition(),
                 encoderRelative.getVelocity(),
                 velocity
             )

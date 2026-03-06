@@ -105,7 +105,7 @@ public class Hood extends SubsystemBase {
 
     @AutoLogOutput(key = "Shooter/Hood/atGoal")
     public Trigger isAtGoal() {
-        return new Trigger(() -> getMeasuredAngle().minus(goalAngle).abs(Radians) < HoodConstants.HOOD_ANGLE_TOLERANCE && isZeroed);
+        return new Trigger(() -> getMeasuredAngle().minus(goalAngle).abs(Radians) < HoodConstants.HOOD_ANGLE_TOLERANCE);
     }
 
     /**
@@ -154,6 +154,10 @@ public class Hood extends SubsystemBase {
             () -> io.runVoltage(volts.get()),
             () -> io.runVoltage(Volts.of(0.0)))
         .withName("Shooter/Hood/VoltageCommand");
+    }
+
+    public Command runStatic() {
+        return runVoltageCommand(() -> Volts.of(Ks.get()));
     }
 
     /**

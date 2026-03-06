@@ -192,6 +192,7 @@ public class RobotContainer {
     hopperIntake.setDefaultCommand(hopperIntake.stopIntake());
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
+    hood.setDefaultCommand(hood.runVoltageCommand(() -> Volts.of(0)));
 
     //FieldConstants.Zones.composedTrench.contains(
       //() -> drive.getPose().getTranslation())
@@ -212,7 +213,7 @@ public class RobotContainer {
       flywheel.runVelocityCommand(() -> RadiansPerSecond.of(150))
       .alongWith(
         Commands.waitSeconds(1.0)
-        .alongWith(kicker.runVoltageCommand(() -> Volts.of(-12.0)))
+        .alongWith(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-200)))
         .alongWith(activeFloor.runActiveFloor()
         .alongWith(hopperIntake.runIntake())))
     );
@@ -227,27 +228,32 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );
 
+    operator.leftBumper().whileTrue(hood.runVoltageCommand(() -> Volts.of(2.0)));
+    operator.rightBumper().whileTrue(hood.runVoltageCommand(() -> Volts.of(-2.0)));
+
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   
-   operator.a().onTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(400)));
-   
-   operator.b().onTrue(
-    flywheel.quasistaticForward().andThen(
-      flywheel.quasistaticReverse().andThen(
-        flywheel.dynamicForward().andThen(
-          flywheel.dynamicReverse()
-        )
-      )
-    ));
+  
 
-    operator.x().onTrue(
-      kicker.quasistaticForward().andThen(
-        kicker.quasistaticReverse().andThen(
-          kicker.dynamicForward().andThen(
-            kicker.dynamicReverse()
-        )
-      )
-    ));
+   //operator.a().onTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(400)));
+   
+  //  operator.b().onTrue(
+  //   flywheel.quasistaticForward().andThen(
+  //     flywheel.quasistaticReverse().andThen(
+  //       flywheel.dynamicForward().andThen(
+  //         flywheel.dynamicReverse()
+  //       )
+  //     )
+  //   ));
+
+  //   operator.x().onTrue(
+  //     kicker.quasistaticForward().andThen(
+  //       kicker.quasistaticReverse().andThen(
+  //         kicker.dynamicForward().andThen(
+  //           kicker.dynamicReverse()
+  //       )
+  //     )
+  //   ));
    
     //operator.a().onTrue(hopperPivot.quasistaticForward());
     //operator.b().onTrue(hopperPivot.quasistaticReverse());

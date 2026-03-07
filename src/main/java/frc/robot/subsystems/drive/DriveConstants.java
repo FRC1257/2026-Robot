@@ -1,5 +1,7 @@
 package frc.robot.subsystems.drive;
 
+import static frc.robot.Constants.PI;
+
 import com.pathplanner.lib.path.PathConstraints;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
@@ -37,10 +39,10 @@ public final class DriveConstants {
 
   // Angular offsets of the modules relative to the chassis in radians
   // Subject to change depending on what robot side is the front
-  public static final double kFrontLeftChassisAngularOffset = 0;
+  public static final double kFrontLeftChassisAngularOffset = -Math.PI/2;
   public static final double kFrontRightChassisAngularOffset = 0; 
-  public static final double kBackLeftChassisAngularOffset = 0;
-  public static final double kBackRightChassisAngularOffset = 0;
+  public static final double kBackLeftChassisAngularOffset = Math.PI;
+  public static final double kBackRightChassisAngularOffset = Math.PI / 2;
 
   // SPARK MAX CAN IDs
   // Subject to change depending on what robot side is the front

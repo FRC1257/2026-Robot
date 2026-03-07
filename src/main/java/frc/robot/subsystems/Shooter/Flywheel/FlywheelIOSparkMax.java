@@ -89,7 +89,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
     public void updateInputs(FlywheelIOInputs inputs) {
         inputs.flywheelAngle = Radians.of(encoder.getPosition());
         inputs.flywheelAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
-        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput()*12);
+        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput()*motor.getBusVoltage());
         inputs.flywheelCurrent = Amps.of(motor.getOutputCurrent());
         inputs.flywheelTemperature = Celsius.of(motor.getMotorTemperature());
 

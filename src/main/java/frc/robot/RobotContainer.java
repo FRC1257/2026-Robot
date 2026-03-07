@@ -228,8 +228,8 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );
 
-    operator.leftBumper().whileTrue(hood.runVoltageCommand(() -> Volts.of(2.0)));
-    operator.rightBumper().whileTrue(hood.runVoltageCommand(() -> Volts.of(-2.0)));
+    operator.leftBumper().whileTrue(hood.runVoltageCommand(() -> Volts.of(0.5)));
+    operator.rightBumper().whileTrue(hood.runVoltageCommand(() -> Volts.of(-0.5)));
 
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   

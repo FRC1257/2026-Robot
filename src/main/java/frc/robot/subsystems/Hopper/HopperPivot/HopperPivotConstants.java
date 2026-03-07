@@ -1,8 +1,11 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Radians;
+
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.Constraints;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.measure.Angle;
 
 public class HopperPivotConstants {
   // May have to change these constants, same as pivot arm from last year right now
@@ -21,7 +24,7 @@ public class HopperPivotConstants {
 
 
 
-  public static final double HOPPER_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
+  public static final Angle HOPPER_PIVOT_PID_TOLERANCE = Radians.of(0.1);
   public static final double HOPPER_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;
 
   public static final double HOPPER_PIVOT_OFFSET = 0.2299176; // 1.14;

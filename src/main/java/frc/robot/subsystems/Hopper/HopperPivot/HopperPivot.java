@@ -16,6 +16,7 @@ import static edu.wpi.first.units.Units.Seconds;
 
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.AutoLogOutput;
+import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
@@ -49,59 +50,24 @@ public class HopperPivot extends SubsystemBase {
     private static final LoggedTunableNumber Kg = new LoggedTunableNumber("HopperPivot/Kg", HopperPivotConstants.HOPPER_PIVOT_KG);
     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("HopperPivot/Kv", HopperPivotConstants.HOPPER_PIVOT_KV);
 
-    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("HopperPivot/Tolerance", HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
-
     private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("HopperPivot/MaxVelocity", HopperPivotConstants.HOPPER_CONSTRAINTS.maxVelocity);
     private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("HopperPivot/MaxAcceleration", HopperPivotConstants.HOPPER_CONSTRAINTS.maxAcceleration);
-
-      private final MutVoltage m_appliedVoltage = Volts.mutable(0);
-  // Mutable holder for unit-safe linear distance values, persisted to avoid reallocation.
-  private final MutAngle m_angle = Radians.mutable(0);
-  // Mutable holder for unit-safe linear velocity values, persisted to avoid reall?ocation.
-  private final MutAngularVelocity m_velocity = RotationsPerSecond.mutable(0);
 
     private final HopperPivotIO io;
     private HopperPivotIOInputsAutoLogged inputs = new HopperPivotIOInputsAutoLogged();
 
-    private PIDController controller;
-    private ArmFeedforward feedforward;
     private TrapezoidProfile profile;
-    private TrapezoidProfile.State setpointState = new TrapezoidProfile.State();
-
-
-  private SysIdRoutine SysId;
+    private TrapezoidProfile.State goal = new TrapezoidProfile.State();
+    private TrapezoidProfile.State setpoint = null;
 
     private MechanismLigament2d pivot = new MechanismLigament2d("Hopper Pivot", 0.4, 0, 5, new Color8Bit(Color.kAqua));
 
-    private double goalAngle = 0.0;
+    private Angle goalAngle = Radians.of(0.0);
 
     public HopperPivot(HopperPivotIO io) {
         this.io = io; 
-        this.controller = new PIDController(Kp.get(), Ki.get(), Kd.get());
-        this.feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
-
-        this.controller.setTolerance(tolerance.get());
         this.profile = new TrapezoidProfile(
-            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
-
-            SysId =
-        new SysIdRoutine(
-            new SysIdRoutine.Config(
-                Volts.per(Second).of(HopperPivotConstants.SYSID_RAMP_RATE),
-                Volts.of(HopperPivotConstants.SYSID_STEP_VOLTAGE),
-                Seconds.of(HopperPivotConstants.SYSID_TIME),
-                (state) -> Logger.recordOutput("HopperPivot/SysIdTestState", state.toString())),
-            new SysIdRoutine.Mechanism(
-                (Voltage volts) -> io.runVoltage(volts),
-                (sysidLog) -> {
-                  sysidLog
-                      .motor("pivot")
-                      .voltage(m_appliedVoltage.mut_replace(inputs.leftpivotVoltage.in(Volts), Volts))
-                      .angularPosition(m_angle.mut_replace(inputs.leftpivotAngle.in(Radians), Radians))
-                      .angularVelocity(
-                          m_velocity.mut_replace(inputs.leftpivotVelocity.in(RadiansPerSecond), RadiansPerSecond));
-                },
-                this));
+            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
     }
 
 
@@ -111,16 +77,9 @@ public class HopperPivot extends SubsystemBase {
         io.updateInputs(inputs);
         Logger.processInputs("HopperPivot", inputs);
 
-        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
-            controller.setPID(Kp.get(), Ki.get(), Kd.get());
-        }
 
         if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
-            feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
-        }
 
-        if(tolerance.hasChanged(hashCode())) {
-            controller.setTolerance(tolerance.get());
         }
 
         if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {
@@ -133,42 +92,22 @@ public class HopperPivot extends SubsystemBase {
  
     }
 
-    /**
-     * Runs the hopper pivot to a given angle using a PID Controller and feedforward.
-     * @param angle the angle to run the hopper pivot to in radians
-     */
-
-    private void runAngle(Angle angle) {
-        setpointState = 
-            profile.calculate(
-                0.02,
-                setpointState,
-                new TrapezoidProfile.State(angle.in(Radians), 0.0));
-        
-        double volts = 
-            controller.calculate(inputs.leftpivotAngle.in(Radians), setpointState.position)
-                + feedforward.calculate(
-                    setpointState.position, 
-                    setpointState.velocity);
-        
-        io.runVoltage(Volts.of(volts));
-    }
-
-    /**
-     * Runs the hopper pivot to a given angle using a PID Controller and feedforward. This should be used whenever the hopper pivot needs to move to a specific angle.
-     * @param angle the angle to run the hopper pivot to in radians, as a Supplier to allow for dynamic angles
-     * @return a command that runs the hopper pivot to the given angle while it is scheduled
-     */
-
-    public Command setPivotAngle(Supplier<Angle> angle) {
-        return this.run(() -> {
-            goalAngle = angle.get().in(Radians);
-            runAngle(angle.get());})
-        .beforeStarting(() -> {
-            profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
-            setpointState = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), 0.0);
-            })
-        .withName("Hopper/Pivot/AngleCommand");
+    public Command runAngleCommand(Supplier<Angle> angle) {
+        return run(() -> {
+            goalAngle = angle.get();
+            goal = new TrapezoidProfile.State(angle.get().in(Radians),0);
+            setpoint = profile.calculate(LoggedRobot.defaultPeriodSecs, setpoint, goal);
+            io.runAngle(setpoint.position, setpoint.velocity);
+        }).beforeStarting(() -> {
+            goalAngle = angle.get();
+            setpoint = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), inputs.leftpivotVelocity.in(RadiansPerSecond));
+        }).finallyDo(() -> {
+            if(atGoal().getAsBoolean()) {
+                io.runAngle(goalAngle.in(Radians), 0.0);
+            } else {
+                io.runAngle(setpoint.position, 0.0);
+            }
+        });
     }
 
     /**
@@ -189,8 +128,7 @@ public class HopperPivot extends SubsystemBase {
      */
 
     public Trigger atGoal(){
-        return new Trigger(() -> Math.abs(inputs.leftpivotAngle.in(Radians) - goalAngle) 
-            < HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
+        return new Trigger(() -> inputs.leftpivotAngle.minus(goalAngle).lte(HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE));
     }
 
     /**
@@ -211,44 +149,6 @@ public class HopperPivot extends SubsystemBase {
         return pivot;
     }
 
-    /**
-     * Runs the SysId routine for the hopper pivot in the forward direction until the hopper pivot reaches the maximum angle specified in {@link HopperPivotConstants}.
-     * @return a command that runs the SysId routine for the hopper pivot in the forward direction
-     */
 
-    public Command quasistaticForward() { 
-        return SysId.quasistatic(Direction.kForward)
-            .until(() -> inputs.leftpivotAngle.in(Radians) >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE);
-    }
-
-    /**
-     * Runs the SysId routine for the hopper pivot in the reverse direction until the hopper pivot reaches the minimum angle specified in {@link HopperPivotConstants}.
-     * @return a command that runs the SysId routine for the hopper pivot in the reverse direction
-     */
-
-    public Command quasistaticReverse() { 
-        return SysId.quasistatic(Direction.kReverse)
-            .until(() -> inputs.leftpivotAngle.in(Radians) <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
-    }
-
-    /**
-     * Runs the SysId routine for the hopper pivot in the forward direction with a step input until the hopper pivot reaches the maximum angle specified in {@link HopperPivotConstants}.
-     * @return a command that runs the SysId routine for the hopper pivot in the forward direction with a step input
-     */
-
-    public Command dynamicForward() {
-        return SysId.dynamic(Direction.kForward)
-            .until(() -> inputs.leftpivotAngle.in(Radians) >= HopperPivotConstants.HOPPER_PIVOT_MAX_ANGLE);
-    }
-
-    /**
-     * Runs the SysId routine for the hopper pivot in the reverse direction with a step input until the hopper pivot reaches the minimum angle specified in {@link HopperPivotConstants}.
-     * @return a command that runs the SysId routine for the hopper pivot in the reverse direction with a step input
-     */
-
-    public Command dynamicReverse() {
-        return SysId.dynamic(Direction.kReverse)
-            .until(() -> inputs.leftpivotAngle.in(Radians) <= HopperPivotConstants.HOPPER_PIVOT_MIN_ANGLE);
-    }
 
 }

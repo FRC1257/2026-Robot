@@ -26,6 +26,12 @@ public interface HopperPivotIO {
 
   default void runVoltage(Voltage volts) {}
 
+  default void runAngle(double angle, double velocity) {}
+
+  default void setPID(double kp, double ki, double kd) {}
+
+  default void setFF(double ks, double kv, double kg) {}
+
   default void setBreakMode(boolean enabled) {}
 
   default void stop() {}

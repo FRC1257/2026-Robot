@@ -49,6 +49,8 @@ public class Hood extends SubsystemBase {
     private static final LoggedTunableNumber homingVolts = new LoggedTunableNumber("Hood/HomingVoltage", HoodConstants.HOMING_VOLTAGE.in(Volts));
     private static final LoggedTunableNumber homingVelocityThreshold = new LoggedTunableNumber("Hood/HomingVelocityThreshold", HoodConstants.HOMING_VELOCITY_THRESHOLD);
 
+    private static final LoggedTunableNumber hubAngle = new LoggedTunableNumber("Hood/hubAngle", 0.0);
+
     private final HoodIO io; 
     private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
 
@@ -58,6 +60,7 @@ public class Hood extends SubsystemBase {
 
 
     private SysIdRoutine sysId; 
+
 
     private Angle goalAngle = Radians.of(0.0);
     private Angle hoodOffset = Radians.of(0.0);
@@ -88,6 +91,7 @@ public class Hood extends SubsystemBase {
             profile = new TrapezoidProfile(
                 new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
         }
+
     }
     
     /**
@@ -130,17 +134,19 @@ public class Hood extends SubsystemBase {
             goalAngle = angle.get();
             goal = new TrapezoidProfile.State(angle.get().in(Radians),0);
             setpoint = profile.calculate(LoggedRobot.defaultPeriodSecs, setpoint, goal);
+
+            Logger.recordOutput("Hood/setpoint", setpoint.position);
+            Logger.recordOutput("Hood/goal", goal.position);
+
             io.runAngle(setpoint.position, setpoint.velocity);
         }).beforeStarting(() -> {
             goalAngle = angle.get();
             setpoint = new TrapezoidProfile.State(inputs.hoodAngle.in(Radians), inputs.hoodVelocity.in(RadiansPerSecond));
-        }).finallyDo(() -> {
-            if(isAtGoal().getAsBoolean()) {
-                io.runAngle(goalAngle.in(Radians), 0.0);
-            } else {
-                io.runAngle(setpoint.position, 0.0);
-            }
-        });
+        })/*.until(isAtGoal())*/;
+    }
+
+    public Command runHubAngle() {
+        return runAngleCommand(() -> Radians.of(hubAngle.get()));
     }
 
     /**

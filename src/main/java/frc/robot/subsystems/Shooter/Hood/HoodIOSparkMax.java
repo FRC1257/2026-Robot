@@ -19,6 +19,8 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.subsystems.Shooter.Hood.HoodConstants.*;
 
+import org.littletonrobotics.junction.Logger;
+
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.units.measure.Voltage;
 
@@ -71,15 +73,12 @@ public class HoodIOSparkMax implements HoodIO {
 
     @Override
     public void runAngle(double angle, double velocity) {
+        Logger.recordOutput("Hood/FeedForward Output", feedforward.calculate(angle, velocity));
         controller.setSetpoint(
             angle,
             ControlType.kPosition,
             ClosedLoopSlot.kSlot0,
-            feedforward.calculateWithVelocities(
-                encoderRelative.getPosition(),
-                encoderRelative.getVelocity(),
-                velocity
-            )
+            feedforward.calculate(angle, velocity)
         );
     }
 

@@ -22,14 +22,14 @@ public class HoodConstants {
 
     public static final int HOOD_MOTOR_ID = 10;
 
-    public static final double HOOD_KP = 0.0;
+    public static final double HOOD_KP = 2;
     public static final double HOOD_KI = 0.0;
     public static final double HOOD_KD = 0.0;
-    public static final double HOOD_KS = 0.0;
-    public static final double HOOD_KV = 0.0;
-    public static final double HOOD_KG = 0.0;
+    public static final double HOOD_KS = 0.385;
+    public static final double HOOD_KV = 0.85;
+    public static final double HOOD_KG = 0.1;
 
-    public static final TrapezoidProfile.Constraints HOOD_CONSTRAINTS = new TrapezoidProfile.Constraints(3.0, 6.0);
+    public static final TrapezoidProfile.Constraints HOOD_CONSTRAINTS = new TrapezoidProfile.Constraints(10, 20);
     public static final double HOMING_VELOCITY_THRESHOLD = 0.5; 
     public static final Voltage HOMING_VOLTAGE = Volts.of(-3.0);
     public static final boolean HOOD_INVERTED = true;

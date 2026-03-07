@@ -37,6 +37,8 @@ public class Flywheel extends SubsystemBase {
     private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Flywheel/Ks", FlywheelConstants.FLYWHEEL_KS);
     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Flywheel/Kv", FlywheelConstants.FLYWHEEL_KV);
 
+    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 0.0);
+
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
 
@@ -111,6 +113,10 @@ public class Flywheel extends SubsystemBase {
 
     public Command runStatic() {
         return runVoltageCommand(() -> Volts.of(Ks.get()));
+    }
+
+    public Command runHub() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(hubVelocityRads.get()));
     }
 
     /**

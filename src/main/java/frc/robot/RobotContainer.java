@@ -194,6 +194,15 @@ public class RobotContainer {
     flywheel.setDefaultCommand(flywheel.stopCommand());
     hood.setDefaultCommand(hood.runVoltageCommand(() -> Volts.of(0)));
 
+    driver.x().onTrue(
+      new InstantCommand(
+        () -> {
+          drive.stopWithX();
+          drive.resetYaw();
+        }
+      )
+    );
+
     //FieldConstants.Zones.composedTrench.contains(
       //() -> drive.getPose().getTranslation())
         //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
@@ -210,12 +219,12 @@ public class RobotContainer {
 
    driver
     .leftBumper().whileTrue(
-      flywheel.runVelocityCommand(() -> RadiansPerSecond.of(150))
+      flywheel.runHub()
       .alongWith(
-        Commands.waitSeconds(1.0)
-        .alongWith(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-200)))
+        hood.runHubAngle()
+        .alongWith(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-300)))
         .alongWith(activeFloor.runActiveFloor()
-        .alongWith(hopperIntake.runIntake())))
+        ))
     );
 
     driver
@@ -227,9 +236,8 @@ public class RobotContainer {
       .leftTrigger().whileTrue(
         hopperIntake.runOutake()
       );
-
-    operator.leftBumper().whileTrue(hood.runStatic());
-    operator.rightBumper().whileTrue(hood.runAngleCommand(() -> Radians.of(0.20)));
+    
+    operator.leftBumper().whileTrue(flywheel.runHub());
 
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   

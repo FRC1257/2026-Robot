@@ -8,6 +8,7 @@
 package frc.robot;
 
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
+import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
@@ -350,33 +351,7 @@ public class FieldConstants {
     }
 
     public AprilTagFieldLayout getLayout() {
-      if (layout == null) {
-        synchronized (this) {
-          if (layout == null) {
-            try {
-              Path p =
-                  Constants.disableHAL
-                      ? Path.of(
-                          "src",
-                          "main",
-                          "deploy",
-                          "apriltags",
-                          fieldType.getJsonFolder(),
-                          name + ".json")
-                      : Path.of(
-                          Filesystem.getDeployDirectory().getPath(),
-                          "apriltags",
-                          fieldType.getJsonFolder(),
-                          name + ".json");
-              layout = new AprilTagFieldLayout(p);
-              layoutString = new ObjectMapper().writeValueAsString(layout);
-            } catch (IOException e) {
-              throw new RuntimeException(e);
-            }
-          }
-        }
-      }
-      return layout;
+      return AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
     }
 
     public String getLayoutString() {

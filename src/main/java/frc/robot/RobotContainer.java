@@ -27,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+import frc.robot.commands.AlignToPose;
 import frc.robot.commands.DriveCommands;
 import frc.robot.commands.FeedForwardCharacterization;
 import frc.robot.subsystems.drive.Drive;
@@ -237,8 +238,10 @@ public class RobotContainer {
         )
     );
 
-  driver.a().onTrue(
-    hood.runTargetedCommand(drive::getPose)
+  driver.rightBumper().whileTrue(
+    flywheel.runTargetedCommand(drive::getPose)
+    .alongWith(hood.runTargetedCommand(drive::getPose)
+    .alongWith(new AlignToPose(drive, (), false)))
   );
 
     driver

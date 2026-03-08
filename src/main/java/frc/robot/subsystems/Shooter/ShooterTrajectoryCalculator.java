@@ -7,6 +7,8 @@ import static edu.wpi.first.units.Units.Seconds;
 
 import java.util.function.Supplier;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.pathplanner.lib.util.GeometryUtil;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -162,7 +164,7 @@ public class ShooterTrajectoryCalculator {
     public ShooterTrajectoryParameters getStaticParameters(Supplier<Pose2d> robotPose) {
         Translation2d target = AllianceFlipUtil.apply(FieldConstants.Hub.topCenterPoint.toTranslation2d());
         Distance robotToTargetDistance = Meters.of(target.getDistance(robotPose.get().getTranslation()));
-        return new ShooterTrajectoryParameters(true, robotPoseSupplier.get().getRotation(), 0, flywheelSpeedMap.get(robotToTargetDistance), hoodAngleMap.get(robotToTargetDistance), false);
+        return new ShooterTrajectoryParameters(true, robotPose.get().getRotation(), 0, flywheelSpeedMap.get(robotToTargetDistance), hoodAngleMap.get(robotToTargetDistance), false);
     }
 
 

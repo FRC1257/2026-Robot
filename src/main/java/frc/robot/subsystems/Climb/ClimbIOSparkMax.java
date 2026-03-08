@@ -26,7 +26,7 @@ public class ClimbIOSparkMax implements ClimbIO {
             .smartCurrentLimit(40)
             .idleMode(IdleMode.kBrake)
             .voltageCompensation(12.0)
-            .inverted(false);
+            .inverted(true);
 
         motor.configure(config, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }

@@ -14,6 +14,7 @@ import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.MutAngle;
 import edu.wpi.first.units.measure.MutAngularVelocity;
@@ -135,8 +136,8 @@ public class Flywheel extends SubsystemBase {
      * @return a command that runs the flywheel at the velocity specified by the {@link ShooterTrajectoryCalculator} while it is scheduled
      */
 
-    public Command runTargetedCommand() {
-        return runEnd(()-> runVelocity(ShooterTrajectoryCalculator.getInstance().getParameters().flywheelVelocity()), this::stop)
+    public Command runTargetedCommand(Supplier<Pose2d> robotPose) {
+        return runEnd(()-> runVelocity(ShooterTrajectoryCalculator.getInstance().getStaticParameters(robotPose).flywheelVelocity()), this::stop)
             .withName("/Flywheel/TargetedCommand");
     }
 

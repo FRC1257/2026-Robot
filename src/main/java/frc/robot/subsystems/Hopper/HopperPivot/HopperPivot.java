@@ -79,7 +79,11 @@ public class HopperPivot extends SubsystemBase {
 
 
         if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+            io.setFF(Ks.get(), Kv.get(), Kg.get());
+        }
 
+        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
+            io.setPID(Kp.get(), Ki.get(), Kd.get());
         }
 
         if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {

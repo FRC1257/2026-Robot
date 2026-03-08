@@ -11,6 +11,7 @@ import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -101,8 +102,27 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
   }
 
   @Override
-    public void stop() {
+  public void stop() {
     leftMotor.stopMotor();
     rightMotor.stopMotor();
   }
+
+  @Override
+    public void setPID(double kP, double kI, double kD) {
+      leftMotor.configure(
+        new SparkMaxConfig()
+          .apply(new ClosedLoopConfig()
+            .p(kP)
+            .i(kI)
+            .d(kD)),
+        ResetMode.kNoResetSafeParameters,
+        PersistMode.kPersistParameters);
+    }
+
+  @Override
+    public void setFF(double ks, double kv, double kg) {
+      feedforward.setKs(ks);
+      feedforward.setKv(kv);
+      feedforward.setKg(kg);
+    }
 }

@@ -287,8 +287,9 @@ public class DriveCommands {
     return joystickAnglePoint(drive, xSupplier, ySupplier, () -> {
       Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
       Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
-
-      return new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
+      Rotation2d rotationSupplier = new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
+      rotationSupplier = rotationSupplier.rotateBy(new Rotation2d(Math.PI));
+      return rotationSupplier;
     });
   }
 

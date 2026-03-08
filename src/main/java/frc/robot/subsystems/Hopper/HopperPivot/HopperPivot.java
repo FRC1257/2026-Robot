@@ -128,6 +128,10 @@ public class HopperPivot extends SubsystemBase {
         return runAngleCommand(() -> Radians.of(-0.033244));
     }
 
+    public Command runStowAngle() {
+        return runAngleCommand(() -> Radians.of(-1.6));
+    }
+
     /**
      * Creates a Trigger that is active when the hopper pivot is at the goal angle within the tolerance specified in {@link HopperPivotConstants}.
      * @return a Trigger that is active when the hopper pivot is at the goal angle within the specified tolerance

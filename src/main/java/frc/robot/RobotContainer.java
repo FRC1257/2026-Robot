@@ -26,6 +26,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.AlignToPose;
 import frc.robot.commands.DriveCommands;
@@ -197,7 +198,7 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
 
-    hopperPivot.setDefaultCommand(hopperPivot.setPivotVoltage(() -> Volts.of(0.0)));
+    hopperPivot.setDefaultCommand(hopperPivot.runStowAngle());
     hopperIntake.setDefaultCommand(hopperIntake.stopIntake());
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
@@ -212,6 +213,9 @@ public class RobotContainer {
         }
       )
     );
+
+    driver.y()
+    .toggleOnTrue(hopperPivot.runIntakeAngle());
 
     //FieldConstants.Zones.composedTrench.contains(
       //() -> drive.getPose().getTranslation())
@@ -228,21 +232,31 @@ public class RobotContainer {
     //   );
 
 
-   driver
-    .leftBumper().whileTrue(
-      flywheel.runHub()
-      .alongWith(
-        hood.runHubAngle()
-        .alongWith(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-300)))
-        .alongWith(activeFloor.runActiveFloor())
-        )
-    );
+    driver
+     .leftBumper().whileTrue(
+       flywheel.runHub().alongWith(hood.runHubAngle())
+       .alongWith(
+         kicker.runVelocityCommand(() -> RadiansPerSecond.of(-50))
+         .alongWith(activeFloor.runActiveFloor())
+         )
+     );
 
-  driver.rightBumper().whileTrue(
-    flywheel.runTargetedCommand(drive::getPose)
-    .alongWith(hood.runTargetedCommand(drive::getPose)
-    .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE)))
-  );
+  // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
+
+  driver
+    .rightBumper().whileTrue(
+      flywheel.runTargetedCommand(drive::getPose)
+      .alongWith(hood.runTargetedCommand(drive::getPose))
+      .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+        .andThen(kicker.runIntake()
+          .alongWith(activeFloor.runActiveFloor())))
+    );
+  
+  // driver
+  //   .leftBumper().whileTrue(
+  //     kicker.runOuttake()
+  //   );
 
     driver
       .rightTrigger().whileTrue(
@@ -264,35 +278,7 @@ public class RobotContainer {
   
   
 
-   //operator.a().onTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(400)));
-   
-  //  operator.b().onTrue(
-  //   flywheel.quasistaticForward().andThen(
-  //     flywheel.quasistaticReverse().andThen(
-  //       flywheel.dynamicForward().andThen(
-  //         flywheel.dynamicReverse()
-  //       )
-  //     )
-  //   ));
-
-  //   operator.x().onTrue(
-  //     kicker.quasistaticForward().andThen(
-  //       kicker.quasistaticReverse().andThen(
-  //         kicker.dynamicForward().andThen(
-  //           kicker.dynamicReverse()
-  //       )
-  //     )
-  //   ));
-   
-    //operator.a().onTrue(hopperPivot.quasistaticForward());
-    //operator.b().onTrue(hopperPivot.quasistaticReverse());
-    //operator.x().onTrue(hopperPivot.dynamicForward());
-    //operator.y().onTrue(hopperPivot.dynamicReverse());
-
-    // operator.a().onTrue(hood.quasistaticForward());
-    // operator.b().onTrue(hood.quasistaticReverse());
-    // operator.x().onTrue(hood.dynamicForward());
-    // operator.y().onTrue(hood.dynamicReverse());
+   operator.rightBumper().whileTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-5)));
 
   }
 

@@ -19,10 +19,8 @@ public class HopperPivotConstants {
   public static final double HOPPER_PIVOT_KD = 0.0;
 
   public static final double HOPPER_PIVOT_KS = 0.319;
-  public static final double HOPPER_PIVOT_KG = 0.2;
-  public static final double HOPPER_PIVOT_KV = 0.9;
-
-
+  public static final double HOPPER_PIVOT_KG = 0.18;
+  public static final double HOPPER_PIVOT_KV = 0.8;
 
   public static final Angle HOPPER_PIVOT_PID_TOLERANCE = Radians.of(0.1);
   public static final double HOPPER_PIVOT_PID_VELOCITY_TOLERANCE = 0.5;

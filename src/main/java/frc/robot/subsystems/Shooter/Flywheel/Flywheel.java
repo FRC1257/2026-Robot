@@ -23,6 +23,7 @@ import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.util.misc.LoggedTunableMeasure;
@@ -43,22 +44,10 @@ public class Flywheel extends SubsystemBase {
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
 
-    private SysIdRoutine sysId;
-
+    private AngularVelocity goalVelocity = RadiansPerSecond.of(0.0);
 
     public Flywheel(FlywheelIO io) {
         this.io = io;
-
-        sysId = new SysIdRoutine(
-            new SysIdRoutine.Config(
-                null,
-                null,
-                null,
-                (state) -> Logger.recordOutput("Flywheel/SysIdTestState", state.toString())),
-            new SysIdRoutine.Mechanism(
-                (volage) -> runVoltage(volage),
-                null,
-                this));
     }
     
 
@@ -81,7 +70,7 @@ public class Flywheel extends SubsystemBase {
      * @param velocityRadsPerSec the velocity to run the flywheel at in radians per second
      */
 
-    private void runVelocity(AngularVelocity velocityRadsPerSec) { 
+    private void runVelocity(AngularVelocity velocityRadsPerSec) {
         io.setVelocity(velocityRadsPerSec);
     }
 
@@ -99,6 +88,7 @@ public class Flywheel extends SubsystemBase {
      */
 
     private void stop(){
+        goalVelocity = RadiansPerSecond.of(0.0);
         io.stop();
     }
 
@@ -127,8 +117,12 @@ public class Flywheel extends SubsystemBase {
      */
 
     public Command runVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
-        return runEnd(() -> runVelocity(velocityRadsPerSec.get()), this::stop)
-            .withName("/Shooter/Flywheel/VelocityCommand/" + velocityRadsPerSec.toString());
+        return runEnd(() -> {
+                goalVelocity = velocityRadsPerSec.get();
+                runVelocity(velocityRadsPerSec.get());
+            },
+            this::stop)
+        .withName("/Shooter/Flywheel/VelocityCommand/" + velocityRadsPerSec.toString());
     }
 
     /**
@@ -151,25 +145,8 @@ public class Flywheel extends SubsystemBase {
             .withName("/Flywheel/StopCommand");
     }
 
-    public Command quasistaticForward(){
-        return sysId.quasistatic(Direction.kForward)
-            .until(() -> inputs.flywheelAngularVelocity.gte(FlywheelConstants.MAX_VELOCITY));
-    }
-
-    public Command quasistaticReverse(){
-        return sysId.quasistatic(Direction.kReverse)
-            .until(() -> inputs.flywheelAngularVelocity.lte(FlywheelConstants.MAX_VELOCITY.unaryMinus()));
-        
-    }
-
-    public Command dynamicForward(){
-        return sysId.dynamic(Direction.kForward)
-            .until(() -> inputs.flywheelAngularVelocity.gte(FlywheelConstants.MAX_VELOCITY));
-    }
-
-    public Command dynamicReverse(){
-        return sysId.dynamic(Direction.kReverse)
-            .until(() -> inputs.flywheelAngularVelocity.lte(FlywheelConstants.MAX_VELOCITY.unaryMinus()));
+    public Trigger isAtGoal() {
+        return new Trigger(() -> inputs.flywheelAngularVelocity.minus(goalVelocity).lte(FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
     }
 
 }

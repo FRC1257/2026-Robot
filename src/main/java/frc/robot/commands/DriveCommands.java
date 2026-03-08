@@ -288,8 +288,7 @@ public class DriveCommands {
       Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
       Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
 
-      Rotation2d targetRotation = targetPose.minus(currentPose.getTranslation()).getAngle();
-      return targetRotation;
+      return new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
     });
   }
 

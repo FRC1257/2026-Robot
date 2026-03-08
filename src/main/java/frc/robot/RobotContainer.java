@@ -241,7 +241,7 @@ public class RobotContainer {
   driver.rightBumper().whileTrue(
     flywheel.runTargetedCommand(drive::getPose)
     .alongWith(hood.runTargetedCommand(drive::getPose)
-    .alongWith(new AlignToPose(drive, (), false)))
+    .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE)))
   );
 
     driver

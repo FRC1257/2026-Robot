@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
+import frc.robot.FieldConstants.Hub;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.util.drive.AllianceFlipUtil;
@@ -280,6 +281,16 @@ public class DriveCommands {
                       : drive.getRotation()));
         },
         drive);
+  }
+
+  public static Command joystickHubPoint(Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
+    return joystickAnglePoint(drive, xSupplier, ySupplier, () -> {
+      Pose2d currentPose = AllianceFlipUtil.apply(drive.getPose());
+      Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
+
+      Rotation2d targetRotation = targetPose.minus(currentPose.getTranslation()).getAngle();
+      return targetRotation;
+    });
   }
 
   /**

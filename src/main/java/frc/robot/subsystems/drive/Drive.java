@@ -54,6 +54,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.FieldConstants;
 import frc.robot.commands.AlignToPose;
+import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
 import frc.robot.util.autonomous.LocalADStarAK;
@@ -349,6 +350,8 @@ public class Drive extends SubsystemBase {
           }
         }
       }
+
+      ShooterTrajectoryCalculator.getInstance().configureSuppliers(this::getPose, this::getFieldVelocity, this::getFieldVelocity);
     }
 
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);

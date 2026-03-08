@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
   public static final String[] camNames = {
-    "Back_Camera", "Rback_Camera", "Rfront_Camera"
+    "Back_Camera", "RBack_Camera", "RFront_Camera"
   };
   public static final int numCameras = camNames.length;
 
@@ -49,14 +49,14 @@ public class VisionConstants {
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(1.5), Units.inchesToMeters(-8.5), Units.inchesToMeters(20)),
-        new Rotation3d(0, Units.degreesToRadians(0), 180)),
+        new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(180))),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(10.625), Units.inchesToMeters(-12.25), Units.inchesToMeters(8.5)),
+            Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
         new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(6.4375), Units.inchesToMeters(-10), Units.inchesToMeters(8.5)),
+            Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
         new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
   };
 

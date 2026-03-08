@@ -166,5 +166,11 @@ public class ShooterTrajectoryCalculator {
         latestParameters = null;
     }
 
+    public ShooterTrajectoryParameters getStaticParameters() {
+        Translation2d target = AllianceFlipUtil.apply(FieldConstants.Hub.topCenterPoint.toTranslation2d());
+        Distance robotToTargetDistance = Meters.of(target.getDistance(robotPoseSupplier.get().getTranslation()));
+        return new ShooterTrajectoryParameters(true, robotPoseSupplier.get().getRotation(), 0, flywheelSpeedMap.get(robotToTargetDistance), hoodAngleMap.get(robotToTargetDistance), false);
+    }
+
 
 }

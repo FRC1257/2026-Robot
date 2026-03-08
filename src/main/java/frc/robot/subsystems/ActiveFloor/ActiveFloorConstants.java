@@ -6,5 +6,5 @@ import edu.wpi.first.units.measure.Voltage;
 
 public class ActiveFloorConstants {
     public static final int ACTIVE_FLOOR_MOTOR_ID = 17;
-    public static final Voltage ACTIVE_FLOOR_VOLTAGE = Volts.of(3.0);
+    public static final Voltage ACTIVE_FLOOR_VOLTAGE = Volts.of(8.0);
 }

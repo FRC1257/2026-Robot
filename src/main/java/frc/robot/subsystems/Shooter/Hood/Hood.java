@@ -172,7 +172,7 @@ public class Hood extends SubsystemBase {
      */
 
     public Command runTargetedCommand() {
-        return runAngleCommand(() -> ShooterTrajectoryCalculator.getInstance().getParameters().hoodAngle());
+        return runAngleCommand(() -> ShooterTrajectoryCalculator.getInstance().getStaticParameters().hoodAngle());
     }
 
     /**

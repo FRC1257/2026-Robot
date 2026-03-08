@@ -101,17 +101,15 @@ public class HopperPivot extends SubsystemBase {
             goalAngle = angle.get();
             goal = new TrapezoidProfile.State(angle.get().in(Radians),0);
             setpoint = profile.calculate(LoggedRobot.defaultPeriodSecs, setpoint, goal);
+
+            Logger.recordOutput("HopperPivot/setpoint", setpoint.position);
+            Logger.recordOutput("HopperPivot/goal", goal.position);
+
             io.runAngle(setpoint.position, setpoint.velocity);
         }).beforeStarting(() -> {
             goalAngle = angle.get();
             setpoint = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), inputs.leftpivotVelocity.in(RadiansPerSecond));
-        }).finallyDo(() -> {
-            if(atGoal().getAsBoolean()) {
-                io.runAngle(goalAngle.in(Radians), 0.0);
-            } else {
-                io.runAngle(setpoint.position, 0.0);
-            }
-        });
+        })/*.until(isAtGoal())*/;
     }
 
     /**
@@ -124,6 +122,10 @@ public class HopperPivot extends SubsystemBase {
         return this.startEnd(
             () -> io.runVoltage(volts.get()), 
             () -> io.stop()).withName("Hopper/Pivot/VoltageCommand");
+    }
+
+    public Command runIntakeAngle() {
+        return runAngleCommand(() -> Radians.of(-0.033244));
     }
 
     /**

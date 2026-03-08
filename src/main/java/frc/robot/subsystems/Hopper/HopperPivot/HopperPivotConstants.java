@@ -14,13 +14,13 @@ public class HopperPivotConstants {
 
   public static final double HOPPER_PIVOT_GEARING = 1.0 / 16.0;
 
-  public static final double HOPPER_PIVOT_KP = 0.0;
+  public static final double HOPPER_PIVOT_KP = 1.2;
   public static final double HOPPER_PIVOT_KI = 0.0;
   public static final double HOPPER_PIVOT_KD = 0.0;
 
-  public static final double HOPPER_PIVOT_KS = 0.0;
-  public static final double HOPPER_PIVOT_KG = 0.0;
-  public static final double HOPPER_PIVOT_KV = 0.0;
+  public static final double HOPPER_PIVOT_KS = 0.319;
+  public static final double HOPPER_PIVOT_KG = 0.2;
+  public static final double HOPPER_PIVOT_KV = 0.9;
 
 
 

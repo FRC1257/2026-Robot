@@ -217,19 +217,21 @@ public class RobotContainer {
     //             .alongWith(activeFloor.runActiveFloor())))
     //   );
 
+
    driver
     .leftBumper().whileTrue(
       flywheel.runHub()
       .alongWith(
         hood.runHubAngle()
         .alongWith(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-300)))
-        .alongWith(activeFloor.runActiveFloor()
-        ))
+        .alongWith(activeFloor.runActiveFloor())
+        )
     );
 
     driver
       .rightTrigger().whileTrue(
         hopperIntake.runIntake()
+        .alongWith(hopperPivot.runIntakeAngle())
       );
 
     driver
@@ -237,7 +239,6 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );
     
-    operator.leftBumper().whileTrue(flywheel.runHub());
 
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   

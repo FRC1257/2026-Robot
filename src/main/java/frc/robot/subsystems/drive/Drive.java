@@ -351,7 +351,6 @@ public class Drive extends SubsystemBase {
         }
       }
 
-      ShooterTrajectoryCalculator.getInstance().configureSuppliers(this::getPose, this::getFieldVelocity, this::getFieldVelocity);
     }
 
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);

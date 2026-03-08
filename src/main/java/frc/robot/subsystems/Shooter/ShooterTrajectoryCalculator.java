@@ -110,13 +110,6 @@ public class ShooterTrajectoryCalculator {
     
     private static final LoggedTunableNumber phaseDelay = new LoggedTunableNumber("/ShooterTrajectoryCalculator/phaseDelay", 0.02);
     
-
-    public void configureSuppliers(Supplier<Pose2d> robotPoseSupplier, Supplier<ChassisSpeeds> robotVelocitySupplier, Supplier<ChassisSpeeds> fieldRelativeVelocitySupplier) {
-        this.robotPoseSupplier = robotPoseSupplier;
-        this.robotVelocitySupplier = robotVelocitySupplier;
-        this.fieldRelativeVelocitySupplier = fieldRelativeVelocitySupplier;
-    }
-
     public ShooterTrajectoryParameters getParameters() {
         if(latestParameters != null) return latestParameters;
 
@@ -166,9 +159,9 @@ public class ShooterTrajectoryCalculator {
         latestParameters = null;
     }
 
-    public ShooterTrajectoryParameters getStaticParameters() {
+    public ShooterTrajectoryParameters getStaticParameters(Supplier<Pose2d> robotPose) {
         Translation2d target = AllianceFlipUtil.apply(FieldConstants.Hub.topCenterPoint.toTranslation2d());
-        Distance robotToTargetDistance = Meters.of(target.getDistance(robotPoseSupplier.get().getTranslation()));
+        Distance robotToTargetDistance = Meters.of(target.getDistance(robotPose.get().getTranslation()));
         return new ShooterTrajectoryParameters(true, robotPoseSupplier.get().getRotation(), 0, flywheelSpeedMap.get(robotToTargetDistance), hoodAngleMap.get(robotToTargetDistance), false);
     }
 

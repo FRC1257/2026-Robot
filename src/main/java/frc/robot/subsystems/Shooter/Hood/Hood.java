@@ -14,6 +14,7 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Acceleration;
 import edu.wpi.first.units.measure.Angle;
@@ -171,8 +172,8 @@ public class Hood extends SubsystemBase {
      * @return a Command that runs the hood to the target angle when executed
      */
 
-    public Command runTargetedCommand() {
-        return runAngleCommand(() -> ShooterTrajectoryCalculator.getInstance().getStaticParameters().hoodAngle());
+    public Command runTargetedCommand(Supplier<Pose2d> robotPose) {
+        return runAngleCommand(() -> ShooterTrajectoryCalculator.getInstance().getStaticParameters(robotPose).hoodAngle());
     }
 
     /**

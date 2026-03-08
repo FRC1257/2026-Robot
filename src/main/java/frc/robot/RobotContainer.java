@@ -237,6 +237,10 @@ public class RobotContainer {
         )
     );
 
+  driver.a().onTrue(
+    hood.runTargetedCommand(drive::getPose)
+  );
+
     driver
       .rightTrigger().whileTrue(
         hopperIntake.runIntake()
@@ -251,7 +255,7 @@ public class RobotContainer {
     driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
     driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
 
-    operator.leftBumper().whileTrue(flywheel.runHub());
+
 
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   

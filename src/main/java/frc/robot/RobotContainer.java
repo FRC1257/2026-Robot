@@ -40,12 +40,16 @@ import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import frc.robot.util.drive.CommandSnailController;
+import frc.robot.util.drive.CommandSnailController.DPad;
 
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 import frc.robot.subsystems.ActiveFloor.ActiveFloor;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIO;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSparkMax;
+import frc.robot.subsystems.Climb.Climb;
+import frc.robot.subsystems.Climb.ClimbIO;
+import frc.robot.subsystems.Climb.ClimbIOSparkMax;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntake;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIO;
@@ -82,6 +86,7 @@ public class RobotContainer {
   private final Hood hood;
   private final ActiveFloor activeFloor;
   private final Flywheel flywheel;
+  private final Climb climb;
 
   public static final CommandSnailController driver = new CommandSnailController(0);
   public static final CommandSnailController operator = new CommandSnailController(1);
@@ -113,6 +118,7 @@ public class RobotContainer {
          activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
          flywheel = new Flywheel(new FlywheelIOSparkMax());
          hood = new Hood(new HoodIOSparkMax());
+         climb = new Climb(new ClimbIOSparkMax());
          break;
 
         // Sim robot, instantiate physics sim IO implementations
@@ -132,6 +138,7 @@ public class RobotContainer {
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIO() {});
         hood = new Hood(new HoodIO() {});
+        climb = new Climb(new ClimbIO() {});
         break;
 
         // Replayed robot, disable IO implementations
@@ -151,6 +158,7 @@ public class RobotContainer {
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIO() {});
         hood = new Hood(new HoodIO() {});
+        climb = new Climb(new ClimbIO() {});
          break;
     }
 
@@ -193,6 +201,7 @@ public class RobotContainer {
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
     hood.setDefaultCommand(hood.runVoltageCommand(() -> Volts.of(0)));
+    climb.setDefaultCommand(climb.holdClimb());
 
     driver.x().onTrue(
       new InstantCommand(
@@ -239,6 +248,10 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );
     
+    driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+
+    operator.leftBumper().whileTrue(flywheel.runHub());
 
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
+import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.geometry.Pose2d;
@@ -44,7 +45,7 @@ public class Flywheel extends SubsystemBase {
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
 
-    private AngularVelocity goalVelocity = RadiansPerSecond.of(0.0);
+    @AutoLogOutput private AngularVelocity goalVelocity = RadiansPerSecond.of(0.0);
 
     public Flywheel(FlywheelIO io) {
         this.io = io;
@@ -121,7 +122,9 @@ public class Flywheel extends SubsystemBase {
                 goalVelocity = velocityRadsPerSec.get();
                 runVelocity(velocityRadsPerSec.get());
             },
-            this::stop)
+            this::stop).beforeStarting(() -> {
+                goalVelocity = velocityRadsPerSec.get();
+            })
         .withName("/Shooter/Flywheel/VelocityCommand/" + velocityRadsPerSec.toString());
     }
 
@@ -131,8 +134,7 @@ public class Flywheel extends SubsystemBase {
      */
 
     public Command runTargetedCommand(Supplier<Pose2d> robotPose) {
-        return runEnd(()-> runVelocity(ShooterTrajectoryCalculator.getInstance().getStaticParameters(robotPose).flywheelVelocity()), this::stop)
-            .withName("/Flywheel/TargetedCommand");
+        return runVelocityCommand(() -> ShooterTrajectoryCalculator.getInstance().getStaticParameters(robotPose).flywheelVelocity());
     }
 
     /**
@@ -145,8 +147,9 @@ public class Flywheel extends SubsystemBase {
             .withName("/Flywheel/StopCommand");
     }
 
+    @AutoLogOutput(key="Shooter/Flywheel/isAtGoal")
     public Trigger isAtGoal() {
-        return new Trigger(() -> inputs.flywheelAngularVelocity.minus(goalVelocity).lte(FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
+        return new Trigger(() -> inputs.flywheelAngularVelocity.isNear(goalVelocity, FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
     }
 
 }

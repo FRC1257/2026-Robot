@@ -6,14 +6,14 @@ import edu.wpi.first.units.measure.AngularVelocity;
 
 public class FlywheelConstants {
 
-    public static final double FLYWHEEL_KP = 0.0; 
+    public static final double FLYWHEEL_KP = 0.001; 
     public static final double FLYWHEEL_KI = 0.0; 
     public static final double FLYWHEEL_KD = 0.0; 
 
     public static final double FLYWHEEL_KS = 0.268;
-    public static final double FLYWHEEL_KV = 0.017515;
+    public static final double FLYWHEEL_KV = 0.019315;
 
-    public static final AngularVelocity FLYWHEEL_VELOCITY_TOLERANCE = RadiansPerSecond.of(0.1);
+    public static final AngularVelocity FLYWHEEL_VELOCITY_TOLERANCE = RadiansPerSecond.of(2.5);
     public static final int FLYWHEEL_MOTOR_ID = 13;
     public static final int FLYWHEEL_FOLLOWER_MOTOR_ID = 15;
 

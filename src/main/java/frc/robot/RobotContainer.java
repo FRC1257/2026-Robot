@@ -246,20 +246,20 @@ public class RobotContainer {
 
   // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
 
-  // driver
-  //   .rightBumper().whileTrue(
-  //     flywheel.runTargetedCommand(drive::getPose)
-  //     .alongWith(hood.runTargetedCommand(drive::getPose))
-  //     .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
-  //     .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
-  //       .andThen(kicker.runIntake()
-  //         .alongWith(activeFloor.runActiveFloor())))
-  //   );
-  
   driver
     .rightBumper().whileTrue(
-      kicker.runOuttake()
+      flywheel.runTargetedCommand(drive::getPose)
+      .alongWith(hood.runTargetedCommand(drive::getPose))
+      .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+        .andThen(kicker.runIntake()
+          .alongWith(activeFloor.runActiveFloor())))
     );
+  
+  // driver
+  //   .rightBumper().whileTrue(
+  //     kicker.runOuttake()
+  //   );
 
     driver
       .rightTrigger().whileTrue(

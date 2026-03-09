@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -131,6 +132,12 @@ public class HopperPivot extends SubsystemBase {
     public Command runStowAngle() {
         return runAngleCommand(() -> Radians.of(-1.6));
     }
+
+    public Command runAgitate() {
+        return runAngleCommand(() -> Radians.of(-0.5)).withTimeout(0.4)
+            .andThen(runAngleCommand(() -> Radians.of(-0.6)).withTimeout(0.4)).repeatedly();
+    }
+
 
     /**
      * Creates a Trigger that is active when the hopper pivot is at the goal angle within the tolerance specified in {@link HopperPivotConstants}.

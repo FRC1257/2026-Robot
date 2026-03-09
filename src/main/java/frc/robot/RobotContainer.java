@@ -217,6 +217,10 @@ public class RobotContainer {
     driver.y()
     .toggleOnTrue(hopperPivot.runIntakeAngle());
 
+    driver.a()
+    .whileTrue(hopperPivot.runAgitate())
+    .onFalse(hopperPivot.runIntakeAngle());
+
     //FieldConstants.Zones.composedTrench.contains(
       //() -> drive.getPose().getTranslation())
         //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
@@ -236,32 +240,30 @@ public class RobotContainer {
      .leftBumper().whileTrue(
        flywheel.runHub().alongWith(hood.runHubAngle())
        .alongWith(
-         kicker.runVelocityCommand(() -> RadiansPerSecond.of(-50))
+         kicker.runIntake())
          .alongWith(activeFloor.runActiveFloor())
-         )
-     );
+         );
 
   // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
 
+  // driver
+  //   .rightBumper().whileTrue(
+  //     flywheel.runTargetedCommand(drive::getPose)
+  //     .alongWith(hood.runTargetedCommand(drive::getPose))
+  //     .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+  //     .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+  //       .andThen(kicker.runIntake()
+  //         .alongWith(activeFloor.runActiveFloor())))
+  //   );
+  
   driver
     .rightBumper().whileTrue(
-      flywheel.runTargetedCommand(drive::getPose)
-      .alongWith(hood.runTargetedCommand(drive::getPose))
-      .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
-        .andThen(kicker.runIntake()
-          .alongWith(activeFloor.runActiveFloor())))
+      kicker.runOuttake()
     );
-  
-  // driver
-  //   .leftBumper().whileTrue(
-  //     kicker.runOuttake()
-  //   );
 
     driver
       .rightTrigger().whileTrue(
         hopperIntake.runIntake()
-        .alongWith(hopperPivot.runIntakeAngle())
       );
 
     driver

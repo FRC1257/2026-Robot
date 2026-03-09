@@ -63,32 +63,30 @@ public class ShooterTrajectoryCalculator {
         new InterpolatingTreeMap<>(UnitInterpolation.inverseInterpolate(), UnitInterpolation.Interpolator(Seconds));
 
     static {
-        hoodAngleMap.put(Meters.of(0.96), Radians.of(0.0));
-        hoodAngleMap.put(Meters.of(1.16), Radians.of(0.025));
-        hoodAngleMap.put(Meters.of(1.58), Radians.of(0.032));
-        hoodAngleMap.put(Meters.of(2.07), Radians.of(0.039));
-        hoodAngleMap.put(Meters.of(2.37), Radians.of(0.048));
-        hoodAngleMap.put(Meters.of(2.47), Radians.of(0.053));
-        hoodAngleMap.put(Meters.of(2.70), Radians.of(0.061));
-        hoodAngleMap.put(Meters.of(2.94), Radians.of(0.065));
-        hoodAngleMap.put(Meters.of(3.48), Radians.of(0.065));
-        hoodAngleMap.put(Meters.of(3.92), Radians.of(0.15));
-        hoodAngleMap.put(Meters.of(4.35), Radians.of(0.158));
-        hoodAngleMap.put(Meters.of(0.0), Radians.of(0));
+        hoodAngleMap.put(Meters.of(0.96 + 0.5969), Radians.of(0.0));
+        hoodAngleMap.put(Meters.of(1.16 + 0.5969), Radians.of(0.025));
+        hoodAngleMap.put(Meters.of(1.58 + 0.5969), Radians.of(0.032));
+        hoodAngleMap.put(Meters.of(2.07 + 0.5969), Radians.of(0.039));
+        hoodAngleMap.put(Meters.of(2.37 + 0.5969), Radians.of(0.048));
+        hoodAngleMap.put(Meters.of(2.47 + 0.5969), Radians.of(0.053));
+        hoodAngleMap.put(Meters.of(2.70 + 0.5969), Radians.of(0.061));
+        hoodAngleMap.put(Meters.of(2.94 + 0.5969), Radians.of(0.065));
+        hoodAngleMap.put(Meters.of(3.48 + 0.5969), Radians.of(0.065));
+        hoodAngleMap.put(Meters.of(3.92 + 0.5969), Radians.of(0.15));
+        hoodAngleMap.put(Meters.of(4.35 + 0.5969), Radians.of(0.158));
 
-        flywheelSpeedMap.put(Meters.of(0.96), RadiansPerSecond.of(300));
-        flywheelSpeedMap.put(Meters.of(1.16), RadiansPerSecond.of(300));
-        flywheelSpeedMap.put(Meters.of(1.58), RadiansPerSecond.of(315));
-        flywheelSpeedMap.put(Meters.of(2.07), RadiansPerSecond.of(330));
-        flywheelSpeedMap.put(Meters.of(2.37), RadiansPerSecond.of(340));
-        flywheelSpeedMap.put(Meters.of(2.47), RadiansPerSecond.of(350));
-        flywheelSpeedMap.put(Meters.of(2.70), RadiansPerSecond.of(355));
-        flywheelSpeedMap.put(Meters.of(2.94), RadiansPerSecond.of(360));
-        flywheelSpeedMap.put(Meters.of(3.48), RadiansPerSecond.of(362));
-        flywheelSpeedMap.put(Meters.of(3.92), RadiansPerSecond.of(370));
-        flywheelSpeedMap.put(Meters.of(4.35), RadiansPerSecond.of(390));
-        flywheelSpeedMap.put(Meters.of(0.0), RadiansPerSecond.of(0.0));
-
+        flywheelSpeedMap.put(Meters.of(0.96 + 0.5969), RadiansPerSecond.of(300));
+        flywheelSpeedMap.put(Meters.of(1.16 + 0.5969), RadiansPerSecond.of(300));
+        flywheelSpeedMap.put(Meters.of(1.58 + 0.5969), RadiansPerSecond.of(315));
+        flywheelSpeedMap.put(Meters.of(2.07 + 0.5969), RadiansPerSecond.of(330));
+        flywheelSpeedMap.put(Meters.of(2.37 + 0.5969), RadiansPerSecond.of(340));
+        flywheelSpeedMap.put(Meters.of(2.47 + 0.5969), RadiansPerSecond.of(350));
+        flywheelSpeedMap.put(Meters.of(2.70 + 0.5969), RadiansPerSecond.of(355));
+        flywheelSpeedMap.put(Meters.of(2.94 + 0.5969), RadiansPerSecond.of(360));
+        flywheelSpeedMap.put(Meters.of(3.48 + 0.5969), RadiansPerSecond.of(362));
+        flywheelSpeedMap.put(Meters.of(3.92 + 0.5969), RadiansPerSecond.of(370));
+        flywheelSpeedMap.put(Meters.of(4.35 + 0.5969), RadiansPerSecond.of(390));
+        
         timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
         timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
         timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));

@@ -203,6 +203,8 @@ public class FieldConstants {
     public static final Translation3d openingTopRight =
         new Translation3d(LinesVertical.hubCenter, fieldWidth - openingWidth, openingHeight);
 
+    public static final Translation2d openingCenter = openingTopLeft.toTranslation2d().interpolate(openingTopRight.toTranslation2d(), 0.5);
+
     // Relevant reference points on opposing side
     public static final Translation3d oppOpeningTopLeft =
         new Translation3d(LinesVertical.oppHubCenter, fieldWidth, openingHeight);

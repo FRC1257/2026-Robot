@@ -39,6 +39,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.NautilusMechanism3d;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 public class HopperPivot extends SubsystemBase {
@@ -92,8 +93,7 @@ public class HopperPivot extends SubsystemBase {
                 new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
         }
 
-        pivot.setAngle(inputs.leftpivotAngle.in(Degrees));
-
+        NautilusMechanism3d.getMeasured().setIntakeAngle(inputs.leftpivotAngle);
  
     }
 
@@ -144,8 +144,9 @@ public class HopperPivot extends SubsystemBase {
      * @return a Trigger that is active when the hopper pivot is at the goal angle within the specified tolerance
      */
 
+    @AutoLogOutput(key = "Hopper/HopperPivot/atGoal")
     public Trigger atGoal(){
-        return new Trigger(() -> inputs.leftpivotAngle.minus(goalAngle).lte(HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE));
+        return new Trigger(() -> inputs.leftpivotAngle.isNear(goalAngle, HopperPivotConstants.HOPPER_PIVOT_TOLERANCE));
     }
 
     /**

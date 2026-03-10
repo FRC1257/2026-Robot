@@ -110,6 +110,8 @@ public class Robot extends LoggedRobot {
     // This must be called from the robot's periodic block in order for anything in
     // the Command-based framework to work.
     CommandScheduler.getInstance().run();
+
+    NautilusMechanism3d.getMeasured().log("Mechanism3d");
   }
 
   /** This function is called once when the robot is disabled. */

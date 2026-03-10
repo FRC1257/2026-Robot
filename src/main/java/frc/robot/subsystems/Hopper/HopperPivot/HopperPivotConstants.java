@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -35,7 +36,7 @@ public class HopperPivotConstants {
   public static final double SYSID_RAMP_RATE = 0.5;
   public static final double SYSID_STEP_VOLTAGE = 1.0;
   public static final double SYSID_TIME = 5;
-  public static final double HOPPER_PIVOT_TOLERANCE = 1.0;
+  public static final Angle HOPPER_PIVOT_TOLERANCE = Degrees.of(2);
 
   public static final double HOPPER_PIVOT_CONTROL_SPEED_FACTOR = 1.0;
 

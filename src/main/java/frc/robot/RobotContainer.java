@@ -41,6 +41,7 @@ import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.util.autonomous.AutoChooser;
 import frc.robot.util.drive.CommandSnailController;
 import frc.robot.util.drive.CommandSnailController.DPad;
 
@@ -98,6 +99,7 @@ public class RobotContainer {
 
   // Dashboard inputs
   private final LoggedDashboardChooser<Command> autoChooser;
+  private final AutoChooser customAutoChooser;
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -183,6 +185,8 @@ public class RobotContainer {
         "Drive FF Characterization",
         new FeedForwardCharacterization(
             drive, drive::runCharacterization, drive::getCharacterizationVelocity));
+
+    customAutoChooser = new AutoChooser(drive, activeFloor, hopperIntake, hopperPivot, kicker, flywheel, hood);
             
   }
 
@@ -291,7 +295,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return autoChooser.get();
+    return customAutoChooser.getAutoCommand();
     // return DriveCommands.feedforwardCharacterization(drive);
     // return DriveCommands.wheelRadiusCharacterization(drive);
   }

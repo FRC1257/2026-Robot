@@ -125,16 +125,16 @@ public class HopperPivot extends SubsystemBase {
     }
 
     public Command runIntakeAngle() {
-        return runAngleCommand(() -> Radians.of(-0.033244));
+        return runAngleCommand(() -> Radians.of(1.6));
     }
 
     public Command runStowAngle() {
-        return runAngleCommand(() -> Radians.of(-1.6));
+        return runAngleCommand(() -> Radians.of(0));
     }
 
     public Command runAgitate() {
-        return runAngleCommand(() -> Radians.of(-0.5)).withTimeout(0.4)
-            .andThen(runAngleCommand(() -> Radians.of(-0.6)).withTimeout(0.4)).repeatedly();
+        return runAngleCommand(() -> Radians.of(1.1)).withTimeout(0.4)
+            .andThen(runAngleCommand(() -> Radians.of(1.0)).withTimeout(0.4)).repeatedly();
     }
 
 

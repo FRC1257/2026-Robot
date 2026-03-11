@@ -47,7 +47,7 @@ public class AutoChooser {
         this.hood = hood;
 
         startChooser = new LoggedDashboardChooser<>("Starting Position");
-        startChooser.addDefaultOption("CENTER", StartPositions.DEPOT);
+        startChooser.addDefaultOption("DEPOT", StartPositions.DEPOT);
         startChooser.addOption("LEFT_TRENCH", StartPositions.LEFT_TRENCH);
         startChooser.addOption("RIGHT_TRENCH", StartPositions.RIGHT_TRENCH);
     }

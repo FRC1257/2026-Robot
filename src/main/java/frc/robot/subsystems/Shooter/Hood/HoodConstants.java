@@ -16,8 +16,6 @@ public class HoodConstants {
     public static final Angle HOOD_MIN_ANGLE = Radians.of(0);
     public static final Angle HOOD_MAX_ANGLE = Radians.of(0.432);
 
-    
-
     public static final double HOOD_ANGLE_TOLERANCE = Degrees.of(0.5).in(Radians);
 
     public static final int HOOD_MOTOR_ID = 10;

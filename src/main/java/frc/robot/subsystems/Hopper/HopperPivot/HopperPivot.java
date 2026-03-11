@@ -21,6 +21,7 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
@@ -62,8 +63,6 @@ public class HopperPivot extends SubsystemBase {
     private TrapezoidProfile.State goal = new TrapezoidProfile.State();
     private TrapezoidProfile.State setpoint = null;
 
-    private MechanismLigament2d pivot = new MechanismLigament2d("Hopper Pivot", 0.4, 0, 5, new Color8Bit(Color.kAqua));
-
     private Angle goalAngle = Radians.of(0.0);
 
     public HopperPivot(HopperPivotIO io) {
@@ -93,7 +92,7 @@ public class HopperPivot extends SubsystemBase {
                 new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
         }
 
-        NautilusMechanism3d.getMeasured().setIntakeAngle(inputs.leftpivotAngle);
+        NautilusMechanism3d.getMeasured().setIntakeAngle(new Rotation2d(inputs.leftpivotAngle));
  
     }
 
@@ -147,24 +146,6 @@ public class HopperPivot extends SubsystemBase {
     @AutoLogOutput(key = "Hopper/HopperPivot/atGoal")
     public Trigger atGoal(){
         return new Trigger(() -> inputs.leftpivotAngle.isNear(goalAngle, HopperPivotConstants.HOPPER_PIVOT_TOLERANCE));
-    }
-
-    /**
-     *  Appends a MechanismLigament2d to the pivot ligament for visualization purposes.
-     * @param mechanism the MechanismLigament2d to append to the pivot ligament
-     * @return the appended MechanismLigament2d
-     */
-
-    public MechanismLigament2d append(MechanismLigament2d mechanism) {
-        return pivot.append(mechanism);
-    }
-
-    /**
-     * Gets the pivot ligament for visualization purposes.
-     * @return the pivot ligament
-     */
-    public MechanismLigament2d getPivot() {
-        return pivot;
     }
 
 

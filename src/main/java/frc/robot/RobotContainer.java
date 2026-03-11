@@ -70,6 +70,7 @@ import frc.robot.subsystems.Shooter.Flywheel.FlywheelIO;
 import frc.robot.subsystems.Shooter.Flywheel.FlywheelIOSparkMax;
 import frc.robot.subsystems.Shooter.Hood.Hood;
 import frc.robot.subsystems.Shooter.Hood.HoodIO;
+import frc.robot.subsystems.Shooter.Hood.HoodIOSim;
 import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
 
 
@@ -93,8 +94,6 @@ public class RobotContainer {
 
   public static final CommandSnailController driver = new CommandSnailController(0);
   public static final CommandSnailController operator = new CommandSnailController(1);
-
-  private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
 
 
   // Dashboard inputs
@@ -141,7 +140,7 @@ public class RobotContainer {
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIO() {});
-        hood = new Hood(new HoodIO() {});
+        hood = new Hood(new HoodIOSim());
         climb = new Climb(new ClimbIO() {});
         break;
 
@@ -168,9 +167,6 @@ public class RobotContainer {
 
     // Set up robot state manager
 
-    MechanismRoot2d hopperPivotRoot = HopperPivotMechanism.getRoot("Hopper Pivot", 1.5, 0.5);
-    hopperPivotRoot.append(hopperPivot.getPivot());
-    SmartDashboard.putData("Hopper Pivot Mechanism", HopperPivotMechanism);
 
     // Set up auto routines
     /* NamedCommands.registerCommand(

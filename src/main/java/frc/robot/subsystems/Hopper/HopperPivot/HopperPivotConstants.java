@@ -68,7 +68,7 @@ public static final Object[] HOPPER_PIVOT_FEEDFORWARD_REAL = null;
     public static final double kArmReduction = 200;
     public static final double kArmMass = 10.0; // Kilograms
     public static final double kArmLength = Units.inchesToMeters(20);
-    public static final double kArmAngleMin = Units.degreesToRadians(0);
-    public static final double kArmAngleMax = Units.degreesToRadians(100);
+    public static final double kArmAngleMin = -1.6;
+    public static final double kArmAngleMax = 0;
   }
 }

@@ -18,8 +18,8 @@ import edu.wpi.first.wpilibj.simulation.SingleJointedArmSim;
 public class HopperPivotIOSim implements HopperPivotIO {
 
     private final DCMotor m_armGearbox = DCMotor.getNEO(2);
-    private final ArmFeedforward feedforward = new ArmFeedforward(HopperPivotConstants.HOPPER_PIVOT_KS, HopperPivotConstants.HOPPER_PIVOT_KG, HopperPivotConstants.HOPPER_PIVOT_KV);
-    private final PIDController controller = new PIDController(HopperPivotConstants.HOPPER_PIVOT_KP, 0, 0);
+    private final ArmFeedforward feedforward = new ArmFeedforward(0, 0.0, 4);
+    private final PIDController controller = new PIDController(10, 0, 0);
 
     private Voltage appliedVolts = Volts.of(0.0);
 
@@ -33,8 +33,8 @@ public class HopperPivotIOSim implements HopperPivotIO {
             HopperPivotConstants.HopperPivotSimConstants.kArmLength,
             HopperPivotConstants.HopperPivotSimConstants.kArmAngleMin,
             HopperPivotConstants.HopperPivotSimConstants.kArmAngleMax,
-            true,
-            0.1
+            false,
+            -1.6
         );
 
     @Override
@@ -54,12 +54,13 @@ public class HopperPivotIOSim implements HopperPivotIO {
 
     @Override
     public void runAngle(double angle, double velocity) {
-        runVoltage(Volts.of(MathUtil.clamp(controller.calculate(sim.getAngleRads(), angle) + feedforward.calculate(angle, velocity), -12, 12)));
+        runVoltage(Volts.of(controller.calculate(sim.getAngleRads(), angle)+feedforward.calculate(angle, velocity)));
     }
 
     @Override
     public void stop() {
         sim.setInputVoltage(0);
+        appliedVolts = Volts.of(0.0);
     }
 
 

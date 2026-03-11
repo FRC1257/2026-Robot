@@ -20,28 +20,28 @@ public class NautilusMechanism3d {
         return measured;
     }
     
-    private Angle hoodAngle = Radians.of(0.0);
-    private Angle intakeAngle = Radians.of(-1.6);
+    private Rotation2d hoodAngle = Rotation2d.kZero;
+    private Rotation2d intakeAngle = Rotation2d.kZero;
     
     public void log(String key) {
-        var hoodPose = new Pose3d(new Translation3d(0,0,0), new Rotation3d(Radians.of(0.0), hoodAngle, Radians.of(0.0)));
-        var intakePose = new Pose3d(new Translation3d(0,0,0), new Rotation3d(Radians.of(0.0), intakeAngle, Radians.of(0.0)));
-        Logger.recordOutput(key + "/Components", hoodPose, intakePose);
+        var hoodPose = new Pose3d(new Translation3d(0,0,0), new Rotation3d(0, hoodAngle.getRadians(), 0));
+        var intakePose = new Pose3d(new Translation3d(-0.193,0, 0.205), new Rotation3d(0, -intakeAngle.getRadians(), 0));
+        Logger.recordOutput(key + "/Components",intakePose, hoodPose);
     }
 
-    public void setHoodAngle(Angle angle) {
+    public void setHoodAngle(Rotation2d angle) {
         hoodAngle = angle;
     }
 
-    public void setIntakeAngle(Angle angle) {
+    public void setIntakeAngle(Rotation2d angle) {
         intakeAngle = angle;
     }
 
-    public Angle getHoodAngle() {
+    public Rotation2d getHoodAngle() {
         return hoodAngle;
     }
 
-    public Angle getIntakeAngle() {
+    public Rotation2d getIntakeAngle() {
         return intakeAngle;
     }
 }

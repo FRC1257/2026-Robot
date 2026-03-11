@@ -71,7 +71,7 @@ public class AutoChooser {
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.DEPOT_START_POSITION)))
                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
                             .andThen(drive.followPathFileCommand("DEPOT_START"))
-                            .andThen(targetedScore().withTimeout(3.0))
+                            .andThen(targetedScore().withTimeout(4.0))
                             .andThen(drive.followPathFileCommand("DEPOT_END").raceWith(hopperIntake.runIntake()))
                             .andThen(targetedScore());
             default:
@@ -89,6 +89,7 @@ public class AutoChooser {
                 .alongWith(DriveCommands.joystickHubPoint(drive, () -> 0, () -> 0))
                 .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
                     .andThen(kicker.runIntake()
-                    .alongWith(activeFloor.runActiveFloor()).alongWith(hopperPivot.runAgitate())));
+                    .alongWith(activeFloor.runActiveFloor())
+                    .alongWith(hopperPivot.runAgitate())));
     }
 }

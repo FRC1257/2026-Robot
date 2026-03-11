@@ -15,6 +15,7 @@ import org.littletonrobotics.junction.Logger;
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Acceleration;
 import edu.wpi.first.units.measure.Angle;
@@ -94,7 +95,7 @@ public class Hood extends SubsystemBase {
                 new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
         }
 
-        NautilusMechanism3d.getMeasured().setHoodAngle(getMeasuredAngle());
+        NautilusMechanism3d.getMeasured().setHoodAngle(new Rotation2d(getMeasuredAngle()));
 
     }
     

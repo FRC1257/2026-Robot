@@ -67,6 +67,7 @@ import frc.robot.subsystems.Kicker.KickerIO;
 import frc.robot.subsystems.Kicker.KickerIOSparkMax;
 import frc.robot.subsystems.Shooter.Flywheel.Flywheel;
 import frc.robot.subsystems.Shooter.Flywheel.FlywheelIO;
+import frc.robot.subsystems.Shooter.Flywheel.FlywheelIOSim;
 import frc.robot.subsystems.Shooter.Flywheel.FlywheelIOSparkMax;
 import frc.robot.subsystems.Shooter.Hood.Hood;
 import frc.robot.subsystems.Shooter.Hood.HoodIO;
@@ -139,7 +140,7 @@ public class RobotContainer {
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
-        flywheel = new Flywheel(new FlywheelIO() {});
+        flywheel = new Flywheel(new FlywheelIOSim());
         hood = new Hood(new HoodIOSim());
         climb = new Climb(new ClimbIO() {});
         break;
@@ -253,7 +254,9 @@ public class RobotContainer {
       .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
       .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
         .andThen(kicker.runIntake()
-          .alongWith(activeFloor.runActiveFloor())))
+        .alongWith(activeFloor.runActiveFloor())
+        .alongWith(hopperPivot.runAgitate())
+        .alongWith(hopperIntake.runIntake())))
     );
   
   // driver

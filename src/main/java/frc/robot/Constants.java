@@ -84,6 +84,6 @@ public final class Constants {
   public static final int QUADRATURE_COUNTS_PER_REV = 8192; // encoder resolution
   // https://www.revrobotics.com/rev-11-1271/
 
-  public static final int NEO_CURRENT_LIMIT = 80; // amps
-  public static final int NEO_VORTEX_CURRENT_LIMIT = 60;
+  public static final int NEO_CURRENT_LIMIT = 40; // amps
+  public static final int NEO_VORTEX_CURRENT_LIMIT = 40;
 }

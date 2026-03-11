@@ -13,7 +13,7 @@ import org.littletonrobotics.junction.Logger;
 
 public class HopperIntake extends SubsystemBase {
 
-  private static final LoggedTunableNumber IntakeVolts = new LoggedTunableNumber("HopperIntake/Voltage", HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE.magnitude());
+  private static final LoggedTunableNumber IntakeVolts = new LoggedTunableNumber("HopperIntake/IntakeVoltage", HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE.magnitude());
   private static final LoggedTunableNumber OuttakeVolts = new LoggedTunableNumber("HopperIntake/OuttakeVoltage", HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE.magnitude());
 
   private final HopperIntakeIO io;

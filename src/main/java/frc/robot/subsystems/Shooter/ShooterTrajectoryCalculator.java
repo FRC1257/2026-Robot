@@ -133,7 +133,7 @@ public class ShooterTrajectoryCalculator {
         Pose2d lookaheadPose = robotPose;
         Distance lookaheadTargetDistance = robotToTargetDistance;
 
-        for(int i = 0; i<5; i++) {
+        for(int i = 0; i<10; i++) {
             timeOfFlight = timeOfFlightMap.get(lookaheadTargetDistance);
             lookaheadPose = 
                 new Pose2d(

@@ -25,7 +25,7 @@ public class NautilusMechanism3d {
     
     public void log(String key) {
         var hoodPose = new Pose3d(new Translation3d(0,0,0), new Rotation3d(0, hoodAngle.getRadians(), 0));
-        var intakePose = new Pose3d(new Translation3d(-0.193,0, 0.205), new Rotation3d(0, -intakeAngle.getRadians(), 0));
+        var intakePose = new Pose3d(new Translation3d(-0.193,0, 0.205), new Rotation3d(0, -intakeAngle.getRadians() + Math.PI/2, 0));
         Logger.recordOutput(key + "/Components",intakePose, hoodPose);
     }
 

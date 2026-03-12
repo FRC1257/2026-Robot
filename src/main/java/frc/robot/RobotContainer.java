@@ -199,7 +199,7 @@ public class RobotContainer {
     drive.setDefaultCommand(
         DriveCommands.joystickDrive(drive, DRIVE_FORWARD, DRIVE_STRAFE, DRIVE_ROTATE));
 
-    hopperPivot.setDefaultCommand(hopperPivot.runStowAngle());
+    hopperPivot.setDefaultCommand(hopperPivot.runIntakeAngle());
     hopperIntake.setDefaultCommand(hopperIntake.stopIntake());
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
@@ -216,7 +216,7 @@ public class RobotContainer {
     );
 
     driver.y()
-    .toggleOnTrue(hopperPivot.runIntakeAngle());
+    .toggleOnTrue(hopperPivot.runStowAngle());
 
     driver.a()
     .whileTrue(hopperPivot.runAgitate())
@@ -237,13 +237,13 @@ public class RobotContainer {
     //   );
 
 
-    driver
-     .leftBumper().whileTrue(
-       flywheel.runHub().alongWith(hood.runHubAngle())
-       .alongWith(
-         kicker.runIntake())
-         .alongWith(activeFloor.runActiveFloor())
-         );
+    // driver
+    //  .leftBumper().whileTrue(
+    //    flywheel.runHub().alongWith(hood.runHubAngle())
+    //    .alongWith(
+    //      kicker.runIntake())
+    //      .alongWith(activeFloor.runActiveFloor())
+    //      );
 
   // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
 
@@ -258,6 +258,9 @@ public class RobotContainer {
         .alongWith(hopperPivot.runAgitate())
         .alongWith(hopperIntake.runIntake())))
     );
+
+  driver.leftBumper().and(hopperPivot.atIntake()).whileTrue(DriveCommands.alignToTrench(drive));
+  driver.leftBumper().and(hopperPivot.atIntake().negate()).whileTrue(hopperPivot.runIntakeAngle().andThen(DriveCommands.alignToTrench(drive)));
   
   // driver
   //   .rightBumper().whileTrue(
@@ -274,8 +277,8 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );
     
-    driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
-    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+    // driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+    // driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
 
 
 

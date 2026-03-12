@@ -292,6 +292,25 @@ public class DriveCommands {
     });
   }
 
+  public static Command alignToTrench(Drive drive) {
+    return new AlignToPose(
+      drive,
+      () -> {
+        Pose2d robotPose = drive.getPose();
+        Pose2d nearestTrenchPose = robotPose.nearest(
+          List.of(FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(12).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(1).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(7).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(6).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(17).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(28).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(22).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(23).get().toPose2d()));
+        return nearestTrenchPose;
+      }, false);
+
+  }
+
   /**
    * Measures the velocity feedforward constants for the drive motors.
    *

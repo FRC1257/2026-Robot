@@ -85,5 +85,5 @@ public final class Constants {
   // https://www.revrobotics.com/rev-11-1271/
 
   public static final int NEO_CURRENT_LIMIT = 40; // amps
-  public static final int NEO_VORTEX_CURRENT_LIMIT = 40;
+  public static final int NEO_VORTEX_CURRENT_LIMIT = 60;
 }

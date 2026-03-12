@@ -43,6 +43,8 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.NautilusMechanism3d;
 import frc.robot.util.misc.LoggedTunableNumber;
 
+import static frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants.*;
+
 public class HopperPivot extends SubsystemBase {
 
     private static final LoggedTunableNumber Kp = new LoggedTunableNumber("HopperPivot/Kp", HopperPivotConstants.HOPPER_PIVOT_KP);
@@ -145,7 +147,17 @@ public class HopperPivot extends SubsystemBase {
 
     @AutoLogOutput(key = "Hopper/HopperPivot/atGoal")
     public Trigger atGoal(){
-        return new Trigger(() -> inputs.leftpivotAngle.isNear(goalAngle, HopperPivotConstants.HOPPER_PIVOT_TOLERANCE));
+        return new Trigger(() -> inputs.leftpivotAngle.isNear(goalAngle, HOPPER_PIVOT_TOLERANCE));
+    }
+
+    @AutoLogOutput(key = "Hopper/HopperPivot/atIntake")
+    public Trigger atIntake(){
+        return new Trigger(() -> inputs.leftpivotAngle.isNear(INTAK_ANGLE, HOPPER_PIVOT_TOLERANCE));
+    }
+
+    @AutoLogOutput(key = "Hopper/HopperPivot/atStow")
+    public Trigger atStow(){
+        return new Trigger(() -> inputs.leftpivotAngle.isNear(STOW_ANGLE, HOPPER_PIVOT_TOLERANCE));
     }
 
 

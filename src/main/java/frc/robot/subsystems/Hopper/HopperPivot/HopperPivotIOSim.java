@@ -34,7 +34,7 @@ public class HopperPivotIOSim implements HopperPivotIO {
             HopperPivotConstants.HopperPivotSimConstants.kArmAngleMin,
             HopperPivotConstants.HopperPivotSimConstants.kArmAngleMax,
             false,
-            -1.6
+            0
         );
 
     @Override

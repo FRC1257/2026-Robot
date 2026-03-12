@@ -515,6 +515,15 @@ public class Drive extends SubsystemBase {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
   }
 
+  public Command lockWheels() {
+    return run(() -> {
+      modules[0].runSetpoint(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+      modules[1].runSetpoint(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+      modules[2].runSetpoint(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+      modules[3].runSetpoint(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+    });
+  }
+
   /** Returns a command to run a quasistatic test in the specified direction. */
   public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
     return sysId.quasistatic(direction);

@@ -215,12 +215,15 @@ public class RobotContainer {
       )
     );
 
+
     driver.y()
     .toggleOnTrue(hopperPivot.runStowAngle());
 
     driver.a()
     .whileTrue(hopperPivot.runAgitate())
     .onFalse(hopperPivot.runIntakeAngle());
+
+    driver.b().whileTrue(drive.lockWheels());
 
     //FieldConstants.Zones.composedTrench.contains(
       //() -> drive.getPose().getTranslation())

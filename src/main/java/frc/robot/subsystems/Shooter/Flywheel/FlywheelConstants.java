@@ -11,7 +11,7 @@ public class FlywheelConstants {
     public static final double FLYWHEEL_KD = 0.0; 
 
     public static final double FLYWHEEL_KS = 0.268;
-    public static final double FLYWHEEL_KV = 0.019315;
+    public static final double FLYWHEEL_KV = 0.017315;
 
     public static final AngularVelocity FLYWHEEL_VELOCITY_TOLERANCE = RadiansPerSecond.of(2.5);
     public static final int FLYWHEEL_MOTOR_ID = 13;

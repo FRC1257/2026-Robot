@@ -281,16 +281,16 @@ public class RobotContainer {
       );
     
     // driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
-    // driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
 
-
+  
 
    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
   
   
 
    operator.rightBumper().whileTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-5)));
-
+   operator.leftBumper().whileTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(320)));
   }
 
 

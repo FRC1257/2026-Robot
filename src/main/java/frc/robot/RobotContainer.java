@@ -255,7 +255,7 @@ public class RobotContainer {
       flywheel.runTargetedCommand(drive::getPose)
       .alongWith(hood.runTargetedCommand(drive::getPose))
       .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal())).withTimeout(1.5)
         .andThen(kicker.runIntake()
         .alongWith(activeFloor.runActiveFloor())
         .alongWith(hopperPivot.runAgitate())
@@ -272,13 +272,13 @@ public class RobotContainer {
 
     driver
       .rightTrigger().whileTrue(
-        hopperIntake.runIntake()
+        hopperIntake.runVoltage(() -> Volts.of(-driver.getRightTriggerAxis()*8))
       );
 
     driver
       .leftTrigger().whileTrue(
         hopperIntake.runOutake()
-      );
+      );  
     
     driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
     driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());

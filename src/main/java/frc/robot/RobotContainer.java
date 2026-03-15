@@ -280,7 +280,7 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );
     
-    // driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+    driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
     driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
 
   

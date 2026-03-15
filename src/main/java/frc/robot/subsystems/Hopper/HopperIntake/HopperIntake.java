@@ -37,7 +37,7 @@ public class HopperIntake extends SubsystemBase {
    * @return a command that runs the hopper intake at the given voltage while it is scheduled
    */
 
-  private Command runVoltage(Supplier<Voltage> voltage) {
+  public Command runVoltage(Supplier<Voltage> voltage) {
     return this.run(() -> io.setVoltage(voltage.get()));
   }
 

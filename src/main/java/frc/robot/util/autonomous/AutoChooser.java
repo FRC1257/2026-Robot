@@ -24,7 +24,8 @@ public class AutoChooser {
     public static enum StartPositions {
         LEFT_TRENCH,
         DEPOT,
-        RIGHT_TRENCH
+        RIGHT_TRENCH,
+        RIGHT_HUMAN_STATION,
     }
 
     private LoggedDashboardChooser<StartPositions> startChooser;
@@ -50,6 +51,8 @@ public class AutoChooser {
         startChooser.addDefaultOption("DEPOT", StartPositions.DEPOT);
         startChooser.addOption("LEFT_TRENCH", StartPositions.LEFT_TRENCH);
         startChooser.addOption("RIGHT_TRENCH", StartPositions.RIGHT_TRENCH);
+        startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_HUMAN_STATION);
+
     }
 
     public Command getAutoCommand() {
@@ -72,7 +75,15 @@ public class AutoChooser {
                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
                             .andThen(drive.followPathFileCommand("DEPOT_START"))
                             .andThen(targetedScore().withTimeout(4.0))
+                            .andThen(hopperPivot.runIntakeAngle())
                             .andThen(drive.followPathFileCommand("DEPOT_END").raceWith(hopperIntake.runIntake()))
+                            .andThen(targetedScore());
+            case RIGHT_HUMAN_STATION:
+                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_START"))
+                            .andThen(Commands.waitSeconds(2.5))
+                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
                             .andThen(targetedScore());
             default:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))

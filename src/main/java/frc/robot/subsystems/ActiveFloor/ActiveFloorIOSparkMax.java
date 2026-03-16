@@ -23,7 +23,7 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
         config = new SparkFlexConfig();
 
         config
-            .smartCurrentLimit(Constants.NEO_VORTEX_CURRENT_LIMIT)
+            .smartCurrentLimit(40)
             .idleMode(IdleMode.kCoast)
             .voltageCompensation(12.0)
             .inverted(false);

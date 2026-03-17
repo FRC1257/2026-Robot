@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
   public static final String[] camNames = {
-    "Front_Camera", "Left_Camera", "Right_Camera", "Back_Camera"
+    "Back_Camera", "RBack_Camera", "RFront_Camera"
   };
   public static final int numCameras = camNames.length;
 
@@ -48,25 +48,21 @@ public class VisionConstants {
   public static final Transform3d[] camsRobotToCam = {
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(7.375), Units.inchesToMeters(0.5), Units.inchesToMeters(7.5)),
-        new Rotation3d(0, Units.degreesToRadians(-15), 0)),
+            Units.inchesToMeters(1.5), Units.inchesToMeters(-8.5), Units.inchesToMeters(20)),
+        new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(180))),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(6.4375), Units.inchesToMeters(10.5), Units.inchesToMeters(35)),
-        new Rotation3d(0, Units.degreesToRadians(-37.5), Units.degreesToRadians(0))),
+            Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
+        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
     new Transform3d(
         new Translation3d(
-            Units.inchesToMeters(6.4375), Units.inchesToMeters(-10), Units.inchesToMeters(35)),
-        new Rotation3d(0, Units.degreesToRadians(-37.5), Units.degreesToRadians(0))),
-    new Transform3d(
-        new Translation3d(
-            Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25), Units.inchesToMeters(31.75)),
-        new Rotation3d(0, Units.degreesToRadians(-16.7), Units.degreesToRadians(180))),
+            Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
+        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
   };
 
   // The layout of the AprilTags on the field
   public static final AprilTagFieldLayout kTagLayout =
-      AprilTagFieldLayout.loadField(AprilTagFields.k2025ReefscapeWelded);
+      AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
 
   public static final double AMBIGUITY_THRESHOLD = 0.2;
   public static final double MAX_DISTANCE = 4; // meters

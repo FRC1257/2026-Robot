@@ -6,14 +6,14 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.Drivers;
 import frc.robot.Constants.Operators;
-import frc.robot.util.drive.CommandSnailController.DPad;
 import java.util.function.DoubleSupplier;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
+import static frc.robot.RobotContainer.driver;
+import static frc.robot.RobotContainer.operator;;
+
 
 public class DriveControls {
   // Controllers
-  public static final CommandSnailController driver = new CommandSnailController(0);
-  public static final CommandSnailController operator = new CommandSnailController(1);
 
   // Useful for things that don't need to be triggered
   private static final Trigger EMPTY_TRIGGER = new Trigger(() -> false);
@@ -34,6 +34,20 @@ public class DriveControls {
   // Rumble Controls
   public static Trigger TIMED_RUMBLE = EMPTY_TRIGGER;
   public static Trigger INTAKE_RUMBLE = EMPTY_TRIGGER;
+
+  // Kicker controls
+  public static DoubleSupplier KICKER_THING = EMPTY_DOUBLE_SUPPLIER;
+
+  //HopperIntake controls
+  public static Trigger HOPPER_INTAKE = EMPTY_TRIGGER;
+  public static Trigger HOPPER_OUTTAKE = EMPTY_TRIGGER;
+
+  public static Trigger ANGLE_HOPPER = EMPTY_TRIGGER;
+  public static Trigger HOPPER_PIVOT_VOLTAGE = EMPTY_TRIGGER;
+
+  public static Trigger FLYWHEEL_FIXED_VOLTAGE = EMPTY_TRIGGER;
+  public static DoubleSupplier FLYWHEEL_DYNAMIC_VOLTAGE = EMPTY_DOUBLE_SUPPLIER;
+
 
   // Creates Elastic dropdown menu for Drivers
   public static class DriverChooser {
@@ -107,23 +121,16 @@ public class DriveControls {
         DRIVE_STOP = driver.x();
         DRIVE_SLOW = driver.rightBumper();
         DRIVE_ROBOT_RELATIVE = EMPTY_TRIGGER;
-
-        // TURN_90 = driver.y();
         TURN_180 = driver.start();
         break;
     }
 
     switch (operatorChooser.getOperator()) {
       case ARBORIA:
-        break;
       case KEVIN:
-        break;
-
       case ANTONIOS:
-        break;
       case PROGRAMMERS:
       default:
-        // Operator controls
         break;
     }
   }

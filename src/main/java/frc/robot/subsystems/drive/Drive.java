@@ -54,6 +54,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.FieldConstants;
 import frc.robot.commands.AlignToPose;
+import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOInputsAutoLogged;
 import frc.robot.util.autonomous.LocalADStarAK;
@@ -349,6 +350,7 @@ public class Drive extends SubsystemBase {
           }
         }
       }
+
     }
 
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
@@ -511,6 +513,15 @@ public class Drive extends SubsystemBase {
    */
   public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
     poseEstimator.addVisionMeasurement(visionPose, timestamp);
+  }
+
+  public Command lockWheels() {
+    return run(() -> {
+      modules[0].runSetpoint(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+      modules[1].runSetpoint(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+      modules[2].runSetpoint(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
+      modules[3].runSetpoint(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
+    });
   }
 
   /** Returns a command to run a quasistatic test in the specified direction. */

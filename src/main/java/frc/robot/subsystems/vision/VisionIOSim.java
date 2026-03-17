@@ -51,7 +51,7 @@ public class VisionIOSim implements VisionIO {
 
     SimCameraProperties[] camProps = new SimCameraProperties[numCameras];
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < numCameras; i++) {
       camProps[i] = new SimCameraProperties();
       camProps[i].setCalibError(0.35, 0.10);
       camProps[i].setAvgLatencyMs(50);
@@ -64,8 +64,6 @@ public class VisionIOSim implements VisionIO {
     camProps[1].setFPS(20);
     camProps[2].setCalibration(480, 320, Rotation2d.fromDegrees(70));
     camProps[2].setFPS(20);
-    camProps[3].setCalibration(480, 320, Rotation2d.fromDegrees(70));
-    camProps[3].setFPS(40);
 
     // Create a PhotonCameraSim which will update the linked PhotonCamera's values
     // with visible

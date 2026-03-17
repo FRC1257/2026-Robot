@@ -62,6 +62,7 @@ public class GyroIOReal implements GyroIO {
     yawPositionQueue.clear();
   }
 
+  
   /**
    * Gets the current yaw angle.
    *

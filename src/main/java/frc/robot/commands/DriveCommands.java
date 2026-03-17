@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import frc.robot.Constants;
 import frc.robot.FieldConstants;
+import frc.robot.FieldConstants.Hub;
 import frc.robot.subsystems.drive.Drive;
 import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.util.drive.AllianceFlipUtil;
@@ -221,6 +222,8 @@ public class DriveCommands {
         drive, xSupplier, ySupplier, () -> AllianceFlipUtil.apply(Rotation2d.fromDegrees(90)));
   }
 
+  
+
   private static boolean getIsFlipped() {
     return DriverStation.getAlliance().isPresent()
         && DriverStation.getAlliance().get() == Alliance.Red;
@@ -278,6 +281,34 @@ public class DriveCommands {
                       : drive.getRotation()));
         },
         drive);
+  }
+
+  public static Command joystickHubPoint(Drive drive, DoubleSupplier xSupplier, DoubleSupplier ySupplier) {
+    return joystickAnglePoint(drive, xSupplier, ySupplier, () -> {
+      Pose2d currentPose = drive.getPose();
+      Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
+      Rotation2d rotationSupplier = new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
+      return rotationSupplier;
+    });
+  }
+
+  public static Command alignToTrench(Drive drive) {
+    return new AlignToPose(
+      drive,
+      () -> {
+        Pose2d robotPose = drive.getPose();
+        Pose2d nearestTrenchPose = robotPose.nearest(
+          List.of(FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(12).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(1).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(7).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(6).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(17).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(28).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(22).get().toPose2d(),
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(23).get().toPose2d()));
+        return nearestTrenchPose;
+      }, false);
+
   }
 
   /**

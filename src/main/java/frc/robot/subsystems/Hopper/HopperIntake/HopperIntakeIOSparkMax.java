@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hopper.HopperIntake;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
@@ -46,6 +47,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
     public void updateInputs(HopperIntakeIOInputs inputs) {
         inputs.intakeVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
         inputs.intakeVelocity = RadiansPerSecond.of(encoder.getVelocity());
+        inputs.intakeCurrent = Amps.of(motor.getOutputCurrent());
     }
 
     @Override

@@ -11,6 +11,8 @@ import static edu.wpi.first.units.Units.Volts;
 import static frc.robot.util.drive.DriveControls.*;
 
 import java.io.Flushable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -42,8 +44,8 @@ import frc.robot.subsystems.vision.VisionIO;
 import frc.robot.subsystems.vision.VisionIOLimelight;
 import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionConstants;
-
-//import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.subsystems.vision.VisionIOPhoton;
+import frc.robot.subsystems.vision.VisionIOSim;
 import frc.robot.util.autonomous.AutoChooser;
 import frc.robot.util.drive.CommandSnailController;
 import frc.robot.util.drive.CommandSnailController.DPad;
@@ -87,9 +89,6 @@ import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-
-
-
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
@@ -108,11 +107,19 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
-    VisionIO visionIO;
+    //list of all the various vision IO implementations
+
+
+
     switch (Constants.currentMode) {
       // Real robot, instantiate hardware IO implementations
       case REAL:
-        visionIO = new VisionIOLimelight(VisionConstants.camNames[0]);
+        //LL
+        VisionIOLimelight frontcam = new VisionIOLimelight(VisionConstants.camNames[0]);
+        VisionIOLimelight backcam = new VisionIOLimelight(VisionConstants.camNames[1]);
+
+        //photonVision = new VisionIOPhoton();
+    
         drive =
             new Drive(
                 new GyroIOReal(),
@@ -120,6 +127,11 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
+        new Vision(
+          drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
+          drive::getRotation,
+          frontcam,
+          backcam);
  
         hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
 
@@ -133,7 +145,7 @@ public class RobotContainer {
 
       // Sim robot, instantiate physics sim IO implementations
       case SIM:
-        visionIO = new VisionIO() {}; //using interface bc we don't have a SIM yet
+        VisionIOSim simVision = new VisionIOSim();
         drive =
             new Drive(
                 new GyroIO() {},
@@ -141,6 +153,11 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim());
+        
+        new Vision(
+          drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
+          drive::getRotation,
+          simVision);
 
         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
@@ -153,7 +170,7 @@ public class RobotContainer {
 
       // Replayed robot, disable IO implementations
       default:
-        visionIO = new VisionIO() {}; //interface cause we don't have a SIM yet
+        VisionIO visionIO = new VisionIO() {};
         drive =
             new Drive(
                 new GyroIO() {},
@@ -161,6 +178,11 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {});
+        
+        new Vision(
+          drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
+          drive::getRotation,
+          visionIO);
 
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
@@ -173,11 +195,7 @@ public class RobotContainer {
     }
 
 
-      new Vision(
-        drive::addVisionMeasurement, // The Consumer (Mailbox)
-        drive::getRotation,          // The Supplier (Gyro for MegaTag 2)
-        visionIO                     // The Hardware
-);
+
 
 
     // Set up robot state manager

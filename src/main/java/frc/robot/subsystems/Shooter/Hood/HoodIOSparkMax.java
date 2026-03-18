@@ -40,7 +40,7 @@ public class HoodIOSparkMax implements HoodIO {
         motorConfig
             .inverted(HOOD_INVERTED)
             .idleMode(HOOD_IDLE_MODE)
-            .smartCurrentLimit(HOOD_SMART_CURRENT_LIMIT)
+            .smartCurrentLimit(40)
             .voltageCompensation(12.0);
         motorConfig
             .encoder

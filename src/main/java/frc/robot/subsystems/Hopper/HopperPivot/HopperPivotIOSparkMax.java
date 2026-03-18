@@ -42,7 +42,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     leftConfig
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12.0)
-        .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
+        .smartCurrentLimit(40)
         .inverted(false);
     leftConfig
       .encoder

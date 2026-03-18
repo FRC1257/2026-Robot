@@ -32,7 +32,7 @@ public class KickerIOSparkMax implements KickerIO {
             new SparkMaxConfig()
                 .idleMode(SparkBaseConfig.IdleMode.kCoast)
                 .voltageCompensation(12.0)
-                .smartCurrentLimit(KickerConstants.KICKER_CURRENT_LIMIT)
+                .smartCurrentLimit(40)
                 .inverted(false)
             .apply(new EncoderConfig()
                 .positionConversionFactor(Math.PI * 2.0/3) 

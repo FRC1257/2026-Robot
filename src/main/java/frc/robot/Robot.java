@@ -7,12 +7,16 @@ package frc.robot;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.Energy.BatteryLogger;
 import frc.robot.util.drive.AllianceFlipUtil;
 import frc.robot.util.drive.DriveControls;
 import frc.robot.util.misc.Elastic;
+
+import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
 import org.littletonrobotics.junction.Logger;
@@ -30,6 +34,8 @@ public class Robot extends LoggedRobot {
   private Command autonomousCommand;
   private RobotContainer robotContainer;
   private boolean controlsConfigured = false;
+  public static final BatteryLogger batteryLogger = new BatteryLogger();
+  private final BatteryIOInputsAutoLogged batteryInputs = new BatteryIOInputsAutoLogged(); 
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -89,7 +95,6 @@ public class Robot extends LoggedRobot {
     // Instantiate our RobotContainer. This will perform all our button bindings,
     // and put our autonomous chooser on the dashboard.
     robotContainer = new RobotContainer();
-
     // Select the autonomous tab in elastic
     Elastic.selectTab("Autonomous");
 
@@ -109,7 +114,17 @@ public class Robot extends LoggedRobot {
     // finished or interrupted commands, and running subsystem periodic() methods.
     // This must be called from the robot's periodic block in order for anything in
     // the Command-based framework to work.
+
+    batteryInputs.batteryVoltage = RobotController.getBatteryVoltage();
+    batteryInputs.rioCurrent = RobotController.getInputCurrent();
+    Logger.processInputs("BatteryLogger", batteryInputs);
+    batteryLogger.setBatteryVoltage(batteryInputs.batteryVoltage);
+    batteryLogger.setRioCurrent(batteryInputs.rioCurrent);
+
+
     CommandScheduler.getInstance().run();
+    
+    batteryLogger.periodicAfterScheduler();
 
     NautilusMechanism3d.getMeasured().log("Mechanism3d");
   }
@@ -185,5 +200,11 @@ public class Robot extends LoggedRobot {
   @Override
   public void simulationPeriodic() {
     DriverStationSim.setAllianceStationId(AllianceStationID.Red1);
+  }
+
+  @AutoLog
+  public static class BatteryIOInputs {
+    public double batteryVoltage = 12.0;
+    public double rioCurrent = 0.0;
   }
 }

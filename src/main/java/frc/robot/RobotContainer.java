@@ -39,8 +39,11 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.subsystems.vision.VisionIO;
-import frc.robot.subsystems.vision.VisionIOPhoton;
-import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.subsystems.vision.VisionIOLimelight;
+import frc.robot.subsystems.vision.Vision;
+import frc.robot.subsystems.vision.VisionConstants;
+
+//import frc.robot.subsystems.vision.VisionIOSim;
 import frc.robot.util.autonomous.AutoChooser;
 import frc.robot.util.drive.CommandSnailController;
 import frc.robot.util.drive.CommandSnailController.DPad;
@@ -85,6 +88,8 @@ public class RobotContainer {
   // Subsystems
   private final Drive drive;
 
+
+
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
@@ -103,39 +108,40 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    VisionIO visionIO;
     switch (Constants.currentMode) {
-        // Real robot, instantiate hardware IO implementations
+      // Real robot, instantiate hardware IO implementations
       case REAL:
+        visionIO = new VisionIOLimelight(VisionConstants.camNames[0]);
         drive =
             new Drive(
                 new GyroIOReal(),
                 new ModuleIOSparkMax(0),
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
-                new ModuleIOSparkMax(3),
-                new VisionIOPhoton());
-        hopperIntake 
-         =  new HopperIntake(new HopperIntakeIOSparkMax());
-        
-         hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
-         kicker = new Kicker(new KickerIOSparkMax() {});
-         activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
-         flywheel = new Flywheel(new FlywheelIOSparkMax());
-         hood = new Hood(new HoodIOSparkMax());
-         climb = new Climb(new ClimbIOSparkMax());
-         break;
+                new ModuleIOSparkMax(3));
+ 
+        hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
 
-        // Sim robot, instantiate physics sim IO implementations
+        hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
+        kicker = new Kicker(new KickerIOSparkMax() {});
+        activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
+        flywheel = new Flywheel(new FlywheelIOSparkMax());
+        hood = new Hood(new HoodIOSparkMax());
+        climb = new Climb(new ClimbIOSparkMax());
+        break;
+
+      // Sim robot, instantiate physics sim IO implementations
       case SIM:
+        visionIO = new VisionIO() {}; //using interface bc we don't have a SIM yet
         drive =
             new Drive(
                 new GyroIO() {},
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim(),
-                new ModuleIOSim(),
-                new VisionIOSim());
-        
+                new ModuleIOSim());
+
         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         kicker = new Kicker(new KickerIO() {});
@@ -145,16 +151,16 @@ public class RobotContainer {
         climb = new Climb(new ClimbIO() {});
         break;
 
-        // Replayed robot, disable IO implementations
+      // Replayed robot, disable IO implementations
       default:
+        visionIO = new VisionIO() {}; //interface cause we don't have a SIM yet
         drive =
             new Drive(
                 new GyroIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {},
-                new ModuleIO() {},
-                new VisionIO() {});
+                new ModuleIO() {});
 
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
@@ -163,8 +169,16 @@ public class RobotContainer {
         flywheel = new Flywheel(new FlywheelIO() {});
         hood = new Hood(new HoodIO() {});
         climb = new Climb(new ClimbIO() {});
-         break;
+        break;
     }
+
+
+      new Vision(
+        drive::addVisionMeasurement, // The Consumer (Mailbox)
+        drive::getRotation,          // The Supplier (Gyro for MegaTag 2)
+        visionIO                     // The Hardware
+);
+
 
     // Set up robot state manager
 

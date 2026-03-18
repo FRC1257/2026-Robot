@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
   public static final String[] camNames = {
-    "Back_Camera", "RBack_Camera", "RFront_Camera"
+    "Front_Camera", "Back_Camera"
   };
   public static final int numCameras = camNames.length;
 
@@ -66,6 +66,10 @@ public class VisionConstants {
 
   public static final double AMBIGUITY_THRESHOLD = 0.2;
   public static final double MAX_DISTANCE = 4; // meters
+
+  //how to tune these numbers
+  public static final double linearStdDevBaseline = 0.02; // Meters
+  public static final double angularStdDevBaseline = 0.05; // Radians
 
   // The standard deviations of our vision estimated poses, which affect
   // correction rate

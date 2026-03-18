@@ -53,11 +53,11 @@ public class VisionConstants {
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
-        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
+        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(25.7192795-157.5))),
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
-        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
+        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(25.7192795))),
   };
 
   // The layout of the AprilTags on the field

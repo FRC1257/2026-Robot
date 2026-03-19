@@ -23,8 +23,8 @@ public class FlywheelIOSim implements FlywheelIO {
     @Override
     public void updateInputs(FlywheelIOInputs inputs) {
         sim.update(0.02);
-        inputs.flywheelAngularVelocity = RadiansPerSecond.of(sim.getAngularVelocityRadPerSec());
-        inputs.flywheelVoltage = appliedVoltage;
+        inputs.flywheelLeaderAngularVelocity = RadiansPerSecond.of(sim.getAngularVelocityRadPerSec());
+        inputs.flywheelLeaderVoltage = appliedVoltage;
     }
 
     @Override

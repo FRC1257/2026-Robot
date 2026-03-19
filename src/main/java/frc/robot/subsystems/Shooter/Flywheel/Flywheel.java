@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Shooter.Flywheel;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Rotations;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Robot;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.util.misc.LoggedTunableMeasure;
 import frc.robot.util.misc.LoggedTunableNumber;
@@ -64,6 +66,12 @@ public class Flywheel extends SubsystemBase {
             io.setFF(Ks.get(), Kv.get());
         }
         Logger.processInputs("Flywheel", inputs);
+
+        Robot.batteryLogger.reportCurrentUsage(
+            "Flywheel",
+            inputs.flywheelLeaderCurrent.in(Amps),
+            inputs.flywheelFollowerCurrent.in(Amps)
+        );
     }
 
     /**
@@ -149,7 +157,7 @@ public class Flywheel extends SubsystemBase {
 
     @AutoLogOutput(key="Shooter/Flywheel/isAtGoal")
     public Trigger isAtGoal() {
-        return new Trigger(() -> inputs.flywheelAngularVelocity.isNear(goalVelocity, FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
+        return new Trigger(() -> inputs.flywheelLeaderAngularVelocity.isNear(goalVelocity, FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
     }
 
 }

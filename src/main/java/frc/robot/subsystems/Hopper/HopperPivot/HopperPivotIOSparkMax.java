@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
@@ -73,6 +74,9 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     inputs.rightpivotVoltage = Volts.of(rightMotor.getAppliedOutput()*12);
     inputs.leftpivotAngle = Radians.of(leftMotor.getEncoder().getPosition());
     inputs.rightpivotAngle = Radians.of(rightMotor.getEncoder().getPosition());
+
+    inputs.leftpivotCurrent = Amps.of(leftMotor.getOutputCurrent());
+    inputs.rightpivotCurrent = Amps.of(rightMotor.getOutputCurrent());
   }
 
   @Override

@@ -57,13 +57,24 @@ public class VisionIOSim implements VisionIO {
       camProps[i].setAvgLatencyMs(50);
       camProps[i].setLatencyStdDevMs(15);
     }
-
-    camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
-    camProps[0].setFPS(40);
-    camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
-    camProps[1].setFPS(20);
-    camProps[2].setCalibration(480, 320, Rotation2d.fromDegrees(70));
-    camProps[2].setFPS(20);
+    //DONE BC OF LIMELIGHT
+    //only 2 cameras now
+    // Configure per-camera properties only for cameras that exist. Some
+    // configurations in the repo assume 3 transforms but numCameras may be 2
+    // (based on `camNames`). Guard to avoid ArrayIndexOutOfBounds.
+    if (numCameras > 0) {
+      camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+      camProps[0].setFPS(40);
+    }
+    if (numCameras > 1) {
+      camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+      camProps[1].setFPS(20);
+    }
+    // For any additional cameras, give reasonable defaults
+    for (int i = 2; i < numCameras; i++) {
+      camProps[i].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+      camProps[i].setFPS(20);
+    }
 
     // Create a PhotonCameraSim which will update the linked PhotonCamera's values
     // with visible

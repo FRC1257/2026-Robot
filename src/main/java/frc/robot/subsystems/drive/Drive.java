@@ -78,7 +78,7 @@ public class Drive extends SubsystemBase {
   private final GyroIO gyroIO;
   private GyroIOInputsAutoLogged gyroInputs = new GyroIOInputsAutoLogged();
   private final Module[] modules = new Module[4]; // FL, FR, BL, BR
-  // private final SysIdRoutine sysId;
+
 
 
   //Cancelling out photonVision

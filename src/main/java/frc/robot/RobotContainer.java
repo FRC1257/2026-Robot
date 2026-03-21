@@ -300,7 +300,7 @@ public class RobotContainer {
 
     driver
       .rightTrigger().whileTrue(
-        hopperIntake.runVoltage(() -> Volts.of(-driver.getRightTriggerAxis()*6))
+        hopperIntake.runIntake()
       );
 
     driver

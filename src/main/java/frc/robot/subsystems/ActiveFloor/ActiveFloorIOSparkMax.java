@@ -1,5 +1,9 @@
 package frc.robot.subsystems.ActiveFloor;
 import static edu.wpi.first.units.Units.Amps;
+import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
+
 
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -42,8 +46,10 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
 
     @Override
     public void updateInputs(ActiveFloorIOInputs inputs) {
-        inputs.activeFloorVoltage = Units.Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.activeFloorVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.activeFloorAngularVelocity = RadiansPerSecond.of(motor.getEncoder().getVelocity());
         inputs.activeFloorCurrent = Amps.of(motor.getOutputCurrent());
+        inputs.activeFloorTemperature = Celsius.of(motor.getMotorTemperature());
     }
 
     @Override

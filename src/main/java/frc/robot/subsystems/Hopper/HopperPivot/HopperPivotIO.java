@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
@@ -8,6 +9,7 @@ import org.littletonrobotics.junction.AutoLog;
 
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.AngularVelocity;
+import edu.wpi.first.units.measure.Current;
 import edu.wpi.first.units.measure.Voltage;
 
 public interface HopperPivotIO {
@@ -17,9 +19,12 @@ public interface HopperPivotIO {
     Voltage leftpivotVoltage = Volts.of(0.0);
     Angle leftpivotAngle = Radians.of(0.0);
     AngularVelocity leftpivotVelocity = RadiansPerSecond.of(0.0); 
+    Current leftpivotCurrent = Amps.of(0.0);
+
     Voltage rightpivotVoltage = Volts.of(0.0);
     Angle rightpivotAngle = Radians.of(0.0);
     AngularVelocity rightpivotVelocity = RadiansPerSecond.of(0.0); 
+    Current rightpivotCurrent = Amps.of(0.0);
   }
 
   default void updateInputs(HopperPivotIOInputs inputs) {}

@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Shooter.Hood;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Second;
@@ -31,6 +32,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.NautilusMechanism3d;
+import frc.robot.Robot;
 import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.util.misc.LoggedTunableNumber;
@@ -97,6 +99,11 @@ public class Hood extends SubsystemBase {
 
         NautilusMechanism3d.getMeasured().setHoodAngle(new Rotation2d(getMeasuredAngle()));
 
+        Robot.batteryLogger.reportCurrentUsage(
+            "Hood",
+            inputs.hoodCurrentDraw.in(Amps)
+        );
+
     }
     
     /**
@@ -147,7 +154,7 @@ public class Hood extends SubsystemBase {
         }).beforeStarting(() -> {
             goalAngle = angle.get();
             setpoint = new TrapezoidProfile.State(inputs.hoodAngle.in(Radians), inputs.hoodVelocity.in(RadiansPerSecond));
-        })/*.until(isAtGoal())*/;
+        });
     }
 
     public Command runHubAngle() {

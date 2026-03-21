@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
@@ -41,6 +42,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.NautilusMechanism3d;
+import frc.robot.Robot;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 import static frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants.*;
@@ -95,6 +97,12 @@ public class HopperPivot extends SubsystemBase {
         }
 
         NautilusMechanism3d.getMeasured().setIntakeAngle(new Rotation2d(inputs.leftpivotAngle));
+
+        Robot.batteryLogger.reportCurrentUsage(
+            "HopperPivot",
+            inputs.leftpivotCurrent.in(Amps),
+            inputs.rightpivotCurrent.in(Amps)
+        );
  
     }
 

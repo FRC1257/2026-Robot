@@ -52,7 +52,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
         flywheelConfig = new SparkFlexConfig();
 
         flywheelConfig
-            .smartCurrentLimit(40)
+            .smartCurrentLimit(60)
             .idleMode(IdleMode.kCoast)
             .voltageCompensation(12.0)
             .inverted(true);

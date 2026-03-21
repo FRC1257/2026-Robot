@@ -32,7 +32,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
         // Configure motor
         config.idleMode(IdleMode.kBrake);
         config.voltageCompensation(12);
-        config.smartCurrentLimit(40);
+        config.smartCurrentLimit(60);
         config.inverted(true);
 
         config.encoder

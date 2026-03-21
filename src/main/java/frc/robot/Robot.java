@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot;
-
+import edu.wpi.first.net.PortForwarder;
 import com.pathplanner.lib.commands.FollowPathCommand;
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -60,6 +60,14 @@ public class Robot extends LoggedRobot {
       default:
         Logger.recordMetadata("GitDirty", "Unknown");
         break;
+    }
+
+    for (int port = 5800; port <= 5807; port++) {
+      PortForwarder.add(port, "172.29.0.1", port);
+    }
+
+    for (int port = 5811; port <= 5818; port++) {
+      PortForwarder.add(port, "172.29.1.1", port - 10); 
     }
 
     // Set up data receivers & replay source

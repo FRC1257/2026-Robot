@@ -78,10 +78,13 @@ public class Drive extends SubsystemBase {
   private final GyroIO gyroIO;
   private GyroIOInputsAutoLogged gyroInputs = new GyroIOInputsAutoLogged();
   private final Module[] modules = new Module[4]; // FL, FR, BL, BR
-  // private final SysIdRoutine sysId;
 
-  private final VisionIO visionIO;
-  private final VisionIOInputsAutoLogged visionInputs = new VisionIOInputsAutoLogged();
+
+
+  //Cancelling out photonVision
+  //private final VisionIO visionIO;
+  //private final VisionIOInputsAutoLogged visionInputs = new VisionIOInputsAutoLogged();
+
 
   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(getModuleTranslations());
   private Rotation2d rawGyroRotation = new Rotation2d();
@@ -112,21 +115,22 @@ public class Drive extends SubsystemBase {
   private LoggedNetworkNumber matchTime;
   private LoggedNetworkNumber rotation;
 
+  //deleted visionIO from constructor at the moment
   public Drive(
       GyroIO gyroIO,
       ModuleIO flModuleIO,
       ModuleIO frModuleIO,
       ModuleIO blModuleIO,
-      ModuleIO brModuleIO,
-      VisionIO visionIO) {
+      ModuleIO brModuleIO) {
     this.gyroIO = gyroIO;
     modules[0] = new Module(flModuleIO, 0);
     modules[1] = new Module(frModuleIO, 1);
     modules[2] = new Module(blModuleIO, 2);
     modules[3] = new Module(brModuleIO, 3);
     SparkMaxOdometryThread.getInstance().start();
+  
 
-    this.visionIO = visionIO;
+
 
     try {
       config = RobotConfig.fromGUISettings();
@@ -258,12 +262,17 @@ public class Drive extends SubsystemBase {
           }
         });
 
+    
+
+
     // Match timer
     matchTime = new LoggedNetworkNumber("/SmartDashboard/Match Time");
 
     // Robot rotation
     rotation = new LoggedNetworkNumber("SmartDashboard/Robot Angle");
   }
+
+
 
   public void periodic() {
     deltaTime = Timer.getFPGATimestamp() - lastTime;
@@ -311,49 +320,50 @@ public class Drive extends SubsystemBase {
               Rotation2d.fromRadians(fieldVelocity.omegaRadiansPerSecond * deltaTime));
     }
 
-    Rotation2d dtheta = rawGyroRotation.minus(lastGyroRotation);
-    lastGyroRotation = rawGyroRotation;
 
     odometry.update(rawGyroRotation, modulePositions);
 
-    if (useVision) {
-      if (RobotBase.isSimulation()) {
+        //if (useVision) {
+      //if (RobotBase.isSimulation()) {
         // Use odometry as "actual robot position" in vision simulation
-        visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
-      } else {
+      //  visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
+     // } else {
         // Estimate current heading using the previous heading and the change in gyro angle
-        visionIO.updateInputs(visionInputs, getPose(), getRotation().rotateBy(dtheta));
-      }
-      Logger.processInputs("Vision", visionInputs);
-      if (visionInputs.hasEstimate) {
-        List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
+     //   visionIO.updateInputs(visionInputs, getPose(), getRotation().rotateBy(dtheta));
+     // }
+     // Logger.processInputs("Vision", visionInputs);
+     // if (visionInputs.hasEstimate) {
+     //   List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
 
-        for (int i = 0; i < visionInputs.positionEstimates.length; i++) {
-          Matrix<N3, N1> allStdDevs = stdDeviations.get(i);
-          Matrix<N3, N1> positionStdDevs =
-              VecBuilder.fill(allStdDevs.get(0, 0), allStdDevs.get(1, 0), Double.MAX_VALUE);
-          Matrix<N3, N1> rotationStdDevs =
-              VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, allStdDevs.get(2, 0));
+       // for (int i = 0; i < visionInputs.positionEstimates.length; i++) {
+         // Matrix<N3, N1> allStdDevs = stdDeviations.get(i);
+        //  Matrix<N3, N1> positionStdDevs =
+           //   VecBuilder.fill(allStdDevs.get(0, 0), allStdDevs.get(1, 0), Double.MAX_VALUE);
+        //  Matrix<N3, N1> rotationStdDevs =
+         //     VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, allStdDevs.get(2, 0));
 
-          if (visionInputs.positionEstimates[i].equals(new Pose2d()))
-            continue; // Camera i has no estimate
-          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i)
-            continue; // Avoids index out of bounds exceptions
-          else {
+        //  if (visionInputs.positionEstimates[i].equals(new Pose2d()))
+         //   continue; // Camera i has no estimate
+        //  else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i)
+         //   continue; // Avoids index out of bounds exceptions
+        //  else {
             // Position and rotation estimates are done separately by different algorithms
-            poseEstimator.addVisionMeasurement(
-                visionInputs.positionEstimates[i], visionInputs.timestampArray[i], positionStdDevs);
-            poseEstimator.addVisionMeasurement(
-                new Pose2d(0, 0, visionInputs.rotationEstimates[i]),
-                visionInputs.timestampArray[i],
-                rotationStdDevs);
-          }
-        }
-      }
+         //   poseEstimator.addVisionMeasurement(
+          //      visionInputs.positionEstimates[i], visionInputs.timestampArray[i], positionStdDevs);
+        //    poseEstimator.addVisionMeasurement(
+          //      new Pose2d(0, 0, visionInputs.rotationEstimates[i]),
+           //     visionInputs.timestampArray[i],
+           //     rotationStdDevs);
+         // }
+       // }
+      //}
 
-    }
 
-    poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
+
+
+
+    //poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
+    poseEstimator.update(rawGyroRotation, modulePositions); //LL updates poseEstimator
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
 
@@ -507,12 +517,38 @@ public class Drive extends SubsystemBase {
 
   /**
    * Adds a vision measurement to the pose estimator.
+   *   public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
+    poseEstimator.addVisionMeasurement(visionPose, timestamp);
+  }
    *
    * @param visionPose The pose of the robot as measured by the vision camera.
    * @param timestamp The timestamp of the vision measurement in seconds.
    */
-  public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
-    poseEstimator.addVisionMeasurement(visionPose, timestamp);
+
+
+  //public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
+    //poseEstimator.addVisionMeasurement(visionPose, timestamp);
+  //}
+
+  /* new version
+   * takes into account pose2d, timestamp of when pic was taken, and standard deviation
+   * lock odometry while adding vision measurement to prevent conflicts with periodic odometry updates
+   * try ensures odometry will unlock even if something goes wrong with the vision measurement addition, preventing deadlocks
+   */
+  public void addVisionMeasurement(
+    Pose2d visionRobotPoseMeters, 
+    double timestampSeconds, 
+    Matrix<N3, N1> visionMeasurementStdDevs) {
+  
+    odometryLock.lock();
+    try {
+      poseEstimator.addVisionMeasurement(
+          visionRobotPoseMeters, 
+          timestampSeconds, 
+          visionMeasurementStdDevs);
+    } finally {
+      odometryLock.unlock();
+    }
   }
 
   public Command lockWheels() {
@@ -630,4 +666,7 @@ public class Drive extends SubsystemBase {
       return new InstantCommand();
     }
   }
+  
+  
+
 }

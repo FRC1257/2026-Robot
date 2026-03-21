@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
   public static final String[] camNames = {
-    "Back_Camera", "RBack_Camera", "RFront_Camera"
+    "Front_Camera", "Back_Camera"
   };
   public static final int numCameras = camNames.length;
 
@@ -53,11 +53,11 @@ public class VisionConstants {
     new Transform3d(
         new Translation3d(
             Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
-        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(25.7192795-157.5))),
-    new Transform3d(
-        new Translation3d(
-            Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
-        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(25.7192795))),
+        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
+    //new Transform3d(
+      //  new Translation3d(
+         //   Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
+       // new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
   };
 
   // The layout of the AprilTags on the field
@@ -66,6 +66,10 @@ public class VisionConstants {
 
   public static final double AMBIGUITY_THRESHOLD = 0.2;
   public static final double MAX_DISTANCE = 4; // meters
+
+  //how to tune these numbers
+  public static final double linearStdDevBaseline = 0.02; // Meters
+  public static final double angularStdDevBaseline = 0.05; // Radians
 
   // The standard deviations of our vision estimated poses, which affect
   // correction rate

@@ -87,6 +87,7 @@ import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
+  private final Vision vision;
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
@@ -124,11 +125,11 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
-        new Vision(
-          drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
-          drive::getRotation,
-          hopperCam,
-          swerveCam);
+          this.vision = new Vision(
+            drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
+            drive::getRotation,
+            hopperCam,
+            swerveCam);
  
         hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
 
@@ -151,10 +152,10 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim());
         
-        new Vision(
-          drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
-          drive::getRotation,
-          simVision);
+          this.vision = new Vision(
+            drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
+            drive::getRotation,
+            simVision);
 
         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
@@ -175,10 +176,10 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {});
         
-        new Vision(
-          drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
-          drive::getRotation,
-          visionIO);
+          this.vision = new Vision(
+            drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
+            drive::getRotation,
+            visionIO);
 
         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});

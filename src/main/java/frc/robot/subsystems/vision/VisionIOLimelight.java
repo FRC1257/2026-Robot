@@ -57,6 +57,17 @@ public class VisionIOLimelight implements VisionIO {
         this.txSub = table.getDoubleTopic("tx").subscribe(0.0);
         this.tySub = table.getDoubleTopic("ty").subscribe(0.0);
         this.tvSub = table.getDoubleTopic("tv").subscribe(0.0);
+
+        // Diagnostic: record which keys the Limelight table currently exposes so we can validate NT layout
+        try {
+            Logger.recordOutput("Vision/Limelight/" + name + "/has_botpose_wpiblue", table.containsKey("botpose_wpiblue") ? 1 : 0);
+            Logger.recordOutput("Vision/Limelight/" + name + "/has_botpose_orb_wpiblue", table.containsKey("botpose_orb_wpiblue") ? 1 : 0);
+            Logger.recordOutput("Vision/Limelight/" + name + "/has_orientation", table.containsKey("orientation") ? 1 : 0);
+            Logger.recordOutput("Vision/Limelight/" + name + "/has_tx", table.containsKey("tx") ? 1 : 0);
+            Logger.recordOutput("Vision/Limelight/" + name + "/has_tv", table.containsKey("tv") ? 1 : 0);
+        } catch (Exception e) {
+            // best-effort logging
+        }
     }
 
     private double lastSeenTimestamp = 0.0;

@@ -539,7 +539,10 @@ public class Drive extends SubsystemBase {
     Pose2d visionRobotPoseMeters, 
     double timestampSeconds, 
     Matrix<N3, N1> visionMeasurementStdDevs) {
-  
+    // Lightweight diagnostics: record last vision pose and timestamp so we can verify calls in logs
+    Logger.recordOutput("Vision/LastMeasurementPose", visionRobotPoseMeters);
+    Logger.recordOutput("Vision/LastMeasurementTimestamp", timestampSeconds);
+
     odometryLock.lock();
     try {
       poseEstimator.addVisionMeasurement(

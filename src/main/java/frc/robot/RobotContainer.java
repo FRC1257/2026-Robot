@@ -112,8 +112,8 @@ public class RobotContainer {
       // Real robot, instantiate hardware IO implementations
       case REAL:
         //LL
-        VisionIOLimelight frontcam = new VisionIOLimelight(VisionConstants.camNames[0]);
-        VisionIOLimelight backcam = new VisionIOLimelight(VisionConstants.camNames[1]);
+        VisionIOLimelight hopperCam = new VisionIOLimelight(VisionConstants.camNames[0]);
+        VisionIOLimelight swerveCam = new VisionIOLimelight(VisionConstants.camNames[1]);
 
         //photonVision = new VisionIOPhoton();
     
@@ -127,8 +127,8 @@ public class RobotContainer {
         new Vision(
           drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
           drive::getRotation,
-          frontcam,
-          backcam);
+          hopperCam,
+          swerveCam);
  
         hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
 

@@ -140,5 +140,13 @@ public class Kicker extends SubsystemBase {
         return new Trigger(() -> Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
             < tolerance.get());
     }
+    
+    public Trigger isJammed() {
+        return new Trigger(
+            () -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_JAMMED_VELOCITY) && inputs.kickerCurrent.gte(KickerConstants.KICKER_JAMMED_CURRENT)
+        ).debounce(KickerConstants.KICKER_JAMMED_TIME, DebounceType.kRising);
+    }
+
+
 
 }

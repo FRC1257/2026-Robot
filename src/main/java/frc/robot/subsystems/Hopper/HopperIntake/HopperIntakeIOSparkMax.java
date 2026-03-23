@@ -22,16 +22,24 @@ import org.littletonrobotics.junction.Logger;
 
 public class HopperIntakeIOSparkMax implements HopperIntakeIO {
     private SparkFlex motor;
-    private RelativeEncoder encoder;
+    private SparkFlex followerMotor;
 
-    private SparkFlexConfig config = new SparkFlexConfig();
+    private RelativeEncoder encoder;
+    private RelativeEncoder followerEncoder;
 
     public HopperIntakeIOSparkMax() {
         motor = new SparkFlex(HopperIntakeConstants.HOPPER_INTAKE_MOTOR_ID, MotorType.kBrushless);
+        followerMotor = new SparkFlex(HopperIntakeConstants.HOPPER_INTAKE_FOLLOWER_MOTOR_ID, MotorType.kBrushless);
+
         encoder = motor.getEncoder();
+        followerEncoder = followerMotor.getEncoder();
+
+        SparkFlexConfig config = new SparkFlexConfig();
+        SparkFlexConfig followerConfig = new SparkFlexConfig();
+
 
         // Configure motor
-        config.idleMode(IdleMode.kBrake);
+        config.idleMode(IdleMode.kCoast);
         config.voltageCompensation(12);
         config.smartCurrentLimit(60);
         config.inverted(true);
@@ -39,9 +47,13 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
         config.encoder
             .positionConversionFactor(Math.PI * 2.0) // Convert encoder ticks to radians
             .velocityConversionFactor(Math.PI * 2.0 / 60.0); // Convert encoder ticks per second to radians per second
-
-        motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
         
+        followerConfig.apply(config);
+        followerConfig.follow(motor, true);
+        
+        motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
+        followerMotor.configure(followerConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
+
 
     }
 
@@ -52,18 +64,18 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
         inputs.intakeVelocity = RadiansPerSecond.of(encoder.getVelocity());
         inputs.intakeCurrent = Amps.of(motor.getOutputCurrent());
         inputs.intakeTemperature = Celsius.of(motor.getMotorTemperature());
+
+        inputs.intakeFollowerConnected = followerMotor.getLastError() == REVLibError.kOk;
+        inputs.intakeFollowerVoltage = Volts.of(followerMotor.getAppliedOutput() * followerMotor.getBusVoltage());
+        inputs.intakeFollowerVelocity = RadiansPerSecond.of(followerEncoder.getVelocity());
+        inputs.intakeFollowerCurrent = Amps.of(followerMotor.getOutputCurrent());
+        inputs.intakeFollowerTemperature = Celsius.of(followerMotor.getMotorTemperature());
     }
 
     @Override
     public void setVoltage(Voltage voltage) {
         motor.setVoltage(voltage);
         Logger.recordOutput("HopperIntake/Desired Voltage", voltage);
-    }
-
-    @Override
-    public void setBrake(boolean brake) {
-            config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
-            motor.configure(config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
     }
 
 }

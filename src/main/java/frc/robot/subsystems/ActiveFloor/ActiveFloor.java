@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.util.Units.UnitUtil;
 
 public class ActiveFloor extends SubsystemBase {
 
@@ -52,7 +53,7 @@ public class ActiveFloor extends SubsystemBase {
      */
 
     private Command runVoltage(Supplier<Voltage> voltage) {
-        return run(() -> io.setVoltage(voltage.get()));
+        return run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
     }
 
     /**

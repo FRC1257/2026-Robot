@@ -47,6 +47,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.NautilusMechanism3d;
 import frc.robot.Robot;
+import frc.robot.util.Units.UnitUtil;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 import static frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants.*;
@@ -127,8 +128,9 @@ public class HopperPivot extends SubsystemBase {
 
     public Command runAngleCommand(Supplier<Angle> angle) {
         return run(() -> {
-            goalAngle = angle.get();
-            goal = new TrapezoidProfile.State(angle.get().in(Radians),0);
+            Angle clamped = UnitUtil.clamp(angle.get(), HopperPivotConstants.STOW_ANGLE, HopperPivotConstants.INTAKE_ANGLE);
+            goalAngle = clamped;
+            goal = new TrapezoidProfile.State(clamped.in(Radians),0);
             setpoint = profile.calculate(LoggedRobot.defaultPeriodSecs, setpoint, goal);
 
             Logger.recordOutput("HopperPivot/setpoint", setpoint.position);
@@ -136,7 +138,8 @@ public class HopperPivot extends SubsystemBase {
 
             io.runAngle(setpoint.position, setpoint.velocity);
         }).beforeStarting(() -> {
-            goalAngle = angle.get();
+            Angle clamped = UnitUtil.clamp(angle.get(), HopperPivotConstants.STOW_ANGLE, HopperPivotConstants.INTAKE_ANGLE);
+            goalAngle = clamped;
             setpoint = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), inputs.leftpivotVelocity.in(RadiansPerSecond));
         });
     }
@@ -179,7 +182,7 @@ public class HopperPivot extends SubsystemBase {
 
     @AutoLogOutput(key = "Hopper/HopperPivot/atIntake")
     public Trigger atIntake(){
-        return new Trigger(() -> inputs.leftpivotAngle.isNear(INTAK_ANGLE, HOPPER_PIVOT_TOLERANCE));
+        return new Trigger(() -> inputs.leftpivotAngle.isNear(INTAKE_ANGLE, HOPPER_PIVOT_TOLERANCE));
     }
 
     @AutoLogOutput(key = "Hopper/HopperPivot/atStow")

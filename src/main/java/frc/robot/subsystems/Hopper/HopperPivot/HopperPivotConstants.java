@@ -20,7 +20,7 @@ public class HopperPivotConstants {
   public static final Angle HOPPER_PIVOT_PID_TOLERANCE = Radians.of(0.1);
 
   public static final Angle STOW_ANGLE = Radians.of(0.0);
-  public static final Angle INTAK_ANGLE = Radians.of(1.6);
+  public static final Angle INTAKE_ANGLE = Radians.of(1.6);
 
 
 

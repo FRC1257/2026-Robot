@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
+import frc.robot.util.Units.UnitUtil;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 import static edu.wpi.first.units.Units.Amps;
@@ -48,7 +49,7 @@ public class HopperIntake extends SubsystemBase {
       "HopperIntake",
       inputs.intakeCurrent.in(Amps)
     );
-    
+
   }
   
   /**
@@ -58,7 +59,7 @@ public class HopperIntake extends SubsystemBase {
    */
 
   public Command runVoltage(Supplier<Voltage> voltage) {
-    return this.run(() -> io.setVoltage(voltage.get()));
+    return this.run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
   }
 
   /**

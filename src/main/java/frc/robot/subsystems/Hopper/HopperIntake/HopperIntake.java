@@ -5,7 +5,6 @@ import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.Alert;
 import edu.wpi.first.wpilibj.Alert.AlertType;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -28,14 +27,19 @@ public class HopperIntake extends SubsystemBase {
 
   private final Debouncer connectedDebouncer = 
     new Debouncer(0.5, DebounceType.kFalling);
+  private final Debouncer followerConnectedDebouncer = 
+    new Debouncer(0.5, DebounceType.kFalling);
     
   private final Alert disconnected;
+  private final Alert followerDisconnected;
+
     
     
   public HopperIntake(HopperIntakeIO io) {
     this.io = io;
 
-    disconnected = new Alert("HOPPER INTAKE MOTOR DISCONNECTED", AlertType.kError);
+    disconnected = new Alert("HOPPER INTAKE LEADER MOTOR DISCONNECTED", AlertType.kError);
+    followerDisconnected = new Alert("HOPPER INTAKE FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
   }
     
   @Override
@@ -44,10 +48,13 @@ public class HopperIntake extends SubsystemBase {
     Logger.processInputs("HopperIntake", inputs);
 
     disconnected.set(!connectedDebouncer.calculate(inputs.intakeConnected));
+    followerDisconnected.set(!followerConnectedDebouncer.calculate(inputs.intakeFollowerConnected));
+
 
     Robot.batteryLogger.reportCurrentUsage(
       "HopperIntake",
-      inputs.intakeCurrent.in(Amps)
+      inputs.intakeCurrent.in(Amps),
+      inputs.intakeFollowerCurrent.in(Amps)
     );
 
   }

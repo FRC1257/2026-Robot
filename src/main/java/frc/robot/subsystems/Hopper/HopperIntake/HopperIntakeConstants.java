@@ -18,6 +18,8 @@ public class HopperIntakeConstants {
   }
 
   public static final int HOPPER_INTAKE_MOTOR_ID = 8;
+    public static final int HOPPER_INTAKE_FOLLOWER_MOTOR_ID = 14;
+
 
   public static final Voltage HOPPER_INTAKE_VOLTAGE = Volts.of(-3.5);
   public static final Voltage HOPPER_OUTTAKE_VOLTAGE = Volts.of(12.0);

@@ -22,13 +22,17 @@ public interface HopperIntakeIO {
       public Current intakeCurrent = Amps.of(0.0);
       public Temperature intakeTemperature = Celsius.of(0.0);
 
+      public boolean intakeFollowerConnected = false;
+      public Voltage intakeFollowerVoltage = Volts.of(0.0);
+      public AngularVelocity intakeFollowerVelocity = RadiansPerSecond.of(0.0);
+      public Current intakeFollowerCurrent = Amps.of(0.0);
+      public Temperature intakeFollowerTemperature = Celsius.of(0.0);
+
   }
 
   public default void updateInputs(HopperIntakeIOInputs inputs) {}
 
   public default void setVoltage(Voltage voltage) {}
-
-  public default void setBrake(boolean brake) {}
-
+  
   public default void stop() {}
 }

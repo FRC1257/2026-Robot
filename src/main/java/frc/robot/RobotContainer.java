@@ -9,6 +9,8 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
+import static frc.robot.subsystems.vision.VisionConstants.camera0Name;
+import static frc.robot.subsystems.vision.VisionConstants.camera1Name;
 import static frc.robot.util.drive.DriveControls.*;
 
 import java.io.Flushable;
@@ -112,9 +114,7 @@ public class RobotContainer {
     switch (Constants.currentMode) {
       // Real robot, instantiate hardware IO implementations
       case REAL:
-        //LL
-        VisionIOLimelight hopperCam = new VisionIOLimelight(VisionConstants.camNames[0]);
-        VisionIOLimelight swerveCam = new VisionIOLimelight(VisionConstants.camNames[1]);
+        
 
         //photonVision = new VisionIOPhoton();
     
@@ -125,11 +125,12 @@ public class RobotContainer {
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3));
-          this.vision = new Vision(
-            drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
-            drive::getRotation,
-            hopperCam,
-            swerveCam);
+
+        vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOLimelight(camera0Name, drive::getRotation),
+                new VisionIOLimelight(camera1Name, drive::getRotation));
  
         hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
 
@@ -143,7 +144,7 @@ public class RobotContainer {
 
       // Sim robot, instantiate physics sim IO implementations
       case SIM:
-        VisionIOSim simVision = new VisionIOSim();
+  VisionIOSim simVision = new VisionIOSim();
         drive =
             new Drive(
                 new GyroIO() {},
@@ -152,12 +153,10 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new ModuleIOSim());
         
-          this.vision = new Vision(
-            drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
-            drive::getRotation,
-            simVision);
+                
 
-        hopperIntake = new HopperIntake(new HopperIntakeIOSim());
+  vision = new Vision(drive::addVisionMeasurement, simVision);
+  hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
@@ -167,7 +166,7 @@ public class RobotContainer {
 
       // Replayed robot, disable IO implementations
       default:
-        VisionIO visionIO = new VisionIO() {};
+  VisionIO visionIO = new VisionIO() {};
         drive =
             new Drive(
                 new GyroIO() {},
@@ -176,12 +175,9 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {});
         
-          this.vision = new Vision(
-            drive::addVisionMeasurement, // method ref matches VisionConsumer(Pose2d,double,Matrix)
-            drive::getRotation,
-            visionIO);
 
-        hopperIntake = new HopperIntake(new HopperIntakeIO() {});
+  vision = new Vision(drive::addVisionMeasurement, visionIO);
+  hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});

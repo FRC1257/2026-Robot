@@ -37,9 +37,11 @@ public interface VisionIO {
   public static class VisionIOInputs {
     //INPUTS FOR LIMELIGHT
     public boolean connected = false;
+    public TargetObservation latestTargetObservation =
+        new TargetObservation(new Rotation2d(), new Rotation2d());
     public PoseObservation[] poseObservations = new PoseObservation[0];
-    public TargetObservation latestTarget = new TargetObservation(false, 0, 0);
-    public int[] tagIds = new int[0]; 
+    public int[] tagIds = new int[0];
+
 
     //INPUTS FOR PHOTONVISION
     public Pose2d[] positionEstimates = new Pose2d[0];
@@ -54,6 +56,8 @@ public interface VisionIO {
     public byte[] results;
   }
 
+  public static record TargetObservation(Rotation2d tx, Rotation2d ty) {}
+
 
 /*
  * timestamp when we saw the time
@@ -63,24 +67,27 @@ public interface VisionIO {
  * avgTagDist = average distance to the tags we can see (lower is better)
  * type = either MG 1 or 2
  */
-public static record PoseObservation(
-    double timestamp, 
-    Pose2d pose, 
-    int tagCount, 
-    double ambiguity, 
-    double avgTagDist, 
-    PoseObservationType type) {}
+  /** Represents a robot pose sample used for pose estimation. */
+  public static record PoseObservation(
+      double timestamp,
+      Pose3d pose,
+      double ambiguity,
+      int tagCount,
+      double averageTagDistance,
+      PoseObservationType type) {}
 
 
   
-  //for autoaim
-  public static record TargetObservation(boolean hasTarget, double tx, double ty) {}
 
-  public enum PoseObservationType { MEGATAG_1, MEGATAG_2 }
+  public static enum PoseObservationType {
+    MEGATAG_1,
+    MEGATAG_2,
+    PHOTONVISION
+  }
   
 
   //pass in rotation of the robot for megatag 2
-  public default void updateInputs(VisionIOInputs inputs, Rotation2d gyroHeading) {}
+  public default void updateInputs(VisionIOInputs inputs) {}
 
 
   //STUFF NEEDED FOR PHOTONVISION

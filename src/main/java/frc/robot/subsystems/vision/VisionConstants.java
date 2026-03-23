@@ -13,36 +13,8 @@ import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
   public static final String[] camNames = {
-    "limelight-hopper", "limelight-swerve"
+    "Back_Camera", "RBack_Camera", "RFront_Camera"
   };
-
-
-  //ADVANTAGEKIT LL ADDITIONS
-
-  public static String camera0Name = "limelight-hopper";
-  public static String camera1Name = "limelight-swerve";
-    // Basic filtering thresholds
-  public static double maxAmbiguity = 0.3;
-  public static double maxZError = 0.75;
-
-  public static AprilTagFieldLayout aprilTagLayout =
-    AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
-    // Standard deviation baselines, for 1 meter distance and 1 tag
-  // (Adjusted automatically based on distance and # of tags)
-  public static double linearStdDevBaseline = 0.02; // Meters
-  public static double angularStdDevBaseline = 0.06; // Radians
-
-  public static double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
-  public static double angularStdDevMegatag2Factor =
-      Double.POSITIVE_INFINITY; // No rotation data available
-
-  // Standard deviation multipliers for each camera
-  // (Adjust to trust some cameras more than others)
-  public static double[] cameraStdDevFactors =
-      new double[] {
-        1.0, // Camera 0
-        1.0 // Camera 1
-      };
   public static final int numCameras = camNames.length;
 
   // Cam mounted facing forward, half a meter forward of center, half a meter up
@@ -82,10 +54,10 @@ public class VisionConstants {
         new Translation3d(
             Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
         new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
-    //new Transform3d(
-      //  new Translation3d(
-         //   Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
-       // new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
+    new Transform3d(
+        new Translation3d(
+            Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
+        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
   };
 
   // The layout of the AprilTags on the field
@@ -94,8 +66,6 @@ public class VisionConstants {
 
   public static final double AMBIGUITY_THRESHOLD = 0.2;
   public static final double MAX_DISTANCE = 4; // meters
-
-
 
   // The standard deviations of our vision estimated poses, which affect
   // correction rate

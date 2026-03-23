@@ -1,10 +1,5 @@
 package frc.robot.subsystems.vision;
 
-import edu.wpi.first.cscore.VideoListener;
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Pose3d;
-import edu.wpi.first.math.geometry.Rotation2d;
-import org.littletonrobotics.junction.AutoLog;
 import static frc.robot.subsystems.vision.VisionConstants.kMultiTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
 import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
@@ -12,6 +7,8 @@ import static frc.robot.subsystems.vision.VisionConstants.numCameras;
 
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Pose3d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
@@ -23,27 +20,10 @@ import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 
-/*
- * automatically generation VisionIOInputsAutoLogged
- * allows every single field to be recorded for later
- * Connected = boolean to literally say if it's connected or not
- * Array of PoseObservations = contains all the pose observations from the limelight (timestamp, pose, tag count, ambiguity, avg tag distance, and type)
- * done this way cause we'll be taking into data from megatag 1 and 2; make sure we're getting both
- * number of tag ids we can see
- */
-
 public interface VisionIO {
- @AutoLog
+
+  @AutoLog
   public static class VisionIOInputs {
-    //INPUTS FOR LIMELIGHT
-    public boolean connected = false;
-    public TargetObservation latestTargetObservation =
-        new TargetObservation(new Rotation2d(), new Rotation2d());
-    public PoseObservation[] poseObservations = new PoseObservation[0];
-    public int[] tagIds = new int[0];
-
-
-    //INPUTS FOR PHOTONVISION
     public Pose2d[] positionEstimates = new Pose2d[0];
     public Rotation2d[] rotationEstimates = new Rotation2d[0];
     public double timestamp = 0;
@@ -56,43 +36,7 @@ public interface VisionIO {
     public byte[] results;
   }
 
-  public static record TargetObservation(Rotation2d tx, Rotation2d ty) {}
-
-
-/*
- * timestamp when we saw the time
- * Pose2d (x, y, rotation)
- * tagCount = number of tags
- * ambiguity = how much noise is in the data (0 is perfect, higher is worse)
- * avgTagDist = average distance to the tags we can see (lower is better)
- * type = either MG 1 or 2
- */
-  /** Represents a robot pose sample used for pose estimation. */
-  public static record PoseObservation(
-      double timestamp,
-      Pose3d pose,
-      double ambiguity,
-      int tagCount,
-      double averageTagDistance,
-      PoseObservationType type) {}
-
-
-  
-
-  public static enum PoseObservationType {
-    MEGATAG_1,
-    MEGATAG_2,
-    PHOTONVISION
-  }
-  
-
-  //pass in rotation of the robot for megatag 2
-  public default void updateInputs(VisionIOInputs inputs) {}
-
-
-  //STUFF NEEDED FOR PHOTONVISION
-
-    /** Updates the set of loggable inputs. */
+  /** Updates the set of loggable inputs. */
   // for real life
   public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Rotation2d heading) {}
 
@@ -287,5 +231,4 @@ public interface VisionIO {
     }
     return false;
   }
-
 }

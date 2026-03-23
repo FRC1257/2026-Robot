@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -87,12 +88,14 @@ public class FlywheelIOSparkMax implements FlywheelIO {
 
     @Override
     public void updateInputs(FlywheelIOInputs inputs) {
+        inputs.flywheelLeaderConnected = motor.getLastError() == REVLibError.kOk;
         inputs.flywheelLeaderAngle = Radians.of(encoder.getPosition());
         inputs.flywheelLeaderAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
         inputs.flywheelLeaderVoltage = Volts.of(motor.getAppliedOutput()*motor.getBusVoltage());
         inputs.flywheelLeaderCurrent = Amps.of(motor.getOutputCurrent());
         inputs.flywheelLeaderTemperature = Celsius.of(motor.getMotorTemperature());
-                
+        
+        inputs.flywheelFollowerConnected = followerMotor.getLastError() == REVLibError.kOk;
         inputs.flywheelFollowerAngle = Radians.of(followerEncoder.getPosition());
         inputs.flywheelFollowerAngularVelocity = RadiansPerSecond.of(followerEncoder.getVelocity());
         inputs.flywheelFollowerVoltage = Volts.of(followerMotor.getAppliedOutput()*followerMotor.getBusVoltage());

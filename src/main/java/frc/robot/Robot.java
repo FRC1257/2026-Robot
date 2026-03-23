@@ -8,6 +8,7 @@ import com.pathplanner.lib.commands.FollowPathCommand;
 import edu.wpi.first.hal.AllianceStationID;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.simulation.DriverStationSim;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -135,6 +136,10 @@ public class Robot extends LoggedRobot {
     batteryLogger.periodicAfterScheduler();
 
     NautilusMechanism3d.getMeasured().log("Mechanism3d");
+  }
+
+  public static boolean showHardwareAlerts() {
+    return Constants.getRobotMode() != frc.robot.Constants.Mode.SIM && Timer.getTimestamp() > 30.0;
   }
 
   /** This function is called once when the robot is disabled. */

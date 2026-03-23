@@ -9,6 +9,7 @@ import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
 
 import java.util.function.Supplier;
 
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -46,6 +47,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
 
     @Override
     public void updateInputs(HopperIntakeIOInputs inputs) {
+        inputs.intakeConnected = motor.getLastError() == REVLibError.kOk;
         inputs.intakeVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
         inputs.intakeVelocity = RadiansPerSecond.of(encoder.getVelocity());
         inputs.intakeCurrent = Amps.of(motor.getOutputCurrent());

@@ -16,11 +16,13 @@ public interface HopperPivotIO {
 
   @AutoLog
   public static class HopperPivotIOInputs {
+    boolean leftpivotConnected = false;
     Voltage leftpivotVoltage = Volts.of(0.0);
     Angle leftpivotAngle = Radians.of(0.0);
     AngularVelocity leftpivotVelocity = RadiansPerSecond.of(0.0); 
     Current leftpivotCurrent = Amps.of(0.0);
 
+    boolean rightpivotConnected = false;
     Voltage rightpivotVoltage = Volts.of(0.0);
     Angle rightpivotAngle = Radians.of(0.0);
     AngularVelocity rightpivotVelocity = RadiansPerSecond.of(0.0); 
@@ -36,8 +38,6 @@ public interface HopperPivotIO {
   default void setPID(double kp, double ki, double kd) {}
 
   default void setFF(double ks, double kv, double kg) {}
-
-  default void setBreakMode(boolean enabled) {}
 
   default void stop() {}
 

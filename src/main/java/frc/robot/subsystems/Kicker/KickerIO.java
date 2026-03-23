@@ -16,6 +16,7 @@ public interface KickerIO {
   
     @AutoLog
     public static class KickerIOInputs {
+        public boolean kickerConnected = false;
         public Voltage kickerVoltage = Volts.of(0.0);
         public AngularVelocity kickerAngularVelocity = RadiansPerSecond.of(0.0);
         public Angle kickerAngle = Radians.of(0.0);

@@ -22,6 +22,8 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
@@ -32,6 +34,8 @@ import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -69,8 +73,20 @@ public class HopperPivot extends SubsystemBase {
 
     private Angle goalAngle = Radians.of(0.0);
 
+    private final Debouncer leaderConnectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    private final Debouncer followerConnectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    
+    private final Alert disconnected;
+    private final Alert followerDisconnected;
+
     public HopperPivot(HopperPivotIO io) {
         this.io = io; 
+
+        disconnected = new Alert("HOPPER PIVOT LEADER MOTOR DISCONNECTED", AlertType.kError);
+        followerDisconnected = new Alert("HOPPER PIVOT FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
+
         this.profile = new TrapezoidProfile(
             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
     }
@@ -98,6 +114,9 @@ public class HopperPivot extends SubsystemBase {
 
         NautilusMechanism3d.getMeasured().setIntakeAngle(new Rotation2d(inputs.leftpivotAngle));
 
+        disconnected.set(!leaderConnectedDebouncer.calculate(inputs.leftpivotConnected));
+        followerDisconnected.set(!followerConnectedDebouncer.calculate(inputs.rightpivotConnected));
+
         Robot.batteryLogger.reportCurrentUsage(
             "HopperPivot",
             inputs.leftpivotCurrent.in(Amps),
@@ -119,7 +138,7 @@ public class HopperPivot extends SubsystemBase {
         }).beforeStarting(() -> {
             goalAngle = angle.get();
             setpoint = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), inputs.leftpivotVelocity.in(RadiansPerSecond));
-        })/*.until(isAtGoal())*/;
+        });
     }
 
     /**

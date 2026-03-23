@@ -16,6 +16,7 @@ public interface HopperIntakeIO {
 
     @AutoLog
     public static class HopperIntakeIOInputs {
+      public boolean intakeConnected = false;
       public Voltage intakeVoltage = Volts.of(0.0);
       public AngularVelocity intakeVelocity = RadiansPerSecond.of(0.0);
       public Current intakeCurrent = Amps.of(0.0);

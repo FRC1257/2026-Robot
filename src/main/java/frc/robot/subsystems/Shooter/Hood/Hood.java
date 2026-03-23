@@ -15,6 +15,8 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
@@ -24,6 +26,8 @@ import edu.wpi.first.units.measure.MutAngle;
 import edu.wpi.first.units.measure.MutAngularVelocity;
 import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -59,6 +63,11 @@ public class Hood extends SubsystemBase {
     private final HoodIO io; 
     private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
 
+    private final Debouncer connectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+
+    private final Alert disconnected;
+
     private TrapezoidProfile profile;
     private TrapezoidProfile.State goal = new TrapezoidProfile.State();
     private TrapezoidProfile.State setpoint = null;
@@ -74,6 +83,8 @@ public class Hood extends SubsystemBase {
 
     public Hood(HoodIO io) {
         this.io = io; 
+
+        disconnected = new Alert("HOOD MOTOR DISCONNECTED", AlertType.kError);
 
         this.profile = new TrapezoidProfile(
             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
@@ -98,6 +109,8 @@ public class Hood extends SubsystemBase {
         }
 
         NautilusMechanism3d.getMeasured().setHoodAngle(new Rotation2d(getMeasuredAngle()));
+
+        disconnected.set(!connectedDebouncer.calculate(inputs.hoodConnected));
 
         Robot.batteryLogger.reportCurrentUsage(
             "Hood",

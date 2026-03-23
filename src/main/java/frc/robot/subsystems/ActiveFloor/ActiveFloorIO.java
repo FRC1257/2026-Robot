@@ -16,6 +16,7 @@ public interface ActiveFloorIO {
 
     @AutoLog
     public static class ActiveFloorIOInputs {
+        public boolean activeFloorConnected = false;
         public Voltage activeFloorVoltage = Volts.of(0.0);
         public AngularVelocity activeFloorAngularVelocity = RadiansPerSecond.of(0.0);
         public Current activeFloorCurrent = Amps.of(0.0);

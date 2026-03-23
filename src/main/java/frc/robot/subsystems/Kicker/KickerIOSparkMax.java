@@ -7,6 +7,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.REVLibError;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.SparkBase.ControlType;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -49,6 +50,7 @@ public class KickerIOSparkMax implements KickerIO {
 
     @Override
     public void updateInputs(KickerIOInputs inputs) {
+        inputs.kickerConnected = kickerMotor.getLastError() == REVLibError.kOk;
         inputs.kickerVoltage = Volts.of(kickerMotor.getAppliedOutput() * 12.0);
         inputs.kickerAngularVelocity = RadiansPerSecond.of(kickerMotor.getEncoder().getVelocity());
         inputs.kickerAngle = Radians.of(kickerMotor.getEncoder().getPosition());

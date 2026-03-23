@@ -254,45 +254,30 @@ public class RobotContainer {
 
     driver.b().whileTrue(drive.lockWheels());
 
-    //FieldConstants.Zones.composedTrench.contains(
-      //() -> drive.getPose().getTranslation())
-        //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
-
-    // driver
-    //   .rightBumper().whileTrue(
-    //     hood.runTargetedCommand()
-    //       .alongWith(flywheel.runTargetedCommand())
-    //         .alongWith(
-    //           Commands.waitUntil(hood::isAtGoal)
-    //           .andThen(kicker.runIntake()
-    //             .alongWith(activeFloor.runActiveFloor())))
-    //   );
-
-
-    // driver
-    //  .leftBumper().whileTrue(
-    //    flywheel.runHub().alongWith(hood.runHubAngle())
-    //    .alongWith(
-    //      kicker.runIntake())
-    //      .alongWith(activeFloor.runActiveFloor())
-    //      );
-
-  // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
-
   driver
     .rightBumper().whileTrue(
       flywheel.runTargetedCommand(drive::getPose)
       .alongWith(hood.runTargetedCommand(drive::getPose))
       .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
       .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+        .withTimeout(0.5)
         .andThen(kicker.runIntake()
         .alongWith(activeFloor.runActiveFloor())
         .alongWith(hopperPivot.runAgitate())
         .alongWith(hopperIntake.runIntake())))
     );
 
-  driver.leftBumper().and(hopperPivot.atIntake()).whileTrue(DriveCommands.alignToTrench(drive));
-  driver.leftBumper().and(hopperPivot.atIntake().negate()).whileTrue(hopperPivot.runIntakeAngle().andThen(DriveCommands.alignToTrench(drive)));
+  driver
+    .leftBumper().whileTrue(
+      flywheel.runHubVelocity()
+      .alongWith(hood.runHubAngle())
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+        .withTimeout(0.5)
+        .andThen(kicker.runIntake()
+        .alongWith(activeFloor.runActiveFloor())
+        .alongWith(hopperPivot.runAgitate())
+        .alongWith(hopperIntake.runIntake())))
+    );
   
   // driver
   //   .rightBumper().whileTrue(
@@ -318,7 +303,6 @@ public class RobotContainer {
   
 
    operator.rightBumper().whileTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-5)));
-   operator.leftBumper().whileTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(320)));
   }
 
 

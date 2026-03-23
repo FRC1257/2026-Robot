@@ -1,6 +1,7 @@
 package frc.robot.subsystems.Shooter.Hood;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.PersistMode;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -59,6 +60,7 @@ public class HoodIOSparkMax implements HoodIO {
 
     @Override
     public void updateInputs(HoodIOInputs inputs) {
+        inputs.hoodConnected = motor.getLastError() == REVLibError.kOk;
         inputs.hoodAngle = Radians.of(encoderRelative.getPosition());
         inputs.hoodVelocity = RadiansPerSecond.of(encoderRelative.getVelocity());
         inputs.hoodVolts = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage()); 

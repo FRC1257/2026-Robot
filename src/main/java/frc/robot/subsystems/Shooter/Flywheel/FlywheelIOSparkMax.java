@@ -65,7 +65,9 @@ public class FlywheelIOSparkMax implements FlywheelIO {
             .positionConversionFactor(Math.PI*2*32/34)
             .velocityConversionFactor(((Math.PI*2)*32/34) / 60)
             .uvwMeasurementPeriod(10)
-            .uvwAverageDepth(2);
+            .uvwAverageDepth(2)
+            .quadratureAverageDepth(8)
+            .quadratureMeasurementPeriod(25);
 
         flywheelConfig
             .closedLoop

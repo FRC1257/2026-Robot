@@ -2,6 +2,7 @@ package frc.robot.subsystems.Shooter.Flywheel;
 
 import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
 
 import java.util.function.Supplier;
 
@@ -15,6 +16,7 @@ import edu.wpi.first.units.measure.AngularVelocity;
 
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -170,6 +172,16 @@ public class Flywheel extends SubsystemBase {
     public Command stopCommand() {
         return runOnce(this::stop)
             .withName("/Flywheel/StopCommand");
+    }
+
+    public Command runVoltageRamp() {
+        Timer timer = new Timer();
+
+        return runVoltageCommand(() -> {
+            double time = timer.get();
+            double percent = Math.min(time/3.0, 1.0);
+            return Volts.of(12.0*percent);
+        }).beforeStarting(timer::restart);
     }
 
     @AutoLogOutput(key="Shooter/Flywheel/isAtGoal")

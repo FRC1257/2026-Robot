@@ -245,7 +245,7 @@ public class RobotContainer {
 
    // driver.b().whileTrue(drive.lockWheels());
    driver.b().whileTrue(DriveCommands.alignToTrench(drive));
-   driver.getDPad(DPad.UP).onTrue(drive.lockWheels());
+   driver.getDPad(DPad.UP).whileTrue(drive.lockWheels());
 
 
   driver

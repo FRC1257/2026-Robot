@@ -252,14 +252,18 @@ public class RobotContainer {
     .rightBumper().whileTrue(
       flywheel.runTargetedCommand(drive::getPose)
       .alongWith(hood.runTargetedCommand(drive::getPose))
-      .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+      .alongWith(
+        Commands.either(
+          DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE),
+          drive.lockWheels(), 
+          () -> Math.abs(DRIVE_FORWARD.getAsDouble())> 0.1 || Math.abs(DRIVE_STRAFE.getAsDouble()) > 0.1)
       .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
         .withTimeout(0.5)
         .andThen(kicker.runIntake()
         .alongWith(activeFloor.runActiveFloor())
         .alongWith(hopperPivot.runAgitate())
         .alongWith(hopperIntake.runIntake())))
-    );
+    ));
 
   driver
     .leftBumper().whileTrue(

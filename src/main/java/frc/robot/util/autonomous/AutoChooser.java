@@ -26,6 +26,9 @@ public class AutoChooser {
         DEPOT,
         RIGHT_TRENCH,
         RIGHT_HUMAN_STATION,
+        RIGHT_NEUTRAL_SHOOT_HUMAN_STATION,
+        RIGHT_NEUTRAL_HUMAN_STATION,
+        RIGHT_NEUTRAL_SWEEP
     }
 
     private LoggedDashboardChooser<StartPositions> startChooser;
@@ -52,6 +55,9 @@ public class AutoChooser {
         startChooser.addOption("LEFT_TRENCH", StartPositions.LEFT_TRENCH);
         startChooser.addOption("RIGHT_TRENCH", StartPositions.RIGHT_TRENCH);
         startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_HUMAN_STATION);
+        startChooser.addOption("RIGHT_NEUTRAL_SHOOT_HUMAN_STATION", StartPositions.RIGHT_NEUTRAL_SHOOT_HUMAN_STATION);
+        startChooser.addOption("RIGHT_NEUTRAL_HUMAN_STATION", StartPositions.RIGHT_NEUTRAL_HUMAN_STATION);
+        startChooser.addOption("RIGHT_NEUTRAL_SWEEP", StartPositions.RIGHT_NEUTRAL_SWEEP);
 
     }
 
@@ -85,6 +91,31 @@ public class AutoChooser {
                             .andThen(Commands.waitSeconds(2.5))
                             .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
                             .andThen(targetedScore());
+            case RIGHT_NEUTRAL_SHOOT_HUMAN_STATION:
+                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_START").raceWith(hopperIntake.runIntake()))
+                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_END"))
+                            .andThen(targetedScore().withTimeout(4.0))
+                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_END_HUMAN_STATION"))
+                            .andThen(Commands.waitSeconds(2.5))
+                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
+                            .andThen(targetedScore());
+            case RIGHT_NEUTRAL_SWEEP:
+                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+                            .andThen(drive.followPathFileCommand("RIGHT_NEUTRAL_SWEEP").raceWith(hopperIntake.runIntake()))
+                            .andThen(targetedScore());
+
+            case RIGHT_NEUTRAL_HUMAN_STATION:
+                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_START").raceWith(hopperIntake.runIntake()))
+                            .andThen(drive.followPathFileCommand("RIGHT_NEUTRAL_HP"))
+                            .andThen(Commands.waitSeconds(2.5))
+                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
+                            .andThen(targetedScore());
+
             default:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))
                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))

@@ -243,7 +243,10 @@ public class RobotContainer {
     .whileTrue(hopperPivot.runAgitate())
     .onFalse(hopperPivot.runIntakeAngle());
 
-    driver.b().whileTrue(drive.lockWheels());
+   // driver.b().whileTrue(drive.lockWheels());
+   driver.b().whileTrue(DriveCommands.alignToTrench(drive));
+   driver.getDPad(DPad.UP).onTrue(drive.lockWheels());
+
 
   driver
     .rightBumper().whileTrue(

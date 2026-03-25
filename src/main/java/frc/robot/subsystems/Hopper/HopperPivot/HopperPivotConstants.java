@@ -30,7 +30,7 @@ public class HopperPivotConstants {
   public static final double HOPPER_PIVOT_MAX_ACCELERATION = 8;
 
 
-  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 3);
+  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 5);
 
 public static final int HOPPER_PIVOT_LEFT_ID = 5;
 

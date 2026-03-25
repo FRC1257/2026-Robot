@@ -67,7 +67,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
             .uvwMeasurementPeriod(10)
             .uvwAverageDepth(2)
             .quadratureAverageDepth(8)
-            .quadratureMeasurementPeriod(25);
+            .quadratureMeasurementPeriod(24);
 
         flywheelConfig
             .closedLoop

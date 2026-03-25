@@ -74,6 +74,7 @@ public class ShooterTrajectoryCalculator {
         hoodAngleMap.put(Meters.of(3.48 + 0.5969 + 0.3429), Radians.of(0.065));
         hoodAngleMap.put(Meters.of(3.92 + 0.5969 + 0.3429), Radians.of(0.15));
         hoodAngleMap.put(Meters.of(4.35 + 0.5969 + 0.3429), Radians.of(0.158));
+        hoodAngleMap.put(Meters.of(5.00 + 0.5969 + 0.3429), Radians.of(0.185));
 
         flywheelSpeedMap.put(Meters.of(0.96 + 0.5969 + 0.3429), RadiansPerSecond.of(300));
         flywheelSpeedMap.put(Meters.of(1.16 + 0.5969 + 0.3429), RadiansPerSecond.of(300));
@@ -86,6 +87,7 @@ public class ShooterTrajectoryCalculator {
         flywheelSpeedMap.put(Meters.of(3.48 + 0.5969 + 0.3429), RadiansPerSecond.of(362));
         flywheelSpeedMap.put(Meters.of(3.92 + 0.5969 + 0.3429), RadiansPerSecond.of(370));
         flywheelSpeedMap.put(Meters.of(4.35 + 0.5969 + 0.3429), RadiansPerSecond.of(390));
+        flywheelSpeedMap.put(Meters.of(5.00 + 0.5969 + 0.3429), RadiansPerSecond.of(405));
         
         timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));
         timeOfFlightMap.put(Meters.of(0.0), Seconds.of(0.0));

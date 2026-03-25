@@ -63,14 +63,6 @@ public class Robot extends LoggedRobot {
         break;
     }
 
-    for (int port = 5800; port <= 5807; port++) {
-      PortForwarder.add(port, "172.29.0.1", port);
-    }
-
-    for (int port = 5811; port <= 5818; port++) {
-      PortForwarder.add(port, "172.29.1.1", port - 10); 
-    }
-
     // Set up data receivers & replay source
     switch (Constants.currentMode) {
         // Running on a real robot, log to a USB stick

@@ -21,6 +21,7 @@ public class HopperPivotConstants {
 
   public static final Angle STOW_ANGLE = Radians.of(0.0);
   public static final Angle INTAKE_ANGLE = Radians.of(1.6);
+  public static final Angle TRENCH_ANGLE = Radians.of(1.0);
 
 
 

@@ -53,11 +53,11 @@
       },
       "prevControl": {
         "x": 2.3462057592654157,
-        "y": 1.9655727773190994
+        "y": 1.9655727773190992
       },
       "nextControl": null,
-      "isLocked": false,
-      "linkedName": null
+      "isLocked": true,
+      "linkedName": "RIGHT_TRENCH_SCORE"
     }
   ],
   "rotationTargets": [

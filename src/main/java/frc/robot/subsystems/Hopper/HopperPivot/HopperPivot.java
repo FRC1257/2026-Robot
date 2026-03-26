@@ -169,7 +169,6 @@ public class HopperPivot extends SubsystemBase {
             .andThen(runAngleCommand(() -> Radians.of(1.0)).withTimeout(0.4)).repeatedly();
     }
 
-
     /**
      * Creates a Trigger that is active when the hopper pivot is at the goal angle within the tolerance specified in {@link HopperPivotConstants}.
      * @return a Trigger that is active when the hopper pivot is at the goal angle within the specified tolerance
@@ -190,6 +189,9 @@ public class HopperPivot extends SubsystemBase {
         return new Trigger(() -> inputs.leftpivotAngle.isNear(STOW_ANGLE, HOPPER_PIVOT_TOLERANCE));
     }
 
-
+    @AutoLogOutput(key = "Hopper/HopperPivot/atTrench")
+    public Trigger atTrench() {
+        return new Trigger(() -> inputs.leftpivotAngle.gte(TRENCH_ANGLE));
+    }
 
 }

@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Robot;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
+import frc.robot.util.misc.LoggedTunableMeasure;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 
@@ -36,6 +37,7 @@ public class Flywheel extends SubsystemBase {
     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Flywheel/Kv", FlywheelConstants.FLYWHEEL_KV);
 
     private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 280);
+    private static final LoggedTunableNumber idleVelocityRads = new LoggedTunableNumber("Flywheel/idleVelocityRads", 250);
 
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
@@ -174,14 +176,13 @@ public class Flywheel extends SubsystemBase {
             .withName("/Flywheel/StopCommand");
     }
 
-    public Command runVoltageRamp() {
-        Timer timer = new Timer();
+    /**
+     * Runs the flywheel at an idle velocity to decrease the spin up time during autonomous
+     * @return a command that runs the flywheel at the velocity specified by {@link #idleVelocityRads}
+     */
 
-        return runVoltageCommand(() -> {
-            double time = timer.get();
-            double percent = Math.min(time/3.0, 1.0);
-            return Volts.of(12.0*percent);
-        }).beforeStarting(timer::restart);
+    public Command runIdle() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(idleVelocityRads.get()));
     }
 
     @AutoLogOutput(key="Shooter/Flywheel/isAtGoal")

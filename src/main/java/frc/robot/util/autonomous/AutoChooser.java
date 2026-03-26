@@ -68,9 +68,9 @@ public class AutoChooser {
                             .andThen(targetedScore());
             case RIGHT_TRENCH:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
                             .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("RNZ_RS"))
+                            .andThen(drive.followPathFileCommand("RNZ_RS").alongWith(flywheel.runIdle()))
                             .andThen(targetedScore());
             case DEPOT:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.DEPOT_START_POSITION)))

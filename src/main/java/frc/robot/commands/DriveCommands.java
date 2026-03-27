@@ -41,6 +41,7 @@ import frc.robot.subsystems.drive.DriveConstants;
 import frc.robot.util.drive.AllianceFlipUtil;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.DoubleSupplier;
@@ -296,17 +297,22 @@ public class DriveCommands {
     return new AlignToPose(
       drive,
       () -> {
-        Pose2d robotPose = drive.getPose();
-        Pose2d nearestTrenchPose = robotPose.nearest(
-          List.of(FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(12).get().toPose2d(),
+        List<Pose2d> trenchPoses = List.of(
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(12).get().toPose2d(),
           FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(1).get().toPose2d(),
           FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(7).get().toPose2d(),
           FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(6).get().toPose2d(),
           FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(17).get().toPose2d(),
           FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(28).get().toPose2d(),
           FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(22).get().toPose2d(),
-          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(23).get().toPose2d()));
-        return nearestTrenchPose;
+          FieldConstants.AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(23).get().toPose2d());
+        
+        List<Pose2d> allPoses = new ArrayList<>(trenchPoses);
+        for(Pose2d pose: trenchPoses) {
+          allPoses.add(new Pose2d(pose.getTranslation(), pose.getRotation().rotateBy(Rotation2d.fromDegrees(180))));
+        }
+        
+        return drive.getPose().nearest(allPoses);
       }, false);
 
   }

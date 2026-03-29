@@ -253,13 +253,13 @@ public class RobotContainer {
       flywheel.runTargetedCommand(drive::getPose)
       .alongWith(hood.runTargetedCommand(drive::getPose))
       .alongWith(
-        DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE).withTimeout(0.5)
+        DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE).until(drive::isHubAligned)
         .andThen(
           Commands.either(
             DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE),
             drive.lockWheels(), 
-            () -> Math.abs(DRIVE_FORWARD.getAsDouble())> 0.08 || Math.abs(DRIVE_STRAFE.getAsDouble()) > 0.08))
-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+            () -> Math.abs(DRIVE_FORWARD.getAsDouble())> 0.08 || Math.abs(DRIVE_STRAFE.getAsDouble()) > 0.08 || !drive.isHubAligned()))
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()).and(drive::isHubAligned))
         .withTimeout(0.5)
         .andThen(kicker.runIntake()
         .alongWith(activeFloor.runActiveFloor())

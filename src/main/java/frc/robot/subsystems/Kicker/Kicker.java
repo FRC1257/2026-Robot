@@ -1,26 +1,23 @@
 package frc.robot.subsystems.Kicker;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
-import static edu.wpi.first.units.Units.Second;
-import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.MutAngularVelocity;
-import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-import frc.robot.subsystems.Shooter.Flywheel.FlywheelConstants;
+import frc.robot.Robot;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 public class Kicker extends SubsystemBase {
@@ -37,27 +34,21 @@ public class Kicker extends SubsystemBase {
     private static final LoggedTunableNumber kickerIntakeVelocity = new LoggedTunableNumber("Kicker/IntakeVelocity", KickerConstants.KICKER_INTAKE_VELOCITY.magnitude()); 
     private static final LoggedTunableNumber kickerOuttakeVelocity = new LoggedTunableNumber("Kicker/OuttakeVelocity", KickerConstants.KICKER_OUTTAKE_VELOCITY.magnitude());
 
-
-    private SysIdRoutine sysId; 
-
     private final KickerIO io;
     private KickerIOInputsAutoLogged inputs = new KickerIOInputsAutoLogged();
+
+    private final Debouncer connectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    
+    private final Alert disconnected;
 
     private double goalVelocity = 0.0;
 
     public Kicker(KickerIO io) {
         this.io = io;
 
-        sysId = new SysIdRoutine(
-            new SysIdRoutine.Config(
-                null,
-                null,
-                null,
-                (state) -> Logger.recordOutput("Kicker/SysIdTestState", state.toString())),
-            new SysIdRoutine.Mechanism(
-                (volage) -> io.setVoltage(volage),
-                null,
-                this));
+        disconnected = new Alert("KICKER MOTOR DISCONNECTED", AlertType.kError);
+
     }
 
     @Override
@@ -72,6 +63,13 @@ public class Kicker extends SubsystemBase {
         if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
             io.setFF(Ks.get(), Kv.get());
         }
+
+        disconnected.set(!connectedDebouncer.calculate(inputs.kickerConnected));
+
+        Robot.batteryLogger.reportCurrentUsage(
+            "Kicker",
+            inputs.kickerCurrent.in(Amps)
+        );
     }
 
     /**
@@ -142,26 +140,13 @@ public class Kicker extends SubsystemBase {
         return new Trigger(() -> Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
             < tolerance.get());
     }
-
-        public Command quasistaticForward(){
-        return sysId.quasistatic(Direction.kForward)
-            .until(() -> inputs.kickerAngularVelocity.gte(KickerConstants.KICKER_MAX_VELOCITY));
+    
+    public Trigger isJammed() {
+        return new Trigger(
+            () -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_JAMMED_VELOCITY) && inputs.kickerCurrent.gte(KickerConstants.KICKER_JAMMED_CURRENT)
+        ).debounce(KickerConstants.KICKER_JAMMED_TIME, DebounceType.kRising);
     }
 
-    public Command quasistaticReverse(){
-        return sysId.quasistatic(Direction.kReverse)
-            .until(() -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_MAX_VELOCITY.unaryMinus()));
-        
-    }
 
-    public Command dynamicForward(){
-        return sysId.dynamic(Direction.kForward)
-            .until(() -> inputs.kickerAngularVelocity.gte(KickerConstants.KICKER_MAX_VELOCITY));
-    }
-
-    public Command dynamicReverse(){
-        return sysId.dynamic(Direction.kReverse)
-            .until(() -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_MAX_VELOCITY.unaryMinus()));
-    }
 
 }

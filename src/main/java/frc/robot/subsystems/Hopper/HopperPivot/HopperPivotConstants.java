@@ -20,7 +20,8 @@ public class HopperPivotConstants {
   public static final Angle HOPPER_PIVOT_PID_TOLERANCE = Radians.of(0.1);
 
   public static final Angle STOW_ANGLE = Radians.of(0.0);
-  public static final Angle INTAK_ANGLE = Radians.of(1.6);
+  public static final Angle INTAKE_ANGLE = Radians.of(1.6);
+  public static final Angle TRENCH_ANGLE = Radians.of(1.0);
 
 
 
@@ -30,7 +31,7 @@ public class HopperPivotConstants {
   public static final double HOPPER_PIVOT_MAX_ACCELERATION = 8;
 
 
-  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 3);
+  public static final TrapezoidProfile.Constraints HOPPER_CONSTRAINTS = new Constraints(8, 5);
 
 public static final int HOPPER_PIVOT_LEFT_ID = 5;
 

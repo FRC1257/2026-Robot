@@ -18,11 +18,19 @@ public interface FlywheelIO {
 
     @AutoLog
     public static class FlywheelIOInputs {
-        public Angle flywheelAngle = Radians.of(0.0);
-        public AngularVelocity flywheelAngularVelocity = RadiansPerSecond.of(0.0);
-        public Voltage flywheelVoltage = Volts.of(0.0);
-        public Current flywheelCurrent = Amps.of(0.0);
-        public Temperature flywheelTemperature = Celsius.of(0.0);
+        public boolean flywheelLeaderConnected = false; 
+        public Angle flywheelLeaderAngle = Radians.of(0.0);
+        public AngularVelocity flywheelLeaderAngularVelocity = RadiansPerSecond.of(0.0);
+        public Voltage flywheelLeaderVoltage = Volts.of(0.0);
+        public Current flywheelLeaderCurrent = Amps.of(0.0);
+        public Temperature flywheelLeaderTemperature = Celsius.of(0.0);
+
+        public boolean flywheelFollowerConnected = false;
+        public Angle flywheelFollowerAngle = Radians.of(0.0);
+        public AngularVelocity flywheelFollowerAngularVelocity = RadiansPerSecond.of(0.0);
+        public Voltage flywheelFollowerVoltage = Volts.of(0.0);
+        public Current flywheelFollowerCurrent = Amps.of(0.0);
+        public Temperature flywheelFollowerTemperature = Celsius.of(0.0);
 
     }
 

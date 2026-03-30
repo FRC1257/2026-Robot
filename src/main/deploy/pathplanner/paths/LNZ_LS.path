@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9,
-        "y": 5.443
+        "x": 7.877649016203705,
+        "y": 4.734539496527777
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.7423291570490065,
-        "y": 6.800226717862216
+        "x": 7.719978173252711,
+        "y": 6.0917662143899936
       },
       "isLocked": false,
       "linkedName": "LEFT_TRENCH_END"
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "LS"
     }
   ],
   "rotationTargets": [

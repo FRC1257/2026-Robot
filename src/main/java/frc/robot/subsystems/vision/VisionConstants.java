@@ -13,7 +13,7 @@ import edu.wpi.first.math.util.Units;
 
 public class VisionConstants {
   public static final String[] camNames = {
-    "Back_Camera", "RBack_Camera", "RFront_Camera"
+    "Back_Camera", "SwerveBack", "SwerveFront"
   };
   public static final int numCameras = camNames.length;
 

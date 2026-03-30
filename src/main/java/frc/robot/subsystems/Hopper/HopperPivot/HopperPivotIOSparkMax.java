@@ -1,10 +1,12 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.REVLibError;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.SparkAbsoluteEncoder;
@@ -42,7 +44,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     leftConfig
         .idleMode(IdleMode.kBrake)
         .voltageCompensation(12.0)
-        .smartCurrentLimit(40)
+        .smartCurrentLimit(60)
         .inverted(false);
     leftConfig
       .encoder
@@ -73,6 +75,13 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     inputs.rightpivotVoltage = Volts.of(rightMotor.getAppliedOutput()*12);
     inputs.leftpivotAngle = Radians.of(leftMotor.getEncoder().getPosition());
     inputs.rightpivotAngle = Radians.of(rightMotor.getEncoder().getPosition());
+
+    inputs.leftpivotCurrent = Amps.of(leftMotor.getOutputCurrent());
+    inputs.rightpivotCurrent = Amps.of(rightMotor.getOutputCurrent());
+
+    inputs.leftpivotConnected = leftMotor.getLastError() == REVLibError.kOk;
+    inputs.rightpivotConnected = rightMotor.getLastError() == REVLibError.kOk;
+
   }
 
   @Override
@@ -90,16 +99,6 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
     );
   }
 
-
-  @Override
-  public void setBreakMode(boolean enabled) {
-    SparkMaxConfig config = new SparkMaxConfig();
-      config.idleMode(enabled ? IdleMode.kBrake : IdleMode.kCoast);
-    leftMotor.configure(
-      config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-    rightMotor.configure(
-      config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
-  }
 
   @Override
   public void stop() {

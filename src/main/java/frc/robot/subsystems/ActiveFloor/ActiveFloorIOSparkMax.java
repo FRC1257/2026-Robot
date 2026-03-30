@@ -1,4 +1,10 @@
 package frc.robot.subsystems.ActiveFloor;
+import static edu.wpi.first.units.Units.Amps;
+import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
+import static edu.wpi.first.units.Units.Volts;
+
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.ClosedLoopSlot;
 import com.revrobotics.spark.FeedbackSensor;
@@ -23,7 +29,7 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
         config = new SparkFlexConfig();
 
         config
-            .smartCurrentLimit(40)
+            .smartCurrentLimit(60)
             .idleMode(IdleMode.kCoast)
             .voltageCompensation(12.0)
             .inverted(false);
@@ -40,7 +46,11 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
 
     @Override
     public void updateInputs(ActiveFloorIOInputs inputs) {
-        inputs.activeFloorVoltage = Units.Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.activeFloorConnected = motor.getLastError() == REVLibError.kOk;
+        inputs.activeFloorVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+        inputs.activeFloorAngularVelocity = RadiansPerSecond.of(motor.getEncoder().getVelocity());
+        inputs.activeFloorCurrent = Amps.of(motor.getOutputCurrent());
+        inputs.activeFloorTemperature = Celsius.of(motor.getMotorTemperature());
     }
 
     @Override

@@ -25,7 +25,8 @@ public class AutoChooser {
         LEFT_TRENCH,
         DEPOT,
         RIGHT_TRENCH,
-        RIGHT_HUMAN_STATION,
+        RIGHT_TRENCH_OUTPOST,
+        RIGHT_TRENCH_FULL_SWEEP
     }
 
     private LoggedDashboardChooser<StartPositions> startChooser;
@@ -51,7 +52,8 @@ public class AutoChooser {
         startChooser.addDefaultOption("DEPOT", StartPositions.DEPOT);
         startChooser.addOption("LEFT_TRENCH", StartPositions.LEFT_TRENCH);
         startChooser.addOption("RIGHT_TRENCH", StartPositions.RIGHT_TRENCH);
-        startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_HUMAN_STATION);
+        startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_TRENCH_OUTPOST); 
+        startChooser.addOption("RIGHT_TRENCH_SWEEP", StartPositions.RIGHT_TRENCH_FULL_SWEEP);
 
     }
 
@@ -61,14 +63,14 @@ public class AutoChooser {
             case LEFT_TRENCH:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))
                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
-                            .andThen(drive.followPathFileCommand("LEFT_TRENCH_START").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("LEFT_TRENCH_END"))
+                            .andThen(drive.followPathFileCommand("LT_LNZ").raceWith(hopperIntake.runIntake()))
+                            .andThen(drive.followPathFileCommand("LNZ_LS"))
                             .andThen(targetedScore());
             case RIGHT_TRENCH:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
-                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_START").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_END"))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
+                            .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
+                            .andThen(drive.followPathFileCommand("RNZ_RS").alongWith(flywheel.runIdle()))
                             .andThen(targetedScore());
             case DEPOT:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.DEPOT_START_POSITION)))
@@ -78,12 +80,20 @@ public class AutoChooser {
                             .andThen(hopperPivot.runIntakeAngle())
                             .andThen(drive.followPathFileCommand("DEPOT_END").raceWith(hopperIntake.runIntake()))
                             .andThen(targetedScore());
-            case RIGHT_HUMAN_STATION:
+            case RIGHT_TRENCH_OUTPOST:
                 return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
-                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_START"))
-                            .andThen(Commands.waitSeconds(2.5))
-                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
+                            .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
+                            .andThen(drive.followPathFileCommand("RNZ_RS"))
+                            .andThen(targetedScore().withTimeout(5.0))
+                            .andThen(drive.followPathFileCommand("RS_HP"))
+                            .andThen(Commands.waitSeconds(3.0))
+                            .andThen(drive.followPathFileCommand("HP_RS"))
+                            .andThen(targetedScore());
+            case RIGHT_TRENCH_FULL_SWEEP:
+                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
+                            .andThen(drive.followPathFileCommand("RT_LS"))
                             .andThen(targetedScore());
             default:
                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))

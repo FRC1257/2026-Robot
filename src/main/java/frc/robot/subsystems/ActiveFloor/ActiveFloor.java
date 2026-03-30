@@ -1,29 +1,49 @@
 package frc.robot.subsystems.ActiveFloor;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Volts;
 
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.util.Units.UnitUtil;
 
 public class ActiveFloor extends SubsystemBase {
 
     private final ActiveFloorIO io;
     private ActiveFloorIOInputsAutoLogged inputs = new ActiveFloorIOInputsAutoLogged();
 
+    private final Debouncer connectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    private final Alert disconnected;
+
 
     public ActiveFloor(ActiveFloorIO io) {
         this.io = io;
+
+        disconnected = new Alert("ACTIVE FLOOR MOTOR DISCONNECTED", AlertType.kError);
     }
 
     @Override
     public void periodic() {
         io.updateInputs(inputs);
         Logger.processInputs(getName(), inputs);
+
+        disconnected.set(!connectedDebouncer.calculate(inputs.activeFloorConnected));
+
+        Robot.batteryLogger.reportCurrentUsage(
+            getName(),
+            inputs.activeFloorCurrent.in(Amps)
+        );
     }
 
     /**
@@ -33,7 +53,7 @@ public class ActiveFloor extends SubsystemBase {
      */
 
     private Command runVoltage(Supplier<Voltage> voltage) {
-        return run(() -> io.setVoltage(voltage.get()));
+        return run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
     }
 
     /**

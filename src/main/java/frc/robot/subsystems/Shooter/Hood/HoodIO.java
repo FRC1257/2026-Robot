@@ -19,6 +19,7 @@ public interface HoodIO {
 
     @AutoLog
     public static class HoodIOInputs {
+        boolean hoodConnected = false;
         Angle hoodAngle = Radians.of(0.0); 
         AngularVelocity hoodVelocity = RadiansPerSecond.of(0.0);
         Voltage hoodVolts = Volts.of(0.0); 

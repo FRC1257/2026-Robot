@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
 
 import com.revrobotics.PersistMode;
+import com.revrobotics.REVLibError;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.ResetMode;
 import com.revrobotics.spark.ClosedLoopSlot;
@@ -52,7 +53,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
         flywheelConfig = new SparkFlexConfig();
 
         flywheelConfig
-            .smartCurrentLimit(40)
+            .smartCurrentLimit(60)
             .idleMode(IdleMode.kCoast)
             .voltageCompensation(12.0)
             .inverted(true);
@@ -64,7 +65,9 @@ public class FlywheelIOSparkMax implements FlywheelIO {
             .positionConversionFactor(Math.PI*2*32/34)
             .velocityConversionFactor(((Math.PI*2)*32/34) / 60)
             .uvwMeasurementPeriod(10)
-            .uvwAverageDepth(2);
+            .uvwAverageDepth(2)
+            .quadratureAverageDepth(8)
+            .quadratureMeasurementPeriod(24);
 
         flywheelConfig
             .closedLoop
@@ -87,11 +90,19 @@ public class FlywheelIOSparkMax implements FlywheelIO {
 
     @Override
     public void updateInputs(FlywheelIOInputs inputs) {
-        inputs.flywheelAngle = Radians.of(encoder.getPosition());
-        inputs.flywheelAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
-        inputs.flywheelVoltage = Volts.of(motor.getAppliedOutput()*motor.getBusVoltage());
-        inputs.flywheelCurrent = Amps.of(motor.getOutputCurrent());
-        inputs.flywheelTemperature = Celsius.of(motor.getMotorTemperature());
+        inputs.flywheelLeaderConnected = motor.getLastError() == REVLibError.kOk;
+        inputs.flywheelLeaderAngle = Radians.of(encoder.getPosition());
+        inputs.flywheelLeaderAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
+        inputs.flywheelLeaderVoltage = Volts.of(motor.getAppliedOutput()*motor.getBusVoltage());
+        inputs.flywheelLeaderCurrent = Amps.of(motor.getOutputCurrent());
+        inputs.flywheelLeaderTemperature = Celsius.of(motor.getMotorTemperature());
+        
+        inputs.flywheelFollowerConnected = followerMotor.getLastError() == REVLibError.kOk;
+        inputs.flywheelFollowerAngle = Radians.of(followerEncoder.getPosition());
+        inputs.flywheelFollowerAngularVelocity = RadiansPerSecond.of(followerEncoder.getVelocity());
+        inputs.flywheelFollowerVoltage = Volts.of(followerMotor.getAppliedOutput()*followerMotor.getBusVoltage());
+        inputs.flywheelFollowerCurrent = Amps.of(followerMotor.getOutputCurrent());
+        inputs.flywheelFollowerTemperature = Celsius.of(followerMotor.getMotorTemperature());
 
     }
 

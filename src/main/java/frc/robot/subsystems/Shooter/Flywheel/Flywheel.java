@@ -1,31 +1,27 @@
 package frc.robot.subsystems.Shooter.Flywheel;
 
-import static edu.wpi.first.units.Units.Radians;
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
-import static edu.wpi.first.units.Units.Rotations;
-import static edu.wpi.first.units.Units.RotationsPerSecond;
 import static edu.wpi.first.units.Units.Volts;
-import static edu.wpi.first.units.Units.Second;
-import static edu.wpi.first.units.Units.Seconds;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
-import java.util.function.DoubleSupplier;
 import java.util.function.Supplier;
 
 import org.littletonrobotics.junction.AutoLogOutput;
 import org.littletonrobotics.junction.Logger;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.units.measure.AngularVelocity;
-import edu.wpi.first.units.measure.MutAngle;
-import edu.wpi.first.units.measure.MutAngularVelocity;
-import edu.wpi.first.units.measure.MutVoltage;
+
 import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj.RobotController;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+import frc.robot.Robot;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.util.misc.LoggedTunableMeasure;
 import frc.robot.util.misc.LoggedTunableNumber;
@@ -40,21 +36,36 @@ public class Flywheel extends SubsystemBase {
     private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Flywheel/Ks", FlywheelConstants.FLYWHEEL_KS);
     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Flywheel/Kv", FlywheelConstants.FLYWHEEL_KV);
 
-    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 0.0);
+    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 280);
+    private static final LoggedTunableNumber idleVelocityRads = new LoggedTunableNumber("Flywheel/idleVelocityRads", 250);
 
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
+
+    private final Debouncer leaderMotorConnectedDebounder = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    
+    private final Debouncer followerMotorConnectedDebouncer =
+        new Debouncer(0.5, DebounceType.kFalling);
+
+    private final Alert leaderDisconnected;
+    private final Alert followerDisconnected;
 
     @AutoLogOutput private AngularVelocity goalVelocity = RadiansPerSecond.of(0.0);
 
     public Flywheel(FlywheelIO io) {
         this.io = io;
+
+        leaderDisconnected = new Alert("FLYWHEEL LEADER MOTOR DISCONNECTED", AlertType.kError);
+        followerDisconnected = new Alert("FLYWHEEL FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
+
     }
     
 
     @Override
     public void periodic(){
         io.updateInputs(inputs);
+        Logger.processInputs("Flywheel", inputs);
 
         if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
             io.setPID(Kp.get(), Ki.get(), Kd.get());
@@ -63,7 +74,24 @@ public class Flywheel extends SubsystemBase {
         if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
             io.setFF(Ks.get(), Kv.get());
         }
-        Logger.processInputs("Flywheel", inputs);
+
+        leaderDisconnected.set(!leaderMotorConnectedDebounder.calculate(inputs.flywheelLeaderConnected));
+        followerDisconnected.set(!followerMotorConnectedDebouncer.calculate(inputs.flywheelFollowerConnected));
+
+
+        Robot.batteryLogger.reportCurrentUsage(
+            "Flywheel",
+            inputs.flywheelLeaderCurrent.in(Amps),
+            inputs.flywheelFollowerCurrent.in(Amps)
+        );
+    }
+
+    /**
+     * Gets the current flywheel velocity based off the latest periodic loop
+     * @return current Angular Velocity
+     */
+    public AngularVelocity getAngularVelocity() {
+        return inputs.flywheelLeaderAngularVelocity;
     }
 
     /**
@@ -103,11 +131,12 @@ public class Flywheel extends SubsystemBase {
         return runEnd(() -> runVoltage(voltage.get()), this::stop);
     }
 
-    public Command runStatic() {
-        return runVoltageCommand(() -> Volts.of(Ks.get()));
-    }
+    /**
+     * Runs the flywheel at a fixed angular velocity defined by {@link hubVelocityRads}
+     * @return a command that runs the flywheel at the previously mentioned fixed angular velocity
+     */
 
-    public Command runHub() {
+    public Command runHubVelocity() {
         return runVelocityCommand(() -> RadiansPerSecond.of(hubVelocityRads.get()));
     }
 
@@ -117,7 +146,7 @@ public class Flywheel extends SubsystemBase {
      * @return a command that runs the flywheel at the given velocity while it is scheduled
      */
 
-    public Command runVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
+    private Command runVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
         return runEnd(() -> {
                 goalVelocity = velocityRadsPerSec.get();
                 runVelocity(velocityRadsPerSec.get());
@@ -147,9 +176,18 @@ public class Flywheel extends SubsystemBase {
             .withName("/Flywheel/StopCommand");
     }
 
+    /**
+     * Runs the flywheel at an idle velocity to decrease the spin up time during autonomous
+     * @return a command that runs the flywheel at the velocity specified by {@link #idleVelocityRads}
+     */
+
+    public Command runIdle() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(idleVelocityRads.get()));
+    }
+
     @AutoLogOutput(key="Shooter/Flywheel/isAtGoal")
     public Trigger isAtGoal() {
-        return new Trigger(() -> inputs.flywheelAngularVelocity.isNear(goalVelocity, FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
+        return new Trigger(() -> inputs.flywheelLeaderAngularVelocity.isNear(goalVelocity, FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
     }
 
 }

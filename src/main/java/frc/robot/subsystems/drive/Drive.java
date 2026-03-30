@@ -41,6 +41,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.util.sendable.Sendable;
 import edu.wpi.first.util.sendable.SendableBuilder;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -51,8 +52,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.FieldConstants;
+import frc.robot.FieldConstants.Hub;
 import frc.robot.commands.AlignToPose;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.subsystems.vision.VisionIO;
@@ -630,4 +633,13 @@ public class Drive extends SubsystemBase {
       return new InstantCommand();
     }
   }
+
+  public boolean isHubAligned() {
+    Pose2d currentPose = getPose();
+    Rotation2d currentRotation = currentPose.getRotation();
+    Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
+    Rotation2d rotationSupplier = new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
+    return Math.abs(rotationSupplier.getRadians()-currentRotation.getRadians()) < Units.degreesToRadians(5);
+  }
+
 }

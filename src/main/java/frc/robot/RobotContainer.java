@@ -1,3 +1,4 @@
+
 // Copyright (c) FIRST and other WPILib contributors.
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
@@ -8,9 +9,12 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
 import static edu.wpi.first.units.Units.Volts;
+
 import static frc.robot.util.drive.DriveControls.*;
 
 import java.io.Flushable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -39,6 +43,7 @@ import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
 import frc.robot.subsystems.vision.VisionIO;
+import frc.robot.subsystems.vision.VisionConstants;
 import frc.robot.subsystems.vision.VisionIOPhoton;
 import frc.robot.subsystems.vision.VisionIOSim;
 import frc.robot.util.autonomous.AutoChooser;
@@ -50,9 +55,6 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 import frc.robot.subsystems.ActiveFloor.ActiveFloor;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIO;
 import frc.robot.subsystems.ActiveFloor.ActiveFloorIOSparkMax;
-import frc.robot.subsystems.Climb.Climb;
-import frc.robot.subsystems.Climb.ClimbIO;
-import frc.robot.subsystems.Climb.ClimbIOSparkMax;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntake;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeConstants;
 import frc.robot.subsystems.Hopper.HopperIntake.HopperIntakeIO;
@@ -84,14 +86,12 @@ import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
 public class RobotContainer {
   // Subsystems
   private final Drive drive;
-
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
   private final Kicker kicker;
   private final Hood hood;
   private final ActiveFloor activeFloor;
   private final Flywheel flywheel;
-  private final Climb climb;
 
   public static final CommandSnailController driver = new CommandSnailController(0);
   public static final CommandSnailController operator = new CommandSnailController(1);
@@ -103,9 +103,17 @@ public class RobotContainer {
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
+    //list of all the various vision IO implementations
+
+
+
     switch (Constants.currentMode) {
-        // Real robot, instantiate hardware IO implementations
+      // Real robot, instantiate hardware IO implementations
       case REAL:
+        
+
+        //photonVision = new VisionIOPhoton();
+    
         drive =
             new Drive(
                 new GyroIOReal(),
@@ -114,19 +122,22 @@ public class RobotContainer {
                 new ModuleIOSparkMax(2),
                 new ModuleIOSparkMax(3),
                 new VisionIOPhoton());
-        hopperIntake 
-         =  new HopperIntake(new HopperIntakeIOSparkMax());
-        
-         hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
-         kicker = new Kicker(new KickerIOSparkMax() {});
-         activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
-         flywheel = new Flywheel(new FlywheelIOSparkMax());
-         hood = new Hood(new HoodIOSparkMax());
-         climb = new Climb(new ClimbIOSparkMax());
-         break;
 
-        // Sim robot, instantiate physics sim IO implementations
+  
+ 
+        hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
+
+        hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
+        kicker = new Kicker(new KickerIOSparkMax() {});
+        activeFloor = new ActiveFloor(new ActiveFloorIOSparkMax());
+        flywheel = new Flywheel(new FlywheelIOSparkMax());
+        hood = new Hood(new HoodIOSparkMax());
+
+        break;
+
+      // Sim robot, instantiate physics sim IO implementations
       case SIM:
+  VisionIOSim simVision = new VisionIOSim();
         drive =
             new Drive(
                 new GyroIO() {},
@@ -136,17 +147,20 @@ public class RobotContainer {
                 new ModuleIOSim(),
                 new VisionIOSim());
         
-        hopperIntake = new HopperIntake(new HopperIntakeIOSim());
+                
+
+ 
+  hopperIntake = new HopperIntake(new HopperIntakeIOSim());
         hopperPivot = new HopperPivot(new HopperPivotIOSim());
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIOSim());
         hood = new Hood(new HoodIOSim());
-        climb = new Climb(new ClimbIO() {});
         break;
 
-        // Replayed robot, disable IO implementations
+      // Replayed robot, disable IO implementations
       default:
+  VisionIO visionIO = new VisionIO() {};
         drive =
             new Drive(
                 new GyroIO() {},
@@ -155,16 +169,22 @@ public class RobotContainer {
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new VisionIO() {});
+        
 
-        hopperIntake = new HopperIntake(new HopperIntakeIO() {});
+
+  hopperIntake = new HopperIntake(new HopperIntakeIO() {});
         hopperPivot = new HopperPivot(new HopperPivotIO() {});
         kicker = new Kicker(new KickerIO() {});
         activeFloor = new ActiveFloor(new ActiveFloorIO() {});
         flywheel = new Flywheel(new FlywheelIO() {});
         hood = new Hood(new HoodIO() {});
-        climb = new Climb(new ClimbIO() {});
-         break;
+
+        break;
     }
+
+
+
+
 
     // Set up robot state manager
 
@@ -204,7 +224,7 @@ public class RobotContainer {
     activeFloor.setDefaultCommand(activeFloor.stopActiveFloor());
     flywheel.setDefaultCommand(flywheel.stopCommand());
     hood.setDefaultCommand(hood.runVoltageCommand(() -> Volts.of(0)));
-    climb.setDefaultCommand(climb.holdClimb());
+
 
     driver.x().onTrue(
       new InstantCommand(
@@ -223,47 +243,41 @@ public class RobotContainer {
     .whileTrue(hopperPivot.runAgitate())
     .onFalse(hopperPivot.runIntakeAngle());
 
-    driver.b().whileTrue(drive.lockWheels());
+   // driver.b().whileTrue(drive.lockWheels());
+   driver.b().whileTrue(DriveCommands.alignToTrench(drive));
+   driver.getDPad(DPad.UP).whileTrue(drive.lockWheels());
 
-    //FieldConstants.Zones.composedTrench.contains(
-      //() -> drive.getPose().getTranslation())
-        //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
-
-    // driver
-    //   .rightBumper().whileTrue(
-    //     hood.runTargetedCommand()
-    //       .alongWith(flywheel.runTargetedCommand())
-    //         .alongWith(
-    //           Commands.waitUntil(hood::isAtGoal)
-    //           .andThen(kicker.runIntake()
-    //             .alongWith(activeFloor.runActiveFloor())))
-    //   );
-
-
-    // driver
-    //  .leftBumper().whileTrue(
-    //    flywheel.runHub().alongWith(hood.runHubAngle())
-    //    .alongWith(
-    //      kicker.runIntake())
-    //      .alongWith(activeFloor.runActiveFloor())
-    //      );
-
-  // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
 
   driver
     .rightBumper().whileTrue(
       flywheel.runTargetedCommand(drive::getPose)
       .alongWith(hood.runTargetedCommand(drive::getPose))
-      .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal())).withTimeout(1.5)
+      .alongWith(
+        DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE).until(drive::isHubAligned)
+        .andThen(
+          Commands.either(
+            DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE),
+            drive.lockWheels(), 
+            () -> Math.abs(DRIVE_FORWARD.getAsDouble())> 0.08 || Math.abs(DRIVE_STRAFE.getAsDouble()) > 0.08 || !drive.isHubAligned()))
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()).and(drive::isHubAligned))
+        .withTimeout(0.5)
+        .andThen(kicker.runIntake()
+        .alongWith(activeFloor.runActiveFloor())
+        .alongWith(hopperPivot.runAgitate())
+        .alongWith(hopperIntake.runIntake())))
+    ));
+
+  driver
+    .leftBumper().whileTrue(
+      flywheel.runHubVelocity()
+      .alongWith(hood.runHubAngle())
+      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+        .withTimeout(0.5)
         .andThen(kicker.runIntake()
         .alongWith(activeFloor.runActiveFloor())
         .alongWith(hopperPivot.runAgitate())
         .alongWith(hopperIntake.runIntake())))
     );
-
-  driver.leftBumper().and(hopperPivot.atIntake()).whileTrue(DriveCommands.alignToTrench(drive));
-  driver.leftBumper().and(hopperPivot.atIntake().negate()).whileTrue(hopperPivot.runIntakeAngle().andThen(DriveCommands.alignToTrench(drive)));
   
   // driver
   //   .rightBumper().whileTrue(
@@ -272,7 +286,7 @@ public class RobotContainer {
 
     driver
       .rightTrigger().whileTrue(
-        hopperIntake.runVoltage(() -> Volts.of(-driver.getRightTriggerAxis()*8))
+        hopperIntake.runIntake()
       );
 
     driver
@@ -280,8 +294,7 @@ public class RobotContainer {
         hopperIntake.runOutake()
       );  
     
-    driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
-    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+
 
   
 
@@ -290,7 +303,6 @@ public class RobotContainer {
   
 
    operator.rightBumper().whileTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-5)));
-   operator.leftBumper().whileTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(320)));
   }
 
 

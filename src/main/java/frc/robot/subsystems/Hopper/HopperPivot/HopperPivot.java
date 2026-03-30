@@ -1,5 +1,6 @@
 package frc.robot.subsystems.Hopper.HopperPivot;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.RadiansPerSecond;
@@ -21,6 +22,8 @@ import org.littletonrobotics.junction.Logger;
 
 import edu.wpi.first.math.controller.ArmFeedforward;
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.units.measure.Angle;
@@ -31,6 +34,8 @@ import edu.wpi.first.units.measure.MutVoltage;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import edu.wpi.first.units.measure.Voltage;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -41,6 +46,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.NautilusMechanism3d;
+import frc.robot.Robot;
+import frc.robot.util.Units.UnitUtil;
 import frc.robot.util.misc.LoggedTunableNumber;
 
 import static frc.robot.subsystems.Hopper.HopperPivot.HopperPivotConstants.*;
@@ -67,8 +74,20 @@ public class HopperPivot extends SubsystemBase {
 
     private Angle goalAngle = Radians.of(0.0);
 
+    private final Debouncer leaderConnectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    private final Debouncer followerConnectedDebouncer = 
+        new Debouncer(0.5, DebounceType.kFalling);
+    
+    private final Alert disconnected;
+    private final Alert followerDisconnected;
+
     public HopperPivot(HopperPivotIO io) {
         this.io = io; 
+
+        disconnected = new Alert("HOPPER PIVOT LEADER MOTOR DISCONNECTED", AlertType.kError);
+        followerDisconnected = new Alert("HOPPER PIVOT FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
+
         this.profile = new TrapezoidProfile(
             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
     }
@@ -95,13 +114,23 @@ public class HopperPivot extends SubsystemBase {
         }
 
         NautilusMechanism3d.getMeasured().setIntakeAngle(new Rotation2d(inputs.leftpivotAngle));
+
+        disconnected.set(!leaderConnectedDebouncer.calculate(inputs.leftpivotConnected));
+        followerDisconnected.set(!followerConnectedDebouncer.calculate(inputs.rightpivotConnected));
+
+        Robot.batteryLogger.reportCurrentUsage(
+            "HopperPivot",
+            inputs.leftpivotCurrent.in(Amps),
+            inputs.rightpivotCurrent.in(Amps)
+        );
  
     }
 
     public Command runAngleCommand(Supplier<Angle> angle) {
         return run(() -> {
-            goalAngle = angle.get();
-            goal = new TrapezoidProfile.State(angle.get().in(Radians),0);
+            Angle clamped = UnitUtil.clamp(angle.get(), HopperPivotConstants.STOW_ANGLE, HopperPivotConstants.INTAKE_ANGLE);
+            goalAngle = clamped;
+            goal = new TrapezoidProfile.State(clamped.in(Radians),0);
             setpoint = profile.calculate(LoggedRobot.defaultPeriodSecs, setpoint, goal);
 
             Logger.recordOutput("HopperPivot/setpoint", setpoint.position);
@@ -109,9 +138,10 @@ public class HopperPivot extends SubsystemBase {
 
             io.runAngle(setpoint.position, setpoint.velocity);
         }).beforeStarting(() -> {
-            goalAngle = angle.get();
+            Angle clamped = UnitUtil.clamp(angle.get(), HopperPivotConstants.STOW_ANGLE, HopperPivotConstants.INTAKE_ANGLE);
+            goalAngle = clamped;
             setpoint = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), inputs.leftpivotVelocity.in(RadiansPerSecond));
-        })/*.until(isAtGoal())*/;
+        });
     }
 
     /**
@@ -139,7 +169,6 @@ public class HopperPivot extends SubsystemBase {
             .andThen(runAngleCommand(() -> Radians.of(1.0)).withTimeout(0.4)).repeatedly();
     }
 
-
     /**
      * Creates a Trigger that is active when the hopper pivot is at the goal angle within the tolerance specified in {@link HopperPivotConstants}.
      * @return a Trigger that is active when the hopper pivot is at the goal angle within the specified tolerance
@@ -152,7 +181,7 @@ public class HopperPivot extends SubsystemBase {
 
     @AutoLogOutput(key = "Hopper/HopperPivot/atIntake")
     public Trigger atIntake(){
-        return new Trigger(() -> inputs.leftpivotAngle.isNear(INTAK_ANGLE, HOPPER_PIVOT_TOLERANCE));
+        return new Trigger(() -> inputs.leftpivotAngle.isNear(INTAKE_ANGLE, HOPPER_PIVOT_TOLERANCE));
     }
 
     @AutoLogOutput(key = "Hopper/HopperPivot/atStow")
@@ -160,6 +189,9 @@ public class HopperPivot extends SubsystemBase {
         return new Trigger(() -> inputs.leftpivotAngle.isNear(STOW_ANGLE, HOPPER_PIVOT_TOLERANCE));
     }
 
-
+    @AutoLogOutput(key = "Hopper/HopperPivot/atTrench")
+    public Trigger atTrench() {
+        return new Trigger(() -> inputs.leftpivotAngle.gte(TRENCH_ANGLE));
+    }
 
 }

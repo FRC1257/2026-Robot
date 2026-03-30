@@ -1,11 +1,17 @@
 package frc.robot.subsystems.Hopper.HopperIntake;
 
+import edu.wpi.first.math.filter.Debouncer;
+import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.units.measure.Voltage;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.Alert;
+import edu.wpi.first.wpilibj.Alert.AlertType;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
+import frc.robot.util.Units.UnitUtil;
 import frc.robot.util.misc.LoggedTunableNumber;
 
+import static edu.wpi.first.units.Units.Amps;
 import static edu.wpi.first.units.Units.Volts;
 import java.util.function.Supplier;
 
@@ -18,17 +24,39 @@ public class HopperIntake extends SubsystemBase {
 
   private final HopperIntakeIO io;
   private HopperIntakeIOInputsAutoLogged inputs = new HopperIntakeIOInputsAutoLogged();
+
+  private final Debouncer connectedDebouncer = 
+    new Debouncer(0.5, DebounceType.kFalling);
+  private final Debouncer followerConnectedDebouncer = 
+    new Debouncer(0.5, DebounceType.kFalling);
+    
+  private final Alert disconnected;
+  private final Alert followerDisconnected;
+
     
     
   public HopperIntake(HopperIntakeIO io) {
     this.io = io;
-    SmartDashboard.putData(getName(), this);
+
+    disconnected = new Alert("HOPPER INTAKE LEADER MOTOR DISCONNECTED", AlertType.kError);
+    followerDisconnected = new Alert("HOPPER INTAKE FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
   }
     
   @Override
   public void periodic() {
     io.updateInputs(inputs);
     Logger.processInputs("HopperIntake", inputs);
+
+    disconnected.set(!connectedDebouncer.calculate(inputs.intakeConnected));
+    followerDisconnected.set(!followerConnectedDebouncer.calculate(inputs.intakeFollowerConnected));
+
+
+    Robot.batteryLogger.reportCurrentUsage(
+      "HopperIntake",
+      inputs.intakeCurrent.in(Amps),
+      inputs.intakeFollowerCurrent.in(Amps)
+    );
+
   }
   
   /**
@@ -38,7 +66,7 @@ public class HopperIntake extends SubsystemBase {
    */
 
   public Command runVoltage(Supplier<Voltage> voltage) {
-    return this.run(() -> io.setVoltage(voltage.get()));
+    return this.run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
   }
 
   /**

@@ -12,8 +12,8 @@ import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.*;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Filesystem;
-import frc.robot.util.Rebuilt.RectangleZone;
-import frc.robot.util.Rebuilt.Zone;
+import frc.robot.util.Rebuilt.Zones.RectangleZone;
+import frc.robot.util.Rebuilt.Zones.Zone;
 
 import java.io.IOException;
 import java.nio.file.Path;

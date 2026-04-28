@@ -16,6 +16,7 @@ import frc.robot.Energy.BatteryLogger;
 import frc.robot.util.drive.AllianceFlipUtil;
 import frc.robot.util.drive.DriveControls;
 import frc.robot.util.misc.Elastic;
+import frc.robot.util.misc.PersistingLoggedTunableNumber;
 
 import org.littletonrobotics.junction.AutoLog;
 import org.littletonrobotics.junction.LogFileUtil;
@@ -123,6 +124,7 @@ public class Robot extends LoggedRobot {
     batteryLogger.setRioCurrent(batteryInputs.rioCurrent);
 
 
+    PersistingLoggedTunableNumber.periodic();
     CommandScheduler.getInstance().run();
     
     batteryLogger.periodicAfterScheduler();

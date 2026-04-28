@@ -25,6 +25,7 @@ import frc.robot.Robot;
 import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
 import frc.robot.util.misc.LoggedTunableMeasure;
 import frc.robot.util.misc.LoggedTunableNumber;
+import frc.robot.util.misc.PersistingLoggedTunableNumber;
 
 
 public class Flywheel extends SubsystemBase {
@@ -38,6 +39,9 @@ public class Flywheel extends SubsystemBase {
 
     private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 280);
     private static final LoggedTunableNumber idleVelocityRads = new LoggedTunableNumber("Flywheel/idleVelocityRads", 250);
+
+    private static final PersistingLoggedTunableNumber persistedHubVelocityRads = new PersistingLoggedTunableNumber("Flywheel/persistedHubVelocityRads", 280);
+    private static final PersistingLoggedTunableNumber persistedIdleVelocityRads = new PersistingLoggedTunableNumber("Flywheel/persistedIdleVelocityRads", 250);
 
     private final FlywheelIO io; 
     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
@@ -84,6 +88,7 @@ public class Flywheel extends SubsystemBase {
             inputs.flywheelLeaderCurrent.in(Amps),
             inputs.flywheelFollowerCurrent.in(Amps)
         );
+
     }
 
     /**
@@ -141,6 +146,17 @@ public class Flywheel extends SubsystemBase {
     }
 
     /**
+     * Runs the flywheel at the persisted hub velocity. Unlike {@link #runHubVelocity()}, the
+     * setpoint survives robot restarts without redeployment — changes made via the dashboard are
+     * written to disk and reloaded automatically on the next boot.
+     *
+     * @return a command that runs the flywheel at the persisted hub velocity
+     */
+    public Command runPersistedHubVelocity() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(persistedHubVelocityRads.get()));
+    }
+
+    /**
      * Runs the flywheel at a given velocity. This should be used whenever the flywheel needs to be on, as it will allow for more consistent shooting by using velocity control instead of voltage control.
      * @param velocityRadsPerSec the velocity to run the flywheel at, as a Supplier to allow for dynamic velocities
      * @return a command that runs the flywheel at the given velocity while it is scheduled
@@ -183,6 +199,16 @@ public class Flywheel extends SubsystemBase {
 
     public Command runIdle() {
         return runVelocityCommand(() -> RadiansPerSecond.of(idleVelocityRads.get()));
+    }
+
+    /**
+     * Runs the flywheel at the persisted idle velocity. Unlike {@link #runIdle()}, the setpoint
+     * survives robot restarts without redeployment.
+     *
+     * @return a command that runs the flywheel at the persisted idle velocity
+     */
+    public Command runPersistedIdle() {
+        return runVelocityCommand(() -> RadiansPerSecond.of(persistedIdleVelocityRads.get()));
     }
 
     @AutoLogOutput(key="Shooter/Flywheel/isAtGoal")

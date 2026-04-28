@@ -208,6 +208,19 @@ public class PersistingLoggedTunableNumber implements DoubleSupplier {
         }
     }
 
+    /**
+     * Polls every registered instance so that dashboard changes are written to disk even when no
+     * command is actively calling {@link #get()}. Call this once per loop from
+     * {@code Robot.robotPeriodic()}.
+     */
+    public static void periodic() {
+        synchronized (instances) {
+            for (PersistingLoggedTunableNumber n : instances) {
+                n.get();
+            }
+        }
+    }
+
     @Override
     public double getAsDouble() {
         return get();

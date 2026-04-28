@@ -50,6 +50,7 @@ public class PersistingLoggedTunableNumber implements DoubleSupplier {
 
     private static final Properties sharedProperties = new Properties();
     private static boolean loaded = false;
+    private static boolean pruned = false;
 
     private static final List<PersistingLoggedTunableNumber> instances = new ArrayList<>();
 
@@ -71,6 +72,15 @@ public class PersistingLoggedTunableNumber implements DoubleSupplier {
         this.key = dashboardKey;
         this.fullNtKey = TABLE_KEY + "/" + dashboardKey;
         ensureLoaded();
+        if (Constants.tuningMode && !Constants.disableHAL) {
+            String stored = sharedProperties.getProperty(dashboardKey);
+            double initial = 0.0;
+            if (stored != null) {
+                try { initial = Double.parseDouble(stored); } catch (NumberFormatException ignored) {}
+            }
+            dashboardNumber = new LoggedNetworkNumber(fullNtKey, initial);
+            lastSavedValue = initial;
+        }
         synchronized (instances) {
             instances.add(this);
         }
@@ -117,7 +127,11 @@ public class PersistingLoggedTunableNumber implements DoubleSupplier {
         }
 
         if (Constants.tuningMode && !Constants.disableHAL) {
-            dashboardNumber = new LoggedNetworkNumber(fullNtKey, initial);
+            if (dashboardNumber == null) {
+                dashboardNumber = new LoggedNetworkNumber(fullNtKey, initial);
+            } else {
+                dashboardNumber.set(initial);
+            }
         }
     }
 
@@ -214,9 +228,21 @@ public class PersistingLoggedTunableNumber implements DoubleSupplier {
      * {@code Robot.robotPeriodic()}.
      */
     public static void periodic() {
+        if (!pruned) {
+            pruned = true;
+            pruneStaleKeys();
+        }
         synchronized (instances) {
             for (PersistingLoggedTunableNumber n : instances) {
-                n.get();
+                if (n.hasDefault) {
+                    n.get();
+                } else if (n.dashboardNumber != null) {
+                    double value = n.dashboardNumber.get();
+                    if (Double.compare(value, n.lastSavedValue) != 0) {
+                        n.lastSavedValue = value;
+                        persistValue(n.key, value);
+                    }
+                }
             }
         }
     }
@@ -229,6 +255,27 @@ public class PersistingLoggedTunableNumber implements DoubleSupplier {
     // -------------------------------------------------------------------------
     // File I/O helpers
     // -------------------------------------------------------------------------
+
+    private static synchronized void pruneStaleKeys() {
+        boolean changed = false;
+        synchronized (instances) {
+            for (String fileKey : sharedProperties.stringPropertyNames()) {
+                boolean live = instances.stream().anyMatch(n -> n.key.equals(fileKey));
+                if (!live) {
+                    sharedProperties.remove(fileKey);
+                    changed = true;
+                }
+            }
+        }
+        if (!changed) return;
+        try (OutputStream out = Files.newOutputStream(
+                PERSIST_FILE, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING)) {
+            sharedProperties.store(out, "Robot tuning — edit via ssh/sftp, reload with reloadAll(), no redeployment needed");
+        } catch (IOException e) {
+            System.err.println("[PersistingLoggedTunableNumber] Failed to prune "
+                    + PERSIST_FILE + ": " + e.getMessage());
+        }
+    }
 
     private static synchronized void ensureLoaded() {
         if (loaded) return;

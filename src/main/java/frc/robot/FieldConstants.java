@@ -314,12 +314,6 @@ public class FieldConstants {
   }
 
   public static class Zones {
-    public static final Zone blTrench = new RectangleZone(null, null); 
-    public static final Zone brTrench = new RectangleZone(null, null);
-    public static final Zone rlTrench = new RectangleZone(null, null); 
-    public static final Zone rrTrench = new RectangleZone(null, null);
-
-    public static final Zone composedTrench = blTrench.union(brTrench).union(rlTrench).union(rrTrench);
   }
 
   public enum FieldType {

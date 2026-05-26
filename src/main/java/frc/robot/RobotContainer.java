@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.function.Supplier;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import static frc.robot.subsystems.vision.VisionConstants.*;
+
 
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.GenericHID;
@@ -42,10 +44,10 @@ import frc.robot.subsystems.drive.GyroIOReal;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSparkMax;
+import frc.robot.subsystems.vision.Vision;
 import frc.robot.subsystems.vision.VisionIO;
-import frc.robot.subsystems.vision.VisionConstants;
-import frc.robot.subsystems.vision.VisionIOPhoton;
-import frc.robot.subsystems.vision.VisionIOSim;
+import frc.robot.subsystems.vision.VisionIOLimelight;
+import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import frc.robot.util.autonomous.AutoChooser;
 import frc.robot.util.drive.CommandSnailController;
 import frc.robot.util.drive.CommandSnailController.DPad;
@@ -85,6 +87,7 @@ import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
  */
 public class RobotContainer {
   // Subsystems
+  public final Vision vision;
   private final Drive drive;
   private final HopperIntake hopperIntake;
   private final HopperPivot hopperPivot;
@@ -110,18 +113,24 @@ public class RobotContainer {
     switch (Constants.currentMode) {
       // Real robot, instantiate hardware IO implementations
       case REAL:
-        
 
-        //photonVision = new VisionIOPhoton();
-    
-        drive =
+      drive =
             new Drive(
                 new GyroIOReal(),
                 new ModuleIOSparkMax(0),
                 new ModuleIOSparkMax(1),
                 new ModuleIOSparkMax(2),
-                new ModuleIOSparkMax(3),
-                new VisionIOPhoton());
+                new ModuleIOSparkMax(3));
+        vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOLimelight(camera0Name, drive::getRotation),
+                new VisionIOLimelight(camera1Name, drive::getRotation));
+
+
+        //photonVision = new VisionIOPhoton();
+    
+        
 
   
  
@@ -137,15 +146,21 @@ public class RobotContainer {
 
       // Sim robot, instantiate physics sim IO implementations
       case SIM:
-  VisionIOSim simVision = new VisionIOSim();
-        drive =
+
+      drive =
             new Drive(
                 new GyroIO() {},
                 new ModuleIOSim(),
                 new ModuleIOSim(),
                 new ModuleIOSim(),
-                new ModuleIOSim(),
-                new VisionIOSim());
+                new ModuleIOSim());
+        vision =
+            new Vision(
+                drive::addVisionMeasurement,
+                new VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose),
+                new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
+
+        
         
                 
 
@@ -160,15 +175,14 @@ public class RobotContainer {
 
       // Replayed robot, disable IO implementations
       default:
-  VisionIO visionIO = new VisionIO() {};
         drive =
             new Drive(
                 new GyroIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {},
                 new ModuleIO() {},
-                new ModuleIO() {},
-                new VisionIO() {});
+                new ModuleIO() {});
+        vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
         
 
 

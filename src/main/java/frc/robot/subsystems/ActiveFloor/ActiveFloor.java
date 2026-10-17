@@ -53,7 +53,7 @@ public class ActiveFloor extends SubsystemBase {
      */
 
     private Command runVoltage(Supplier<Voltage> voltage) {
-        return run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
+        return runEnd(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))), io::stop);
     }
 
     /**

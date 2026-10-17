@@ -57,51 +57,68 @@ public class AutoChooser {
 
     }
 
+    // Initial engineering value; validate against the physical pivot before competition.
+    private static final double PIVOT_TIMEOUT_SECONDS = 2.0;
+
+    private Command positionThen(boolean trench, Command continuation) {
+        return AutoStage.moveThen(
+            "Pivot", hopperPivot.runIntakeAngle(),
+            trench ? hopperPivot.atTrench() : hopperPivot.atGoal(),
+            PIVOT_TIMEOUT_SECONDS, continuation,
+            hopperPivot.setPivotVoltage(() -> edu.wpi.first.units.Units.Volts.of(0)));
+    }
+
     public Command getAutoCommand() {
-        StartPositions startPosition = startChooser.get();
-        switch(startPosition) {
+        StartPositions selected = startChooser.get();
+        if (selected == null) selected = StartPositions.DEPOT;
+        Pose2d start;
+        boolean trench;
+        Command route;
+        switch (selected) {
             case LEFT_TRENCH:
-                 return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
-                            .andThen(drive.followPathFileCommand("LT_LNZ").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("LNZ_LS"))
-                            .andThen(targetedScore());
+                start = AutoConstants.LEFT_TRENCH_START_POSITION;
+                trench = false;
+                route = drive.followPathFileCommand("LT_LNZ").deadlineWith(hopperIntake.runIntake())
+                    .andThen(drive.followPathFileCommand("LNZ_LS"))
+                    .andThen(targetedScore());
+                break;
             case RIGHT_TRENCH:
-                 return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
-                            .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("RNZ_RS").alongWith(flywheel.runIdle()))
-                            .andThen(targetedScore());
-            case DEPOT:
-                 return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.DEPOT_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
-                            .andThen(drive.followPathFileCommand("DEPOT_START"))
-                            .andThen(targetedScore().withTimeout(4.0))
-                            .andThen(hopperPivot.runIntakeAngle())
-                            .andThen(drive.followPathFileCommand("DEPOT_END").raceWith(hopperIntake.runIntake()))
-                            .andThen(targetedScore());
+                start = AutoConstants.RIGHT_TRENCH_START_POSITION;
+                trench = true;
+                route = drive.followPathFileCommand("RT_RNZ").deadlineWith(hopperIntake.runIntake())
+                    .andThen(drive.followPathFileCommand("RNZ_RS").deadlineWith(flywheel.runIdle()))
+                    .andThen(targetedScore());
+                break;
             case RIGHT_TRENCH_OUTPOST:
-                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
-                            .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("RNZ_RS"))
-                            .andThen(targetedScore().withTimeout(5.0))
-                            .andThen(drive.followPathFileCommand("RS_HP"))
-                            .andThen(Commands.waitSeconds(3.0))
-                            .andThen(drive.followPathFileCommand("HP_RS"))
-                            .andThen(targetedScore());
+                start = AutoConstants.RIGHT_TRENCH_START_POSITION;
+                trench = true;
+                route = drive.followPathFileCommand("RT_RNZ").deadlineWith(hopperIntake.runIntake())
+                    .andThen(drive.followPathFileCommand("RNZ_RS"))
+                    .andThen(targetedScore().withTimeout(5.0))
+                    .andThen(drive.followPathFileCommand("RS_HP"))
+                    .andThen(Commands.waitSeconds(3.0))
+                    .andThen(drive.followPathFileCommand("HP_RS"))
+                    .andThen(targetedScore());
+                break;
             case RIGHT_TRENCH_FULL_SWEEP:
-                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
-                            .andThen(drive.followPathFileCommand("RT_LS"))
-                            .andThen(targetedScore());
+                start = AutoConstants.RIGHT_TRENCH_START_POSITION;
+                trench = true;
+                route = drive.followPathFileCommand("RT_LS").andThen(targetedScore());
+                break;
+            case DEPOT:
             default:
-                 return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))
-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
-                            .andThen(drive.followPathFileCommand("LEFT_TRENCH_START").raceWith(hopperIntake.runIntake()))
-                            .andThen(drive.followPathFileCommand("LEFT_TRENCH_END"))
-                            .andThen(targetedScore());
+                start = AutoConstants.DEPOT_START_POSITION;
+                trench = false;
+                route = drive.followPathFileCommand("DEPOT_START")
+                    .andThen(targetedScore().withTimeout(4.0))
+                    .andThen(positionThen(false,
+                        drive.followPathFileCommand("DEPOT_END").deadlineWith(hopperIntake.runIntake())
+                            .andThen(targetedScore())));
+                break;
         }
+        final Pose2d initialPose = start;
+        return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(initialPose)))
+            .andThen(positionThen(trench, route));
     }
 
     private Command targetedScore() { 

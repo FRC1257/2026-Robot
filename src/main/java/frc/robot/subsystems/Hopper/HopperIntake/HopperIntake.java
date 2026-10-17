@@ -66,7 +66,7 @@ public class HopperIntake extends SubsystemBase {
    */
 
   public Command runVoltage(Supplier<Voltage> voltage) {
-    return this.run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
+    return this.runEnd(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))), io::stop);
   }
 
   /**

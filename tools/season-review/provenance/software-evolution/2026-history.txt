@@ -1,0 +1,256 @@
+4b7ed8589f9479cedd70fc11c49ba38d68c4c9be 2026-05-26T18:02:26-04:00 implementing limelight
+00bbf4a0a04e2ee92496c3bdb07cdc75d81d845d 2026-04-27T22:46:05-04:00 Quick fix for pruning
+1128c1589622fb6137e8bf2b31de2b244bd72167 2026-04-27T21:15:16-04:00 Added a periodic method
+cd7df74b3ea91ef7ff198cdfdaac724c8179e375 2026-04-27T20:17:01-04:00 Persisting Tunable Number
+192680aa39633b7dcee2b1fcfce88272c4e502fd 2026-03-31T10:34:49-04:00 Paralib SnailMotorSubsystem
+f1a5fe50d65188cd047efaab31455f381f28a509 2026-03-30T17:56:22-04:00 Merge pull request #3 from FRC1257/Sam's-Branch
+eaa6f817b1270b3cac850423deb50fbcf3b93e2f 2026-03-29T08:03:57-04:00 Adjusted Lock Command
+5083ee80a875e8ab8ca3d9f7e376bda174516c6f 2026-03-27T12:35:02-04:00 Fixed Trench Alignment
+90560c085c003ecd8c9b095de77cf99add8ea402 2026-03-26T17:04:17-04:00 Minor auto changes
+4517e0c20f07dfecdc2b3d688a83379b86066aa2 2026-03-26T10:07:05-04:00 Changes to paths and new autos
+6b19b9d3a1d8d6b29cd83ea54ead8449c51efd7c 2026-03-25T18:59:38-04:00 Command Update
+ae5768b37d61f3acf5942c6dec9bfe42d8416703 2026-03-25T18:10:32-04:00 Update RobotContainer.java
+90042317e3d8f740d00aa73eb4fdcd3a5d4ecfa1 2026-03-25T18:09:28-04:00 new auto align AND lock
+dca4a4d642525d598a285aaa65a6f939de0fc717 2026-03-25T17:47:59-04:00 FIXED AUTO
+6dd51aab37172aacaf20539958dcbd2b16e4a796 2026-03-25T17:26:48-04:00 Revert "autos"
+923448a75a52cff4348905547605d727b1cea91c 2026-03-25T16:37:36-04:00 autos
+4fef0b4315f4f05f64f62bc31ea504296240756f 2026-03-24T15:48:21-04:00 Update Flywheel.java
+eeaaa6454144ab3400b42f2f8d0878c9bf2e7bd6 2026-03-24T11:53:32-04:00 Added a voltage ramping command
+5aab3bf2713ac21fa05b2ce7a4a97f41a87869d9 2026-03-23T19:14:50-04:00 Changed Voltage and Quadrature
+a10f56faf81e014419b15c3629da0db23e614956 2026-03-23T19:13:00-04:00 back to photon
+aa2546d487affa6056514b2f25859d612b20bdee 2026-03-23T17:41:22-04:00 drive changes
+5f1ec35091c64d5833cd77776426e0fb905fd6fd 2026-03-23T17:19:39-04:00 corrected implentation
+8dc14439f15e6fa2993605b95bebd6605d5dec15 2026-03-23T15:00:03-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+975d4a77c3083c7f6096a2ac6bf20129d5f23ee5 2026-03-23T14:13:42-04:00 Added a second motor to the hopper intake
+e1e36a039bdf80886e13b576308ea4987998dc1b 2026-03-23T11:26:00-04:00 Adjusted current limits
+0490959861927d688d6513e26f768ad348ed4cdd 2026-03-23T09:56:05-04:00 Increased hopper intake voltage
+4b3c5732a722539d6f3cf10971f1500fc536f7e5 2026-03-23T03:13:39-04:00 Added additional clamps for safety
+479d930f71bfd725c8843d09004aa5a737e00c13 2026-03-23T02:55:38-04:00 Clamped hood angle for safety
+afeb7c38134bea4091f3e7f37e4e9b27bd12b2a7 2026-03-23T02:55:27-04:00 Wrote & Documented Units Utility Library
+01c91268c1e2d0c4a3267fdc1a94402a846ae674 2026-03-23T01:35:46-04:00 Added Alerts and disconnection logging to every subsystem
+e76cd911371d08f7ced96617d2bcb64af65a6ccd 2026-03-22T16:40:57-04:00 logging
+f22a641ad95dc6b9700f7a1c18d8c212ed8caf49 2026-03-21T22:55:31-04:00 naming convention
+3189eff2507e8035d78510e5b1cf7ee75dc158d9 2026-03-21T18:04:04-04:00 Got rid of the timeout
+c38bf860ac1efd18b96652c72ae7f0dcb6878987 2026-03-21T16:41:03-04:00 More changes to the intake
+e49308976241295d1bb3550a132aab79608405b5 2026-03-21T14:51:30-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+fa14ae4db8c568d24af504b1b4ebb8de56ccfa7c 2026-03-21T14:51:27-04:00 portwarder
+6b3cf89ed6f896c23277e9bd10cbc9a919355188 2026-03-21T14:40:03-04:00 Adjusted Current Limits
+41840ccae250eb2f3b4439d13f65fa13b7c4e3a2 2026-03-21T13:21:47-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+d1c2b4beff75d65ee45e2c0ee7d38007c0c27593 2026-03-21T13:21:44-04:00 Limelight Implementation
+0ba454ed330cc887a2646e61806e3c1244e6995c 2026-03-21T13:09:03-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+928345b5b7d088aade3e2fe3e987086befb4cc63 2026-03-21T13:08:43-04:00 Current Limit Changes
+d487145ba85a744e699ed056ab38de35bc157797 2026-03-20T15:19:32-04:00 fixing sim issue
+e6342eeab5dd1f3de07f0a75335796c6cf817139 2026-03-20T10:56:23-04:00 delete
+7ea645a532e904f733fff73aa9adaec915aa38f4 2026-03-19T12:19:10-04:00 Removed Climb, Added Battery Logger Updates
+c519c021fe69905e06d11f7e1eec805f022d7489 2026-03-18T19:54:38-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+40b2a27dd55fe20e10340d2881a1069c0d74a8e1 2026-03-18T19:51:11-04:00 Some important changes
+4206f167ee06f49562e8b79adb09ebc979d516c3 2026-03-18T19:17:55-04:00 bringing back photonvision and keeping it ready in drive.java
+0e9e68bdaeaf79467eee7a5d838a072f9de7d1dc 2026-03-18T17:48:41-04:00 Added Battery Logger
+6de9c8b107129c3170b73b261d953804443ff30c 2026-03-18T13:33:51-04:00 Limelight implementation (SIM is missing and will be added later hopefully)
+beaf2211e42d0559badff6a0c295f644a1bdda64 2026-03-16T22:00:52-04:00 Merge pull request #2 from FRC1257/Sam's-Branch
+cd9589363210c89a69bafadd762284c80d575fad 2026-03-16T22:00:39-04:00 Merge branch 'master' into Sam's-Branch
+573d36644413affc7916f14df9093c2b44d2d7e6 2026-03-16T21:59:45-04:00 Removed example path from master
+9bc5b55d588df463b73a8abaf1847722041ea7e0 2026-03-16T21:57:27-04:00 Removed txt file
+fd60dd9f29a56d4eb8cbbca00038811ced1e9285 2026-03-16T18:47:01-04:00 Brought all current limits down to 40
+4e45023884010585488d5b7f0716f24c4f2afb4b 2026-03-15T08:10:56-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+83e550cf1e2da4d1364696ba21d60533cc01905b 2026-03-15T08:10:14-04:00 SENECA DAY 1 CHANGEs
+f0859657e95d44ee51d464435b274831b56b6c5e 2026-03-15T08:06:27-04:00 Changes on the bus
+f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6 2026-03-13T19:09:41-04:00 Small minor changes before comp
+0c351ac7b7ea225f34dae1eda03a5dbe61cc3f7f 2026-03-13T13:24:04-04:00 New Elastic Layout
+17600639e7565efb617f53e4880615b5eaa283f6 2026-03-12T13:10:27-04:00 Changes
+319d15728b335d0fa985ef83304842675ddf4f1e 2026-03-12T12:41:47-04:00 Minor Constant change
+d8849266d4923e6ad00d0ce1dc85691fd0b020da 2026-03-12T02:01:12-04:00 Adjusted Auto
+3925aa958af9356d5e129b8819f0a0be3e444ee5 2026-03-12T02:00:49-04:00 Adjusted Hopper Pivot, added Trench Alignment
+67c8ef05c03bf080ce24e63fb23e18f0f6c34fd4 2026-03-11T19:41:56-04:00 Wednesday Changes
+f0bf924a58dd32e9eb32795edaf489e63eaa3eea 2026-03-11T17:46:10-04:00 Changes to Autos
+314d3b6e30af660bb19d52129cfcbc63e33c5968 2026-03-11T15:16:07-04:00 Updated Trajectory Calculator
+46f7823e92b737b0cff7aa3c170c93c1455bd2be 2026-03-11T14:26:32-04:00 Added Flywheel Sim for testing
+d515a5dcab7ffe63cb63d25c934d81e533442a89 2026-03-11T13:43:01-04:00 Improved Auto Chooser & Simulation Options
+ef729d218da44db18b3ed4b18ff21569be541e5f 2026-03-10T19:03:01-04:00 Added Nautilus simulation instance
+7d97da9ee240ae4a332ebf22d045ac6cb79bc32d 2026-03-10T15:44:05-04:00 Created Auto Chooser + Left, Right and Center Auto
+cdb2278e313fbb816df0ca7d82799170e781db87 2026-03-09T23:03:31-04:00 Fixed Joystick Hub Point
+6ee8d166a5bbc06c2e5f2412e984f2d813d1ebfb 2026-03-09T18:19:39-04:00 Adjusted Angle
+1d764768324e6e3e3c0417b9e40e13cca76d56fe 2026-03-09T15:29:51-04:00 Deleted Incorrect Autos
+f7d44d71d1f1dc4daec399e571aae951138642f2 2026-03-09T14:18:57-04:00 Auto Chooser changes + adjustments to calculator
+8b887b1a9a99e69f72a1bc3cf3fd0b31b0802953 2026-03-09T13:07:12-04:00 Create AutoChooser.java
+1298199ece2ad4dab6df62c45bbfe712080da933 2026-03-08T21:36:01-04:00 Tonights Changes
+e0fd5dbb485a9706b23c11896b85884784ce4194 2026-03-08T18:22:22-04:00 Kevins House Changes
+6e72968b000313f6313b55c2789820a3a96b90c5 2026-03-08T14:49:43-04:00 Should work?
+adfa413a35e13fccab831bf2f5e8eb45a3e51595 2026-03-08T14:16:48-04:00 Align to Hub
+ccff68090cbfdf635b2ff9205fa40ed4c48c6803 2026-03-08T13:58:49-04:00 Working static target command
+ed51ad415abd6a4c87aed953f0950be3f8e0bcb0 2026-03-08T13:17:06-04:00 Hood auto aim
+cc333bbfa9479ab88a3cd267ce0b7f6bcbdb44e6 2026-03-08T12:44:48-04:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+a5947d90812c402490c60d27e4e306bada871018 2026-03-08T12:43:54-04:00 Changes
+e02d37c6d9b30027bebb172e9e0e938f823c3cd9 2026-03-08T12:40:13-04:00 Programmed Climb
+43b1d0256a0daace08646949272c2e6ca43b07a8 2026-03-07T19:06:18-05:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+d2084facc54041ee949d3045198e5449ab2311a8 2026-03-07T19:05:28-05:00 Some constants 3/7
+0e4affdd81103d770dd4da1139dbab546c266646 2026-03-07T19:03:13-05:00 Hopper Pivot Fixes
+ad5d9ba044520c334cb12be72b20429d13e9d245 2026-03-07T17:44:29-05:00 Fixed Raghav's swerve issue 3/7
+67d776e43fc97f41532c8b1360a7294a2a7104b3 2026-03-07T16:11:20-05:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+11437e37dbddddcc68d0e9fec3122d6aa66bcb32 2026-03-07T16:11:17-05:00 Tuned The Hood + Shooting Calc
+7a50d3ad0c74c9ee33b87b385d187e54a4a12bc2 2026-03-07T13:33:09-05:00 Hopper Pivot Changes
+126fe9d1dda44767eae349242860246e2498f9c7 2026-03-07T10:13:09-05:00 More minor changes
+dbdbf18f519096157d0120abe1bf38bf49487a37 2026-03-07T10:06:49-05:00 Small Updates
+be4e6ce8286f7b76b0c5ab630808b14a0200ed3a 2026-03-06T13:06:37-05:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+fbae4fb672f7b990b95bbcd042243de28a65908f 2026-03-06T13:06:02-05:00 changes 03/05
+2c3cc8d6c1625ba106d4b043305fce3040feba49 2026-03-06T12:38:37-05:00 Shooter Trajectory Calculator update
+53f8a95f6afcbc2236303eddfb4fc801910fec40 2026-03-05T16:08:42-05:00 Important changes for testing
+e2ce0c65a5c1298bb91b039f0fc41d136bedc2ac 2026-03-05T14:31:20-05:00 Updated Hood code & added real implementation
+c561e5e0ec807af217f4933f88f69498006bb1fa 2026-03-05T10:45:04-05:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+4164d80b6757b2fe59f2b019820cdf117cfeeb41 2026-03-05T10:45:00-05:00 real implementation hood
+71a5083515b8e0dc388de9ca73dee43748a7a606 2026-03-05T10:24:03-05:00 Forgot to push IO layer
+7027495797f5d8e473749eb682b42d586acb28c0 2026-03-05T10:11:20-05:00 Updated the hood code
+55769e169128360bef9d4f3d518726f2a2fb72a9 2026-03-04T15:41:43-05:00 Changes
+cc3aa5a1f9199fda5ddc8b692b15ab29cc5b6fc8 2026-03-04T14:22:00-05:00 Adjusted Flywheel and Kicker SysID, Button Bindings
+13583d8684c3d27bd59bb93cdc7ae49fc79be11e 2026-03-04T13:33:13-05:00 Added additional bindings
+613b41955bb05289e37660bd3e34339f96cf80cc 2026-03-04T13:15:01-05:00 left auto
+83a23596663e7163686f227cb4e4114ce9026379 2026-03-03T13:51:43-05:00 SOTM (Shoot On The Move) Commit One 03/03/2026
+1188b885c44363f86a6db5b33bcfd4e34594977c 2026-03-03T00:07:47-05:00 Changes to Flywheel
+80f58cdbcddc708d6bf609f1c3ee415a9f2d2333 2026-03-02T20:13:00-05:00 Changes from tonight 3/2
+6d93892cdab18a68c37a45465195a376d83350e7 2026-03-02T16:43:29-05:00 Added Trench Zones
+4672844f6eaf18eaafb9903aa85c8c2f0fde9ba9 2026-03-02T15:31:54-05:00 commented out the entire thing
+1ba9e604ad56b9a0c3431440a855ac13b5a858d5 2026-03-02T15:31:37-05:00 Added stop command
+c44bc84ffffd3194d1a4e0ed99bb7767b9003d15 2026-03-02T14:40:39-05:00 Update HopperPivotConstants.java
+fecb7736592323810cce9d426399ae38ee90dfab 2026-03-02T14:31:15-05:00 Added Subsystems to robot container and command bindings
+0595b05af77da1396e2497a6a0758872aa4f6e87 2026-03-02T12:33:29-05:00 addautoChooser
+f7b91d7bbf6084f9ccbb7c88a6881ba81489f02e 2026-03-01T22:41:52-05:00 Added System Identification stuff
+b2d93b129b9af4cd6805ced65d76eac5708b8419 2026-02-28T14:00:09-05:00 All the changes
+3f74dda1924eda4b02384a11c149c7df950c3fce 2026-02-28T12:21:50-05:00 changes
+e8d1e158d25d6e329de070c50eba7947623cc766 2026-02-28T10:33:50-05:00 SYSID
+0bcf0e3171f676a4dfa1b491f675185a5cc6a145 2026-02-26T20:21:19-05:00 Changes
+0983bd5bb291cb6d61eb02dcac1432956a93e080 2026-02-26T17:41:14-05:00 Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+c5bb76aa7d289bd6c11772743b11fb6bae600241 2026-02-26T16:55:28-05:00 Added position conversion factor
+7a9a4959b21e6c16c6897a7d3c09974de44a02f5 2026-02-26T16:44:42-05:00 Made some changes to active floor and added field constants
+d5a5b6208565219929d1488cd6f062405ad54a15 2026-02-26T16:30:15-05:00 Fixed issues in Hopper Pivot implementation
+9851ca0600da8e303ec0cee1fffab5d721f2bf49 2026-02-26T16:22:04-05:00 active floor
+5a4f86f63c44966ddd642883073ceb83fd2766b2 2026-02-26T16:20:25-05:00 Wrote real kicker implementation
+711405b6222924da872cb1da4520701d0f2312dd 2026-02-26T16:04:22-05:00 pivot
+bdde049e447168275938d5c0430cf5318a1f45fd 2026-02-26T15:35:45-05:00 trying again
+07cec7f9457130cdb1d1ad2538e5bca9dabd6844 2026-02-26T15:31:48-05:00 flywheel fix + tiny bit of hopper pivot
+57b22f6c1c8fc7bf4f35f70fec5bc533e7b4f575 2026-02-26T15:25:05-05:00 Zone Software
+35eaa05df6d3b38e6a7944aa8a1942aa5a848a0a 2026-02-26T09:43:16-05:00 Added Javadocs
+c60e94ba1178fb721784b464068fd3c2e24f9b10 2026-02-25T22:59:58-05:00 Reverted change & added LoggedTunableMeasure class
+1d903400682504b917b4babc616eab9efcbe906c 2026-02-25T21:40:05-05:00 Potential fix to the field relative issue
+86b0ee178f29865160a2c8059c6ff8b9ca78c1c5 2026-02-25T20:17:32-05:00 Fixed Some Stuff
+45b3940fd094e096b0e3f51723ad67b433935040 2026-02-25T14:17:36-05:00 Added 6328 LoggedTunableNumber class & Javadoc comments
+4545b3e536fcc4ea36fdf454706a72bd16b0fbb2 2026-02-24T22:30:55-05:00 Added Javadocs
+d443b11a7aad357140213ee6f39f347722cecef7 2026-02-24T20:50:13-05:00 Some small changes I forgot to commit
+4b8a451f20174c03ff8a08f236620fbb075dfa9f 2026-02-24T17:06:23-05:00 Rewrote Kicker, Rewrote Hood, Added Pivot Visualization
+b3e882fcc5c78ec3bf68344e08c413fa9911f1d4 2026-02-23T19:25:36-05:00 Basic Changes to the Hopper Intake software
+e01f2c14f437a24b493072b104ae9f43bf9158e7 2026-02-23T15:32:00-05:00 Fixed Hopper Pivot software, changed hopper architecture
+0c785f3dd49b8096d6331872da13bd12040706ef 2026-02-23T14:01:26-05:00 Significant Changes to HopperPivot software
+59c591256a557c08846ee507328af77475b3ef8e 2026-02-23T12:30:32-05:00 Code builds correctly -- preparing to write simulations
+ec49ffc34758ea45dcebd113b0a397aeb0a5f49d 2026-02-23T12:24:13-05:00 Complete Rewrite Underway
+70227be32ec39ba161a9ecc46dafc8d52ecaa1e7 2026-02-23T10:52:32-05:00 Quick Fixes before massive changes and testing
+ed838cefbfe57e34e43c092c2295d8eed47572b6 2026-02-23T09:00:52-05:00 fixing logging errors
+9e03acf758d810281450485c8c5aeffd51c3a37f 2026-02-22T19:32:27-05:00 logging fixes
+bb590f58838a2301a7978f01ae47abdc355ecd1d 2026-02-22T16:25:11-05:00 changes to constants, pivot, and driver controls
+c33378e27681f84923d9ee3a12676596e2ede723 2026-02-22T11:22:34-05:00 edits to activeFloor and HopperIntake for button binding
+4c35e7186062ba53f4bab9c4be47df1349c149a9 2026-02-21T14:27:51-05:00 Stuff from meeting 2/21
+7267d9b78385949fd5d4acbdb561d94010756c30 2026-02-21T13:18:01-05:00 some comments
+712265bee205fc8252a9511e5cdf492c4749a86c 2026-02-19T16:35:21-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+6a48efd8a8ba67cd0b6ab9f37409d6167e21997b 2026-02-19T16:35:15-05:00 rest of climb
+e53d66c4196a07176f1c082821740e1b39955ffa 2026-02-19T15:49:25-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+46b3e81bdb595e7621d4f02a5c7d60c6a376b2c4 2026-02-19T15:49:19-05:00 updated HopperPivotSim for two motors
+14efbf54a10bfadb2712332d5723d63d3c8f4e77 2026-02-19T15:45:30-05:00 commands + arman's io
+f4d00d6a1c1bc380fd19f2da9f23b48a976951f9 2026-02-19T15:23:01-05:00 file creation
+634a58e25b890ee08a32e02c9ab83a2c1b0657d9 2026-02-18T17:56:19-05:00 updates to flywheel, hopperpivot, and hood
+1f9ef73852892302201648b8f8e9bc07174ba6aa 2026-02-18T15:28:22-05:00 Fixed bugs
+be67ff5adb621a05fb292bc11a6ed1f98f12ed04 2026-02-17T21:13:19-05:00 Unfinished Flywheel Code
+cbed334d0d99dd3f5846f6bb484a16ef2fb97341 2026-02-17T12:55:27-05:00 Basic Hood Code Framework
+661d1602cb928a56ad5af70469db3425f613b6e9 2026-02-12T17:12:06-05:00 Commands created
+91c1379f67df11f453a06c3f552b263329d5ab21 2026-02-12T16:53:35-05:00 java and added set brak as well as some constants
+57ab662ba7d7028d23b553b7a182e6f198f64b5b 2026-02-12T16:45:53-05:00 sparkmax
+ab6519ded6232a36074463852ed0eed9ccf3d856 2026-02-12T16:28:05-05:00 constants
+027541a3d2e28422df9e04b7ed3f3041cb5f0857 2026-02-12T16:27:42-05:00 config & brake & commands
+84bb3972003f3ff906def15188271b98f02ce05f 2026-02-12T16:27:21-05:00 fixes to stuff thats wrong
+a743470ac6fafecbba5cd053c2c168d6c66d2972 2026-02-12T16:13:13-05:00 Added Voltage Command
+6ed4e5bbb9c63cd797b5bf766acd0a7d76fe95a3 2026-02-12T16:12:18-05:00 basic java commands hopefully no merge conflict
+441fac1962ac613914b0f66b7401c52d73636ff6 2026-02-12T15:59:46-05:00 random changes
+93f11ada099098155b9fa49a99c4be436a7abd50 2026-02-12T15:59:27-05:00 basic .java commands
+f6836f26fa5afec228edcc46f03990846a1c0d17 2026-02-12T15:56:37-05:00 new commands
+867d690d13be83c6213a5e1d9ad17bbbfcc0c678 2026-02-12T15:41:16-05:00 sim
+1fee7e5daa48969a8acd192a3872a273b6128fd1 2026-02-12T15:37:34-05:00 a
+2100e000347094e2dea6866380c0750a5759ff3e 2026-02-12T15:35:02-05:00 brake
+2177b5f2dc3c06486ba75b889a96cdf036bb6406 2026-02-12T15:32:45-05:00 kicker commands ig
+ca2b488407d22ea5fc425a89ba037dd5c72563dc 2026-02-12T15:32:26-05:00 current sim and spark max up to date
+b3e6bed67c89b44281a040b2bf07f4732b4a4b2d 2026-02-12T15:31:40-05:00 small changes in kicker
+55a2a466a82e04fdb4a8737a30fc78bb1d7318d4 2026-02-11T19:45:54-05:00 Hopper Intake Base Rewrite
+dc26546551ced1656986098d012a3494af3690d2 2026-02-11T17:20:49-05:00 edits/ notes made to subsystems
+b02125b459fa97419c43835e6e4ed4e2f08ebf42 2026-02-11T16:11:30-05:00 drive testing
+4b4fdcd64414f9237ee97503dc21daad3b0b5bdb 2026-02-11T15:36:19-05:00 elias kicker code
+0bb69ca873bbac88547956828bbe2dba23a9306a 2026-02-11T15:30:04-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+3ba9e47c855d1175856439d38ceb61af1d04b63f 2026-02-11T15:25:50-05:00 Elias' missing kicker code
+012b6f865353157a04fe6e491dd58c677509f980 2026-02-10T22:37:06-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+881fdf338767834325b786c9fa730036128dd617 2026-02-10T16:02:39-05:00 sim
+9435009bf305f871047741e6f096350e700c4c17 2026-02-10T15:52:20-05:00 sim + changes
+eb2e5b867131da35dde3d0772e8b921b23532ffc 2026-02-09T17:21:35-05:00 Made changes to sim and added some IOInputs. Also added PI
+48745a3257d6dee2654d8af150f5ccf452913340 2026-02-09T17:03:59-05:00 updated logic for custom auto chooser
+55f2af872f7468afeb10f461ff9b55d56652727e 2026-02-09T16:13:53-05:00 Added to sparkMax and am almost entirely finished
+d63a91edadb7832ec41ebf9a53c8cf657ffb7cb2 2026-02-09T15:51:53-05:00 IOSim started
+c64704284387746414ba3e85bcaa6f17b23bd3f1 2026-02-09T15:42:51-05:00 minor update to Sim
+615ca12cb3fc5114f96e37a9ef681b522c3e2ed3 2026-02-09T15:30:44-05:00 started working on sim file
+5598becef5315cdd65f241f1a56521fc71985e23 2026-02-09T15:30:29-05:00 A few inputs in IOInputs
+aa3d9d9061ffdde71304fd2b40df8937413aa213 2026-02-09T15:19:30-05:00 renaming
+7a4a468e4ea379f03e947170f99ef83df7016203 2026-02-09T15:19:19-05:00 test
+6d9e8c40ba51812a7036ba9f37a1e483e4ca2446 2026-02-09T15:14:55-05:00 IOSparkMax & main
+cc2cf8a3d19b6eff43126e47f27cc4382736f528 2026-02-09T14:44:55-05:00 minor fixes to io and sparkmax
+0d7d0529167a82572ea8ca374d5d1813856f4b20 2026-02-09T10:46:58-05:00 IO partially restored
+4ce13c6c6fc15e0e7aff902efe9f081c0e0cdf23 2026-02-07T13:41:42-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+b5be68ea7425fb8ab243b20d4ce315f2c9f8e6d8 2026-02-07T13:41:37-05:00 enum classes for custom auto chooser
+20ed234ff5bb6c5f34ea60a90febf1fd401c468d 2026-02-07T13:07:25-05:00 minor change
+2a19b7bf55fa008968da5eb0b30d69fc6454510c 2026-02-07T12:27:07-05:00 Outtake
+2b93271a60daa42e4effb202b759faaaaa62c4f5 2026-02-07T11:53:37-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+0290064a2f14c29dfcfdc49d662ed72f2042b8ff 2026-02-07T11:53:09-05:00 PID and runVoltage
+afde3651a12334f237adb00f98e86a89bbd9e495 2026-02-07T11:41:59-05:00 sim
+a06f6060a6f835fa3e90fb4242eaabd4e2881cc6 2026-02-07T11:16:08-05:00 fixed imports on sparkmax
+566bf4fddda24b6fe24e7f2bdf4179288d0c76a3 2026-02-07T11:08:25-05:00 sparkmax
+aac5eca52f1f5aed67b4448b6d12f2421e1173b0 2026-02-07T10:16:27-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+662d6853bfd520d7dcae4a4c00a7aee244f3924f 2026-02-05T20:12:37-05:00 "active" removed
+d16c26f63b604fd8341fb770b1535b08aac395ed 2026-02-05T20:07:46-05:00 some changes
+5dd16ebe95f4bcf5f15d8152167ce216f989a32d 2026-02-05T19:34:15-05:00 file creation + constants, io and commands
+b7e86590bc25d2c4ae054f309a543ee2adbe9688 2026-02-05T19:06:05-05:00 test 1
+0caf41442df417ad0aa347bd3916f7a001dbb505 2026-02-05T18:51:38-05:00 Update sparkmax
+4e858dbe80c6014af84bfb2593533b0ed3fed4e3 2026-02-05T18:45:11-05:00 Update build.gradle
+5fbddbfa15a0d8df69058d54bce625e0aa05e1b0 2026-02-05T17:15:24-05:00 started and mostly finshed FuelPivotIOSparkMax, still have a few commands left to fix
+7938217df731a954a959726502f003ab76513830 2026-02-05T17:13:22-05:00 HopperIntakeIO finished and sparkmax edited
+a67d37e17a1bb9d231b1b722dcde571e77c92692 2026-02-05T16:36:51-05:00 Merge branch 'shooter' of https://github.com/FRC1257/2026-Robot into shooter
+88a514bfe8fd5b63e86ca092d3f109b312a2b998 2026-02-05T16:36:42-05:00 commands
+9b6c9ac289bdd2bec514a47d33e824e7f02d0a1f 2026-02-05T16:34:03-05:00 Update FuelPivotIO.java
+905d5003fc7ad8722f2acde3a99886633c61173b 2026-02-05T16:27:50-05:00 activeFloor adding
+1d93103ac7bfcc8845f9ba5761b0ae4ec50abdbd 2026-02-05T16:01:51-05:00 updated sparkmax
+462bda39c3f58c23cfc364b182f36e8de1c7367d 2026-02-05T16:01:46-05:00 constants
+5af43ddda513dcb1cb4c444dd94f7ff20202bfc6 2026-02-05T15:54:18-05:00 most of IO
+f8c5524bdbe44f33b7127e1aeafca7bdae069e21 2026-02-05T15:36:17-05:00 update
+b2bc951c4ff18611c8c8f8cd12d1dabb4a856517 2026-02-04T16:20:15-05:00 SparkMax
+5c7c8d62a8de9ba3c926cbe82e5ef2f668ca58ce 2026-02-04T16:04:50-05:00 Add stop method and runKickerCommand to Kicker
+f303423ca64ea2a3d23ae52bcc33b7986c07b1b1 2026-02-04T15:34:53-05:00 IO
+35f9caa906f37724143f77c4e28f105a032885eb 2026-02-04T15:25:28-05:00 Added Limit Switch channel constant, might need changing later
+c39b5d77592e8a3524c97a94edfe8e62f9802a97 2026-02-04T15:22:21-05:00 Added Kicker Constants with template constant
+20e0b3db2ec71d63061e22d0ede27428c76f3166 2026-02-04T10:38:57-05:00 Added TODO notice to add some config to the motor config
+b8fe6f729ff906bb61bb3258fca5bd468913ce6d 2026-02-04T09:15:29-05:00 Deleted unneccasary kicker text file
+42aa76a348dd0c2e813a01327600e61738dfa110 2026-02-04T09:12:26-05:00 Added some limit switch stuff
+b8eb50c9dfcb54f2304353952e689da16590e67e 2026-02-04T08:24:09-05:00 Fixed Williams errors, (a lot) might need some more tweaking since all i did was fix errors
+0c5e591e367975038ac8e94e51d528ab124c4816 2026-02-04T08:20:26-05:00 Changed return types in getVoltage() and getVelocity() to fix errors
+085ada48245676d231950f3fa644516b229eb1d4 2026-02-03T18:47:09-05:00 Small Tiny Fix
+311652e3c79879e5e6dbc5590441b7591b26fd2f 2026-02-03T18:02:53-05:00 Create kicker
+18160cdfd7df7e7dd89ba900f98e69ee0fbf9245 2026-02-03T13:21:52-05:00 Adjusted Shooter/Flywheel units
+193ffbf4389326d6393f703b63ad343c2af52942 2026-02-03T10:37:43-05:00 Shooter update + Shooting on the move framework
+7fb8f76ecdcc9bb7b85d933406eb9d2253468b2b 2026-02-02T21:03:31-05:00 added stuffs to sparkmaxio
+695eab2ccfdab97cb401f4e6b8e20c8bbf7764af 2026-02-02T19:40:17-05:00 Merge branch 'SampleBranch' of https://github.com/FRC1257/2026-Robot into SampleBranch
+23c944ae11b64279b91231465a4a5bc63ae8b3be 2026-02-02T19:38:52-05:00 HopperPivot + HopperIntake
+c88815094545b8bfe7f66921fac1fc3ae6749dd1 2026-02-02T19:38:17-05:00 Basic Shooter Code
+6b7612e00c43c9a5972c992ad53049be6fd60785 2026-02-02T17:56:57-05:00 Couple Subsystems
+d37789cadf5bc5d2a92f9333b2586db97822f23d 2026-02-02T17:13:54-05:00 IO file
+9032a772ecc5c42373cf986cb9038ca0f5cb0fec 2026-02-02T17:00:41-05:00 Files created
+68672dc8efb463353610cc601bfa8e3a7789b77a 2026-02-02T16:50:12-05:00 created files
+5f04eafd9c10fe9d16d5ba16e31dc47200b4be69 2026-02-02T16:43:31-05:00 Created FuelPivot folder and files
+387384a0a6dbd2c1a74af00d51bd70adeac8afa1 2026-02-02T16:43:01-05:00 Added 2 new methods
+290fd70b556e14b5718fefe45142f99679581a90 2026-02-02T16:42:50-05:00 Added Inputs
+57edc59778ca0668c3f738c0775f7c54dea65914 2026-02-02T16:26:33-05:00 files
+1cbe20049e01f6f26f1b0a7425edc4a9c518611e 2026-02-02T16:26:30-05:00 Added some content
+47f514ab88270906ae6253fbc1382a8fe11cba77 2026-02-02T16:21:46-05:00 Added 2 files
+4e7c7261efc0f98eeaaea50897b97bb0b7b7e0d5 2026-01-21T17:14:12-05:00 updated can ids (1/21)
+1c316a2fb4d299cb9b635b0a33b8add41c193364 2026-01-15T20:14:59-05:00 Drive Testing 1/15
+51f3fd1d67e6b458a5cfd82e64db40dcd3742a97 2026-01-14T15:56:02-05:00 Day 2 - Working in Sim (01/14/26)
+e14861bb461ef8786fa4503f270b22e75c5cf92d 2026-01-13T17:03:42-05:00 Imported 2025 code, successful build 1/13/2026

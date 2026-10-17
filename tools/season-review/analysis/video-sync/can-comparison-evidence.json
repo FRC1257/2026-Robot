@@ -1,0 +1,178 @@
+{
+  "2026paben_qm42": {
+    "log": "logs/2026/akit_26-03-28_22-29-34_paben_q42.wpilog",
+    "unique_signal_values": {
+      "/SystemStats/CANBus/TransmitErrorCount": {
+        "min": 64,
+        "max": 248,
+        "unique_count": 20
+      },
+      "/RealMetadata/GitBranch": [
+        "Sam's-Branch"
+      ],
+      "/SystemStats/CANBus/ReceiveErrorCount": [
+        128,
+        129,
+        132
+      ],
+      "/RadioStatus/Connected": [
+        false,
+        true
+      ],
+      "/SystemStats/CANBus/TxFullCount": [
+        1
+      ],
+      "/RealMetadata/GitSHA": [
+        "5083ee80a875e8ab8ca3d9f7e376bda174516c6f"
+      ],
+      "/RealMetadata/GitDirty": [
+        "Uncomitted changes"
+      ],
+      "/SystemStats/CANBus/OffCount": [
+        0
+      ],
+      "/RealMetadata/GitDate": [
+        "2026-03-27 12:35:02 EDT"
+      ],
+      "/Hood/HoodConnected": [
+        false
+      ],
+      "/RealOutputs/Vision/cam2/Connected": [
+        false,
+        true
+      ],
+      "/HopperPivot/LeftpivotConnected": [
+        false
+      ],
+      "/Flywheel/FlywheelFollowerConnected": [
+        false
+      ],
+      "/RealOutputs/Vision/cam3/Connected": [
+        false,
+        true
+      ],
+      "/HopperIntake/IntakeFollowerConnected": [
+        false
+      ],
+      "/ActiveFloor/ActiveFloorConnected": [
+        false
+      ],
+      "/HopperIntake/IntakeConnected": [
+        false
+      ],
+      "/Flywheel/FlywheelLeaderConnected": [
+        false
+      ],
+      "/RealOutputs/Vision/cam1/Connected": [
+        false,
+        true
+      ],
+      "/Drive/Gyro/Connected": [
+        true
+      ],
+      "/HopperPivot/RightpivotConnected": [
+        false
+      ],
+      "/Kicker/KickerConnected": [
+        false
+      ],
+      "/SystemStats/NTClients/photonvision@1/Connected": [
+        true
+      ],
+      "/SystemStats/NTClients/Dashboard@2/Connected": [
+        false,
+        true
+      ],
+      "/SystemStats/NTClients/Elastic@3/Connected": [
+        false,
+        true
+      ]
+    }
+  },
+  "2026paben_qm34": {
+    "log": "logs/2026/akit_26-03-28_21-18-11_paben_q34.wpilog",
+    "unique_signal_values": {
+      "/SystemStats/NTClients/photonvision@1/Connected": [
+        true
+      ],
+      "/SystemStats/CANBus/TransmitErrorCount": [
+        0,
+        4
+      ],
+      "/RealMetadata/GitBranch": [
+        "Sam's-Branch"
+      ],
+      "/SystemStats/CANBus/ReceiveErrorCount": [
+        0,
+        15
+      ],
+      "/RadioStatus/Connected": [
+        false,
+        true
+      ],
+      "/SystemStats/CANBus/TxFullCount": [
+        0
+      ],
+      "/RealMetadata/GitSHA": [
+        "5083ee80a875e8ab8ca3d9f7e376bda174516c6f"
+      ],
+      "/RealMetadata/GitDirty": [
+        "Uncomitted changes"
+      ],
+      "/SystemStats/CANBus/OffCount": [
+        0
+      ],
+      "/RealMetadata/GitDate": [
+        "2026-03-27 12:35:02 EDT"
+      ],
+      "/SystemStats/NTClients/Dashboard@2/Connected": [
+        false,
+        true
+      ],
+      "/Hood/HoodConnected": [
+        true
+      ],
+      "/RealOutputs/Vision/cam2/Connected": [
+        true
+      ],
+      "/ActiveFloor/ActiveFloorConnected": [
+        true
+      ],
+      "/HopperIntake/IntakeConnected": [
+        true
+      ],
+      "/RealOutputs/Vision/cam1/Connected": [
+        false,
+        true
+      ],
+      "/Drive/Gyro/Connected": [
+        true
+      ],
+      "/HopperPivot/LeftpivotConnected": [
+        true
+      ],
+      "/Flywheel/FlywheelFollowerConnected": [
+        true
+      ],
+      "/SystemStats/NTClients/Elastic@3/Connected": [
+        false,
+        true
+      ],
+      "/RealOutputs/Vision/cam3/Connected": [
+        true
+      ],
+      "/HopperIntake/IntakeFollowerConnected": [
+        true
+      ],
+      "/Flywheel/FlywheelLeaderConnected": [
+        true
+      ],
+      "/HopperPivot/RightpivotConnected": [
+        true
+      ],
+      "/Kicker/KickerConnected": [
+        true
+      ]
+    }
+  }
+}

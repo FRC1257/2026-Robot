@@ -1,0 +1,83 @@
+{
+  "name": "1257 camera rig (code transforms)",
+  "isFTC": false,
+  "rotations": [],
+  "position": [
+    0,
+    0,
+    0
+  ],
+  "cameras": [
+    {
+      "name": "Back_Camera",
+      "position": [
+        0.038099999999999995,
+        -0.21589999999999998,
+        0.508
+      ],
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": 0
+        },
+        {
+          "axis": "z",
+          "degrees": 180
+        }
+      ],
+      "resolution": [
+        480,
+        320
+      ],
+      "fov": 60.45083037605332
+    },
+    {
+      "name": "SwerveBack",
+      "position": [
+        0.27305,
+        -0.32384999999999997,
+        0.21589999999999998
+      ],
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": -25
+        },
+        {
+          "axis": "z",
+          "degrees": -128.75
+        }
+      ],
+      "resolution": [
+        480,
+        320
+      ],
+      "fov": 60.45083037605332
+    },
+    {
+      "name": "SwerveFront",
+      "position": [
+        0.3286125,
+        -0.28257499999999997,
+        0.21589999999999998
+      ],
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": -25
+        },
+        {
+          "axis": "z",
+          "degrees": 28.75
+        }
+      ],
+      "resolution": [
+        480,
+        320
+      ],
+      "fov": 60.45083037605332
+    }
+  ],
+  "components": [],
+  "disableSimplification": true
+}

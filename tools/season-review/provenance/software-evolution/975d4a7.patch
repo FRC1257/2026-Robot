@@ -1,0 +1,166 @@
+commit 975d4a77c3083c7f6096a2ac6bf20129d5f23ee5
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Mon Mar 23 14:13:42 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Mon Mar 23 14:13:42 2026 -0400
+
+    Added a second motor to the hopper intake
+
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+index b0dd342..c43cb54 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+@@ -5,7 +5,6 @@ import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.units.measure.Voltage;
+ import edu.wpi.first.wpilibj.Alert;
+ import edu.wpi.first.wpilibj.Alert.AlertType;
+-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import frc.robot.Robot;
+@@ -28,14 +27,19 @@ public class HopperIntake extends SubsystemBase {
+ 
+   private final Debouncer connectedDebouncer = 
+     new Debouncer(0.5, DebounceType.kFalling);
++  private final Debouncer followerConnectedDebouncer = 
++    new Debouncer(0.5, DebounceType.kFalling);
+     
+   private final Alert disconnected;
++  private final Alert followerDisconnected;
++
+     
+     
+   public HopperIntake(HopperIntakeIO io) {
+     this.io = io;
+ 
+-    disconnected = new Alert("HOPPER INTAKE MOTOR DISCONNECTED", AlertType.kError);
++    disconnected = new Alert("HOPPER INTAKE LEADER MOTOR DISCONNECTED", AlertType.kError);
++    followerDisconnected = new Alert("HOPPER INTAKE FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
+   }
+     
+   @Override
+@@ -44,10 +48,13 @@ public class HopperIntake extends SubsystemBase {
+     Logger.processInputs("HopperIntake", inputs);
+ 
+     disconnected.set(!connectedDebouncer.calculate(inputs.intakeConnected));
++    followerDisconnected.set(!followerConnectedDebouncer.calculate(inputs.intakeFollowerConnected));
++
+ 
+     Robot.batteryLogger.reportCurrentUsage(
+       "HopperIntake",
+-      inputs.intakeCurrent.in(Amps)
++      inputs.intakeCurrent.in(Amps),
++      inputs.intakeFollowerCurrent.in(Amps)
+     );
+ 
+   }
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
+index b237b78..6f4eba7 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
+@@ -18,6 +18,8 @@ public class HopperIntakeConstants {
+   }
+ 
+   public static final int HOPPER_INTAKE_MOTOR_ID = 8;
++    public static final int HOPPER_INTAKE_FOLLOWER_MOTOR_ID = 14;
++
+ 
+   public static final Voltage HOPPER_INTAKE_VOLTAGE = Volts.of(-12);
+   public static final Voltage HOPPER_OUTTAKE_VOLTAGE = Volts.of(12.0);
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java
+index e87705b..d912826 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java
+@@ -22,13 +22,17 @@ public interface HopperIntakeIO {
+       public Current intakeCurrent = Amps.of(0.0);
+       public Temperature intakeTemperature = Celsius.of(0.0);
+ 
++      public boolean intakeFollowerConnected = false;
++      public Voltage intakeFollowerVoltage = Volts.of(0.0);
++      public AngularVelocity intakeFollowerVelocity = RadiansPerSecond.of(0.0);
++      public Current intakeFollowerCurrent = Amps.of(0.0);
++      public Temperature intakeFollowerTemperature = Celsius.of(0.0);
++
+   }
+ 
+   public default void updateInputs(HopperIntakeIOInputs inputs) {}
+ 
+   public default void setVoltage(Voltage voltage) {}
+-
+-  public default void setBrake(boolean brake) {}
+-
++  
+   public default void stop() {}
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+index ca3ac90..ed62c56 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+@@ -22,16 +22,24 @@ import org.littletonrobotics.junction.Logger;
+ 
+ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+     private SparkFlex motor;
+-    private RelativeEncoder encoder;
++    private SparkFlex followerMotor;
+ 
+-    private SparkFlexConfig config = new SparkFlexConfig();
++    private RelativeEncoder encoder;
++    private RelativeEncoder followerEncoder;
+ 
+     public HopperIntakeIOSparkMax() {
+         motor = new SparkFlex(HopperIntakeConstants.HOPPER_INTAKE_MOTOR_ID, MotorType.kBrushless);
++        followerMotor = new SparkFlex(HopperIntakeConstants.HOPPER_INTAKE_FOLLOWER_MOTOR_ID, MotorType.kBrushless);
++
+         encoder = motor.getEncoder();
++        followerEncoder = followerMotor.getEncoder();
++
++        SparkFlexConfig config = new SparkFlexConfig();
++        SparkFlexConfig followerConfig = new SparkFlexConfig();
++
+ 
+         // Configure motor
+-        config.idleMode(IdleMode.kBrake);
++        config.idleMode(IdleMode.kCoast);
+         config.voltageCompensation(12);
+         config.smartCurrentLimit(60);
+         config.inverted(true);
+@@ -39,9 +47,13 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+         config.encoder
+             .positionConversionFactor(Math.PI * 2.0) // Convert encoder ticks to radians
+             .velocityConversionFactor(Math.PI * 2.0 / 60.0); // Convert encoder ticks per second to radians per second
+-
+-        motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
+         
++        followerConfig.apply(config);
++        followerConfig.follow(motor, true);
++        
++        motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
++        followerMotor.configure(followerConfig, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
++
+ 
+     }
+ 
+@@ -52,6 +64,12 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+         inputs.intakeVelocity = RadiansPerSecond.of(encoder.getVelocity());
+         inputs.intakeCurrent = Amps.of(motor.getOutputCurrent());
+         inputs.intakeTemperature = Celsius.of(motor.getMotorTemperature());
++
++        inputs.intakeFollowerConnected = followerMotor.getLastError() == REVLibError.kOk;
++        inputs.intakeFollowerVoltage = Volts.of(followerMotor.getAppliedOutput() * followerMotor.getBusVoltage());
++        inputs.intakeFollowerVelocity = RadiansPerSecond.of(followerEncoder.getVelocity());
++        inputs.intakeFollowerCurrent = Amps.of(followerMotor.getOutputCurrent());
++        inputs.intakeFollowerTemperature = Celsius.of(followerMotor.getMotorTemperature());
+     }
+ 
+     @Override
+@@ -60,10 +78,4 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+         Logger.recordOutput("HopperIntake/Desired Voltage", voltage);
+     }
+ 
+-    @Override
+-    public void setBrake(boolean brake) {
+-            config.idleMode(brake ? IdleMode.kBrake : IdleMode.kCoast);
+-            motor.configure(config, com.revrobotics.ResetMode.kNoResetSafeParameters, com.revrobotics.PersistMode.kNoPersistParameters);
+-    }
+-
+ }

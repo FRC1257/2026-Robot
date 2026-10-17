@@ -1,0 +1,1997 @@
+{
+  "hubs": [
+    {
+      "x": 410,
+      "y": 151,
+      "width": 1400,
+      "height": 850,
+      "state": {
+        "sidebar": {
+          "width": 230,
+          "expanded": [
+            "/DriverStation"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 10,
+              "title": "Electrical Map",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/Electrical/Map",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "6ce634ae1bfc4f58b8672e327dfb0e87",
+              "renderer": null,
+              "controlsHeight": 70
+            },
+            {
+              "type": 10,
+              "title": "Motor Map",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/Electrical/MotorMap",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "5bb69ce4eec946679cae2ffd5d960885",
+              "renderer": null,
+              "controlsHeight": 70
+            },
+            {
+              "type": 9,
+              "title": "Swerve Measured vs Setpoint",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "states",
+                    "logKey": "/RealOutputs/SwerveStates/Measured",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "states",
+                    "logKey": "/RealOutputs/SwerveStates/SetpointsOptimized",
+                    "logType": "SwerveModuleState[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "arrangement": "0,1,2,3"
+                    }
+                  },
+                  {
+                    "type": "rotation",
+                    "logKey": "/Drive/Gyro/YawPosition",
+                    "logType": "Rotation2d",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "maxSpeed": 4.6,
+                "sizeX": 0.6731,
+                "sizeY": 0.6731,
+                "orientation": 1
+              },
+              "controllerUUID": "a93766e8c93c43d6bfa4eab6bdbf12a1",
+              "renderer": null,
+              "controlsHeight": 200
+            },
+            {
+              "type": 10,
+              "title": "Mechanisms 2D - Encoder Angles",
+              "controller": [
+                {
+                  "type": "mechanism",
+                  "logKey": "/Electrical/RobotMechanisms",
+                  "logType": "Mechanism2d",
+                  "visible": true,
+                  "options": {}
+                }
+              ],
+              "controllerUUID": "848cc67ed9804b8fb5579890550cef5d",
+              "renderer": null,
+              "controlsHeight": 70
+            },
+            {
+              "type": 4,
+              "title": "Electrical Status",
+              "controller": [
+                "/Electrical/Status/BATTERY",
+                "/Electrical/Status/RIO",
+                "/Electrical/Status/PDH",
+                "/Electrical/Status/CAN",
+                "/Electrical/Status/RADIO",
+                "/Electrical/Status/DS",
+                "/Electrical/Status/GYRO",
+                "/Electrical/Status/CAM1",
+                "/Electrical/Status/CAM2",
+                "/Electrical/Status/CAM3",
+                "/Electrical/Status/6V",
+                "/Electrical/Status/5V",
+                "/Electrical/Status/3V3",
+                "/Electrical/Status/MOTORS",
+                "/Electrical/Status/WIRING"
+              ],
+              "controllerUUID": "7d0032ce600644a9bba1735da3e9bd8f",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "CAN Diagnostics",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/Utilization",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/OffCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/ReceiveErrorCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/TransmitErrorCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/TxFullCount",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "c771285bbeaa4ba4b5ee828f871e0279",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "RIO Rails",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/6vRail/Voltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/5vRail/Voltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/3v3Rail/Voltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/6vRail/Active",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/5vRail/Active",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/3v3Rail/Active",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "ce1b88bf84304905822b0c9eaa47cddb",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "PDH Faults",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/PowerDistribution/Faults",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/PowerDistribution/StickyFaults",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/PowerDistribution/TotalCurrent",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "2938cb37aeda4e2fbfefa081005f42f0",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "PDH Channels",
+              "controller": [
+                "/PowerDistribution/ChannelCurrent",
+                "/PowerDistribution/ChannelCount",
+                "/PowerDistribution/Voltage",
+                "/PowerDistribution/Temperature"
+              ],
+              "controllerUUID": "fb124afeab404eaf8633ccd1a4189c46",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "PDH Amps 0-7",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH00Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH01Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH02Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH03Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH04Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH05Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH06Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH07Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "64658d1553cc491ca277784794fd875f",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "PDH Amps 8-15",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH08Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH09Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH10Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH11Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH12Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH13Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH14Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH15Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "8bb6920454a24e1abfb6fc1ab2c4b60b",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "PDH Amps 16-23",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH16Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH17Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH18Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH19Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH20Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH21Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH22Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Electrical/PDH/CH23Amps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "60b2432baf30433b83883f8599beede1",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 4,
+              "title": "Motor Values",
+              "controller": [
+                "/ActiveFloor/ActiveFloorVoltage",
+                "/Climb/AppliedVolts",
+                "/Climb/CurrentAmps",
+                "/Climb/TemperatureCelcius",
+                "/Drive/Module0/DriveAppliedVolts",
+                "/Drive/Module0/DriveCurrentAmps",
+                "/Drive/Module0/DriveVelocityMeterPerSec",
+                "/Drive/Module0/DriveVelocityRadPerSec",
+                "/Drive/Module0/TurnAppliedVolts",
+                "/Drive/Module0/TurnCurrentAmps",
+                "/Drive/Module0/TurnVelocityRadPerSec",
+                "/Drive/Module1/DriveAppliedVolts",
+                "/Drive/Module1/DriveCurrentAmps",
+                "/Drive/Module1/DriveVelocityMeterPerSec",
+                "/Drive/Module1/DriveVelocityRadPerSec",
+                "/Drive/Module1/TurnAppliedVolts",
+                "/Drive/Module1/TurnCurrentAmps",
+                "/Drive/Module1/TurnVelocityRadPerSec",
+                "/Drive/Module2/DriveAppliedVolts",
+                "/Drive/Module2/DriveCurrentAmps",
+                "/Drive/Module2/DriveVelocityMeterPerSec",
+                "/Drive/Module2/DriveVelocityRadPerSec",
+                "/Drive/Module2/TurnAppliedVolts",
+                "/Drive/Module2/TurnCurrentAmps",
+                "/Drive/Module2/TurnVelocityRadPerSec",
+                "/Drive/Module3/DriveAppliedVolts",
+                "/Drive/Module3/DriveCurrentAmps",
+                "/Drive/Module3/DriveVelocityMeterPerSec",
+                "/Drive/Module3/DriveVelocityRadPerSec",
+                "/Drive/Module3/TurnAppliedVolts",
+                "/Drive/Module3/TurnCurrentAmps",
+                "/Drive/Module3/TurnVelocityRadPerSec",
+                "/Flywheel/FlywheelAngularVelocity",
+                "/Flywheel/FlywheelCurrent",
+                "/Flywheel/FlywheelTemperature",
+                "/Flywheel/FlywheelVoltage",
+                "/Hood/HoodCurrentDraw",
+                "/Hood/HoodTemperature",
+                "/Hood/HoodVelocity",
+                "/Hood/HoodVolts",
+                "/HopperIntake/IntakeVelocity",
+                "/HopperIntake/IntakeVoltage",
+                "/HopperPivot/LeftpivotVelocity",
+                "/HopperPivot/LeftpivotVoltage",
+                "/HopperPivot/RightpivotVelocity",
+                "/HopperPivot/RightpivotVoltage",
+                "/Kicker/KickerAngularVelocity",
+                "/Kicker/KickerVoltage"
+              ],
+              "controllerUUID": "9cfb4ae3278144c3ab14619d5f32bfc0",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 4,
+              "title": "Robot Alerts",
+              "controller": [
+                "/RealOutputs/PhotonAlerts/errors",
+                "/RealOutputs/PhotonAlerts/warnings",
+                "/RealOutputs/PhotonAlerts/infos",
+                "/RealOutputs/PathPlanner/errors"
+              ],
+              "controllerUUID": "d0354d6a2dac4d4ab7b698d7fb343082",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 4,
+              "title": "Driver Inputs",
+              "controller": [
+                "/DriverStation/Joystick0/AxisValues",
+                "/DriverStation/Joystick0/ButtonValues",
+                "/DriverStation/Joystick1/AxisValues",
+                "/DriverStation/Joystick1/ButtonValues"
+              ],
+              "controllerUUID": "10123cf4f65b41868077497e9390a348",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 1,
+              "title": "Motor Amps",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/TurnCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/TurnCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/TurnCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/DriveCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/TurnCurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelCurrent",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Hood/HoodCurrentDraw",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Climb/CurrentAmps",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d52395bde1fd4add897c385db7af54c3",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "Motor Volts",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/TurnAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/TurnAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/TurnAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/DriveAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/TurnAppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Hood/HoodVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Climb/AppliedVolts",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperIntake/IntakeVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Kicker/KickerVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/ActiveFloor/ActiveFloorVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperPivot/LeftpivotVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperPivot/RightpivotVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "3e65f9fc9bb244568cbf18d2d65fad93",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "Motor Speed rad-s",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/DriveVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module0/TurnVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/DriveVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module1/TurnVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/DriveVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module2/TurnVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/DriveVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Drive/Module3/TurnVelocityRadPerSec",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelAngularVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Hood/HoodVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff526b",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperIntake/IntakeVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Kicker/KickerAngularVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperPivot/LeftpivotVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperPivot/RightpivotVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "75fdb80b5cc84456a4c2ff078a0a4a45",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "Motor Temp C",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelTemperature",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Hood/HoodTemperature",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#39d98a",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Climb/TemperatureCelcius",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffbf47",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [],
+                "discreteSources": [],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "8426018027f14ed3b2d44315ab0f0efc",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "1 Electronics Lab",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BatteryVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/PowerDistribution/Voltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BrownoutVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/PowerDistribution/TotalCurrent",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/BrownedOut",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4444"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/SystemActive",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ffcc00"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Enabled",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/DSAttached",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c7be"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RadioStatus/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/6vRail/Active",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aaaaaa"
+                    }
+                  }
+                ],
+                "leftLockedRange": [
+                  0,
+                  14
+                ],
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "ef4e5dc6c3374228a4f5539b76dda307",
+              "renderer": null,
+              "controlsHeight": 300
+            },
+            {
+              "type": 3,
+              "title": "2 Robot 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 Nautilus 2026 (approximate)"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mechanism3d/Components",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "e6bafec69b2d451dbcfb533891f223c9",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50
+              },
+              "controlsHeight": 230
+            },
+            {
+              "type": 2,
+              "title": "3 Field + Auto",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Odometry/TrajectorySetpoint",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "ff647999e2c64751aa8ecc031dadb6e9",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "4 Shooter",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelLeaderAngularVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Flywheel/GoalVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelAngularVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Kicker/KickerVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4444",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Flywheel/isAtGoal",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Enabled",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Autonomous",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "5e10fab9a56944c596b3189a936d5672",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "5 Intake + Hood",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Hood/HoodAngle",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Hood/goal",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperPivot/LeftpivotAngle",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperIntake/IntakeVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Kicker/KickerVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4444",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Enabled",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Autonomous",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "43c1c3a94d814e62bf9233367ae0e8d3",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "6 Timing + Sensors",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/FullCycleMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/Utilization",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/Drive/Gyro/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/cam1/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/cam2/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/cam3/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d944ff9627004ff09e3a2246f2bdca9c",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 3,
+              "title": "7 Camera Back_Camera",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 camera rig (code transforms)"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "d8b0a0ff9cc4472d8e31d37fd59b16dd",
+              "renderer": {
+                "cameraIndex": 0,
+                "orbitFov": 50
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "8 Camera SwerveBack",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 camera rig (code transforms)"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "b06316340d8e443eb16eac63d808b118",
+              "renderer": {
+                "cameraIndex": 1,
+                "orbitFov": 50
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "9 Camera SwerveFront",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 camera rig (code transforms)"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "0e1870627d4d48f88e57f55db0105d7d",
+              "renderer": {
+                "cameraIndex": 2,
+                "orbitFov": 50
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 4,
+              "title": "10 Tag IDs + Pose",
+              "controller": [
+                "/DriverStation/Enabled",
+                "/Vision/HasEstimate",
+                "/Vision/TimestampArray",
+                "/Vision/CameraTargets/0",
+                "/Vision/CameraTargets/1",
+                "/Vision/CameraTargets/2",
+                "/RealOutputs/Vision/TagCounts",
+                "/RealOutputs/Odometry/Robot/translation/x",
+                "/RealOutputs/Odometry/Robot/translation/y",
+                "/RealOutputs/Odometry/Robot/rotation/value",
+                "/RealOutputs/Vision/TrackedTags/Ids",
+                "/RealOutputs/Vision/CameraObservations/Back_Camera/LatestTargetIds",
+                "/RealOutputs/Vision/CameraObservations/SwerveBack/LatestTargetIds",
+                "/RealOutputs/Vision/CameraObservations/SwerveFront/LatestTargetIds",
+                "/RealOutputs/Vision/CameraObservations/Back_Camera/Fresh",
+                "/RealOutputs/Vision/CameraObservations/SwerveBack/Fresh",
+                "/RealOutputs/Vision/CameraObservations/SwerveFront/Fresh"
+              ],
+              "controllerUUID": "65e8490b126347618e98db583ea94357",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 7,
+              "title": "11 Match Video",
+              "controller": null,
+              "controllerUUID": "45b3c152996e4a19bc9dd3dec459c301",
+              "renderer": null,
+              "controlsHeight": 260
+            },
+            {
+              "type": 4,
+              "title": "12 Electronics Values",
+              "controller": [
+                "/SystemStats/BatteryVoltage",
+                "/PowerDistribution/Voltage",
+                "/PowerDistribution/TotalCurrent",
+                "/SystemStats/BrownoutVoltage",
+                "/SystemStats/BrownedOut",
+                "/SystemStats/SystemActive",
+                "/SystemStats/CommsDisableCount",
+                "/DriverStation/Enabled",
+                "/DriverStation/DSAttached",
+                "/DriverStation/FMSAttached",
+                "/RadioStatus/Connected",
+                "/SystemStats/6vRail/Active",
+                "/SystemStats/5vRail/Active",
+                "/SystemStats/CANBus/ReceiveErrorCount"
+              ],
+              "controllerUUID": "51499279ee104e11ba6fc1c1dc3d62f8",
+              "renderer": null,
+              "controlsHeight": 0
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.2"
+}

@@ -1,0 +1,22 @@
+{
+  "verified_at_utc": "2026-10-16T23:36:27.386397+00:00",
+  "local_url": "http://127.0.0.1:8826/?match=2026njtab_qm11",
+  "checks": [
+    "Q11 video playback advanced from65 to87.91s with shared telemetry cursor",
+    "Q11 at65s decoded broadcast clock1:40; telemetry449.06s disabled and DS detached",
+    "Q42 at90s video ->log227.43s, CAN0, flywheel disconnected, current0A",
+    "Q31 unaligned, no telemetry extrapolation",
+    "Browser button opened Q11 original log in AdvantageScope",
+    "Native Q11 MP4 loaded and automatic clock lock observed; app then restarted to release generated6.2GB video JPEG cache",
+    "Restored native layout contains11tabs including3camera perspectives andVideo"
+  ],
+  "tests": {
+    "robot_review": 11,
+    "research": 59,
+    "repository_validation_errors": 0,
+    "retained_warnings": 4
+  },
+  "screenshot": "videos/review-player.png",
+  "screenshot_sha256": "cf216f59db5adc913a3728460fc109fbc1c84e04926f3e6bb63947252c17bf77",
+  "review_scope": "Playback functionality verification; not additional continuous gameplay annotation"
+}

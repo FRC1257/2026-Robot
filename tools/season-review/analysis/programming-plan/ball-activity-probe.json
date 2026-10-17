@@ -1,0 +1,867 @@
+{
+  "generated_utc": "2026-10-17T14:39:58.610340+00:00",
+  "method": "20 ms held grid. Flywheel >100 rad/s, |kicker volts|>1, goal range <=2 rad/s over +/-100ms; speed drop from preceding100ms peak, recovery of half threshold within400ms;160ms refractory. Guard: battery>=9V and range<=0.5V over +/-100ms. Threshold sensitivity 5,10,20rad/s. No validated single-ball calibration. Neither precision nor recall known. Counts are NOT balls, bounds, or successful scores. Change-only fields are held; timestamps are logging timestamps, not certified sensor freshness. Intake current/speed availability checked; no calibrated intake detector.",
+  "logs": [
+    {
+      "file": "logs/2026/akit_26-03-14_15-54-43_njtab_q7.wpilog",
+      "sha256": "6df093e61adee1de01e437fc5d9f27b9b0fe1c6c82e34e9493df7fcb54b156ef",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 114.072,
+          "end_s": 134.667,
+          "intake_active_s": 18.882,
+          "intake_negative_s": 18.882,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -311.6592712402344,
+            0.22270113229751587
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 138.727,
+          "end_s": 282.782,
+          "intake_active_s": 76.322,
+          "intake_negative_s": 74.742,
+          "intake_positive_s": 1.58,
+          "kicker_active_s": 31.947,
+          "flywheel_and_feed_s": 31.947,
+          "candidate_dips_guarded": {
+            "5": 6,
+            "10": 5,
+            "20": 2
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 96,
+            "10": 79,
+            "20": 58
+          },
+          "candidate_10rad_timestamps": [
+            142.147,
+            221.447,
+            222.387,
+            224.647,
+            264.907
+          ],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -340.3815612792969,
+            165.5918426513672
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog",
+      "sha256": "f214b527dead1344b5282ca99dbf0c153d4258fa56072db0317db85d80a554b9",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 383.456,
+          "end_s": 404.269,
+          "intake_active_s": 14.252,
+          "intake_negative_s": 14.252,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 14.895,
+          "flywheel_and_feed_s": 14.895,
+          "candidate_dips_guarded": {
+            "5": 2,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 18,
+            "10": 8,
+            "20": 6
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -387.384765625,
+            0.46279650926589966
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 408.28,
+          "end_s": 422.605,
+          "intake_active_s": 0.286,
+          "intake_negative_s": 0.286,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -292.9460754394531,
+            0.5888020396232605
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 475.138,
+          "end_s": 548.614,
+          "intake_active_s": 27.077,
+          "intake_negative_s": 26.138,
+          "intake_positive_s": 0.94,
+          "kicker_active_s": 15.574,
+          "flywheel_and_feed_s": 15.574,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 15,
+            "10": 9,
+            "20": 7
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -416.5909423828125,
+            43.71639633178711
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-15_14-55-18_njtab_q53.wpilog",
+      "sha256": "e60c73ef1b15704cac856cb012039e1321aebd284df66d7be53e7803ed88651a",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 122.39,
+          "end_s": 142.41,
+          "intake_active_s": 18.317,
+          "intake_negative_s": 18.317,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 9.538,
+          "flywheel_and_feed_s": 9.537,
+          "candidate_dips_guarded": {
+            "5": 1,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 11,
+            "10": 8,
+            "20": 6
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -418.59661865234375,
+            4.846146106719971
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 146.39,
+          "end_s": 183.975,
+          "intake_active_s": 13.954,
+          "intake_negative_s": 13.954,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 2.721,
+          "flywheel_and_feed_s": 2.721,
+          "candidate_dips_guarded": {
+            "5": 1,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 8,
+            "10": 5,
+            "20": 2
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -463.16864013671875,
+            0.10381761938333511
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-15_15-41-42_njtab_q58.wpilog",
+      "sha256": "9d3ce7e072ebc50ccd6768c45383e61c0a26de2bf8381144b2f8199117b4a1c1",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 513.02,
+          "end_s": 516.187,
+          "intake_active_s": 1.524,
+          "intake_negative_s": 1.524,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -149.00184631347656,
+            0.08710818737745285
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 537.947,
+          "end_s": 555.753,
+          "intake_active_s": 10.101,
+          "intake_negative_s": 10.101,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -133.98048400878906,
+            2.229750633239746
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-15_16-37-51_njtab_q63.wpilog",
+      "sha256": "b4e02b0781d9503736e60348bdd1cf1d77648f66ad037db51c88e4519dfa5dda",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 179.274,
+          "end_s": 199.929,
+          "intake_active_s": 18.936,
+          "intake_negative_s": 18.936,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 8.842,
+          "flywheel_and_feed_s": 8.841,
+          "candidate_dips_guarded": {
+            "5": 6,
+            "10": 4,
+            "20": 1
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 14,
+            "10": 10,
+            "20": 8
+          },
+          "candidate_10rad_timestamps": [
+            191.174,
+            194.554,
+            194.974,
+            195.454
+          ],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -207.60800170898438,
+            0.04889563471078873
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 203.949,
+          "end_s": 245.412,
+          "intake_active_s": 25.175,
+          "intake_negative_s": 23.515,
+          "intake_positive_s": 1.66,
+          "kicker_active_s": 4.2,
+          "flywheel_and_feed_s": 4.2,
+          "candidate_dips_guarded": {
+            "5": 4,
+            "10": 2,
+            "20": 1
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 13,
+            "10": 10,
+            "20": 4
+          },
+          "candidate_10rad_timestamps": [
+            222.429,
+            225.229
+          ],
+          "intake_current_range_a": null,
+          "intake_speed_range_rad_s": [
+            -175.64381408691406,
+            54.56013107299805
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-28_16-04-00_paben_q7.wpilog",
+      "sha256": "32ff731d3656848c306505fa19107fb209715330101a14b8bbc6d438627915e6",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 108.82,
+          "end_s": 128.91,
+          "intake_active_s": 18.552,
+          "intake_negative_s": 18.552,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 8.621,
+          "flywheel_and_feed_s": 8.621,
+          "candidate_dips_guarded": {
+            "5": 1,
+            "10": 1,
+            "20": 1
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 14,
+            "10": 14,
+            "20": 14
+          },
+          "candidate_10rad_timestamps": [
+            122.46
+          ],
+          "intake_current_range_a": [
+            0.0,
+            130.95237731933594
+          ],
+          "intake_speed_range_rad_s": [
+            -139.85397338867188,
+            0.34966543316841125
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 132.931,
+          "end_s": 202.614,
+          "intake_active_s": 42.036,
+          "intake_negative_s": 40.53,
+          "intake_positive_s": 1.506,
+          "kicker_active_s": 23.097,
+          "flywheel_and_feed_s": 23.097,
+          "candidate_dips_guarded": {
+            "5": 1,
+            "10": 1,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 78,
+            "10": 69,
+            "20": 66
+          },
+          "candidate_10rad_timestamps": [
+            191.971
+          ],
+          "intake_current_range_a": [
+            0.0,
+            149.37728881835938
+          ],
+          "intake_speed_range_rad_s": [
+            -169.15684509277344,
+            178.5712432861328
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-28_21-18-11_paben_q34.wpilog",
+      "sha256": "ab548007210f84a644fbd49f62bdf42d3acf0baa84f8deb84ace8d3c02f7086f",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 129.734,
+          "end_s": 150.449,
+          "intake_active_s": 18.042,
+          "intake_negative_s": 18.042,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            63.003662109375
+          ],
+          "intake_speed_range_rad_s": [
+            -176.92221069335938,
+            9.635590553283691
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 154.45,
+          "end_s": 294.465,
+          "intake_active_s": 88.349,
+          "intake_negative_s": 86.043,
+          "intake_positive_s": 2.306,
+          "kicker_active_s": 42.004,
+          "flywheel_and_feed_s": 42.004,
+          "candidate_dips_guarded": {
+            "5": 2,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 136,
+            "10": 118,
+            "20": 108
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.26739501953125
+          ],
+          "intake_speed_range_rad_s": [
+            -233.75440979003906,
+            181.52154541015625
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-28_22-29-34_paben_q42.wpilog",
+      "sha256": "a575a400bd5ac588b0678b9d4dcf484b21c6ac0bb4a85025eff35ce057c83ebd",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 135.993,
+          "end_s": 156.19,
+          "intake_active_s": 0,
+          "intake_negative_s": 0.0,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            -3.1891759135760367e-06,
+            3.4542633642331566e-08
+          ],
+          "intake_speed_range_rad_s": [
+            -1.520065323612485e-12,
+            0.0
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 160.21,
+          "end_s": 300.24,
+          "intake_active_s": 0,
+          "intake_negative_s": 0.0,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            -3.1891759135760367e-06,
+            3.4542633642331566e-08
+          ],
+          "intake_speed_range_rad_s": [
+            -1.520065323612485e-12,
+            0.0
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_13-40-03_paben_q48.wpilog",
+      "sha256": "90206ca85086f42e03f9add646280a5f2ae95177fcc33208b09654981f3d1067",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 135.035,
+          "end_s": 155.829,
+          "intake_active_s": 19.072,
+          "intake_negative_s": 19.072,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 10.314,
+          "flywheel_and_feed_s": 10.314,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 17,
+            "10": 17,
+            "20": 17
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            62.74725341796875
+          ],
+          "intake_speed_range_rad_s": [
+            -206.2515106201172,
+            0.5416869521141052
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 159.894,
+          "end_s": 299.94,
+          "intake_active_s": 65.575,
+          "intake_negative_s": 49.59,
+          "intake_positive_s": 15.986,
+          "kicker_active_s": 14.22,
+          "flywheel_and_feed_s": 14.22,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 33,
+            "10": 21,
+            "20": 17
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.4871826171875
+          ],
+          "intake_speed_range_rad_s": [
+            -238.5955047607422,
+            241.0331573486328
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_14-27-29_paben_q53.wpilog",
+      "sha256": "f1ecb2dfd0cb08514d925ed20d7ef12480e8e9e2bf4ab68548e35f848b099b55",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 248.003,
+          "end_s": 260.428,
+          "intake_active_s": 10.563,
+          "intake_negative_s": 10.562,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 2.254,
+          "flywheel_and_feed_s": 2.254,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 6,
+            "10": 6,
+            "20": 6
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.1575164794922
+          ],
+          "intake_speed_range_rad_s": [
+            -217.22866821289062,
+            0.526073157787323
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 272.45,
+          "end_s": 412.53,
+          "intake_active_s": 60.215,
+          "intake_negative_s": 58.134,
+          "intake_positive_s": 2.081,
+          "kicker_active_s": 26.484,
+          "flywheel_and_feed_s": 26.484,
+          "candidate_dips_guarded": {
+            "5": 2,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 90,
+            "10": 66,
+            "20": 57
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.37728881835938
+          ],
+          "intake_speed_range_rad_s": [
+            -204.1970672607422,
+            226.04644775390625
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_16-00-10_paben_q61.wpilog",
+      "sha256": "a7324c9fdeb5dcd4b5e7ebc57a4d456e846af71a1d3b214a6d6ded14538c7584",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 172.529,
+          "end_s": 192.548,
+          "intake_active_s": 18.383,
+          "intake_negative_s": 18.383,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 8.523,
+          "flywheel_and_feed_s": 8.523,
+          "candidate_dips_guarded": {
+            "5": 3,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 28,
+            "10": 22,
+            "20": 22
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.12088012695312
+          ],
+          "intake_speed_range_rad_s": [
+            -189.150634765625,
+            0.24845008552074432
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 196.571,
+          "end_s": 336.579,
+          "intake_active_s": 42.925,
+          "intake_negative_s": 39.667,
+          "intake_positive_s": 3.258,
+          "kicker_active_s": 6.325,
+          "flywheel_and_feed_s": 6.325,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 23,
+            "10": 20,
+            "20": 19
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.23077392578125
+          ],
+          "intake_speed_range_rad_s": [
+            -214.0563201904297,
+            209.99949645996094
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_18-53-11_paben_e1.wpilog",
+      "sha256": "00b6aad7e16093514fc878de31e9c37bee41eb14f1a9af11dee7cd1665f13112",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 229.151,
+          "end_s": 250.304,
+          "intake_active_s": 19.658,
+          "intake_negative_s": 19.658,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 10.859,
+          "flywheel_and_feed_s": 10.859,
+          "candidate_dips_guarded": {
+            "5": 1,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 12,
+            "10": 9,
+            "20": 9
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            124.13919067382812
+          ],
+          "intake_speed_range_rad_s": [
+            -203.2292938232422,
+            0.1181986927986145
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 254.403,
+          "end_s": 395.542,
+          "intake_active_s": 74.41,
+          "intake_negative_s": 71.038,
+          "intake_positive_s": 3.372,
+          "kicker_active_s": 31.305,
+          "flywheel_and_feed_s": 31.305,
+          "candidate_dips_guarded": {
+            "5": 3,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 90,
+            "10": 57,
+            "20": 53
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.4871826171875
+          ],
+          "intake_speed_range_rad_s": [
+            -227.56207275390625,
+            226.98927307128906
+          ]
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_19-37-09_paben_e5.wpilog",
+      "sha256": "9803d5bf6cdcde9b098a4fe988cbd7630e46265c94949b8e91f2f93cf96d456e",
+      "decode_error": null,
+      "windows": [
+        {
+          "phase": "auto",
+          "start_s": 89.366,
+          "end_s": 109.765,
+          "intake_active_s": 18.882,
+          "intake_negative_s": 18.882,
+          "intake_positive_s": 0.0,
+          "kicker_active_s": 10.227,
+          "flywheel_and_feed_s": 10.226,
+          "candidate_dips_guarded": {
+            "5": 1,
+            "10": 1,
+            "20": 1
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 25,
+            "10": 24,
+            "20": 24
+          },
+          "candidate_10rad_timestamps": [
+            102.606
+          ],
+          "intake_current_range_a": [
+            0.0,
+            63.663002014160156
+          ],
+          "intake_speed_range_rad_s": [
+            -160.3961639404297,
+            0.19161061942577362
+          ]
+        },
+        {
+          "phase": "teleop",
+          "start_s": 113.788,
+          "end_s": 146.961,
+          "intake_active_s": 20.113,
+          "intake_negative_s": 14.714,
+          "intake_positive_s": 5.399,
+          "kicker_active_s": 0,
+          "flywheel_and_feed_s": 0.0,
+          "candidate_dips_guarded": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_dips_without_voltage_guard": {
+            "5": 0,
+            "10": 0,
+            "20": 0
+          },
+          "candidate_10rad_timestamps": [],
+          "intake_current_range_a": [
+            0.0,
+            149.04762268066406
+          ],
+          "intake_speed_range_rad_s": [
+            -172.71786499023438,
+            203.9076690673828
+          ]
+        }
+      ]
+    }
+  ]
+}

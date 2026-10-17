@@ -1,0 +1,647 @@
+{
+  "hubs": [
+    {
+      "x": 410,
+      "y": 151,
+      "width": 1400,
+      "height": 850,
+      "state": {
+        "sidebar": {
+          "width": 230,
+          "expanded": [
+            "/DriverStation"
+          ]
+        },
+        "tabs": {
+          "selected": 0,
+          "tabs": [
+            {
+              "type": 1,
+              "title": "1 Match + Battery",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/BatteryVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/PowerDistribution/TotalCurrent",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Enabled",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Autonomous",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/SystemStats/BrownedOut",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4444"
+                    }
+                  }
+                ],
+                "leftLockedRange": [
+                  0,
+                  14
+                ],
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "ef4e5dc6c3374228a4f5539b76dda307",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 3,
+              "title": "2 Robot 3D",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 Nautilus 2026 (approximate)"
+                    }
+                  },
+                  {
+                    "type": "component",
+                    "logKey": "/RealOutputs/Mechanism3d/Components",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {}
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "e6bafec69b2d451dbcfb533891f223c9",
+              "renderer": {
+                "cameraIndex": -1,
+                "orbitFov": 50
+              },
+              "controlsHeight": 230
+            },
+            {
+              "type": 2,
+              "title": "3 Field + Auto",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "bumpers": ""
+                    }
+                  },
+                  {
+                    "type": "ghost",
+                    "logKey": "/RealOutputs/Odometry/TrajectorySetpoint",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500"
+                    }
+                  }
+                ],
+                "field": "FRC:2026 Field",
+                "orientation": 0,
+                "size": "large"
+              },
+              "controllerUUID": "ff647999e2c64751aa8ecc031dadb6e9",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "4 Shooter",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelLeaderAngularVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Flywheel/GoalVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Flywheel/FlywheelAngularVelocity",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Kicker/KickerVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4444",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Shooter/Flywheel/isAtGoal",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Enabled",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Autonomous",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "5e10fab9a56944c596b3189a936d5672",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "5 Intake + Hood",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/Hood/HoodAngle",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/Hood/goal",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperPivot/LeftpivotAngle",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/HopperIntake/IntakeVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "smooth",
+                    "logKey": "/Kicker/KickerVoltage",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff4444",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Enabled",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/DriverStation/Autonomous",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "43c1c3a94d814e62bf9233367ae0e8d3",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 1,
+              "title": "6 Timing + Sensors",
+              "controller": {
+                "leftSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/RealOutputs/LoggedRobot/FullCycleMS",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "rightSources": [
+                  {
+                    "type": "smooth",
+                    "logKey": "/SystemStats/CANBus/Utilization",
+                    "logType": "Number",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff",
+                      "size": "normal"
+                    }
+                  }
+                ],
+                "discreteSources": [
+                  {
+                    "type": "stripes",
+                    "logKey": "/Drive/Gyro/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00c853"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/cam1/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#00a2ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/cam2/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#aa66ff"
+                    }
+                  },
+                  {
+                    "type": "stripes",
+                    "logKey": "/RealOutputs/Vision/cam3/Connected",
+                    "logType": "Boolean",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500"
+                    }
+                  }
+                ],
+                "leftLockedRange": null,
+                "rightLockedRange": null,
+                "leftUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "rightUnitConversion": {
+                  "autoTarget": null,
+                  "preset": null
+                },
+                "leftFilter": 0,
+                "rightFilter": 0
+              },
+              "controllerUUID": "d944ff9627004ff09e3a2246f2bdca9c",
+              "renderer": null,
+              "controlsHeight": 230
+            },
+            {
+              "type": 3,
+              "title": "7 Camera Back_Camera",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 camera rig (code transforms)"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "d8b0a0ff9cc4472d8e31d37fd59b16dd",
+              "renderer": {
+                "cameraIndex": 0,
+                "orbitFov": 50
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "8 Camera SwerveBack",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 camera rig (code transforms)"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "b06316340d8e443eb16eac63d808b118",
+              "renderer": {
+                "cameraIndex": 1,
+                "orbitFov": 50
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 3,
+              "title": "9 Camera SwerveFront",
+              "controller": {
+                "sources": [
+                  {
+                    "type": "robot",
+                    "logKey": "/RealOutputs/Odometry/Robot",
+                    "logType": "Pose2d",
+                    "visible": true,
+                    "options": {
+                      "model": "1257 camera rig (code transforms)"
+                    }
+                  },
+                  {
+                    "type": "vision",
+                    "logKey": "/RealOutputs/Vision/Targets3D",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "color": "#ff9500",
+                      "size": "normal"
+                    }
+                  },
+                  {
+                    "type": "aprilTag",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/FieldPoses",
+                    "logType": "Pose3d[]",
+                    "visible": true,
+                    "options": {
+                      "variant": "36h11-6.5in"
+                    }
+                  },
+                  {
+                    "type": "aprilTagIDs",
+                    "logKey": "/RealOutputs/Vision/TrackedTags/Ids",
+                    "logType": "NumberArray",
+                    "visible": true,
+                    "options": {}
+                  }
+                ],
+                "game": "FRC:2026 Field"
+              },
+              "controllerUUID": "0e1870627d4d48f88e57f55db0105d7d",
+              "renderer": {
+                "cameraIndex": 2,
+                "orbitFov": 50
+              },
+              "controlsHeight": 200
+            },
+            {
+              "type": 4,
+              "title": "10 Tag IDs + Pose",
+              "controller": [
+                "/DriverStation/Enabled",
+                "/Vision/HasEstimate",
+                "/Vision/TimestampArray",
+                "/Vision/CameraTargets/0",
+                "/Vision/CameraTargets/1",
+                "/Vision/CameraTargets/2",
+                "/RealOutputs/Vision/TagCounts",
+                "/RealOutputs/Odometry/Robot/translation/x",
+                "/RealOutputs/Odometry/Robot/translation/y",
+                "/RealOutputs/Odometry/Robot/rotation/value",
+                "/RealOutputs/Vision/TrackedTags/Ids",
+                "/RealOutputs/Vision/CameraObservations/Back_Camera/LatestTargetIds",
+                "/RealOutputs/Vision/CameraObservations/SwerveBack/LatestTargetIds",
+                "/RealOutputs/Vision/CameraObservations/SwerveFront/LatestTargetIds",
+                "/RealOutputs/Vision/CameraObservations/Back_Camera/Fresh",
+                "/RealOutputs/Vision/CameraObservations/SwerveBack/Fresh",
+                "/RealOutputs/Vision/CameraObservations/SwerveFront/Fresh"
+              ],
+              "controllerUUID": "65e8490b126347618e98db583ea94357",
+              "renderer": null,
+              "controlsHeight": 0
+            },
+            {
+              "type": 7,
+              "title": "11 Match Video",
+              "controller": null,
+              "controllerUUID": "45b3c152996e4a19bc9dd3dec459c301",
+              "renderer": null,
+              "controlsHeight": 260
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "satellites": [],
+  "version": "26.0.2"
+}

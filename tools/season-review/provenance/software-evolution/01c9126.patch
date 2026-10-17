@@ -1,0 +1,797 @@
+commit 01c91268c1e2d0c4a3267fdc1a94402a846ae674
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Mon Mar 23 01:35:46 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Mon Mar 23 01:35:46 2026 -0400
+
+    Added Alerts and disconnection logging to every subsystem
+
+diff --git a/src/main/java/frc/robot/Robot.java b/src/main/java/frc/robot/Robot.java
+index be27430..3f582ab 100644
+--- a/src/main/java/frc/robot/Robot.java
++++ b/src/main/java/frc/robot/Robot.java
+@@ -8,6 +8,7 @@ import com.pathplanner.lib.commands.FollowPathCommand;
+ import edu.wpi.first.hal.AllianceStationID;
+ import edu.wpi.first.wpilibj.DriverStation;
+ import edu.wpi.first.wpilibj.RobotController;
++import edu.wpi.first.wpilibj.Timer;
+ import edu.wpi.first.wpilibj.simulation.DriverStationSim;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.CommandScheduler;
+@@ -137,6 +138,10 @@ public class Robot extends LoggedRobot {
+     NautilusMechanism3d.getMeasured().log("Mechanism3d");
+   }
+ 
++  public static boolean showHardwareAlerts() {
++    return Constants.getRobotMode() != frc.robot.Constants.Mode.SIM && Timer.getTimestamp() > 30.0;
++  }
++
+   /** This function is called once when the robot is disabled. */
+   @Override
+   public void disabledInit() {}
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 6d59ba0..80aff2e 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -254,45 +254,30 @@ public class RobotContainer {
+ 
+     driver.b().whileTrue(drive.lockWheels());
+ 
+-    //FieldConstants.Zones.composedTrench.contains(
+-      //() -> drive.getPose().getTranslation())
+-        //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
+-
+-    // driver
+-    //   .rightBumper().whileTrue(
+-    //     hood.runTargetedCommand()
+-    //       .alongWith(flywheel.runTargetedCommand())
+-    //         .alongWith(
+-    //           Commands.waitUntil(hood::isAtGoal)
+-    //           .andThen(kicker.runIntake()
+-    //             .alongWith(activeFloor.runActiveFloor())))
+-    //   );
+-
+-
+-    // driver
+-    //  .leftBumper().whileTrue(
+-    //    flywheel.runHub().alongWith(hood.runHubAngle())
+-    //    .alongWith(
+-    //      kicker.runIntake())
+-    //      .alongWith(activeFloor.runActiveFloor())
+-    //      );
+-
+-  // NEED TO ADD A MANUAL OVERRIDE TO FORCE THE BALLS OUT IF FLYWHEEL ISNT UP TO SPEED
+-
+   driver
+     .rightBumper().whileTrue(
+       flywheel.runTargetedCommand(drive::getPose)
+       .alongWith(hood.runTargetedCommand(drive::getPose))
+       .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+       .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
++        .withTimeout(0.5)
+         .andThen(kicker.runIntake()
+         .alongWith(activeFloor.runActiveFloor())
+         .alongWith(hopperPivot.runAgitate())
+         .alongWith(hopperIntake.runIntake())))
+     );
+ 
+-  driver.leftBumper().and(hopperPivot.atIntake()).whileTrue(DriveCommands.alignToTrench(drive));
+-  driver.leftBumper().and(hopperPivot.atIntake().negate()).whileTrue(hopperPivot.runIntakeAngle().andThen(DriveCommands.alignToTrench(drive)));
++  driver
++    .leftBumper().whileTrue(
++      flywheel.runHubVelocity()
++      .alongWith(hood.runHubAngle())
++      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
++        .withTimeout(0.5)
++        .andThen(kicker.runIntake()
++        .alongWith(activeFloor.runActiveFloor())
++        .alongWith(hopperPivot.runAgitate())
++        .alongWith(hopperIntake.runIntake())))
++    );
+   
+   // driver
+   //   .rightBumper().whileTrue(
+@@ -318,7 +303,6 @@ public class RobotContainer {
+   
+ 
+    operator.rightBumper().whileTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-5)));
+-   operator.leftBumper().whileTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(320)));
+   }
+ 
+ 
+diff --git a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloor.java b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloor.java
+index ed64459..eb3e379 100644
+--- a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloor.java
++++ b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloor.java
+@@ -7,7 +7,11 @@ import java.util.function.Supplier;
+ 
+ import org.littletonrobotics.junction.Logger;
+ 
++import edu.wpi.first.math.filter.Debouncer;
++import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.units.measure.Voltage;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import frc.robot.Robot;
+@@ -17,9 +21,15 @@ public class ActiveFloor extends SubsystemBase {
+     private final ActiveFloorIO io;
+     private ActiveFloorIOInputsAutoLogged inputs = new ActiveFloorIOInputsAutoLogged();
+ 
++    private final Debouncer connectedDebouncer = 
++        new Debouncer(0.5, DebounceType.kFalling);
++    private final Alert disconnected;
++
+ 
+     public ActiveFloor(ActiveFloorIO io) {
+         this.io = io;
++
++        disconnected = new Alert("ACTIVE FLOOR MOTOR DISCONNECTED", AlertType.kError);
+     }
+ 
+     @Override
+@@ -27,6 +37,8 @@ public class ActiveFloor extends SubsystemBase {
+         io.updateInputs(inputs);
+         Logger.processInputs(getName(), inputs);
+ 
++        disconnected.set(!connectedDebouncer.calculate(inputs.activeFloorConnected));
++
+         Robot.batteryLogger.reportCurrentUsage(
+             getName(),
+             inputs.activeFloorCurrent.in(Amps)
+diff --git a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java
+index d57b76c..3751360 100644
+--- a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java
++++ b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java
+@@ -16,6 +16,7 @@ public interface ActiveFloorIO {
+ 
+     @AutoLog
+     public static class ActiveFloorIOInputs {
++        public boolean activeFloorConnected = false;
+         public Voltage activeFloorVoltage = Volts.of(0.0);
+         public AngularVelocity activeFloorAngularVelocity = RadiansPerSecond.of(0.0);
+         public Current activeFloorCurrent = Amps.of(0.0);
+diff --git a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
+index 2de7327..9cdd1ae 100644
+--- a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
+@@ -4,7 +4,7 @@ import static edu.wpi.first.units.Units.Celsius;
+ import static edu.wpi.first.units.Units.RadiansPerSecond;
+ import static edu.wpi.first.units.Units.Volts;
+ 
+-
++import com.revrobotics.REVLibError;
+ import com.revrobotics.RelativeEncoder;
+ import com.revrobotics.spark.ClosedLoopSlot;
+ import com.revrobotics.spark.FeedbackSensor;
+@@ -46,6 +46,7 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
+ 
+     @Override
+     public void updateInputs(ActiveFloorIOInputs inputs) {
++        inputs.activeFloorConnected = motor.getLastError() == REVLibError.kOk;
+         inputs.activeFloorVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+         inputs.activeFloorAngularVelocity = RadiansPerSecond.of(motor.getEncoder().getVelocity());
+         inputs.activeFloorCurrent = Amps.of(motor.getOutputCurrent());
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+index 2b9bb9d..5a76220 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+@@ -1,12 +1,17 @@
+ package frc.robot.subsystems.Hopper.HopperIntake;
+ 
++import edu.wpi.first.math.filter.Debouncer;
++import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.units.measure.Voltage;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
+ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import frc.robot.Robot;
+ import frc.robot.util.misc.LoggedTunableNumber;
+ 
++import static edu.wpi.first.units.Units.Amps;
+ import static edu.wpi.first.units.Units.Volts;
+ import java.util.function.Supplier;
+ 
+@@ -19,17 +24,31 @@ public class HopperIntake extends SubsystemBase {
+ 
+   private final HopperIntakeIO io;
+   private HopperIntakeIOInputsAutoLogged inputs = new HopperIntakeIOInputsAutoLogged();
++
++  private final Debouncer connectedDebouncer = 
++    new Debouncer(0.5, DebounceType.kFalling);
++    
++  private final Alert disconnected;
+     
+     
+   public HopperIntake(HopperIntakeIO io) {
+     this.io = io;
+-    SmartDashboard.putData(getName(), this);
++
++    disconnected = new Alert("HOPPER INTAKE MOTOR DISCONNECTED", AlertType.kError);
+   }
+     
+   @Override
+   public void periodic() {
+     io.updateInputs(inputs);
+     Logger.processInputs("HopperIntake", inputs);
++
++    disconnected.set(!connectedDebouncer.calculate(inputs.intakeConnected));
++
++    Robot.batteryLogger.reportCurrentUsage(
++      "HopperIntake",
++      inputs.intakeCurrent.in(Amps)
++    );
++    
+   }
+   
+   /**
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java
+index b8c4b9a..e87705b 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIO.java
+@@ -16,6 +16,7 @@ public interface HopperIntakeIO {
+ 
+     @AutoLog
+     public static class HopperIntakeIOInputs {
++      public boolean intakeConnected = false;
+       public Voltage intakeVoltage = Volts.of(0.0);
+       public AngularVelocity intakeVelocity = RadiansPerSecond.of(0.0);
+       public Current intakeCurrent = Amps.of(0.0);
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+index 53f5059..ca3ac90 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+@@ -9,6 +9,7 @@ import static frc.robot.Constants.NEO_VORTEX_CURRENT_LIMIT;
+ 
+ import java.util.function.Supplier;
+ 
++import com.revrobotics.REVLibError;
+ import com.revrobotics.RelativeEncoder;
+ import com.revrobotics.spark.SparkFlex;
+ import com.revrobotics.spark.SparkLowLevel.MotorType;
+@@ -46,6 +47,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+ 
+     @Override
+     public void updateInputs(HopperIntakeIOInputs inputs) {
++        inputs.intakeConnected = motor.getLastError() == REVLibError.kOk;
+         inputs.intakeVoltage = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage());
+         inputs.intakeVelocity = RadiansPerSecond.of(encoder.getVelocity());
+         inputs.intakeCurrent = Amps.of(motor.getOutputCurrent());
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
+index de179a0..05bd688 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
+@@ -22,6 +22,8 @@ import org.littletonrobotics.junction.Logger;
+ 
+ import edu.wpi.first.math.controller.ArmFeedforward;
+ import edu.wpi.first.math.controller.PIDController;
++import edu.wpi.first.math.filter.Debouncer;
++import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.math.geometry.Rotation2d;
+ import edu.wpi.first.math.trajectory.TrapezoidProfile;
+ import edu.wpi.first.units.measure.Angle;
+@@ -32,6 +34,8 @@ import edu.wpi.first.units.measure.MutVoltage;
+ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+ import edu.wpi.first.units.measure.Voltage;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
+ import edu.wpi.first.wpilibj.smartdashboard.MechanismLigament2d;
+ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj.util.Color;
+@@ -69,8 +73,20 @@ public class HopperPivot extends SubsystemBase {
+ 
+     private Angle goalAngle = Radians.of(0.0);
+ 
++    private final Debouncer leaderConnectedDebouncer = 
++        new Debouncer(0.5, DebounceType.kFalling);
++    private final Debouncer followerConnectedDebouncer = 
++        new Debouncer(0.5, DebounceType.kFalling);
++    
++    private final Alert disconnected;
++    private final Alert followerDisconnected;
++
+     public HopperPivot(HopperPivotIO io) {
+         this.io = io; 
++
++        disconnected = new Alert("HOPPER PIVOT LEADER MOTOR DISCONNECTED", AlertType.kError);
++        followerDisconnected = new Alert("HOPPER PIVOT FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
++
+         this.profile = new TrapezoidProfile(
+             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
+     }
+@@ -98,6 +114,9 @@ public class HopperPivot extends SubsystemBase {
+ 
+         NautilusMechanism3d.getMeasured().setIntakeAngle(new Rotation2d(inputs.leftpivotAngle));
+ 
++        disconnected.set(!leaderConnectedDebouncer.calculate(inputs.leftpivotConnected));
++        followerDisconnected.set(!followerConnectedDebouncer.calculate(inputs.rightpivotConnected));
++
+         Robot.batteryLogger.reportCurrentUsage(
+             "HopperPivot",
+             inputs.leftpivotCurrent.in(Amps),
+@@ -119,7 +138,7 @@ public class HopperPivot extends SubsystemBase {
+         }).beforeStarting(() -> {
+             goalAngle = angle.get();
+             setpoint = new TrapezoidProfile.State(inputs.leftpivotAngle.in(Radians), inputs.leftpivotVelocity.in(RadiansPerSecond));
+-        })/*.until(isAtGoal())*/;
++        });
+     }
+ 
+     /**
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIO.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIO.java
+index 71ec084..b569278 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIO.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIO.java
+@@ -16,11 +16,13 @@ public interface HopperPivotIO {
+ 
+   @AutoLog
+   public static class HopperPivotIOInputs {
++    boolean leftpivotConnected = false;
+     Voltage leftpivotVoltage = Volts.of(0.0);
+     Angle leftpivotAngle = Radians.of(0.0);
+     AngularVelocity leftpivotVelocity = RadiansPerSecond.of(0.0); 
+     Current leftpivotCurrent = Amps.of(0.0);
+ 
++    boolean rightpivotConnected = false;
+     Voltage rightpivotVoltage = Volts.of(0.0);
+     Angle rightpivotAngle = Radians.of(0.0);
+     AngularVelocity rightpivotVelocity = RadiansPerSecond.of(0.0); 
+@@ -37,8 +39,6 @@ public interface HopperPivotIO {
+ 
+   default void setFF(double ks, double kv, double kg) {}
+ 
+-  default void setBreakMode(boolean enabled) {}
+-
+   default void stop() {}
+ 
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
+index 62d3d95..1dd42d7 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
+@@ -6,6 +6,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
+ import static edu.wpi.first.units.Units.Volts;
+ 
+ import com.revrobotics.PersistMode;
++import com.revrobotics.REVLibError;
+ import com.revrobotics.ResetMode;
+ import com.revrobotics.spark.ClosedLoopSlot;
+ import com.revrobotics.spark.SparkAbsoluteEncoder;
+@@ -77,6 +78,10 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
+ 
+     inputs.leftpivotCurrent = Amps.of(leftMotor.getOutputCurrent());
+     inputs.rightpivotCurrent = Amps.of(rightMotor.getOutputCurrent());
++
++    inputs.leftpivotConnected = leftMotor.getLastError() == REVLibError.kOk;
++    inputs.rightpivotConnected = rightMotor.getLastError() == REVLibError.kOk;
++
+   }
+ 
+   @Override
+@@ -95,16 +100,6 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
+   }
+ 
+ 
+-  @Override
+-  public void setBreakMode(boolean enabled) {
+-    SparkMaxConfig config = new SparkMaxConfig();
+-      config.idleMode(enabled ? IdleMode.kBrake : IdleMode.kCoast);
+-    leftMotor.configure(
+-      config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+-    rightMotor.configure(
+-      config, ResetMode.kNoResetSafeParameters, PersistMode.kNoPersistParameters);
+-  }
+-
+   @Override
+   public void stop() {
+     leftMotor.stopMotor();
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/Kicker.java b/src/main/java/frc/robot/subsystems/Kicker/Kicker.java
+index 19c738b..311a580 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/Kicker.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/Kicker.java
+@@ -1,26 +1,23 @@
+ package frc.robot.subsystems.Kicker;
+ 
++import static edu.wpi.first.units.Units.Amps;
+ import static edu.wpi.first.units.Units.RadiansPerSecond;
+-import static edu.wpi.first.units.Units.Second;
+-import static edu.wpi.first.units.Units.Seconds;
+ import static edu.wpi.first.units.Units.Volts;
+ 
+ import java.util.function.Supplier;
+ 
+ import org.littletonrobotics.junction.Logger;
+ 
++import edu.wpi.first.math.filter.Debouncer;
++import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.units.measure.AngularVelocity;
+-import edu.wpi.first.units.measure.MutAngularVelocity;
+-import edu.wpi.first.units.measure.MutVoltage;
+ import edu.wpi.first.units.measure.Voltage;
+-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+-import edu.wpi.first.wpilibj.sysid.SysIdRoutineLog;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import edu.wpi.first.wpilibj2.command.button.Trigger;
+-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+-import frc.robot.subsystems.Shooter.Flywheel.FlywheelConstants;
++import frc.robot.Robot;
+ import frc.robot.util.misc.LoggedTunableNumber;
+ 
+ public class Kicker extends SubsystemBase {
+@@ -37,27 +34,21 @@ public class Kicker extends SubsystemBase {
+     private static final LoggedTunableNumber kickerIntakeVelocity = new LoggedTunableNumber("Kicker/IntakeVelocity", KickerConstants.KICKER_INTAKE_VELOCITY.magnitude()); 
+     private static final LoggedTunableNumber kickerOuttakeVelocity = new LoggedTunableNumber("Kicker/OuttakeVelocity", KickerConstants.KICKER_OUTTAKE_VELOCITY.magnitude());
+ 
+-
+-    private SysIdRoutine sysId; 
+-
+     private final KickerIO io;
+     private KickerIOInputsAutoLogged inputs = new KickerIOInputsAutoLogged();
+ 
++    private final Debouncer connectedDebouncer = 
++        new Debouncer(0.5, DebounceType.kFalling);
++    
++    private final Alert disconnected;
++
+     private double goalVelocity = 0.0;
+ 
+     public Kicker(KickerIO io) {
+         this.io = io;
+ 
+-        sysId = new SysIdRoutine(
+-            new SysIdRoutine.Config(
+-                null,
+-                null,
+-                null,
+-                (state) -> Logger.recordOutput("Kicker/SysIdTestState", state.toString())),
+-            new SysIdRoutine.Mechanism(
+-                (volage) -> io.setVoltage(volage),
+-                null,
+-                this));
++        disconnected = new Alert("KICKER MOTOR DISCONNECTED", AlertType.kError);
++
+     }
+ 
+     @Override
+@@ -72,6 +63,13 @@ public class Kicker extends SubsystemBase {
+         if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+             io.setFF(Ks.get(), Kv.get());
+         }
++
++        disconnected.set(!connectedDebouncer.calculate(inputs.kickerConnected));
++
++        Robot.batteryLogger.reportCurrentUsage(
++            "Kicker",
++            inputs.kickerCurrent.in(Amps)
++        );
+     }
+ 
+     /**
+@@ -143,25 +141,4 @@ public class Kicker extends SubsystemBase {
+             < tolerance.get());
+     }
+ 
+-        public Command quasistaticForward(){
+-        return sysId.quasistatic(Direction.kForward)
+-            .until(() -> inputs.kickerAngularVelocity.gte(KickerConstants.KICKER_MAX_VELOCITY));
+-    }
+-
+-    public Command quasistaticReverse(){
+-        return sysId.quasistatic(Direction.kReverse)
+-            .until(() -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_MAX_VELOCITY.unaryMinus()));
+-        
+-    }
+-
+-    public Command dynamicForward(){
+-        return sysId.dynamic(Direction.kForward)
+-            .until(() -> inputs.kickerAngularVelocity.gte(KickerConstants.KICKER_MAX_VELOCITY));
+-    }
+-
+-    public Command dynamicReverse(){
+-        return sysId.dynamic(Direction.kReverse)
+-            .until(() -> inputs.kickerAngularVelocity.lte(KickerConstants.KICKER_MAX_VELOCITY.unaryMinus()));
+-    }
+-
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java b/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java
+index 64b0d4f..b240cdc 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java
+@@ -16,6 +16,7 @@ public interface KickerIO {
+   
+     @AutoLog
+     public static class KickerIOInputs {
++        public boolean kickerConnected = false;
+         public Voltage kickerVoltage = Volts.of(0.0);
+         public AngularVelocity kickerAngularVelocity = RadiansPerSecond.of(0.0);
+         public Angle kickerAngle = Radians.of(0.0);
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java b/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
+index 2029bbb..712118b 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
+@@ -7,6 +7,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
+ import static edu.wpi.first.units.Units.Volts;
+ 
+ import com.revrobotics.PersistMode;
++import com.revrobotics.REVLibError;
+ import com.revrobotics.ResetMode;
+ import com.revrobotics.spark.SparkBase.ControlType;
+ import com.revrobotics.spark.ClosedLoopSlot;
+@@ -49,6 +50,7 @@ public class KickerIOSparkMax implements KickerIO {
+ 
+     @Override
+     public void updateInputs(KickerIOInputs inputs) {
++        inputs.kickerConnected = kickerMotor.getLastError() == REVLibError.kOk;
+         inputs.kickerVoltage = Volts.of(kickerMotor.getAppliedOutput() * 12.0);
+         inputs.kickerAngularVelocity = RadiansPerSecond.of(kickerMotor.getEncoder().getVelocity());
+         inputs.kickerAngle = Radians.of(kickerMotor.getEncoder().getPosition());
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+index df90428..46eb5e3 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+@@ -1,35 +1,26 @@
+ package frc.robot.subsystems.Shooter.Flywheel;
+ 
+ import static edu.wpi.first.units.Units.Amps;
+-import static edu.wpi.first.units.Units.Radians;
+ import static edu.wpi.first.units.Units.RadiansPerSecond;
+-import static edu.wpi.first.units.Units.Rotations;
+-import static edu.wpi.first.units.Units.RotationsPerSecond;
+-import static edu.wpi.first.units.Units.Volts;
+-import static edu.wpi.first.units.Units.Second;
+-import static edu.wpi.first.units.Units.Seconds;
+-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+-
+-import java.util.function.DoubleSupplier;
++
+ import java.util.function.Supplier;
+ 
+ import org.littletonrobotics.junction.AutoLogOutput;
+ import org.littletonrobotics.junction.Logger;
+ 
++import edu.wpi.first.math.filter.Debouncer;
++import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.math.geometry.Pose2d;
+ import edu.wpi.first.units.measure.AngularVelocity;
+-import edu.wpi.first.units.measure.MutAngle;
+-import edu.wpi.first.units.measure.MutAngularVelocity;
+-import edu.wpi.first.units.measure.MutVoltage;
++
+ import edu.wpi.first.units.measure.Voltage;
+-import edu.wpi.first.wpilibj.RobotController;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import edu.wpi.first.wpilibj2.command.button.Trigger;
+-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+ import frc.robot.Robot;
+ import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
+-import frc.robot.util.misc.LoggedTunableMeasure;
+ import frc.robot.util.misc.LoggedTunableNumber;
+ 
+ 
+@@ -47,16 +38,30 @@ public class Flywheel extends SubsystemBase {
+     private final FlywheelIO io; 
+     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();
+ 
++    private final Debouncer leaderMotorConnectedDebounder = 
++        new Debouncer(0.5, DebounceType.kFalling);
++    
++    private final Debouncer followerMotorConnectedDebouncer =
++        new Debouncer(0.5, DebounceType.kFalling);
++
++    private final Alert leaderDisconnected;
++    private final Alert followerDisconnected;
++
+     @AutoLogOutput private AngularVelocity goalVelocity = RadiansPerSecond.of(0.0);
+ 
+     public Flywheel(FlywheelIO io) {
+         this.io = io;
++
++        leaderDisconnected = new Alert("FLYWHEEL LEADER MOTOR DISCONNECTED", AlertType.kError);
++        followerDisconnected = new Alert("FLYWHEEL FOLLOWER MOTOR DISCONNECTED", AlertType.kError);
++
+     }
+     
+ 
+     @Override
+     public void periodic(){
+         io.updateInputs(inputs);
++        Logger.processInputs("Flywheel", inputs);
+ 
+         if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
+             io.setPID(Kp.get(), Ki.get(), Kd.get());
+@@ -65,7 +70,10 @@ public class Flywheel extends SubsystemBase {
+         if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
+             io.setFF(Ks.get(), Kv.get());
+         }
+-        Logger.processInputs("Flywheel", inputs);
++
++        leaderDisconnected.set(!leaderMotorConnectedDebounder.calculate(inputs.flywheelLeaderConnected));
++        followerDisconnected.set(!followerMotorConnectedDebouncer.calculate(inputs.flywheelFollowerConnected));
++
+ 
+         Robot.batteryLogger.reportCurrentUsage(
+             "Flywheel",
+@@ -74,6 +82,14 @@ public class Flywheel extends SubsystemBase {
+         );
+     }
+ 
++    /**
++     * Gets the current flywheel velocity based off the latest periodic loop
++     * @return current Angular Velocity
++     */
++    public AngularVelocity getAngularVelocity() {
++        return inputs.flywheelLeaderAngularVelocity;
++    }
++
+     /**
+      * Runs the flywheel at a given velocity.
+      * @param velocityRadsPerSec the velocity to run the flywheel at in radians per second
+@@ -111,11 +127,12 @@ public class Flywheel extends SubsystemBase {
+         return runEnd(() -> runVoltage(voltage.get()), this::stop);
+     }
+ 
+-    public Command runStatic() {
+-        return runVoltageCommand(() -> Volts.of(Ks.get()));
+-    }
++    /**
++     * Runs the flywheel at a fixed angular velocity defined by {@link hubVelocityRads}
++     * @return a command that runs the flywheel at the previously mentioned fixed angular velocity
++     */
+ 
+-    public Command runHub() {
++    public Command runHubVelocity() {
+         return runVelocityCommand(() -> RadiansPerSecond.of(hubVelocityRads.get()));
+     }
+ 
+@@ -125,7 +142,7 @@ public class Flywheel extends SubsystemBase {
+      * @return a command that runs the flywheel at the given velocity while it is scheduled
+      */
+ 
+-    public Command runVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
++    private Command runVelocityCommand(Supplier<AngularVelocity> velocityRadsPerSec) {
+         return runEnd(() -> {
+                 goalVelocity = velocityRadsPerSec.get();
+                 runVelocity(velocityRadsPerSec.get());
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIO.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIO.java
+index 918df8b..d1ff629 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIO.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIO.java
+@@ -18,12 +18,14 @@ public interface FlywheelIO {
+ 
+     @AutoLog
+     public static class FlywheelIOInputs {
++        public boolean flywheelLeaderConnected = false; 
+         public Angle flywheelLeaderAngle = Radians.of(0.0);
+         public AngularVelocity flywheelLeaderAngularVelocity = RadiansPerSecond.of(0.0);
+         public Voltage flywheelLeaderVoltage = Volts.of(0.0);
+         public Current flywheelLeaderCurrent = Amps.of(0.0);
+         public Temperature flywheelLeaderTemperature = Celsius.of(0.0);
+ 
++        public boolean flywheelFollowerConnected = false;
+         public Angle flywheelFollowerAngle = Radians.of(0.0);
+         public AngularVelocity flywheelFollowerAngularVelocity = RadiansPerSecond.of(0.0);
+         public Voltage flywheelFollowerVoltage = Volts.of(0.0);
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
+index e32b39c..b1947ec 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
+@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.RadiansPerSecond;
+ import static edu.wpi.first.units.Units.Volts;
+ 
+ import com.revrobotics.PersistMode;
++import com.revrobotics.REVLibError;
+ import com.revrobotics.RelativeEncoder;
+ import com.revrobotics.ResetMode;
+ import com.revrobotics.spark.ClosedLoopSlot;
+@@ -87,12 +88,14 @@ public class FlywheelIOSparkMax implements FlywheelIO {
+ 
+     @Override
+     public void updateInputs(FlywheelIOInputs inputs) {
++        inputs.flywheelLeaderConnected = motor.getLastError() == REVLibError.kOk;
+         inputs.flywheelLeaderAngle = Radians.of(encoder.getPosition());
+         inputs.flywheelLeaderAngularVelocity = RadiansPerSecond.of(encoder.getVelocity());
+         inputs.flywheelLeaderVoltage = Volts.of(motor.getAppliedOutput()*motor.getBusVoltage());
+         inputs.flywheelLeaderCurrent = Amps.of(motor.getOutputCurrent());
+         inputs.flywheelLeaderTemperature = Celsius.of(motor.getMotorTemperature());
+-                
++        
++        inputs.flywheelFollowerConnected = followerMotor.getLastError() == REVLibError.kOk;
+         inputs.flywheelFollowerAngle = Radians.of(followerEncoder.getPosition());
+         inputs.flywheelFollowerAngularVelocity = RadiansPerSecond.of(followerEncoder.getVelocity());
+         inputs.flywheelFollowerVoltage = Volts.of(followerMotor.getAppliedOutput()*followerMotor.getBusVoltage());
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java
+index aaa40e5..46ef932 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java
+@@ -15,6 +15,8 @@ import org.littletonrobotics.junction.Logger;
+ 
+ import edu.wpi.first.math.controller.ArmFeedforward;
+ import edu.wpi.first.math.controller.PIDController;
++import edu.wpi.first.math.filter.Debouncer;
++import edu.wpi.first.math.filter.Debouncer.DebounceType;
+ import edu.wpi.first.math.geometry.Pose2d;
+ import edu.wpi.first.math.geometry.Rotation2d;
+ import edu.wpi.first.math.trajectory.TrapezoidProfile;
+@@ -24,6 +26,8 @@ import edu.wpi.first.units.measure.MutAngle;
+ import edu.wpi.first.units.measure.MutAngularVelocity;
+ import edu.wpi.first.units.measure.MutVoltage;
+ import edu.wpi.first.units.measure.Voltage;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
+ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.Commands;
+@@ -59,6 +63,11 @@ public class Hood extends SubsystemBase {
+     private final HoodIO io; 
+     private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
+ 
++    private final Debouncer connectedDebouncer = 
++        new Debouncer(0.5, DebounceType.kFalling);
++
++    private final Alert disconnected;
++
+     private TrapezoidProfile profile;
+     private TrapezoidProfile.State goal = new TrapezoidProfile.State();
+     private TrapezoidProfile.State setpoint = null;
+@@ -75,6 +84,8 @@ public class Hood extends SubsystemBase {
+     public Hood(HoodIO io) {
+         this.io = io; 
+ 
++        disconnected = new Alert("HOOD MOTOR DISCONNECTED", AlertType.kError);
++
+         this.profile = new TrapezoidProfile(
+             new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));    
+     }
+@@ -99,6 +110,8 @@ public class Hood extends SubsystemBase {
+ 
+         NautilusMechanism3d.getMeasured().setHoodAngle(new Rotation2d(getMeasuredAngle()));
+ 
++        disconnected.set(!connectedDebouncer.calculate(inputs.hoodConnected));
++
+         Robot.batteryLogger.reportCurrentUsage(
+             "Hood",
+             inputs.hoodCurrentDraw.in(Amps)
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java
+index 3b5389e..d91dbf0 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java
+@@ -19,6 +19,7 @@ public interface HoodIO {
+ 
+     @AutoLog
+     public static class HoodIOInputs {
++        boolean hoodConnected = false;
+         Angle hoodAngle = Radians.of(0.0); 
+         AngularVelocity hoodVelocity = RadiansPerSecond.of(0.0);
+         Voltage hoodVolts = Volts.of(0.0); 
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+index f1caac0..574b8d3 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+@@ -1,6 +1,7 @@
+ package frc.robot.subsystems.Shooter.Hood;
+ import com.revrobotics.AbsoluteEncoder;
+ import com.revrobotics.PersistMode;
++import com.revrobotics.REVLibError;
+ import com.revrobotics.RelativeEncoder;
+ import com.revrobotics.ResetMode;
+ import com.revrobotics.spark.ClosedLoopSlot;
+@@ -59,6 +60,7 @@ public class HoodIOSparkMax implements HoodIO {
+ 
+     @Override
+     public void updateInputs(HoodIOInputs inputs) {
++        inputs.hoodConnected = motor.getLastError() == REVLibError.kOk;
+         inputs.hoodAngle = Radians.of(encoderRelative.getPosition());
+         inputs.hoodVelocity = RadiansPerSecond.of(encoderRelative.getVelocity());
+         inputs.hoodVolts = Volts.of(motor.getAppliedOutput() * motor.getBusVoltage()); 

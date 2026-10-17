@@ -1,0 +1,664 @@
+commit a10f56faf81e014419b15c3629da0db23e614956
+Author:     raghavmani0129 <raghavrhino2829@icloud.com>
+AuthorDate: Mon Mar 23 19:13:00 2026 -0400
+Commit:     raghavmani0129 <raghavrhino2829@icloud.com>
+CommitDate: Mon Mar 23 19:13:00 2026 -0400
+
+    back to photon
+
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 8dae808..4d6c115 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -9,8 +9,7 @@ import static edu.wpi.first.units.Units.Degrees;
+ import static edu.wpi.first.units.Units.Radians;
+ import static edu.wpi.first.units.Units.RadiansPerSecond;
+ import static edu.wpi.first.units.Units.Volts;
+-import static frc.robot.subsystems.vision.VisionConstants.camera0Name;
+-import static frc.robot.subsystems.vision.VisionConstants.camera1Name;
++
+ import static frc.robot.util.drive.DriveControls.*;
+ 
+ import java.io.Flushable;
+@@ -44,8 +43,6 @@ import frc.robot.subsystems.drive.ModuleIO;
+ import frc.robot.subsystems.drive.ModuleIOSim;
+ import frc.robot.subsystems.drive.ModuleIOSparkMax;
+ import frc.robot.subsystems.vision.VisionIO;
+-import frc.robot.subsystems.vision.VisionIOLimelight;
+-import frc.robot.subsystems.vision.Vision;
+ import frc.robot.subsystems.vision.VisionConstants;
+ import frc.robot.subsystems.vision.VisionIOPhoton;
+ import frc.robot.subsystems.vision.VisionIOSim;
+@@ -89,7 +86,6 @@ import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
+ public class RobotContainer {
+   // Subsystems
+   private final Drive drive;
+-  private final Vision vision;
+   private final HopperIntake hopperIntake;
+   private final HopperPivot hopperPivot;
+   private final Kicker kicker;
+@@ -124,13 +120,10 @@ public class RobotContainer {
+                 new ModuleIOSparkMax(0),
+                 new ModuleIOSparkMax(1),
+                 new ModuleIOSparkMax(2),
+-                new ModuleIOSparkMax(3));
++                new ModuleIOSparkMax(3),
++                new VisionIOPhoton());
+ 
+-        vision =
+-            new Vision(
+-                drive::addVisionMeasurement,
+-                new VisionIOLimelight(camera0Name, drive::getRotation),
+-                new VisionIOLimelight(camera1Name, drive::getRotation));
++  
+  
+         hopperIntake = new HopperIntake(new HopperIntakeIOSparkMax());
+ 
+@@ -151,11 +144,12 @@ public class RobotContainer {
+                 new ModuleIOSim(),
+                 new ModuleIOSim(),
+                 new ModuleIOSim(),
+-                new ModuleIOSim());
++                new ModuleIOSim(),
++                new VisionIOSim());
+         
+                 
+ 
+-  vision = new Vision(drive::addVisionMeasurement, simVision);
++ 
+   hopperIntake = new HopperIntake(new HopperIntakeIOSim());
+         hopperPivot = new HopperPivot(new HopperPivotIOSim());
+         kicker = new Kicker(new KickerIO() {});
+@@ -173,10 +167,11 @@ public class RobotContainer {
+                 new ModuleIO() {},
+                 new ModuleIO() {},
+                 new ModuleIO() {},
+-                new ModuleIO() {});
++                new ModuleIO() {},
++                new VisionIO() {});
+         
+ 
+-  vision = new Vision(drive::addVisionMeasurement, visionIO);
++
+   hopperIntake = new HopperIntake(new HopperIntakeIO() {});
+         hopperPivot = new HopperPivot(new HopperPivotIO() {});
+         kicker = new Kicker(new KickerIO() {});
+diff --git a/src/main/java/frc/robot/subsystems/drive/Drive.java b/src/main/java/frc/robot/subsystems/drive/Drive.java
+index 425fef5..4912697 100644
+--- a/src/main/java/frc/robot/subsystems/drive/Drive.java
++++ b/src/main/java/frc/robot/subsystems/drive/Drive.java
+@@ -630,4 +630,4 @@ public class Drive extends SubsystemBase {
+       return new InstantCommand();
+     }
+   }
+-}
++}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/Vision.java b/src/main/java/frc/robot/subsystems/vision/Vision.java
+deleted file mode 100644
+index dc0472b..0000000
+--- a/src/main/java/frc/robot/subsystems/vision/Vision.java
++++ /dev/null
+@@ -1,191 +0,0 @@
+-
+-// Copyright 2021-2025 FRC 6328
+-// http://github.com/Mechanical-Advantage
+-//
+-// This program is free software; you can redistribute it and/or
+-// modify it under the terms of the GNU General Public License
+-// version 3 as published by the Free Software Foundation or
+-// available in the root directory of this project.
+-//
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-// GNU General Public License for more details.
+-
+-package frc.robot.subsystems.vision;
+-
+-import static frc.robot.subsystems.vision.VisionConstants.*;
+-
+-import edu.wpi.first.math.Matrix;
+-import edu.wpi.first.math.VecBuilder;
+-import edu.wpi.first.math.geometry.Pose2d;
+-import edu.wpi.first.math.geometry.Pose3d;
+-import edu.wpi.first.math.geometry.Rotation2d;
+-import edu.wpi.first.math.numbers.N1;
+-import edu.wpi.first.math.numbers.N3;
+-import edu.wpi.first.wpilibj.Alert;
+-import edu.wpi.first.wpilibj.Alert.AlertType;
+-import edu.wpi.first.wpilibj2.command.SubsystemBase;
+-import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
+-import java.util.LinkedList;
+-import java.util.List;
+-import org.littletonrobotics.junction.Logger;
+-
+-public class Vision extends SubsystemBase {
+-  private final VisionConsumer consumer;
+-  private final VisionIO[] io;
+-  private final VisionIOInputsAutoLogged[] inputs;
+-  private final Alert[] disconnectedAlerts;
+-
+-  public Vision(VisionConsumer consumer, VisionIO... io) {
+-    this.consumer = consumer;
+-    this.io = io;
+-
+-    // Initialize inputs
+-    this.inputs = new VisionIOInputsAutoLogged[io.length];
+-    for (int i = 0; i < inputs.length; i++) {
+-      inputs[i] = new VisionIOInputsAutoLogged();
+-    }
+-
+-    // Initialize disconnected alerts
+-    this.disconnectedAlerts = new Alert[io.length];
+-    for (int i = 0; i < inputs.length; i++) {
+-      disconnectedAlerts[i] =
+-          new Alert(
+-              "Vision camera " + Integer.toString(i) + " is disconnected.", AlertType.kWarning);
+-    }
+-  }
+-
+-  /**
+-   * Returns the X angle to the best target, which can be used for simple servoing with vision.
+-   *
+-   * @param cameraIndex The index of the camera to use.
+-   */
+-  public Rotation2d getTargetX(int cameraIndex) {
+-    return inputs[cameraIndex].latestTargetObservation.tx();
+-  }
+-
+-  @Override
+-  public void periodic() {
+-    for (int i = 0; i < io.length; i++) {
+-      io[i].updateInputs(inputs[i]);
+-      Logger.processInputs("Vision/Camera" + Integer.toString(i), inputs[i]);
+-    }
+-
+-    // Initialize logging values
+-    List<Pose3d> allTagPoses = new LinkedList<>();
+-    List<Pose3d> allRobotPoses = new LinkedList<>();
+-    List<Pose3d> allRobotPosesAccepted = new LinkedList<>();
+-    List<Pose3d> allRobotPosesRejected = new LinkedList<>();
+-
+-    // Loop over cameras
+-    for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
+-      // Update disconnected alert
+-      disconnectedAlerts[cameraIndex].set(!inputs[cameraIndex].connected);
+-
+-      // Initialize logging values
+-      List<Pose3d> tagPoses = new LinkedList<>();
+-      List<Pose3d> robotPoses = new LinkedList<>();
+-      List<Pose3d> robotPosesAccepted = new LinkedList<>();
+-      List<Pose3d> robotPosesRejected = new LinkedList<>();
+-
+-      // Add tag poses
+-      for (int tagId : inputs[cameraIndex].tagIds) {
+-        var tagPose = aprilTagLayout.getTagPose(tagId);
+-        if (tagPose.isPresent()) {
+-          tagPoses.add(tagPose.get());
+-        }
+-      }
+-
+-      // Loop over pose observations
+-      for (var observation : inputs[cameraIndex].poseObservations) {
+-        // Check whether to reject pose
+-        boolean rejectPose =
+-            observation.tagCount() == 0 // Must have at least one tag
+-                || (observation.tagCount() == 1
+-                    && observation.ambiguity() > maxAmbiguity) // Cannot be high ambiguity
+-                || Math.abs(observation.pose().getZ())
+-                    > maxZError // Must have realistic Z coordinate
+-
+-                // Must be within the field boundaries
+-                || observation.pose().getX() < 0.0
+-                || observation.pose().getX() > aprilTagLayout.getFieldLength()
+-                || observation.pose().getY() < 0.0
+-                || observation.pose().getY() > aprilTagLayout.getFieldWidth();
+-
+-        // Add pose to log
+-        robotPoses.add(observation.pose());
+-        if (rejectPose) {
+-          robotPosesRejected.add(observation.pose());
+-        } else {
+-          robotPosesAccepted.add(observation.pose());
+-        }
+-
+-        // Skip if rejected
+-        if (rejectPose) {
+-          continue;
+-        }
+-
+-        // Calculate standard deviations
+-        double stdDevFactor =
+-            Math.pow(observation.averageTagDistance(), 2.0) / observation.tagCount();
+-        double linearStdDev = linearStdDevBaseline * stdDevFactor;
+-        double angularStdDev = angularStdDevBaseline * stdDevFactor;
+-        if (observation.type() == PoseObservationType.MEGATAG_2) {
+-          linearStdDev *= linearStdDevMegatag2Factor;
+-          angularStdDev *= angularStdDevMegatag2Factor;
+-        }
+-        if (cameraIndex < cameraStdDevFactors.length) {
+-          linearStdDev *= cameraStdDevFactors[cameraIndex];
+-          angularStdDev *= cameraStdDevFactors[cameraIndex];
+-        }
+-
+-        
+-
+-        // Send vision observation
+-        consumer.accept(
+-            observation.pose().toPose2d(),
+-            observation.timestamp(),
+-            VecBuilder.fill(linearStdDev, linearStdDev, angularStdDev));
+-      }
+-
+-      // Log camera datadata
+-      Logger.recordOutput(
+-          "Vision/Camera" + Integer.toString(cameraIndex) + "/TagPoses",
+-          tagPoses.toArray(new Pose3d[tagPoses.size()]));
+-      Logger.recordOutput(
+-          "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPoses",
+-          robotPoses.toArray(new Pose3d[robotPoses.size()]));
+-      Logger.recordOutput(
+-          "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPosesAccepted",
+-          robotPosesAccepted.toArray(new Pose3d[robotPosesAccepted.size()]));
+-      Logger.recordOutput(
+-          "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPosesRejected",
+-          robotPosesRejected.toArray(new Pose3d[robotPosesRejected.size()]));
+-      allTagPoses.addAll(tagPoses);
+-      allRobotPoses.addAll(robotPoses);
+-      allRobotPosesAccepted.addAll(robotPosesAccepted);
+-      allRobotPosesRejected.addAll(robotPosesRejected);
+-    }
+-
+-    // Log summary data
+-    Logger.recordOutput(
+-        "Vision/Summary/TagPoses", allTagPoses.toArray(new Pose3d[allTagPoses.size()]));
+-    Logger.recordOutput(
+-        "Vision/Summary/RobotPoses", allRobotPoses.toArray(new Pose3d[allRobotPoses.size()]));
+-    Logger.recordOutput(
+-        "Vision/Summary/RobotPosesAccepted",
+-        allRobotPosesAccepted.toArray(new Pose3d[allRobotPosesAccepted.size()]));
+-    Logger.recordOutput(
+-        "Vision/Summary/RobotPosesRejected",
+-        allRobotPosesRejected.toArray(new Pose3d[allRobotPosesRejected.size()]));
+-  }
+-
+-  @FunctionalInterface
+-  public static interface VisionConsumer {
+-    public void accept(
+-        Pose2d visionRobotPoseMeters,
+-        double timestampSeconds,
+-        Matrix<N3, N1> visionMeasurementStdDevs);
+-  }
+-}
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionConstants.java b/src/main/java/frc/robot/subsystems/vision/VisionConstants.java
+index 0f34067..cf74ba0 100644
+--- a/src/main/java/frc/robot/subsystems/vision/VisionConstants.java
++++ b/src/main/java/frc/robot/subsystems/vision/VisionConstants.java
+@@ -13,36 +13,8 @@ import edu.wpi.first.math.util.Units;
+ 
+ public class VisionConstants {
+   public static final String[] camNames = {
+-    "limelight-hopper", "limelight-swerve"
++    "Back_Camera", "RBack_Camera", "RFront_Camera"
+   };
+-
+-
+-  //ADVANTAGEKIT LL ADDITIONS
+-
+-  public static String camera0Name = "limelight-hopper";
+-  public static String camera1Name = "limelight-swerve";
+-    // Basic filtering thresholds
+-  public static double maxAmbiguity = 0.3;
+-  public static double maxZError = 0.75;
+-
+-  public static AprilTagFieldLayout aprilTagLayout =
+-    AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
+-    // Standard deviation baselines, for 1 meter distance and 1 tag
+-  // (Adjusted automatically based on distance and # of tags)
+-  public static double linearStdDevBaseline = 0.02; // Meters
+-  public static double angularStdDevBaseline = 0.06; // Radians
+-
+-  public static double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
+-  public static double angularStdDevMegatag2Factor =
+-      Double.POSITIVE_INFINITY; // No rotation data available
+-
+-  // Standard deviation multipliers for each camera
+-  // (Adjust to trust some cameras more than others)
+-  public static double[] cameraStdDevFactors =
+-      new double[] {
+-        1.0, // Camera 0
+-        1.0 // Camera 1
+-      };
+   public static final int numCameras = camNames.length;
+ 
+   // Cam mounted facing forward, half a meter forward of center, half a meter up
+@@ -82,10 +54,10 @@ public class VisionConstants {
+         new Translation3d(
+             Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
+         new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
+-    //new Transform3d(
+-      //  new Translation3d(
+-         //   Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
+-       // new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
++    new Transform3d(
++        new Translation3d(
++            Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
++        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
+   };
+ 
+   // The layout of the AprilTags on the field
+@@ -95,8 +67,6 @@ public class VisionConstants {
+   public static final double AMBIGUITY_THRESHOLD = 0.2;
+   public static final double MAX_DISTANCE = 4; // meters
+ 
+-
+-
+   // The standard deviations of our vision estimated poses, which affect
+   // correction rate
+   // (Fake values. Experiment and determine estimation noise on an actual robot.)
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIO.java b/src/main/java/frc/robot/subsystems/vision/VisionIO.java
+index ea274a3..fb8f610 100644
+--- a/src/main/java/frc/robot/subsystems/vision/VisionIO.java
++++ b/src/main/java/frc/robot/subsystems/vision/VisionIO.java
+@@ -1,10 +1,5 @@
+ package frc.robot.subsystems.vision;
+ 
+-import edu.wpi.first.cscore.VideoListener;
+-import edu.wpi.first.math.geometry.Pose2d;
+-import edu.wpi.first.math.geometry.Pose3d;
+-import edu.wpi.first.math.geometry.Rotation2d;
+-import org.littletonrobotics.junction.AutoLog;
+ import static frc.robot.subsystems.vision.VisionConstants.kMultiTagStdDevs;
+ import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
+ import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
+@@ -12,6 +7,8 @@ import static frc.robot.subsystems.vision.VisionConstants.numCameras;
+ 
+ import edu.wpi.first.math.Matrix;
+ import edu.wpi.first.math.VecBuilder;
++import edu.wpi.first.math.geometry.Pose2d;
++import edu.wpi.first.math.geometry.Pose3d;
+ import edu.wpi.first.math.geometry.Rotation2d;
+ import edu.wpi.first.math.numbers.N1;
+ import edu.wpi.first.math.numbers.N3;
+@@ -23,27 +20,10 @@ import org.photonvision.PhotonPoseEstimator;
+ import org.photonvision.targeting.PhotonPipelineResult;
+ import org.photonvision.targeting.PhotonTrackedTarget;
+ 
+-/*
+- * automatically generation VisionIOInputsAutoLogged
+- * allows every single field to be recorded for later
+- * Connected = boolean to literally say if it's connected or not
+- * Array of PoseObservations = contains all the pose observations from the limelight (timestamp, pose, tag count, ambiguity, avg tag distance, and type)
+- * done this way cause we'll be taking into data from megatag 1 and 2; make sure we're getting both
+- * number of tag ids we can see
+- */
+-
+ public interface VisionIO {
+- @AutoLog
+-  public static class VisionIOInputs {
+-    //INPUTS FOR LIMELIGHT
+-    public boolean connected = false;
+-    public TargetObservation latestTargetObservation =
+-        new TargetObservation(new Rotation2d(), new Rotation2d());
+-    public PoseObservation[] poseObservations = new PoseObservation[0];
+-    public int[] tagIds = new int[0];
+-
+ 
+-    //INPUTS FOR PHOTONVISION
++  @AutoLog
++  public static class VisionIOInputs {
+     public Pose2d[] positionEstimates = new Pose2d[0];
+     public Rotation2d[] rotationEstimates = new Rotation2d[0];
+     public double timestamp = 0;
+@@ -56,43 +36,7 @@ public interface VisionIO {
+     public byte[] results;
+   }
+ 
+-  public static record TargetObservation(Rotation2d tx, Rotation2d ty) {}
+-
+-
+-/*
+- * timestamp when we saw the time
+- * Pose2d (x, y, rotation)
+- * tagCount = number of tags
+- * ambiguity = how much noise is in the data (0 is perfect, higher is worse)
+- * avgTagDist = average distance to the tags we can see (lower is better)
+- * type = either MG 1 or 2
+- */
+-  /** Represents a robot pose sample used for pose estimation. */
+-  public static record PoseObservation(
+-      double timestamp,
+-      Pose3d pose,
+-      double ambiguity,
+-      int tagCount,
+-      double averageTagDistance,
+-      PoseObservationType type) {}
+-
+-
+-  
+-
+-  public static enum PoseObservationType {
+-    MEGATAG_1,
+-    MEGATAG_2,
+-    PHOTONVISION
+-  }
+-  
+-
+-  //pass in rotation of the robot for megatag 2
+-  public default void updateInputs(VisionIOInputs inputs) {}
+-
+-
+-  //STUFF NEEDED FOR PHOTONVISION
+-
+-    /** Updates the set of loggable inputs. */
++  /** Updates the set of loggable inputs. */
+   // for real life
+   public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Rotation2d heading) {}
+ 
+@@ -287,5 +231,4 @@ public interface VisionIO {
+     }
+     return false;
+   }
+-
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOLimelight.java b/src/main/java/frc/robot/subsystems/vision/VisionIOLimelight.java
+deleted file mode 100644
+index da34c17..0000000
+--- a/src/main/java/frc/robot/subsystems/vision/VisionIOLimelight.java
++++ /dev/null
+@@ -1,156 +0,0 @@
+-// Copyright 2021-2025 FRC 6328
+-// http://github.com/Mechanical-Advantage
+-//
+-// This program is free software; you can redistribute it and/or
+-// modify it under the terms of the GNU General Public License
+-// version 3 as published by the Free Software Foundation or
+-// available in the root directory of this project.
+-//
+-// This program is distributed in the hope that it will be useful,
+-// but WITHOUT ANY WARRANTY; without even the implied warranty of
+-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+-// GNU General Public License for more details.
+-
+-package frc.robot.subsystems.vision;
+-
+-import edu.wpi.first.math.geometry.Pose3d;
+-import edu.wpi.first.math.geometry.Rotation2d;
+-import edu.wpi.first.math.geometry.Rotation3d;
+-import edu.wpi.first.math.util.Units;
+-import edu.wpi.first.networktables.DoubleArrayPublisher;
+-import edu.wpi.first.networktables.DoubleArraySubscriber;
+-import edu.wpi.first.networktables.DoubleSubscriber;
+-import edu.wpi.first.networktables.NetworkTableInstance;
+-import edu.wpi.first.wpilibj.RobotController;
+-import java.util.HashSet;
+-import java.util.LinkedList;
+-import java.util.List;
+-import java.util.Set;
+-import java.util.function.Supplier;
+-
+-/** IO implementation for real Limelight hardware. */
+-public class VisionIOLimelight implements VisionIO {
+-  private final Supplier<Rotation2d> rotationSupplier;
+-  private final DoubleArrayPublisher orientationPublisher;
+-
+-  private final DoubleSubscriber latencySubscriber;
+-  private final DoubleSubscriber txSubscriber;
+-  private final DoubleSubscriber tySubscriber;
+-  private final DoubleArraySubscriber megatag1Subscriber;
+-  private final DoubleArraySubscriber megatag2Subscriber;
+-
+-  /**
+-   * Creates a new VisionIOLimelight.
+-   *
+-   * @param name The configured name of the Limelight.
+-   * @param rotationSupplier Supplier for the current estimated rotation, used for MegaTag 2.
+-   */
+-  public VisionIOLimelight(String name, Supplier<Rotation2d> rotationSupplier) {
+-    var table = NetworkTableInstance.getDefault().getTable(name);
+-    this.rotationSupplier = rotationSupplier;
+-    orientationPublisher = table.getDoubleArrayTopic("robot_orientation_set").publish();
+-    latencySubscriber = table.getDoubleTopic("tl").subscribe(0.0);
+-    txSubscriber = table.getDoubleTopic("tx").subscribe(0.0);
+-    tySubscriber = table.getDoubleTopic("ty").subscribe(0.0);
+-    megatag1Subscriber = table.getDoubleArrayTopic("botpose_wpiblue").subscribe(new double[] {});
+-    megatag2Subscriber =
+-        table.getDoubleArrayTopic("botpose_orb_wpiblue").subscribe(new double[] {});
+-  }
+-
+-  @Override
+-  public void updateInputs(VisionIOInputs inputs) {
+-    // Update connection status based on whether an update has been seen in the last 250ms
+-    inputs.connected =
+-        ((RobotController.getFPGATime() - latencySubscriber.getLastChange()) / 1000) < 250;
+-
+-    // Update target observation
+-    inputs.latestTargetObservation =
+-        new TargetObservation(
+-            Rotation2d.fromDegrees(txSubscriber.get()), Rotation2d.fromDegrees(tySubscriber.get()));
+-
+-    // Update orientation for MegaTag 2
+-    orientationPublisher.accept(
+-        new double[] {rotationSupplier.get().getDegrees(), 0.0, 0.0, 0.0, 0.0, 0.0});
+-    NetworkTableInstance.getDefault()
+-        .flush(); // Increases network traffic but recommended by Limelight
+-
+-    // Read new pose observations from NetworkTables
+-    Set<Integer> tagIds = new HashSet<>();
+-    List<PoseObservation> poseObservations = new LinkedList<>();
+-    for (var rawSample : megatag1Subscriber.readQueue()) {
+-      if (rawSample.value.length == 0) continue;
+-      for (int i = 11; i < rawSample.value.length; i += 7) {
+-        tagIds.add((int) rawSample.value[i]);
+-      }
+-      poseObservations.add(
+-          new PoseObservation(
+-              // Timestamp, based on server timestamp of publish and latency
+-              rawSample.timestamp * 1.0e-6 - rawSample.value[6] * 1.0e-3,
+-
+-              // 3D pose estimate
+-              parsePose(rawSample.value),
+-
+-              // Ambiguity, using only the first tag because ambiguity isn't applicable for multitag
+-              rawSample.value.length >= 18 ? rawSample.value[17] : 0.0,
+-
+-              // Tag count
+-              (int) rawSample.value[7],
+-
+-              // Average tag distance
+-              rawSample.value[9],
+-
+-              // Observation type
+-              PoseObservationType.MEGATAG_1));
+-    }
+-    for (var rawSample : megatag2Subscriber.readQueue()) {
+-      if (rawSample.value.length == 0) continue;
+-      for (int i = 11; i < rawSample.value.length; i += 7) {
+-        tagIds.add((int) rawSample.value[i]);
+-      }
+-      poseObservations.add(
+-          new PoseObservation(
+-              // Timestamp, based on server timestamp of publish and latency
+-              rawSample.timestamp * 1.0e-6 - rawSample.value[6] * 1.0e-3,
+-
+-              // 3D pose estimate
+-              parsePose(rawSample.value),
+-
+-              // Ambiguity, zeroed because the pose is already disambiguated
+-              0.0,
+-
+-              // Tag count
+-              (int) rawSample.value[7],
+-
+-              // Average tag distance
+-              rawSample.value[9],
+-
+-              // Observation type
+-              PoseObservationType.MEGATAG_2));
+-    }
+-
+-    // Save pose observations to inputs object
+-    inputs.poseObservations = new PoseObservation[poseObservations.size()];
+-    for (int i = 0; i < poseObservations.size(); i++) {
+-      inputs.poseObservations[i] = poseObservations.get(i);
+-    }
+-
+-    // Save tag IDs to inputs objects
+-    inputs.tagIds = new int[tagIds.size()];
+-    int i = 0;
+-    for (int id : tagIds) {
+-      inputs.tagIds[i++] = id;
+-    }
+-  }
+-
+-  /** Parses the 3D pose from a Limelight botpose array. */
+-  private static Pose3d parsePose(double[] rawLLArray) {
+-    return new Pose3d(
+-        rawLLArray[0],
+-        rawLLArray[1],
+-        rawLLArray[2],
+-        new Rotation3d(
+-            Units.degreesToRadians(rawLLArray[3]),
+-            Units.degreesToRadians(rawLLArray[4]),
+-            Units.degreesToRadians(rawLLArray[5])));
+-  }
+-}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java b/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java
+index ee235eb..ceeaf82 100644
+--- a/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java
++++ b/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java
+@@ -57,24 +57,13 @@ public class VisionIOSim implements VisionIO {
+       camProps[i].setAvgLatencyMs(50);
+       camProps[i].setLatencyStdDevMs(15);
+     }
+-    //DONE BC OF LIMELIGHT
+-    //only 2 cameras now
+-    // Configure per-camera properties only for cameras that exist. Some
+-    // configurations in the repo assume 3 transforms but numCameras may be 2
+-    // (based on `camNames`). Guard to avoid ArrayIndexOutOfBounds.
+-    if (numCameras > 0) {
+-      camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+-      camProps[0].setFPS(40);
+-    }
+-    if (numCameras > 1) {
+-      camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+-      camProps[1].setFPS(20);
+-    }
+-    // For any additional cameras, give reasonable defaults
+-    for (int i = 2; i < numCameras; i++) {
+-      camProps[i].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+-      camProps[i].setFPS(20);
+-    }
++
++    camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
++    camProps[0].setFPS(40);
++    camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
++    camProps[1].setFPS(20);
++    camProps[2].setCalibration(480, 320, Rotation2d.fromDegrees(70));
++    camProps[2].setFPS(20);
+ 
+     // Create a PhotonCameraSim which will update the linked PhotonCamera's values
+     // with visible

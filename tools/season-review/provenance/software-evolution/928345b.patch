@@ -1,0 +1,34 @@
+commit 928345b5b7d088aade3e2fe3e987086befb4cc63
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Sat Mar 21 13:08:43 2026 -0400
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Sat Mar 21 13:08:43 2026 -0400
+
+    Current Limit Changes
+
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
+index 1a71ef6..fe3532e 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
+@@ -52,7 +52,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
+         flywheelConfig = new SparkFlexConfig();
+ 
+         flywheelConfig
+-            .smartCurrentLimit(40)
++            .smartCurrentLimit(60)
+             .idleMode(IdleMode.kCoast)
+             .voltageCompensation(12.0)
+             .inverted(true);
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+index 710019e..f1caac0 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+@@ -40,7 +40,7 @@ public class HoodIOSparkMax implements HoodIO {
+         motorConfig
+             .inverted(HOOD_INVERTED)
+             .idleMode(HOOD_IDLE_MODE)
+-            .smartCurrentLimit(40)
++            .smartCurrentLimit(30)
+             .voltageCompensation(12.0);
+         motorConfig
+             .encoder

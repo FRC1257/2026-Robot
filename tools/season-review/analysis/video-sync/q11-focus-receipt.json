@@ -1,0 +1,34 @@
+{
+  "source": "logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog",
+  "source_sha256": "f214b527dead1344b5282ca99dbf0c153d4258fa56072db0317db85d80a554b9",
+  "output": "logs/focus/Q11_410-425_brownout.wpilog",
+  "output_sha256": "a2bbdf1bec13faf9da8e94f85bae0e1f5dcadf48008fd0169aeaf9a532ca2915",
+  "range_s": [
+    410,
+    425
+  ],
+  "preserved_original_data_records": 57350,
+  "synthesized_held_state_records": 344,
+  "verification": "Every original data record strictly after410 through425 retains identical signal name, timestamp and raw payload, in original order.",
+  "video_source": "videos/durFirbjol0.mp4",
+  "video_start_s": 25.943,
+  "video_duration_s": 15,
+  "video_offset_s": 384.057,
+  "warning": "Pre-window values are synthesized holds at410s; this is not a new robot run. Video alignment approximately\u00b11s. Do not use AUTO-end detection on this teleop-only excerpt.",
+  "relative_view_file": "logs/focus/Q11_brownout_focus_ZERO_EQUALS_410s.wpilog",
+  "relative_view_sha256": "85777ab8876e148a45965a571397a9547eda28ee970349049af3191c6211ef7f",
+  "relative_view_rule": "Original FPGA seconds = displayed seconds +410; record timestamps and AdvantageKit /Timestamp shifted by410s, all other signal payloads unchanged. Initial held /Timestamp set0.",
+  "native_video_file": "videos/Q11_410-425_brownout.mov",
+  "native_video_start_log_s": 0,
+  "relative_view_verified_records": 57694,
+  "native_sync_verification": {
+    "selected_relative_log_s": 7.5,
+    "video_frame": 226,
+    "fps": 30,
+    "broadcast_clock": "2:12",
+    "method": "Native AdvantageScope table timestamp committed by Return; locked video slider and rendered frame inspected",
+    "verified_at": "2026-10-17T00:39:23.210878+00:00",
+    "alignment_uncertainty_s": 1,
+    "limitation": "Synchronization verified in main Match Video tab. Separate satellite window remained on frame1; use main tab. Native UI control subsequently timed out while closing stale satellite."
+  }
+}

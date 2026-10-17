@@ -1,0 +1,11 @@
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+@@ -66,7 +66,7 @@
+    */
+ 
+   public Command runVoltage(Supplier<Voltage> voltage) {
+-    return this.run(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))));
++    return this.runEnd(() -> io.setVoltage(UnitUtil.clamp(voltage.get(), Volts.of(-12.0), Volts.of(12.0))), io::stop);
+   }
+ 
+   /**

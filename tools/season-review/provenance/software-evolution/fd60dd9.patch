@@ -1,0 +1,86 @@
+commit fd60dd9f29a56d4eb8cbbca00038811ced1e9285
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Mon Mar 16 18:47:01 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Mon Mar 16 18:47:01 2026 -0400
+
+    Brought all current limits down to 40
+
+diff --git a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
+index 9f82e80..4ea3a83 100644
+--- a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
+@@ -23,7 +23,7 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
+         config = new SparkFlexConfig();
+ 
+         config
+-            .smartCurrentLimit(Constants.NEO_VORTEX_CURRENT_LIMIT)
++            .smartCurrentLimit(40)
+             .idleMode(IdleMode.kCoast)
+             .voltageCompensation(12.0)
+             .inverted(false);
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+index 8e43d5c..5150852 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+@@ -30,7 +30,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+         // Configure motor
+         config.idleMode(IdleMode.kBrake);
+         config.voltageCompensation(12);
+-        config.smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT);
++        config.smartCurrentLimit(40);
+         config.inverted(true);
+ 
+         config.encoder
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
+index 77e0b87..3d3a18f 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
+@@ -42,7 +42,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
+     leftConfig
+         .idleMode(IdleMode.kBrake)
+         .voltageCompensation(12.0)
+-        .smartCurrentLimit(Constants.NEO_CURRENT_LIMIT)
++        .smartCurrentLimit(40)
+         .inverted(false);
+     leftConfig
+       .encoder
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java b/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
+index 75aa12d..6760d95 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
+@@ -31,7 +31,7 @@ public class KickerIOSparkMax implements KickerIO {
+             new SparkMaxConfig()
+                 .idleMode(SparkBaseConfig.IdleMode.kCoast)
+                 .voltageCompensation(12.0)
+-                .smartCurrentLimit(KickerConstants.KICKER_CURRENT_LIMIT)
++                .smartCurrentLimit(40)
+                 .inverted(false)
+             .apply(new EncoderConfig()
+                 .positionConversionFactor(Math.PI * 2.0/3) 
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
+index da45b83..1a71ef6 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java
+@@ -52,7 +52,7 @@ public class FlywheelIOSparkMax implements FlywheelIO {
+         flywheelConfig = new SparkFlexConfig();
+ 
+         flywheelConfig
+-            .smartCurrentLimit(Constants.NEO_VORTEX_CURRENT_LIMIT)
++            .smartCurrentLimit(40)
+             .idleMode(IdleMode.kCoast)
+             .voltageCompensation(12.0)
+             .inverted(true);
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+index 0b2cb0a..710019e 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+@@ -40,7 +40,7 @@ public class HoodIOSparkMax implements HoodIO {
+         motorConfig
+             .inverted(HOOD_INVERTED)
+             .idleMode(HOOD_IDLE_MODE)
+-            .smartCurrentLimit(HOOD_SMART_CURRENT_LIMIT)
++            .smartCurrentLimit(40)
+             .voltageCompensation(12.0);
+         motorConfig
+             .encoder

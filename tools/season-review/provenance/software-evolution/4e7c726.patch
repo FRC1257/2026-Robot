@@ -1,0 +1,34 @@
+commit 4e7c7261efc0f98eeaaea50897b97bb0b7b7e0d5
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Wed Jan 21 17:14:12 2026 -0500
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Wed Jan 21 17:14:12 2026 -0500
+
+    updated can ids (1/21)
+
+diff --git a/sim_logs/akit_26-01-17_16-03-28.wpilog b/sim_logs/akit_26-01-17_16-03-28.wpilog
+new file mode 100644
+index 0000000..e4fdc39
+Binary files /dev/null and b/sim_logs/akit_26-01-17_16-03-28.wpilog differ
+diff --git a/sim_logs/akit_26-01-17_16-06-08.wpilog b/sim_logs/akit_26-01-17_16-06-08.wpilog
+new file mode 100644
+index 0000000..cda710d
+Binary files /dev/null and b/sim_logs/akit_26-01-17_16-06-08.wpilog differ
+diff --git a/src/main/java/frc/robot/subsystems/drive/DriveConstants.java b/src/main/java/frc/robot/subsystems/drive/DriveConstants.java
+index ad6df4d..6bf563a 100644
+--- a/src/main/java/frc/robot/subsystems/drive/DriveConstants.java
++++ b/src/main/java/frc/robot/subsystems/drive/DriveConstants.java
+@@ -51,10 +51,10 @@ public final class DriveConstants {
+ 
+   // drive motors are timing out for some reason in the logs
+ 
+-  public static final int kFrontLeftTurningCanId = 6;
+-  public static final int kRearLeftTurningCanId = 11;
++  public static final int kFrontLeftTurningCanId = 1;
++  public static final int kRearLeftTurningCanId = 2;
+   public static final int kFrontRightTurningCanId = 3;
+-  public static final int kRearRightTurningCanId = 8;
++  public static final int kRearRightTurningCanId = 11;
+ 
+   public static final boolean kGyroReversed = false;
+ 

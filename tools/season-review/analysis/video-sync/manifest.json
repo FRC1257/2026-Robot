@@ -1,0 +1,3219 @@
+{
+  "schema": 1,
+  "rows": [
+    {
+      "match": "2026njtab_qm7",
+      "url": "https://www.youtube.com/watch?v=VM5qXlRZAP0",
+      "video_id": "VM5qXlRZAP0",
+      "title": "QM7 2026 Seneca Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 219,
+      "upload_date": "20260314",
+      "file": "videos/VM5qXlRZAP0.mp4",
+      "video_sha256": "c586d2322ccf932393621f6ff65dfaac8bd1eed67529541b68ef60e3ec6ced27",
+      "recorded_at_utc": "2026-10-16T23:17:26.409798+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-14_15-54-43_njtab_q7.wpilog",
+      "log_sha256": "6df093e61adee1de01e437fc5d9f27b9b0fe1c6c82e34e9493df7fcb54b156ef",
+      "log_start_s": 2.372,
+      "log_end_s": 397.272,
+      "alliance": "blue",
+      "result": "loss",
+      "alliance_score": 76,
+      "opponent_score": 82,
+      "offset_s": 114.426,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 2.0,
+          "log_s": 116.604613,
+          "offset_s": 114.604613,
+          "accepted": true,
+          "residual_s": 0.178
+        },
+        {
+          "clock": 17,
+          "video_s": 3.0,
+          "log_s": 117.2846,
+          "offset_s": 114.2846,
+          "accepted": true,
+          "residual_s": -0.142
+        },
+        {
+          "clock": 16,
+          "video_s": 4.0,
+          "log_s": 118.4846,
+          "offset_s": 114.4846,
+          "accepted": true,
+          "residual_s": 0.058
+        },
+        {
+          "clock": 15,
+          "video_s": 5.5,
+          "log_s": 119.684618,
+          "offset_s": 114.184618,
+          "accepted": true,
+          "residual_s": -0.242
+        },
+        {
+          "clock": 14,
+          "video_s": 6.0,
+          "log_s": 120.284729,
+          "offset_s": 114.284729,
+          "accepted": true,
+          "residual_s": -0.142
+        },
+        {
+          "clock": 13,
+          "video_s": 7.0,
+          "log_s": 121.49775,
+          "offset_s": 114.49775,
+          "accepted": true,
+          "residual_s": 0.071
+        },
+        {
+          "clock": 12,
+          "video_s": 8.0,
+          "log_s": 122.678736,
+          "offset_s": 114.678736,
+          "accepted": true,
+          "residual_s": 0.252
+        },
+        {
+          "clock": 11,
+          "video_s": 9.5,
+          "log_s": 123.898714,
+          "offset_s": 114.398714,
+          "accepted": true,
+          "residual_s": -0.028
+        },
+        {
+          "clock": 10,
+          "video_s": 10.5,
+          "log_s": 124.481889,
+          "offset_s": 113.981889,
+          "accepted": true,
+          "residual_s": -0.444
+        },
+        {
+          "clock": 9,
+          "video_s": 11.5,
+          "log_s": 125.670425,
+          "offset_s": 114.170425,
+          "accepted": true,
+          "residual_s": -0.256
+        },
+        {
+          "clock": 8,
+          "video_s": 12.5,
+          "log_s": 126.953806,
+          "offset_s": 114.453806,
+          "accepted": true,
+          "residual_s": 0.028
+        },
+        {
+          "clock": 7,
+          "video_s": 13.5,
+          "log_s": 128.083575,
+          "offset_s": 114.583575,
+          "accepted": true,
+          "residual_s": 0.157
+        },
+        {
+          "clock": 6,
+          "video_s": 14.5,
+          "log_s": 128.706967,
+          "offset_s": 114.20696699999999,
+          "accepted": true,
+          "residual_s": -0.219
+        },
+        {
+          "clock": 5,
+          "video_s": 15.5,
+          "log_s": 129.873799,
+          "offset_s": 114.37379899999999,
+          "accepted": true,
+          "residual_s": -0.052
+        },
+        {
+          "clock": 4,
+          "video_s": 16.5,
+          "log_s": 131.07979,
+          "offset_s": 114.57979,
+          "accepted": true,
+          "residual_s": 0.154
+        },
+        {
+          "clock": 3,
+          "video_s": 17.5,
+          "log_s": 132.28298,
+          "offset_s": 114.78298000000001,
+          "accepted": true,
+          "residual_s": 0.357
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 107,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 90,
+          "clock": 77,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 120,
+          "clock": 48,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 150,
+          "clock": 19,
+          "nearest_interval_error_s": 0
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 114.072,
+          "end_s": 134.667,
+          "duration_s": 20.595,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.595,
+          "battery_min_v": 8.433,
+          "battery_below_9v_s": 0.621,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.308,
+          "loop_max_ms": 342.378,
+          "intake_commanded_s": 18.882,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 9.143,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.28,
+          "max_pose_speed_mps": 4.47,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.187,
+          "fms_attached_s": 20.595,
+          "ds_attached_s": 20.595,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 138.727,
+          "end_s": 282.782,
+          "duration_s": 144.055,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.391,
+          "battery_below_9v_s": 23.398,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.955,
+          "loop_max_ms": 257.994,
+          "intake_commanded_s": 76.322,
+          "kicker_commanded_s": 31.947,
+          "flywheel_over_100rad_s": 56.228,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 2.127,
+            "2": 2.213,
+            "3": 40.331
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 110.1,
+          "max_pose_speed_mps": 7.78,
+          "pose_jumps": [
+            {
+              "t_s": 183.858,
+              "delta_m": 0.397
+            },
+            {
+              "t_s": 183.878,
+              "delta_m": 0.269
+            },
+            {
+              "t_s": 183.898,
+              "delta_m": 0.186
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 22.886,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 71.384,
+          "drive_command_s": 73.13,
+          "fms_attached_s": 144.055,
+          "ds_attached_s": 144.055,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026njtab_qm11",
+      "url": "https://www.youtube.com/watch?v=durFirbjol0",
+      "video_id": "durFirbjol0",
+      "title": "QM11 2026 Seneca Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 246,
+      "upload_date": "20260314",
+      "file": "videos/durFirbjol0.mp4",
+      "video_sha256": "44df1c6d495558f04fb72cca5e9337843b07bf2d53a9fd15f189e879f113fa87",
+      "recorded_at_utc": "2026-10-16T23:17:29.725847+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog",
+      "log_sha256": "f214b527dead1344b5282ca99dbf0c153d4258fa56072db0317db85d80a554b9",
+      "log_start_s": 2.764,
+      "log_end_s": 717.064,
+      "alliance": "red",
+      "result": "loss",
+      "alliance_score": 123,
+      "opponent_score": 193,
+      "offset_s": 384.057,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 2.5,
+          "log_s": 386.573293,
+          "offset_s": 384.073293,
+          "accepted": true,
+          "residual_s": 0.016
+        },
+        {
+          "clock": 17,
+          "video_s": 3.5,
+          "log_s": 387.778264,
+          "offset_s": 384.278264,
+          "accepted": true,
+          "residual_s": 0.221
+        },
+        {
+          "clock": 16,
+          "video_s": 4.5,
+          "log_s": 388.344707,
+          "offset_s": 383.844707,
+          "accepted": true,
+          "residual_s": -0.212
+        },
+        {
+          "clock": 15,
+          "video_s": 5.5,
+          "log_s": 389.555354,
+          "offset_s": 384.055354,
+          "accepted": true,
+          "residual_s": -0.002
+        },
+        {
+          "clock": 14,
+          "video_s": 6.5,
+          "log_s": 390.777094,
+          "offset_s": 384.277094,
+          "accepted": true,
+          "residual_s": 0.22
+        },
+        {
+          "clock": 13,
+          "video_s": 7.5,
+          "log_s": 391.377613,
+          "offset_s": 383.877613,
+          "accepted": true,
+          "residual_s": -0.179
+        },
+        {
+          "clock": 12,
+          "video_s": 8.5,
+          "log_s": 392.537489,
+          "offset_s": 384.037489,
+          "accepted": true,
+          "residual_s": -0.019
+        },
+        {
+          "clock": 11,
+          "video_s": 9.5,
+          "log_s": 393.753516,
+          "offset_s": 384.253516,
+          "accepted": true,
+          "residual_s": 0.197
+        },
+        {
+          "clock": 10,
+          "video_s": 10.5,
+          "log_s": 394.353812,
+          "offset_s": 383.853812,
+          "accepted": true,
+          "residual_s": -0.203
+        },
+        {
+          "clock": 9,
+          "video_s": 11.5,
+          "log_s": 395.558468,
+          "offset_s": 384.058468,
+          "accepted": true,
+          "residual_s": 0.002
+        },
+        {
+          "clock": 8,
+          "video_s": 12.5,
+          "log_s": 396.742904,
+          "offset_s": 384.242904,
+          "accepted": true,
+          "residual_s": 0.186
+        },
+        {
+          "clock": 7,
+          "video_s": 13.5,
+          "log_s": 397.344332,
+          "offset_s": 383.844332,
+          "accepted": true,
+          "residual_s": -0.213
+        },
+        {
+          "clock": 6,
+          "video_s": 14.5,
+          "log_s": 398.5606,
+          "offset_s": 384.0606,
+          "accepted": true,
+          "residual_s": 0.004
+        },
+        {
+          "clock": 5,
+          "video_s": 15.5,
+          "log_s": 399.77518,
+          "offset_s": 384.27518,
+          "accepted": true,
+          "residual_s": 0.218
+        },
+        {
+          "clock": 4,
+          "video_s": 16.5,
+          "log_s": 400.395343,
+          "offset_s": 383.895343,
+          "accepted": true,
+          "residual_s": -0.162
+        },
+        {
+          "clock": 3,
+          "video_s": 17.5,
+          "log_s": 401.552585,
+          "offset_s": 384.052585,
+          "accepted": true,
+          "residual_s": -0.004
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 120,
+          "clock": 45,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 150,
+          "clock": 15,
+          "nearest_interval_error_s": 0.092
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 383.456,
+          "end_s": 404.269,
+          "duration_s": 20.812,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 11,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.812,
+          "battery_min_v": 8.641,
+          "battery_below_9v_s": 0.182,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.941,
+          "loop_max_ms": 316.481,
+          "intake_commanded_s": 14.252,
+          "kicker_commanded_s": 14.895,
+          "flywheel_over_100rad_s": 16.558,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 5.3,
+          "max_pose_speed_mps": 2.0,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 6.069,
+          "kicker_active_hood_not_ready_s": 0.02,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 5.885,
+          "fms_attached_s": 20.813,
+          "ds_attached_s": 20.813,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 408.28,
+          "end_s": 422.605,
+          "duration_s": 14.325,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": false,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 11,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": false
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 4.036,
+          "battery_below_9v_s": 0.762,
+          "browned_out_s": 0.081,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.894,
+          "loop_max_ms": 255.23,
+          "intake_commanded_s": 0.286,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 4.522,
+            "2": 4.522,
+            "3": 4.522
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 10.58,
+          "max_pose_speed_mps": 6.24,
+          "pose_jumps": [
+            {
+              "t_s": 417.453,
+              "delta_m": 0.211
+            },
+            {
+              "t_s": 417.473,
+              "delta_m": 0.16
+            },
+            {
+              "t_s": 418.2,
+              "delta_m": 1.487
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 12.658,
+          "drive_command_s": 6.825,
+          "fms_attached_s": 14.325,
+          "ds_attached_s": 14.325,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 475.138,
+          "end_s": 548.614,
+          "duration_s": 73.476,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 11,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.497,
+          "battery_below_9v_s": 36.693,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.703,
+          "loop_max_ms": 81.657,
+          "intake_commanded_s": 27.077,
+          "kicker_commanded_s": 15.574,
+          "flywheel_over_100rad_s": 27.464,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 25.9,
+          "max_pose_speed_mps": 7.16,
+          "pose_jumps": [
+            {
+              "t_s": 475.358,
+              "delta_m": 0.253
+            },
+            {
+              "t_s": 475.378,
+              "delta_m": 0.222
+            },
+            {
+              "t_s": 475.398,
+              "delta_m": 0.193
+            },
+            {
+              "t_s": 475.418,
+              "delta_m": 0.169
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 12.274,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 33.803,
+          "drive_command_s": 36.124,
+          "fms_attached_s": 73.476,
+          "ds_attached_s": 73.476,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026njtab_qm31",
+      "url": "https://www.youtube.com/watch?v=xx9mqCktlts",
+      "video_id": "xx9mqCktlts",
+      "title": "QM31 2026 Seneca Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 320,
+      "upload_date": "20260314",
+      "file": "videos/xx9mqCktlts.mp4",
+      "video_sha256": "8c03027efbc48471a8608df1b568acde7607467630d44169cffe37d952fcd5af",
+      "recorded_at_utc": "2026-10-16T23:17:32.937729+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-14_20-51-03_njtab_q31.wpilog",
+      "log_sha256": "1a3fa8a37ea357a4d64e062a0331cf535a9ca58ccc5c2bb7bbad046f3b1ff2b3",
+      "log_start_s": 1.635,
+      "log_end_s": 171.735,
+      "alliance": "red",
+      "result": "win",
+      "alliance_score": 170,
+      "opponent_score": 114,
+      "offset_s": null,
+      "status": "pre_match_only_no_gameplay_alignment",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": null,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [],
+      "later_checks": [],
+      "enabled_windows": [],
+      "decode_error": null,
+      "note": "Q31 contains no enabled gameplay and no decreasing AUTO countdown. Do not extrapolate this pre-match log into the video."
+    },
+    {
+      "match": "2026njtab_qm53",
+      "url": "https://www.youtube.com/watch?v=Nam20HM9kDU",
+      "video_id": "Nam20HM9kDU",
+      "title": "QM53 2026 Seneca Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 255,
+      "upload_date": "20260315",
+      "file": "videos/Nam20HM9kDU.mp4",
+      "video_sha256": "75b6e31472cb9ff17971f4079633171f193ced947d74db69395169135197ec17",
+      "recorded_at_utc": "2026-10-16T23:17:36.083540+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-15_14-55-18_njtab_q53.wpilog",
+      "log_sha256": "e60c73ef1b15704cac856cb012039e1321aebd284df66d7be53e7803ed88651a",
+      "log_start_s": 1.747,
+      "log_end_s": 183.947,
+      "alliance": "blue",
+      "result": "win",
+      "alliance_score": 139,
+      "opponent_score": 38,
+      "offset_s": 123.163,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 1.5,
+          "log_s": 124.553944,
+          "offset_s": 123.053944,
+          "accepted": true,
+          "residual_s": -0.109
+        },
+        {
+          "clock": 17,
+          "video_s": 2.5,
+          "log_s": 125.755483,
+          "offset_s": 123.255483,
+          "accepted": true,
+          "residual_s": 0.092
+        },
+        {
+          "clock": 16,
+          "video_s": 3.5,
+          "log_s": 126.353331,
+          "offset_s": 122.853331,
+          "accepted": true,
+          "residual_s": -0.31
+        },
+        {
+          "clock": 15,
+          "video_s": 4.5,
+          "log_s": 127.553646,
+          "offset_s": 123.053646,
+          "accepted": true,
+          "residual_s": -0.109
+        },
+        {
+          "clock": 14,
+          "video_s": 5.5,
+          "log_s": 128.770637,
+          "offset_s": 123.270637,
+          "accepted": true,
+          "residual_s": 0.107
+        },
+        {
+          "clock": 13,
+          "video_s": 6.5,
+          "log_s": 129.3706,
+          "offset_s": 122.8706,
+          "accepted": true,
+          "residual_s": -0.293
+        },
+        {
+          "clock": 12,
+          "video_s": 7.5,
+          "log_s": 130.570803,
+          "offset_s": 123.07080300000001,
+          "accepted": true,
+          "residual_s": -0.092
+        },
+        {
+          "clock": 11,
+          "video_s": 8.5,
+          "log_s": 131.770562,
+          "offset_s": 123.27056200000001,
+          "accepted": true,
+          "residual_s": 0.107
+        },
+        {
+          "clock": 10,
+          "video_s": 9.5,
+          "log_s": 132.973807,
+          "offset_s": 123.473807,
+          "accepted": true,
+          "residual_s": 0.311
+        },
+        {
+          "clock": 9,
+          "video_s": 10.5,
+          "log_s": 133.568743,
+          "offset_s": 123.06874300000001,
+          "accepted": true,
+          "residual_s": -0.094
+        },
+        {
+          "clock": 8,
+          "video_s": 11.5,
+          "log_s": 134.768761,
+          "offset_s": 123.26876100000001,
+          "accepted": true,
+          "residual_s": 0.106
+        },
+        {
+          "clock": 7,
+          "video_s": 12.5,
+          "log_s": 135.969076,
+          "offset_s": 123.469076,
+          "accepted": true,
+          "residual_s": 0.306
+        },
+        {
+          "clock": 6,
+          "video_s": 13.5,
+          "log_s": 136.554328,
+          "offset_s": 123.054328,
+          "accepted": true,
+          "residual_s": -0.109
+        },
+        {
+          "clock": 5,
+          "video_s": 14.5,
+          "log_s": 137.774918,
+          "offset_s": 123.27491800000001,
+          "accepted": true,
+          "residual_s": 0.112
+        },
+        {
+          "clock": 4,
+          "video_s": 15.5,
+          "log_s": 138.96414,
+          "offset_s": 123.46413999999999,
+          "accepted": true,
+          "residual_s": 0.301
+        },
+        {
+          "clock": 3,
+          "video_s": 16.5,
+          "log_s": 139.57054,
+          "offset_s": 123.07054,
+          "accepted": true,
+          "residual_s": -0.093
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 104,
+          "nearest_interval_error_s": 0
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 122.39,
+          "end_s": 142.41,
+          "duration_s": 20.02,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 5,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.02,
+          "battery_min_v": 8.05,
+          "battery_below_9v_s": 0.48,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.731,
+          "loop_max_ms": 369.869,
+          "intake_commanded_s": 18.317,
+          "kicker_commanded_s": 9.538,
+          "flywheel_over_100rad_s": 9.837,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 16.25,
+          "max_pose_speed_mps": 4.08,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 1.649,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 7.997,
+          "fms_attached_s": 20.02,
+          "ds_attached_s": 20.02,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 146.39,
+          "end_s": 183.975,
+          "duration_s": 37.585,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 5,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.604,
+          "battery_below_9v_s": 11.734,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.952,
+          "loop_max_ms": 272.203,
+          "intake_commanded_s": 13.954,
+          "kicker_commanded_s": 2.721,
+          "flywheel_over_100rad_s": 6.915,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 16.595,
+            "3": 18.005
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 48.97,
+          "max_pose_speed_mps": 7.65,
+          "pose_jumps": [
+            {
+              "t_s": 172.694,
+              "delta_m": 0.157
+            },
+            {
+              "t_s": 172.714,
+              "delta_m": 0.484
+            },
+            {
+              "t_s": 172.734,
+              "delta_m": 0.444
+            },
+            {
+              "t_s": 172.774,
+              "delta_m": 0.376
+            },
+            {
+              "t_s": 172.854,
+              "delta_m": 0.29
+            },
+            {
+              "t_s": 172.914,
+              "delta_m": 0.223
+            },
+            {
+              "t_s": 172.974,
+              "delta_m": 0.187
+            },
+            {
+              "t_s": 173.114,
+              "delta_m": 0.212
+            },
+            {
+              "t_s": 173.134,
+              "delta_m": 0.183
+            },
+            {
+              "t_s": 182.675,
+              "delta_m": 0.274
+            },
+            {
+              "t_s": 182.695,
+              "delta_m": 0.246
+            }
+          ],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 1.446,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 26.049,
+          "drive_command_s": 25.99,
+          "fms_attached_s": 37.585,
+          "ds_attached_s": 37.585,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026njtab_qm58",
+      "url": "https://www.youtube.com/watch?v=oDik3z0j3uA",
+      "video_id": "oDik3z0j3uA",
+      "title": "QM58 2026 Seneca Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 215,
+      "upload_date": "20260315",
+      "file": "videos/oDik3z0j3uA.mp4",
+      "video_sha256": "6ddfefb248daf6b935b1140b5205b8088d625602f4bc96d452925067ac29f75b",
+      "recorded_at_utc": "2026-10-16T23:17:39.255646+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-15_15-41-42_njtab_q58.wpilog",
+      "log_sha256": "9d3ce7e072ebc50ccd6768c45383e61c0a26de2bf8381144b2f8199117b4a1c1",
+      "log_start_s": 2.468,
+      "log_end_s": 555.668,
+      "alliance": "red",
+      "result": "loss",
+      "alliance_score": 36,
+      "opponent_score": 86,
+      "offset_s": 513.187,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 3.0,
+          "log_s": 516.187484,
+          "offset_s": 513.187484,
+          "accepted": true,
+          "residual_s": 0.0
+        },
+        {
+          "clock": 17,
+          "video_s": 4.0,
+          "log_s": 517.387483,
+          "offset_s": 513.387483,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 16,
+          "video_s": 5.0,
+          "log_s": 518.007517,
+          "offset_s": 513.007517,
+          "accepted": true,
+          "residual_s": -0.18
+        },
+        {
+          "clock": 15,
+          "video_s": 6.0,
+          "log_s": 519.187483,
+          "offset_s": 513.187483,
+          "accepted": true,
+          "residual_s": 0.0
+        },
+        {
+          "clock": 14,
+          "video_s": 7.0,
+          "log_s": 520.387204,
+          "offset_s": 513.387204,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 13,
+          "video_s": 8.0,
+          "log_s": 520.987204,
+          "offset_s": 512.987204,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 12,
+          "video_s": 9.0,
+          "log_s": 522.187185,
+          "offset_s": 513.187185,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 11,
+          "video_s": 10.0,
+          "log_s": 523.387203,
+          "offset_s": 513.387203,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 10,
+          "video_s": 11.0,
+          "log_s": 523.987202,
+          "offset_s": 512.987202,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 9,
+          "video_s": 12.0,
+          "log_s": 525.187202,
+          "offset_s": 513.187202,
+          "accepted": true,
+          "residual_s": 0.0
+        },
+        {
+          "clock": 8,
+          "video_s": 13.0,
+          "log_s": 526.387201,
+          "offset_s": 513.387201,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 7,
+          "video_s": 14.0,
+          "log_s": 526.98722,
+          "offset_s": 512.98722,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 6,
+          "video_s": 15.0,
+          "log_s": 528.187201,
+          "offset_s": 513.187201,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 5,
+          "video_s": 16.0,
+          "log_s": 529.3872,
+          "offset_s": 513.3872,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 4,
+          "video_s": 17.0,
+          "log_s": 529.9872,
+          "offset_s": 512.9872,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 3,
+          "video_s": 18.0,
+          "log_s": 531.187199,
+          "offset_s": 513.187199,
+          "accepted": true,
+          "residual_s": -0.0
+        }
+      ],
+      "later_checks": [],
+      "enabled_windows": [
+        {
+          "start_s": 513.02,
+          "end_s": 516.187,
+          "duration_s": 3.167,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 58,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 3.167,
+          "battery_min_v": 8.151,
+          "battery_below_9v_s": 0.62,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.367,
+          "loop_max_ms": 334.753,
+          "intake_commanded_s": 1.524,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 3.167,
+            "2": 3.167,
+            "3": 3.167
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 2.12,
+          "max_pose_speed_mps": 2.26,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 1.444,
+          "fms_attached_s": 3.167,
+          "ds_attached_s": 3.167,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 537.947,
+          "end_s": 555.753,
+          "duration_s": 17.806,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 58,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.793,
+          "battery_below_9v_s": 4.098,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.244,
+          "loop_max_ms": 219.131,
+          "intake_commanded_s": 10.101,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 17.806,
+            "2": 17.806,
+            "3": 17.806
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 20.17,
+          "max_pose_speed_mps": 3.38,
+          "pose_jumps": [],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 11.282,
+          "drive_command_s": 11.822,
+          "fms_attached_s": 17.806,
+          "ds_attached_s": 17.806,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026njtab_qm63",
+      "url": "https://www.youtube.com/watch?v=0Rn87qP_f9E",
+      "video_id": "0Rn87qP_f9E",
+      "title": "QM63 2026 Seneca Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 222,
+      "upload_date": "20260315",
+      "file": "videos/0Rn87qP_f9E.mp4",
+      "video_sha256": "d1eae36d137ca8a4815124f8766554edd96c1a01b6e25c044ccce9d0c0ae87e2",
+      "recorded_at_utc": "2026-10-16T23:17:42.404139+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-15_16-37-51_njtab_q63.wpilog",
+      "log_sha256": "b4e02b0781d9503736e60348bdd1cf1d77648f66ad037db51c88e4519dfa5dda",
+      "log_start_s": 2.381,
+      "log_end_s": 245.381,
+      "alliance": "blue",
+      "result": "win",
+      "alliance_score": 145,
+      "opponent_score": 140,
+      "offset_s": 179.62,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 2.5,
+          "log_s": 181.913074,
+          "offset_s": 179.413074,
+          "accepted": true,
+          "residual_s": -0.207
+        },
+        {
+          "clock": 17,
+          "video_s": 3.5,
+          "log_s": 183.13307,
+          "offset_s": 179.63307,
+          "accepted": true,
+          "residual_s": 0.013
+        },
+        {
+          "clock": 16,
+          "video_s": 4.5,
+          "log_s": 184.318749,
+          "offset_s": 179.818749,
+          "accepted": true,
+          "residual_s": 0.199
+        },
+        {
+          "clock": 15,
+          "video_s": 5.5,
+          "log_s": 184.938894,
+          "offset_s": 179.438894,
+          "accepted": true,
+          "residual_s": -0.181
+        },
+        {
+          "clock": 14,
+          "video_s": 6.5,
+          "log_s": 186.127949,
+          "offset_s": 179.627949,
+          "accepted": true,
+          "residual_s": 0.008
+        },
+        {
+          "clock": 13,
+          "video_s": 7.5,
+          "log_s": 187.334589,
+          "offset_s": 179.834589,
+          "accepted": true,
+          "residual_s": 0.215
+        },
+        {
+          "clock": 12,
+          "video_s": 8.5,
+          "log_s": 187.91437,
+          "offset_s": 179.41437,
+          "accepted": true,
+          "residual_s": -0.205
+        },
+        {
+          "clock": 11,
+          "video_s": 9.5,
+          "log_s": 189.114369,
+          "offset_s": 179.614369,
+          "accepted": true,
+          "residual_s": -0.005
+        },
+        {
+          "clock": 10,
+          "video_s": 10.5,
+          "log_s": 190.314369,
+          "offset_s": 179.814369,
+          "accepted": true,
+          "residual_s": 0.195
+        },
+        {
+          "clock": 9,
+          "video_s": 11.5,
+          "log_s": 190.92125,
+          "offset_s": 179.42125,
+          "accepted": true,
+          "residual_s": -0.198
+        },
+        {
+          "clock": 8,
+          "video_s": 12.5,
+          "log_s": 192.12483,
+          "offset_s": 179.62483,
+          "accepted": true,
+          "residual_s": 0.005
+        },
+        {
+          "clock": 7,
+          "video_s": 13.5,
+          "log_s": 193.308413,
+          "offset_s": 179.808413,
+          "accepted": true,
+          "residual_s": 0.189
+        },
+        {
+          "clock": 6,
+          "video_s": 14.5,
+          "log_s": 193.949464,
+          "offset_s": 179.449464,
+          "accepted": true,
+          "residual_s": -0.17
+        },
+        {
+          "clock": 5,
+          "video_s": 15.5,
+          "log_s": 195.111324,
+          "offset_s": 179.611324,
+          "accepted": true,
+          "residual_s": -0.008
+        },
+        {
+          "clock": 4,
+          "video_s": 16.5,
+          "log_s": 196.308912,
+          "offset_s": 179.808912,
+          "accepted": true,
+          "residual_s": 0.189
+        },
+        {
+          "clock": 3,
+          "video_s": 17.5,
+          "log_s": 196.908875,
+          "offset_s": 179.408875,
+          "accepted": true,
+          "residual_s": -0.211
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 105,
+          "nearest_interval_error_s": 0
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 179.274,
+          "end_s": 199.929,
+          "duration_s": 20.656,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 63,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.656,
+          "battery_min_v": 8.427,
+          "battery_below_9v_s": 0.16,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.662,
+          "loop_max_ms": 375.174,
+          "intake_commanded_s": 18.936,
+          "kicker_commanded_s": 8.842,
+          "flywheel_over_100rad_s": 9.117,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 16.236,
+            "2": 16.216,
+            "3": 16.456
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 16.91,
+          "max_pose_speed_mps": 4.25,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 3.932,
+          "kicker_active_hood_not_ready_s": 0.02,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.137,
+          "fms_attached_s": 20.655,
+          "ds_attached_s": 20.655,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 203.949,
+          "end_s": 245.412,
+          "duration_s": 41.463,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 63,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.491,
+          "battery_below_9v_s": 10.226,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.656,
+          "loop_max_ms": 241.744,
+          "intake_commanded_s": 25.175,
+          "kicker_commanded_s": 4.2,
+          "flywheel_over_100rad_s": 5.76,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 41.463,
+            "2": 41.463,
+            "3": 41.463
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 44.2,
+          "max_pose_speed_mps": 3.8,
+          "pose_jumps": [],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 2.8,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 27.158,
+          "drive_command_s": 27.416,
+          "fms_attached_s": 41.463,
+          "ds_attached_s": 41.463,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026paben_qm7",
+      "url": "https://www.youtube.com/watch?v=6lkCeg8ExDM",
+      "video_id": "6lkCeg8ExDM",
+      "title": "QM7 2026 Bensalem Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 207,
+      "upload_date": "20260328",
+      "file": "videos/6lkCeg8ExDM.mp4",
+      "video_sha256": "391124fb43ad8b7fb1f74616edfa88df523d889d8d2d5df195fd0ee8f2b10ea1",
+      "recorded_at_utc": "2026-10-16T23:17:45.617951+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-28_16-04-00_paben_q7.wpilog",
+      "log_sha256": "32ff731d3656848c306505fa19107fb209715330101a14b8bbc6d438627915e6",
+      "log_start_s": 2.01,
+      "log_end_s": 202.61,
+      "alliance": "red",
+      "result": "win",
+      "alliance_score": 233,
+      "opponent_score": 48,
+      "offset_s": 109.215,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 2.0,
+          "log_s": 111.397921,
+          "offset_s": 109.397921,
+          "accepted": true,
+          "residual_s": 0.183
+        },
+        {
+          "clock": 17,
+          "video_s": 3.0,
+          "log_s": 111.999943,
+          "offset_s": 108.999943,
+          "accepted": true,
+          "residual_s": -0.215
+        },
+        {
+          "clock": 16,
+          "video_s": 4.0,
+          "log_s": 113.200963,
+          "offset_s": 109.200963,
+          "accepted": true,
+          "residual_s": -0.014
+        },
+        {
+          "clock": 15,
+          "video_s": 5.0,
+          "log_s": 114.400999,
+          "offset_s": 109.400999,
+          "accepted": true,
+          "residual_s": 0.186
+        },
+        {
+          "clock": 14,
+          "video_s": 6.0,
+          "log_s": 115.111538,
+          "offset_s": 109.111538,
+          "accepted": true,
+          "residual_s": -0.103
+        },
+        {
+          "clock": 13,
+          "video_s": 7.0,
+          "log_s": 116.209903,
+          "offset_s": 109.209903,
+          "accepted": true,
+          "residual_s": -0.005
+        },
+        {
+          "clock": 12,
+          "video_s": 8.0,
+          "log_s": 117.409512,
+          "offset_s": 109.409512,
+          "accepted": true,
+          "residual_s": 0.195
+        },
+        {
+          "clock": 11,
+          "video_s": 9.0,
+          "log_s": 118.009494,
+          "offset_s": 109.009494,
+          "accepted": true,
+          "residual_s": -0.205
+        },
+        {
+          "clock": 10,
+          "video_s": 10.0,
+          "log_s": 119.209512,
+          "offset_s": 109.209512,
+          "accepted": true,
+          "residual_s": -0.005
+        },
+        {
+          "clock": 9,
+          "video_s": 11.0,
+          "log_s": 120.410457,
+          "offset_s": 109.410457,
+          "accepted": true,
+          "residual_s": 0.196
+        },
+        {
+          "clock": 8,
+          "video_s": 12.0,
+          "log_s": 121.014742,
+          "offset_s": 109.014742,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 7,
+          "video_s": 13.0,
+          "log_s": 122.265828,
+          "offset_s": 109.265828,
+          "accepted": true,
+          "residual_s": 0.051
+        },
+        {
+          "clock": 6,
+          "video_s": 14.0,
+          "log_s": 123.409918,
+          "offset_s": 109.409918,
+          "accepted": true,
+          "residual_s": 0.195
+        },
+        {
+          "clock": 5,
+          "video_s": 15.0,
+          "log_s": 124.011903,
+          "offset_s": 109.011903,
+          "accepted": true,
+          "residual_s": -0.203
+        },
+        {
+          "clock": 4,
+          "video_s": 16.0,
+          "log_s": 125.219192,
+          "offset_s": 109.219192,
+          "accepted": true,
+          "residual_s": 0.005
+        },
+        {
+          "clock": 3,
+          "video_s": 17.0,
+          "log_s": 126.406058,
+          "offset_s": 109.406058,
+          "accepted": true,
+          "residual_s": 0.192
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 105,
+          "nearest_interval_error_s": 0.214
+        },
+        {
+          "video_s": 90,
+          "clock": 75,
+          "nearest_interval_error_s": 0.209
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 108.82,
+          "end_s": 128.91,
+          "duration_s": 20.09,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 2,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.09,
+          "battery_min_v": 8.182,
+          "battery_below_9v_s": 0.455,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 3.073,
+          "loop_max_ms": 426.389,
+          "intake_commanded_s": 18.552,
+          "kicker_commanded_s": 8.621,
+          "flywheel_over_100rad_s": 13.606,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.53,
+          "max_pose_speed_mps": 4.42,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 3.674,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.287,
+          "fms_attached_s": 20.09,
+          "ds_attached_s": 20.09,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 132.931,
+          "end_s": 202.614,
+          "duration_s": 69.683,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 2,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.881,
+          "battery_below_9v_s": 6.616,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.413,
+          "loop_max_ms": 308.209,
+          "intake_commanded_s": 42.036,
+          "kicker_commanded_s": 23.097,
+          "flywheel_over_100rad_s": 30.137,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 71.39,
+          "max_pose_speed_mps": 6.4,
+          "pose_jumps": [
+            {
+              "t_s": 152.263,
+              "delta_m": 0.162
+            },
+            {
+              "t_s": 161.612,
+              "delta_m": 0.164
+            }
+          ],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 12.798,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 38.377,
+          "drive_command_s": 38.1,
+          "fms_attached_s": 69.683,
+          "ds_attached_s": 69.683,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026paben_qm34",
+      "url": "https://www.youtube.com/watch?v=Kpk72q5CTvQ",
+      "video_id": "Kpk72q5CTvQ",
+      "title": "QM34 2026 Bensalem Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 227,
+      "upload_date": "20260328",
+      "file": "videos/Kpk72q5CTvQ.mp4",
+      "video_sha256": "c38881d631be8a0daa0041bffe465b0619a584ed058108b991e6f5cc5b87c069",
+      "recorded_at_utc": "2026-10-16T23:17:48.805272+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-28_21-18-11_paben_q34.wpilog",
+      "log_sha256": "ab548007210f84a644fbd49f62bdf42d3acf0baa84f8deb84ace8d3c02f7086f",
+      "log_start_s": 2.801,
+      "log_end_s": 379.401,
+      "alliance": "blue",
+      "result": "win",
+      "alliance_score": 148,
+      "opponent_score": 73,
+      "offset_s": 130.813,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 2.0,
+          "log_s": 132.814584,
+          "offset_s": 130.814584,
+          "accepted": true,
+          "residual_s": 0.002
+        },
+        {
+          "clock": 17,
+          "video_s": 3.0,
+          "log_s": 134.014583,
+          "offset_s": 131.014583,
+          "accepted": true,
+          "residual_s": 0.202
+        },
+        {
+          "clock": 16,
+          "video_s": 4.0,
+          "log_s": 134.627846,
+          "offset_s": 130.627846,
+          "accepted": true,
+          "residual_s": -0.185
+        },
+        {
+          "clock": 15,
+          "video_s": 5.0,
+          "log_s": 135.809166,
+          "offset_s": 130.809166,
+          "accepted": true,
+          "residual_s": -0.004
+        },
+        {
+          "clock": 14,
+          "video_s": 6.0,
+          "log_s": 137.010149,
+          "offset_s": 131.010149,
+          "accepted": true,
+          "residual_s": 0.197
+        },
+        {
+          "clock": 13,
+          "video_s": 7.0,
+          "log_s": 137.610408,
+          "offset_s": 130.610408,
+          "accepted": true,
+          "residual_s": -0.203
+        },
+        {
+          "clock": 12,
+          "video_s": 8.0,
+          "log_s": 138.811465,
+          "offset_s": 130.811465,
+          "accepted": true,
+          "residual_s": -0.002
+        },
+        {
+          "clock": 11,
+          "video_s": 9.0,
+          "log_s": 140.022669,
+          "offset_s": 131.022669,
+          "accepted": true,
+          "residual_s": 0.21
+        },
+        {
+          "clock": 10,
+          "video_s": 10.0,
+          "log_s": 140.610555,
+          "offset_s": 130.610555,
+          "accepted": true,
+          "residual_s": -0.202
+        },
+        {
+          "clock": 9,
+          "video_s": 11.0,
+          "log_s": 141.815137,
+          "offset_s": 130.815137,
+          "accepted": true,
+          "residual_s": 0.002
+        },
+        {
+          "clock": 8,
+          "video_s": 12.0,
+          "log_s": 143.017047,
+          "offset_s": 131.017047,
+          "accepted": true,
+          "residual_s": 0.204
+        },
+        {
+          "clock": 7,
+          "video_s": 13.0,
+          "log_s": 143.619217,
+          "offset_s": 130.619217,
+          "accepted": true,
+          "residual_s": -0.194
+        },
+        {
+          "clock": 6,
+          "video_s": 14.0,
+          "log_s": 144.838119,
+          "offset_s": 130.838119,
+          "accepted": true,
+          "residual_s": 0.025
+        },
+        {
+          "clock": 5,
+          "video_s": 15.0,
+          "log_s": 145.999905,
+          "offset_s": 130.999905,
+          "accepted": true,
+          "residual_s": 0.187
+        },
+        {
+          "clock": 4,
+          "video_s": 16.0,
+          "log_s": 146.601964,
+          "offset_s": 130.601964,
+          "accepted": true,
+          "residual_s": -0.211
+        },
+        {
+          "clock": 3,
+          "video_s": 17.0,
+          "log_s": 147.806379,
+          "offset_s": 130.806379,
+          "accepted": true,
+          "residual_s": -0.007
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 105,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 90,
+          "clock": 75,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 120,
+          "clock": 45,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 150,
+          "clock": 15,
+          "nearest_interval_error_s": 0
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 129.734,
+          "end_s": 150.449,
+          "duration_s": 20.715,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 34,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.715,
+          "battery_min_v": 8.39,
+          "battery_below_9v_s": 0.673,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.911,
+          "loop_max_ms": 285.187,
+          "intake_commanded_s": 18.042,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 10.668,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 6.68,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 16.53,
+          "max_pose_speed_mps": 3.57,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 8.184,
+          "fms_attached_s": 20.715,
+          "ds_attached_s": 20.715,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 154.45,
+          "end_s": 294.465,
+          "duration_s": 140.014,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 34,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.384,
+          "battery_below_9v_s": 34.622,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.974,
+          "loop_max_ms": 260.868,
+          "intake_commanded_s": 88.349,
+          "kicker_commanded_s": 42.004,
+          "flywheel_over_100rad_s": 63.115,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 163.06,
+          "max_pose_speed_mps": 6.37,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 29.04,
+          "kicker_active_hood_not_ready_s": 0.04,
+          "driver_translation_input_s": 87.812,
+          "drive_command_s": 87.013,
+          "fms_attached_s": 140.015,
+          "ds_attached_s": 140.015,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.4,
+          "flywheel_disconnected_s": 0.0
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026paben_qm42",
+      "url": "https://www.youtube.com/watch?v=6xcDmugPbdo",
+      "video_id": "6xcDmugPbdo",
+      "title": "QM42 2026 Bensalem Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 218,
+      "upload_date": "20260328",
+      "file": "videos/6xcDmugPbdo.mp4",
+      "video_sha256": "ddcdbab1a05b0f9018376c98f3b479d9f1708091f4ed365063f8e676e7f68121",
+      "recorded_at_utc": "2026-10-16T23:17:52.259357+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-28_22-29-34_paben_q42.wpilog",
+      "log_sha256": "a575a400bd5ac588b0678b9d4dcf484b21c6ac0bb4a85025eff35ce057c83ebd",
+      "log_start_s": 2.662,
+      "log_end_s": 442.462,
+      "alliance": "blue",
+      "result": "loss",
+      "alliance_score": 63,
+      "opponent_score": 88,
+      "offset_s": 137.43,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 1.0,
+          "log_s": 138.43041,
+          "offset_s": 137.43041,
+          "accepted": true,
+          "residual_s": 0.0
+        },
+        {
+          "clock": 17,
+          "video_s": 2.0,
+          "log_s": 139.630391,
+          "offset_s": 137.630391,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 16,
+          "video_s": 3.0,
+          "log_s": 140.230409,
+          "offset_s": 137.230409,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 15,
+          "video_s": 4.0,
+          "log_s": 141.430409,
+          "offset_s": 137.430409,
+          "accepted": true,
+          "residual_s": 0.0
+        },
+        {
+          "clock": 14,
+          "video_s": 5.0,
+          "log_s": 142.630779,
+          "offset_s": 137.630779,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 13,
+          "video_s": 6.0,
+          "log_s": 143.230426,
+          "offset_s": 137.230426,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 12,
+          "video_s": 7.0,
+          "log_s": 144.430389,
+          "offset_s": 137.430389,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 11,
+          "video_s": 8.0,
+          "log_s": 145.630388,
+          "offset_s": 137.630388,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 10,
+          "video_s": 9.0,
+          "log_s": 146.230388,
+          "offset_s": 137.230388,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 9,
+          "video_s": 10.0,
+          "log_s": 147.430406,
+          "offset_s": 137.430406,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 8,
+          "video_s": 11.0,
+          "log_s": 148.630406,
+          "offset_s": 137.630406,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 7,
+          "video_s": 12.0,
+          "log_s": 149.230442,
+          "offset_s": 137.230442,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 6,
+          "video_s": 13.0,
+          "log_s": 150.430405,
+          "offset_s": 137.430405,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 5,
+          "video_s": 14.0,
+          "log_s": 151.630386,
+          "offset_s": 137.630386,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 4,
+          "video_s": 15.0,
+          "log_s": 152.230386,
+          "offset_s": 137.230386,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 3,
+          "video_s": 16.0,
+          "log_s": 153.430459,
+          "offset_s": 137.430459,
+          "accepted": true,
+          "residual_s": 0.0
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 103,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 90,
+          "clock": 74,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 120,
+          "clock": 44,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 150,
+          "clock": 13,
+          "nearest_interval_error_s": 0.39
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 135.993,
+          "end_s": 156.19,
+          "duration_s": 20.197,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 42,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.197,
+          "battery_min_v": 12.668,
+          "battery_below_9v_s": 0,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.377,
+          "loop_max_ms": 351.801,
+          "intake_commanded_s": 0,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 0.19,
+          "max_pose_speed_mps": 0.48,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 0.0,
+          "fms_attached_s": 20.197,
+          "ds_attached_s": 20.197,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 20.197,
+          "flywheel_disconnected_s": 20.197
+        },
+        {
+          "start_s": 160.21,
+          "end_s": 300.24,
+          "duration_s": 140.03,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 42,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 12.662,
+          "battery_below_9v_s": 0,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.095,
+          "loop_max_ms": 324.958,
+          "intake_commanded_s": 0,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 0.76,
+          "max_pose_speed_mps": 0.16,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 24.384,
+          "drive_command_s": 0.0,
+          "fms_attached_s": 140.03,
+          "ds_attached_s": 140.03,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 140.03,
+          "flywheel_disconnected_s": 140.03
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026paben_qm48",
+      "url": "https://www.youtube.com/watch?v=9AzPARjFShw",
+      "video_id": "9AzPARjFShw",
+      "title": "QM48 2026 Bensalem Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 207,
+      "upload_date": "20260329",
+      "file": "videos/9AzPARjFShw.mp4",
+      "video_sha256": "cd77f3ace499d7504106fc8c49a1ae09678b30a3e2995d34b3e526c7f765bb5d",
+      "recorded_at_utc": "2026-10-16T23:17:55.394335+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-29_13-40-03_paben_q48.wpilog",
+      "log_sha256": "90206ca85086f42e03f9add646280a5f2ae95177fcc33208b09654981f3d1067",
+      "log_start_s": 1.642,
+      "log_end_s": 390.442,
+      "alliance": "blue",
+      "result": "loss",
+      "alliance_score": 29,
+      "opponent_score": 242,
+      "offset_s": 135.186,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 3.0,
+          "log_s": 138.381543,
+          "offset_s": 135.381543,
+          "accepted": true,
+          "residual_s": 0.196
+        },
+        {
+          "clock": 17,
+          "video_s": 4.0,
+          "log_s": 138.983397,
+          "offset_s": 134.983397,
+          "accepted": true,
+          "residual_s": -0.202
+        },
+        {
+          "clock": 16,
+          "video_s": 5.0,
+          "log_s": 140.183415,
+          "offset_s": 135.183415,
+          "accepted": true,
+          "residual_s": -0.002
+        },
+        {
+          "clock": 15,
+          "video_s": 6.0,
+          "log_s": 141.383433,
+          "offset_s": 135.383433,
+          "accepted": true,
+          "residual_s": 0.198
+        },
+        {
+          "clock": 14,
+          "video_s": 7.0,
+          "log_s": 141.98347,
+          "offset_s": 134.98347,
+          "accepted": true,
+          "residual_s": -0.202
+        },
+        {
+          "clock": 13,
+          "video_s": 8.0,
+          "log_s": 143.188775,
+          "offset_s": 135.188775,
+          "accepted": true,
+          "residual_s": 0.003
+        },
+        {
+          "clock": 12,
+          "video_s": 9.0,
+          "log_s": 144.388552,
+          "offset_s": 135.388552,
+          "accepted": true,
+          "residual_s": 0.203
+        },
+        {
+          "clock": 11,
+          "video_s": 10.0,
+          "log_s": 144.971931,
+          "offset_s": 134.971931,
+          "accepted": true,
+          "residual_s": -0.214
+        },
+        {
+          "clock": 10,
+          "video_s": 11.0,
+          "log_s": 146.186974,
+          "offset_s": 135.186974,
+          "accepted": true,
+          "residual_s": 0.001
+        },
+        {
+          "clock": 9,
+          "video_s": 12.0,
+          "log_s": 147.392799,
+          "offset_s": 135.392799,
+          "accepted": true,
+          "residual_s": 0.207
+        },
+        {
+          "clock": 8,
+          "video_s": 13.0,
+          "log_s": 147.983894,
+          "offset_s": 134.983894,
+          "accepted": true,
+          "residual_s": -0.202
+        },
+        {
+          "clock": 7,
+          "video_s": 14.0,
+          "log_s": 149.165752,
+          "offset_s": 135.165752,
+          "accepted": true,
+          "residual_s": -0.02
+        },
+        {
+          "clock": 6,
+          "video_s": 15.0,
+          "log_s": 150.375768,
+          "offset_s": 135.375768,
+          "accepted": true,
+          "residual_s": 0.19
+        },
+        {
+          "clock": 5,
+          "video_s": 16.0,
+          "log_s": 150.981945,
+          "offset_s": 134.981945,
+          "accepted": true,
+          "residual_s": -0.204
+        },
+        {
+          "clock": 4,
+          "video_s": 17.0,
+          "log_s": 152.184319,
+          "offset_s": 135.184319,
+          "accepted": true,
+          "residual_s": -0.001
+        },
+        {
+          "clock": 3,
+          "video_s": 18.0,
+          "log_s": 153.382965,
+          "offset_s": 135.382965,
+          "accepted": true,
+          "residual_s": 0.197
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 105,
+          "nearest_interval_error_s": 0.184
+        },
+        {
+          "video_s": 90,
+          "clock": 75,
+          "nearest_interval_error_s": 0.183
+        },
+        {
+          "video_s": 120,
+          "clock": 45,
+          "nearest_interval_error_s": 0.194
+        },
+        {
+          "video_s": 150,
+          "clock": 15,
+          "nearest_interval_error_s": 0.189
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 135.035,
+          "end_s": 155.829,
+          "duration_s": 20.795,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 48,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.795,
+          "battery_min_v": 8.572,
+          "battery_below_9v_s": 0.34,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.862,
+          "loop_max_ms": 387.992,
+          "intake_commanded_s": 19.072,
+          "kicker_commanded_s": 10.314,
+          "flywheel_over_100rad_s": 10.52,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 17.36,
+          "max_pose_speed_mps": 3.78,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 6.279,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 8.295,
+          "fms_attached_s": 20.794,
+          "ds_attached_s": 20.794,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 159.894,
+          "end_s": 299.94,
+          "duration_s": 140.046,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 48,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 6.982,
+          "battery_below_9v_s": 67.837,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.936,
+          "loop_max_ms": 313.347,
+          "intake_commanded_s": 65.575,
+          "kicker_commanded_s": 14.22,
+          "flywheel_over_100rad_s": 29.674,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 86.586,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 188.1,
+          "max_pose_speed_mps": 7.78,
+          "pose_jumps": [
+            {
+              "t_s": 196.977,
+              "delta_m": 0.211
+            },
+            {
+              "t_s": 202.679,
+              "delta_m": 0.267
+            },
+            {
+              "t_s": 202.699,
+              "delta_m": 0.192
+            },
+            {
+              "t_s": 247.233,
+              "delta_m": 0.183
+            },
+            {
+              "t_s": 260.9,
+              "delta_m": 0.357
+            },
+            {
+              "t_s": 260.92,
+              "delta_m": 0.24
+            },
+            {
+              "t_s": 267.775,
+              "delta_m": 0.164
+            },
+            {
+              "t_s": 282.114,
+              "delta_m": 0.192
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 12.275,
+          "kicker_active_hood_not_ready_s": 0.78,
+          "driver_translation_input_s": 117.648,
+          "drive_command_s": 119.694,
+          "fms_attached_s": 140.046,
+          "ds_attached_s": 140.046,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026paben_qm53",
+      "url": "https://www.youtube.com/watch?v=CVh41GkgkEs",
+      "video_id": "CVh41GkgkEs",
+      "title": "QM53 2026 Bensalem Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 230,
+      "upload_date": "20260329",
+      "file": "videos/CVh41GkgkEs.mp4",
+      "video_sha256": "88d1d5d7cde090c3cd719f29b3b0340f924893191e0ddfb7dffe44bc1ab1bf8f",
+      "recorded_at_utc": "2026-10-16T23:17:58.815743+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-29_14-27-29_paben_q53.wpilog",
+      "log_sha256": "f1ecb2dfd0cb08514d925ed20d7ef12480e8e9e2bf4ab68548e35f848b099b55",
+      "log_start_s": 2.536,
+      "log_end_s": 522.236,
+      "alliance": "red",
+      "result": "loss",
+      "alliance_score": 47,
+      "opponent_score": 221,
+      "offset_s": 248.129,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 18,
+          "video_s": 2.5,
+          "log_s": 250.847364,
+          "offset_s": 248.347364,
+          "accepted": true,
+          "residual_s": 0.219
+        },
+        {
+          "clock": 17,
+          "video_s": 3.5,
+          "log_s": 251.448495,
+          "offset_s": 247.948495,
+          "accepted": true,
+          "residual_s": -0.18
+        },
+        {
+          "clock": 16,
+          "video_s": 4.5,
+          "log_s": 252.628757,
+          "offset_s": 248.128757,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 15,
+          "video_s": 5.5,
+          "log_s": 253.828497,
+          "offset_s": 248.328497,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 14,
+          "video_s": 6.5,
+          "log_s": 254.428497,
+          "offset_s": 247.928497,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 13,
+          "video_s": 7.5,
+          "log_s": 255.628793,
+          "offset_s": 248.128793,
+          "accepted": true,
+          "residual_s": -0.0
+        },
+        {
+          "clock": 12,
+          "video_s": 8.5,
+          "log_s": 256.828793,
+          "offset_s": 248.32879300000002,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 11,
+          "video_s": 9.5,
+          "log_s": 257.448808,
+          "offset_s": 247.94880799999999,
+          "accepted": true,
+          "residual_s": -0.18
+        },
+        {
+          "clock": 10,
+          "video_s": 10.5,
+          "log_s": 258.63892,
+          "offset_s": 248.13891999999998,
+          "accepted": true,
+          "residual_s": 0.01
+        },
+        {
+          "clock": 9,
+          "video_s": 11.5,
+          "log_s": 259.828754,
+          "offset_s": 248.328754,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 8,
+          "video_s": 12.5,
+          "log_s": 260.428216,
+          "offset_s": 247.92821600000002,
+          "accepted": true,
+          "residual_s": -0.201
+        },
+        {
+          "clock": 7,
+          "video_s": 13.5,
+          "log_s": 261.628178,
+          "offset_s": 248.128178,
+          "accepted": true,
+          "residual_s": -0.001
+        },
+        {
+          "clock": 6,
+          "video_s": 14.5,
+          "log_s": 262.829124,
+          "offset_s": 248.32912399999998,
+          "accepted": true,
+          "residual_s": 0.2
+        },
+        {
+          "clock": 5,
+          "video_s": 15.5,
+          "log_s": 263.429142,
+          "offset_s": 247.929142,
+          "accepted": true,
+          "residual_s": -0.2
+        },
+        {
+          "clock": 4,
+          "video_s": 16.5,
+          "log_s": 264.628864,
+          "offset_s": 248.12886400000002,
+          "accepted": true,
+          "residual_s": 0.0
+        },
+        {
+          "clock": 3,
+          "video_s": 17.5,
+          "log_s": 265.829753,
+          "offset_s": 248.32975299999998,
+          "accepted": true,
+          "residual_s": 0.201
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 105,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 90,
+          "clock": 75,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 120,
+          "clock": 45,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 150,
+          "clock": 15,
+          "nearest_interval_error_s": 0
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 248.003,
+          "end_s": 260.428,
+          "duration_s": 12.425,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 1,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 12.425,
+          "battery_min_v": 7.686,
+          "battery_below_9v_s": 1.4,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.061,
+          "loop_max_ms": 453.9,
+          "intake_commanded_s": 10.563,
+          "kicker_commanded_s": 2.254,
+          "flywheel_over_100rad_s": 2.474,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.0,
+          "max_pose_speed_mps": 3.34,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 1.528,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 8.958,
+          "fms_attached_s": 12.425,
+          "ds_attached_s": 12.425,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 272.45,
+          "end_s": 412.53,
+          "duration_s": 140.08,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 1,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.07,
+          "battery_below_9v_s": 59.392,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.762,
+          "loop_max_ms": 272.277,
+          "intake_commanded_s": 60.215,
+          "kicker_commanded_s": 26.484,
+          "flywheel_over_100rad_s": 44.343,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 194.68,
+          "max_pose_speed_mps": 7.73,
+          "pose_jumps": [
+            {
+              "t_s": 274.087,
+              "delta_m": 0.239
+            },
+            {
+              "t_s": 274.107,
+              "delta_m": 0.177
+            },
+            {
+              "t_s": 306.231,
+              "delta_m": 0.162
+            },
+            {
+              "t_s": 326.062,
+              "delta_m": 0.272
+            },
+            {
+              "t_s": 326.082,
+              "delta_m": 0.163
+            },
+            {
+              "t_s": 335.651,
+              "delta_m": 0.331
+            },
+            {
+              "t_s": 335.671,
+              "delta_m": 0.239
+            },
+            {
+              "t_s": 335.691,
+              "delta_m": 0.176
+            },
+            {
+              "t_s": 365.703,
+              "delta_m": 0.207
+            },
+            {
+              "t_s": 368.124,
+              "delta_m": 0.248
+            },
+            {
+              "t_s": 410.149,
+              "delta_m": 0.191
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 22.126,
+          "kicker_active_hood_not_ready_s": 0.226,
+          "driver_translation_input_s": 106.712,
+          "drive_command_s": 111.807,
+          "fms_attached_s": 140.08,
+          "ds_attached_s": 140.08,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ],
+      "decode_error": null
+    },
+    {
+      "match": "2026paben_qm61",
+      "url": "https://www.youtube.com/watch?v=GnIuwhw0xsA",
+      "video_id": "GnIuwhw0xsA",
+      "title": "QM61 2026 Bensalem Event",
+      "publisher": "FIRST Mid-Atlantic",
+      "duration_s": 216,
+      "upload_date": "20260329",
+      "file": "videos/GnIuwhw0xsA.mp4",
+      "video_sha256": "c79cbcedde38f369f02e1b199d29fdb8dc7fbcbe0becf113a094f87614832fd2",
+      "recorded_at_utc": "2026-10-16T23:18:02.024244+00:00",
+      "rights": "Local research copy; redistribution permission not established",
+      "log_file": "logs/2026/akit_26-03-29_16-00-10_paben_q61.wpilog",
+      "log_sha256": "a7324c9fdeb5dcd4b5e7ebc57a4d456e846af71a1d3b214a6d6ded14538c7584",
+      "log_start_s": 3.165,
+      "log_end_s": 434.765,
+      "alliance": "blue",
+      "result": "win",
+      "alliance_score": 123,
+      "opponent_score": 70,
+      "offset_s": 173.555,
+      "status": "clock_aligned",
+      "formula": "log_s = video_s + offset_s",
+      "uncertainty_s": 1.0,
+      "method": "Median of first observed AUTO countdown integers 3\u201318; reject offsets >1s from median; 2Hz OCR, integer-clock quantization; not frame-exact",
+      "anchors": [
+        {
+          "clock": 13,
+          "video_s": 1.0,
+          "log_s": 179.668318,
+          "offset_s": 178.668318,
+          "accepted": false,
+          "residual_s": 5.114
+        },
+        {
+          "clock": 18,
+          "video_s": 1.5,
+          "log_s": 174.864536,
+          "offset_s": 173.364536,
+          "accepted": true,
+          "residual_s": -0.19
+        },
+        {
+          "clock": 12,
+          "video_s": 2.0,
+          "log_s": 180.844147,
+          "offset_s": 178.844147,
+          "accepted": false,
+          "residual_s": 5.289
+        },
+        {
+          "clock": 17,
+          "video_s": 2.5,
+          "log_s": 176.044538,
+          "offset_s": 173.544538,
+          "accepted": true,
+          "residual_s": -0.01
+        },
+        {
+          "clock": 16,
+          "video_s": 3.5,
+          "log_s": 176.684532,
+          "offset_s": 173.184532,
+          "accepted": true,
+          "residual_s": -0.37
+        },
+        {
+          "clock": 15,
+          "video_s": 4.0,
+          "log_s": 177.86472,
+          "offset_s": 173.86472,
+          "accepted": true,
+          "residual_s": 0.31
+        },
+        {
+          "clock": 14,
+          "video_s": 5.0,
+          "log_s": 179.067057,
+          "offset_s": 174.067057,
+          "accepted": true,
+          "residual_s": 0.512
+        },
+        {
+          "clock": 11,
+          "video_s": 8.0,
+          "log_s": 182.045407,
+          "offset_s": 174.045407,
+          "accepted": true,
+          "residual_s": 0.491
+        },
+        {
+          "clock": 10,
+          "video_s": 9.0,
+          "log_s": 182.667593,
+          "offset_s": 173.667593,
+          "accepted": true,
+          "residual_s": 0.113
+        },
+        {
+          "clock": 9,
+          "video_s": 10.0,
+          "log_s": 183.876979,
+          "offset_s": 173.876979,
+          "accepted": true,
+          "residual_s": 0.322
+        },
+        {
+          "clock": 8,
+          "video_s": 11.0,
+          "log_s": 185.060079,
+          "offset_s": 174.060079,
+          "accepted": true,
+          "residual_s": 0.505
+        },
+        {
+          "clock": 7,
+          "video_s": 12.5,
+          "log_s": 185.649079,
+          "offset_s": 173.149079,
+          "accepted": true,
+          "residual_s": -0.406
+        },
+        {
+          "clock": 6,
+          "video_s": 13.5,
+          "log_s": 186.850989,
+          "offset_s": 173.350989,
+          "accepted": true,
+          "residual_s": -0.204
+        },
+        {
+          "clock": 5,
+          "video_s": 14.5,
+          "log_s": 188.064882,
+          "offset_s": 173.564882,
+          "accepted": true,
+          "residual_s": 0.01
+        },
+        {
+          "clock": 4,
+          "video_s": 15.5,
+          "log_s": 188.666607,
+          "offset_s": 173.166607,
+          "accepted": true,
+          "residual_s": -0.388
+        },
+        {
+          "clock": 3,
+          "video_s": 16.5,
+          "log_s": 189.876958,
+          "offset_s": 173.376958,
+          "accepted": true,
+          "residual_s": -0.178
+        }
+      ],
+      "later_checks": [
+        {
+          "video_s": 60,
+          "clock": 104,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 90,
+          "clock": 74,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 120,
+          "clock": 44,
+          "nearest_interval_error_s": 0
+        },
+        {
+          "video_s": 150,
+          "clock": 14,
+          "nearest_interval_error_s": 0
+        }
+      ],
+      "enabled_windows": [
+        {
+          "start_s": 172.529,
+          "end_s": 192.548,
+          "duration_s": 20.019,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 61,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.019,
+          "battery_min_v": 7.862,
+          "battery_below_9v_s": 1.428,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.444,
+          "loop_max_ms": 400.642,
+          "intake_commanded_s": 18.383,
+          "kicker_commanded_s": 8.523,
+          "flywheel_over_100rad_s": 13.561,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 11.959,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 17.31,
+          "max_pose_speed_mps": 7.34,
+          "pose_jumps": [
+            {
+              "t_s": 181.244,
+              "delta_m": 0.199
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 4.141,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.085,
+          "fms_attached_s": 20.019,
+          "ds_attached_s": 20.019,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 196.571,
+          "end_s": 336.579,
+          "duration_s": 140.008,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 61,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.234,
+          "battery_below_9v_s": 57.229,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.538,
+          "loop_max_ms": 308.153,
+          "intake_commanded_s": 42.925,
+          "kicker_commanded_s": 6.325,
+          "flywheel_over_100rad_s": 11.714,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 45.03,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 246.67,
+          "max_pose_speed_mps": 7.01,
+          "pose_jumps": [
+            {
+              "t_s": 260.347,
+              "delta_m": 0.167
+            },
+            {
+              "t_s": 286.658,
+              "delta_m": 0.263
+            },
+            {
+              "t_s": 286.679,
+              "delta_m": 0.214
+            },
+            {
+              "t_s": 286.698,
+              "delta_m": 0.176
+            },
+            {
+              "t_s": 310.527,
+              "delta_m": 0.159
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 4.586,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 126.112,
+          "drive_command_s": 124.822,
+          "fms_attached_s": 140.008,
+          "ds_attached_s": 140.008,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ],
+      "decode_error": null
+    }
+  ]
+}

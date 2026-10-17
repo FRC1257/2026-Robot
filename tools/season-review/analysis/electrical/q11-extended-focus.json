@@ -1,0 +1,17 @@
+{
+  "source": "logs/electrical/electrical_akit_26-03-14_17-33-19_njtab_q11.wpilog",
+  "output": "logs/focus/Q11-electrical-focus.wpilog",
+  "source_sha256": "4288b53f47484ade35205e8a521ad4747a647c0852350be613dce8f92761c904",
+  "output_sha256": "c64e74c244b854a94507c5d500ce169f3be87994f6229175c780122982bbe2f2",
+  "range_original_fpga_s": [
+    410,
+    425
+  ],
+  "timestamps_rebased": false,
+  "synthesized_initial_holds": 9465,
+  "preserved_in_window_records": 67695,
+  "verified_record_digest": "4856244c03462454fa37cce497a26c153afc4c333ee9eea3e64a42c94c8517d5",
+  "video": "videos/Q11_410-425_brownout.mov",
+  "video_frame1_log_s": 410,
+  "video_alignment_uncertainty_s": 1
+}

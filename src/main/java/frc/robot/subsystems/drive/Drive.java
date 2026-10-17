@@ -359,6 +359,13 @@ public class Drive extends SubsystemBase {
     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
 
     Logger.recordOutput("Odometry/Odometry", odometry.getPoseMeters());
+    Logger.recordOutput("Odometry/EstimatedPose", getPose());
+    Logger.recordOutput("Vision/RobotToCameras", frc.robot.subsystems.vision.VisionConstants.camsRobotToCam);
+    edu.wpi.first.math.geometry.Pose3d[] cameraPoses =
+        java.util.Arrays.stream(frc.robot.subsystems.vision.VisionConstants.camsRobotToCam)
+            .map(transform -> new edu.wpi.first.math.geometry.Pose3d(getPose()).transformBy(transform))
+            .toArray(edu.wpi.first.math.geometry.Pose3d[]::new);
+    Logger.recordOutput("Vision/CameraPoses", cameraPoses);
 
     // Update Elastic things
     field.setRobotPose(getPose());

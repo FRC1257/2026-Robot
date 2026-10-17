@@ -188,3 +188,6 @@ compile_commands.json
 
 # Build Constants
 src/main/java/frc/robot/BuildConstants.java
+# Local simulation recordings
+sim_logs/
+*.wpilog

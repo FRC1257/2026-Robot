@@ -1,0 +1,11 @@
+{
+  "prepared_at_utc": "2026-10-16T23:56:15.379403+00:00",
+  "source_log": "logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog",
+  "source_sha256": "f214b527dead1344b5282ca99dbf0c153d4258fa56072db0317db85d80a554b9",
+  "derivation": "Original native WPILOG timestamped changes; numeric held values identified separately from simultaneous samples",
+  "evidence": "analysis/video-sync/q11-electronics-signals.json",
+  "layout": "analysis/1257-electronics-lab.json",
+  "ui_verified": "Q11 filename,354fields,andElectronicsLabchartconfirmedinnativeAdvantageScope",
+  "screenshot": "videos/electronics-lab.png",
+  "note": "Brownout protection and communications disables established; component/root cause unresolved. Video times approx\u00b11s."
+}

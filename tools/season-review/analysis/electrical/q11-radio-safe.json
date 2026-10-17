@@ -1,0 +1,66 @@
+[
+  {
+    "t_s": 408.953256,
+    "status": "ACTIVE",
+    "version": "VH-109_2.0.1-02062026",
+    "sixGhz": {
+      "isLinked": true,
+      "dataAgeMs": 0,
+      "signalDbm": -52,
+      "signalNoiseRatio": 44,
+      "rxPackets": 4095,
+      "rxBytes": 8638489,
+      "txBytes": 275576716,
+      "connectionQuality": "excellent"
+    }
+  },
+  {
+    "t_s": 413.932707,
+    "status": "ACTIVE",
+    "version": "VH-109_2.0.1-02062026",
+    "sixGhz": {
+      "isLinked": true,
+      "dataAgeMs": 0,
+      "signalDbm": -55,
+      "signalNoiseRatio": 41,
+      "rxPackets": 4095,
+      "rxBytes": 8760055,
+      "txBytes": 279590768,
+      "connectionQuality": "excellent"
+    }
+  },
+  {
+    "t_s": 419.436974,
+    "status_payload": "empty or unavailable"
+  },
+  {
+    "t_s": 473.995065,
+    "status": "ACTIVE",
+    "version": "VH-109_2.0.1-02062026",
+    "sixGhz": {
+      "isLinked": true,
+      "dataAgeMs": 0,
+      "signalDbm": -45,
+      "signalNoiseRatio": 51,
+      "rxPackets": 4095,
+      "rxBytes": 336,
+      "txBytes": 861,
+      "connectionQuality": "excellent"
+    }
+  },
+  {
+    "t_s": 478.934337,
+    "status": "ACTIVE",
+    "version": "VH-109_2.0.1-02062026",
+    "sixGhz": {
+      "isLinked": true,
+      "dataAgeMs": 0,
+      "signalDbm": -50,
+      "signalNoiseRatio": 46,
+      "rxPackets": 4095,
+      "rxBytes": 4222,
+      "txBytes": 9903,
+      "connectionQuality": "excellent"
+    }
+  }
+]

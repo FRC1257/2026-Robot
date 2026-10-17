@@ -1,0 +1,11 @@
+{
+  "url": "https://docs.wpilib.org/en/stable/docs/software/commandbased/command-compositions.html",
+  "checked_utc": "2026-10-17T01:50:09.268616+00:00",
+  "review_method": "Official page read successfully through web tool; separate raw urllib request received HTTP 403, so no raw-byte snapshot/hash claimed",
+  "supported_semantics": [
+    "alongWith completes when all members finish",
+    "deadline completes when the designated member finishes",
+    "withTimeout adds an interruption condition"
+  ],
+  "raw_snapshot_available": false
+}

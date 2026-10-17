@@ -1,0 +1,47 @@
+commit ad5d9ba044520c334cb12be72b20429d13e9d245
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Sat Mar 7 17:44:29 2026 -0500
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Sat Mar 7 17:44:29 2026 -0500
+
+    Fixed Raghav's swerve issue 3/7
+
+diff --git a/src/main/java/frc/robot/subsystems/drive/DriveConstants.java b/src/main/java/frc/robot/subsystems/drive/DriveConstants.java
+index 426520d..dd6b50e 100644
+--- a/src/main/java/frc/robot/subsystems/drive/DriveConstants.java
++++ b/src/main/java/frc/robot/subsystems/drive/DriveConstants.java
+@@ -1,5 +1,7 @@
+ package frc.robot.subsystems.drive;
+ 
++import static frc.robot.Constants.PI;
++
+ import com.pathplanner.lib.path.PathConstraints;
+ import edu.wpi.first.math.geometry.Translation2d;
+ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+@@ -37,10 +39,10 @@ public final class DriveConstants {
+ 
+   // Angular offsets of the modules relative to the chassis in radians
+   // Subject to change depending on what robot side is the front
+-  public static final double kFrontLeftChassisAngularOffset = 0;
++  public static final double kFrontLeftChassisAngularOffset = -Math.PI/2;
+   public static final double kFrontRightChassisAngularOffset = 0; 
+-  public static final double kBackLeftChassisAngularOffset = 0;
+-  public static final double kBackRightChassisAngularOffset = 0;
++  public static final double kBackLeftChassisAngularOffset = Math.PI;
++  public static final double kBackRightChassisAngularOffset = Math.PI / 2;
+ 
+   // SPARK MAX CAN IDs
+   // Subject to change depending on what robot side is the front
+diff --git a/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java b/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java
+index eefec39..ae14b36 100644
+--- a/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java
+@@ -302,7 +302,7 @@ public class ModuleIOSparkMax implements ModuleIO {
+   }
+ 
+   public Rotation2d getTurnPosition() {
+-    double angle = turnAbsoluteEncoder.getPosition() + absoluteEncoderOffset;
++    double angle = turnAbsoluteEncoder.getPosition() - absoluteEncoderOffset;
+ 
+     return Rotation2d.fromRadians(angle);
+   }

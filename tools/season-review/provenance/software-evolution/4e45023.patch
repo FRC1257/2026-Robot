@@ -1,0 +1,27 @@
+commit 4e45023884010585488d5b7f0716f24c4f2afb4b
+Merge: 83e550c f085965
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Sun Mar 15 08:10:56 2026 -0400
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Sun Mar 15 08:10:56 2026 -0400
+
+    Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch
+
+diff --cc src/main/java/frc/robot/RobotContainer.java
+index 963f531,06f3f69..4ef4e27
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@@ -278,10 -278,10 +278,10 @@@ public class RobotContainer 
+      driver
+        .leftTrigger().whileTrue(
+          hopperIntake.runOutake()
+-       );
++       );  
+      
+ -    // driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+ -    // driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+ +    driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+ +    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+  
+    
+  

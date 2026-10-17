@@ -1,0 +1,1418 @@
+[
+  {
+    "key": "/Timestamp",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick4/ButtonValues",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick0/ButtonValues",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/5vRail/Voltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Hopper/HopperPivot/atIntake",
+    "type": "boolean"
+  },
+  {
+    "key": "/RealOutputs/Odometry/Trajectory",
+    "type": "struct:Pose2d[]"
+  },
+  {
+    "key": "/SystemStats/CANBus/Utilization",
+    "type": "float"
+  },
+  {
+    "key": "/SystemStats/FPGAVersion",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/MatchType",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/PathPlanner/warnings",
+    "type": "string[]"
+  },
+  {
+    "key": "/DriverStation/Joystick4/POVs",
+    "type": "int64[]"
+  },
+  {
+    "key": "/SystemStats/NTClients/photonvision@1/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/3v3Rail/Voltage",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick5/AxisValues",
+    "type": "float[]"
+  },
+  {
+    "key": "/DriverStation/Joystick5/POVs",
+    "type": "int64[]"
+  },
+  {
+    "key": "/RealOutputs/PhotonAlerts/warnings",
+    "type": "string[]"
+  },
+  {
+    "key": "/RealOutputs/Logger/AlertLogMS",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Shooter/Flywheel/isAtGoal",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/photonvision@1/IPAddress",
+    "type": "string"
+  },
+  {
+    "key": "/PowerDistribution/StickyFaults",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/CANBus/TransmitErrorCount",
+    "type": "int64"
+  },
+  {
+    "key": "/RealMetadata/GitBranch",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/Comments",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick0/Name",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/CPUTempCelsius",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Shooter/Hood/atGoal",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/Joystick3/POVs",
+    "type": "int64[]"
+  },
+  {
+    "key": "/RealOutputs/Console",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick5/Xbox",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/FPGARevision",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Logger/AutoLogMS",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/CANBus/ReceiveErrorCount",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/LoggedRobot/FullCycleMS",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick1/POVs",
+    "type": "int64[]"
+  },
+  {
+    "key": "/RealOutputs/Logger/DashboardInputsMS",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/EmergencyStop",
+    "type": "boolean"
+  },
+  {
+    "key": "/RealOutputs/PhotonAlerts/errors",
+    "type": "string[]"
+  },
+  {
+    "key": "/RealOutputs/Logger/ConduitSaveMS",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick5/AxisTypes",
+    "type": "int64[]"
+  },
+  {
+    "key": "/DriverStation/Joystick2/Name",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/TeamNumber",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/LoggedRobot/LogPeriodicMS",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Shooter/Hood/MeasuredAngleRads",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick0/Xbox",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/FPGAButton",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/6vRail/Voltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Logger/ConsoleMS",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/BrownedOut",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/EpochTimeMicros",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Hopper/HopperPivot/atStow",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/FMSAttached",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/photonvision@1/ProtocolVersion",
+    "type": "raw"
+  },
+  {
+    "key": "/RadioStatus/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/MatchTime",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick0/AxisTypes",
+    "type": "int64[]"
+  },
+  {
+    "key": "/DriverStation/Joystick3/Xbox",
+    "type": "boolean"
+  },
+  {
+    "key": "/PowerDistribution/Voltage",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/6vRail/CurrentFaults",
+    "type": "int64"
+  },
+  {
+    "key": "/PowerDistribution/TotalPower",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/5vRail/CurrentFaults",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick0/Type",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick3/Type",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/SystemTimeValid",
+    "type": "boolean"
+  },
+  {
+    "key": "/RadioStatus/Status",
+    "type": "json"
+  },
+  {
+    "key": "/RealOutputs/Odometry/Robot",
+    "type": "struct:Pose2d"
+  },
+  {
+    "key": "/PowerDistribution/ChannelCurrent",
+    "type": "double[]"
+  },
+  {
+    "key": "/.schema/struct:Rotation2d",
+    "type": "structschema"
+  },
+  {
+    "key": "/DriverStation/Joystick2/ButtonValues",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Hopper/HopperPivot/atGoal",
+    "type": "boolean"
+  },
+  {
+    "key": "/RealOutputs/PathPlanner/.type",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/CANBus/TxFullCount",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick1/Type",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/PhotonAlerts/.type",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/DSAttached",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/Joystick5/Name",
+    "type": "string"
+  },
+  {
+    "key": "/RealOutputs/Logger/EntryUpdateMS",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/MatchNumber",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/5vRail/Active",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/Joystick1/Xbox",
+    "type": "boolean"
+  },
+  {
+    "key": "/PowerDistribution/ChannelCount",
+    "type": "int64"
+  },
+  {
+    "key": "/RealMetadata/ProjectName",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick4/Name",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/3v3Rail/Current",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Drive/Rotation",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/RealOutputs/Logger/RadioLogMS",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick0/AxisValues",
+    "type": "float[]"
+  },
+  {
+    "key": "/RealMetadata/GitSHA",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/6vRail/Active",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/Joystick3/AxisTypes",
+    "type": "int64[]"
+  },
+  {
+    "key": "/SystemStats/5vRail/Current",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick2/Type",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick2/AxisTypes",
+    "type": "int64[]"
+  },
+  {
+    "key": "/DriverStation/Joystick3/Name",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/6vRail/Current",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/BatteryCurrent",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Test",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/Autonomous",
+    "type": "boolean"
+  },
+  {
+    "key": "/.schema/struct:SwerveModuleState",
+    "type": "structschema"
+  },
+  {
+    "key": "/.schema/struct:Pose2d",
+    "type": "structschema"
+  },
+  {
+    "key": "/PowerDistribution/TotalEnergy",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/EventName",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick2/Xbox",
+    "type": "boolean"
+  },
+  {
+    "key": "/PowerDistribution/TotalCurrent",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick0/POVs",
+    "type": "int64[]"
+  },
+  {
+    "key": "/SystemStats/BrownoutVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick3/ButtonValues",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick4/AxisValues",
+    "type": "float[]"
+  },
+  {
+    "key": "/DriverStation/ReplayNumber",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Enabled",
+    "type": "boolean"
+  },
+  {
+    "key": "/DriverStation/Joystick1/ButtonValues",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/SwerveStates/Measured",
+    "type": "struct:SwerveModuleState[]"
+  },
+  {
+    "key": "/RealOutputs/Logger/DriverStationMS",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick5/ButtonValues",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick4/Type",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/BatteryVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Flywheel/GoalVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick1/AxisTypes",
+    "type": "int64[]"
+  },
+  {
+    "key": "/SystemStats/SerialNumber",
+    "type": "string"
+  },
+  {
+    "key": "/PowerDistribution/Faults",
+    "type": "int64"
+  },
+  {
+    "key": "/RealMetadata/GitDirty",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/CommsDisableCount",
+    "type": "int64"
+  },
+  {
+    "key": "/.schema/struct:Translation2d",
+    "type": "structschema"
+  },
+  {
+    "key": "/DriverStation/GameSpecificMessage",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick1/AxisValues",
+    "type": "float[]"
+  },
+  {
+    "key": "/DriverStation/Joystick4/Xbox",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/3v3Rail/CurrentFaults",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick2/POVs",
+    "type": "int64[]"
+  },
+  {
+    "key": "/RealOutputs/PathPlanner/infos",
+    "type": "string[]"
+  },
+  {
+    "key": "/RealOutputs/LoggedRobot/UserCodeMS",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/CANBus/OffCount",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick5/Type",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Logger/QueuedCycles",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick1/Name",
+    "type": "string"
+  },
+  {
+    "key": "/RealMetadata/GitDate",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick2/ButtonCount",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/SystemActive",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/photonvision@1/RemotePort",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/PathPlanner/errors",
+    "type": "string[]"
+  },
+  {
+    "key": "/DriverStation/Joystick3/ButtonCount",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick2/AxisValues",
+    "type": "float[]"
+  },
+  {
+    "key": "/SystemStats/RSLState",
+    "type": "boolean"
+  },
+  {
+    "key": "/RealOutputs/PhotonAlerts/infos",
+    "type": "string[]"
+  },
+  {
+    "key": "/DriverStation/AllianceStation",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick4/ButtonCount",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick5/ButtonCount",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Logger/ConduitCaptureMS",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/3v3Rail/Active",
+    "type": "boolean"
+  },
+  {
+    "key": "/PowerDistribution/Temperature",
+    "type": "double"
+  },
+  {
+    "key": "/DriverStation/Joystick3/AxisValues",
+    "type": "float[]"
+  },
+  {
+    "key": "/DriverStation/Joystick4/AxisTypes",
+    "type": "int64[]"
+  },
+  {
+    "key": "/RealMetadata/BuildDate",
+    "type": "string"
+  },
+  {
+    "key": "/DriverStation/Joystick0/ButtonCount",
+    "type": "int64"
+  },
+  {
+    "key": "/DriverStation/Joystick1/ButtonCount",
+    "type": "int64"
+  },
+  {
+    "key": "/HopperPivot/RightpivotAngle",
+    "type": "double"
+  },
+  {
+    "key": "/HopperPivot/LeftpivotAngle",
+    "type": "double"
+  },
+  {
+    "key": "/Flywheel/FlywheelVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/DriveVelocityMeterPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/Flywheel/FlywheelTemperature",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Climb/retractVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/DriveVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/hubAngle",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Gyro/OdometryYawTimestamps",
+    "type": "double[]"
+  },
+  {
+    "key": "/Climb/TemperatureCelcius",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/IntakeVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/OdometryTimestamps",
+    "type": "double[]"
+  },
+  {
+    "key": "/Drive/Gyro/RollPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/Drive/Module1/TurnPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/Drive/Gyro/YawPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/.schema/struct:Quaternion",
+    "type": "structschema"
+  },
+  {
+    "key": "/RealOutputs/Vision/Targets3D",
+    "type": "struct:Pose3d[]"
+  },
+  {
+    "key": "/Drive/Module0/OdometryDrivePositionsRad",
+    "type": "double[]"
+  },
+  {
+    "key": "/Drive/Gyro/OdometryYawPositions",
+    "type": "struct:Rotation2d[]"
+  },
+  {
+    "key": "/Drive/Module1/TurnAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/RotationEstimates",
+    "type": "struct:Rotation2d[]"
+  },
+  {
+    "key": "/ActiveFloor/ActiveFloorVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/Flywheel/FlywheelAngle",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/OdometryDrivePositionsRad",
+    "type": "double[]"
+  },
+  {
+    "key": "/RealOutputs/LoggedRobot/GCTimeMS",
+    "type": "double"
+  },
+  {
+    "key": "/HopperIntake/IntakeVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/Targets",
+    "type": "struct:Pose2d[]"
+  },
+  {
+    "key": "/Drive/Module1/TurnCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/TurnPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/HomingVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam2/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/Drive/Module2/TurnAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/TurnPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/Drive/Module3/DrivePositionMeters",
+    "type": "double"
+  },
+  {
+    "key": "/HopperPivot/RightpivotVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/DriveVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/SwerveStates/SetpointsOptimized",
+    "type": "struct:SwerveModuleState[]"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperIntake/IntakeVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam3/results",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam2/Yaw",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Climb/extendVolts",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/OuttakeVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/OtherGyro",
+    "type": "double"
+  },
+  {
+    "key": "/Kicker/KickerAngularVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/DriveVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Starting Position",
+    "type": "string"
+  },
+  {
+    "key": "/.schema/struct:Pose3d",
+    "type": "structschema"
+  },
+  {
+    "key": "/Climb/AppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Hood/HoodAngle",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperIntake/OuttakeVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/DriveCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/TurnVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Climb/holdVolts",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/FieldVelocity",
+    "type": "struct:ChassisSpeeds"
+  },
+  {
+    "key": "/Drive/Module1/TurnVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/DrivePositionRad",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/TurnAbsolutePosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/Kd",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/Ki",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/TurnAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/OdometryTurnPositions",
+    "type": "struct:Rotation2d[]"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/Kp",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/Ks",
+    "type": "double"
+  },
+  {
+    "key": "/HopperPivot/RightpivotVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/Kv",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Kd",
+    "type": "double"
+  },
+  {
+    "key": "/HopperPivot/LeftpivotVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Flywheel/hubVelocityRads",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/OdometryTimestamps",
+    "type": "double[]"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Kg",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/OdometryTimestamps",
+    "type": "double[]"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Ki",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/OdometryTimestamps",
+    "type": "double[]"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Kp",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Ks",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/TurnAbsolutePosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Kv",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam3/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/Drive/Module0/TurnAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/TurnCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/Hood/HoodVolts",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/LoggedRobot/GCCounts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/DriveAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Operator Selection",
+    "type": "string"
+  },
+  {
+    "key": "/Vision/CameraTargets/length",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Odometry/TrajectorySetpoint",
+    "type": "struct:Pose2d"
+  },
+  {
+    "key": "/Drive/Module2/DriveAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/PositionEstimates",
+    "type": "struct:Pose2d[]"
+  },
+  {
+    "key": "/Kicker/KickerVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/MaxVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/DriveVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam2/results",
+    "type": "int64"
+  },
+  {
+    "key": "/RealOutputs/Drive/Gyro Calibrating",
+    "type": "boolean"
+  },
+  {
+    "key": "/Drive/Module1/DriveAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/DrivePositionMeters",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/OdometryDrivePositionsRad",
+    "type": "double[]"
+  },
+  {
+    "key": "/Drive/Module1/DriveVelocityMeterPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/DriveAppliedVolts",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/DrivePositionRad",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/OdometryTurnPositions",
+    "type": "struct:Rotation2d[]"
+  },
+  {
+    "key": "/.schema/struct:Rotation3d",
+    "type": "structschema"
+  },
+  {
+    "key": "/Drive/Module3/DriveVelocityMeterPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Driver Selection",
+    "type": "string"
+  },
+  {
+    "key": "/Drive/Module0/TurnAbsolutePosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/Drive/Gyro/PitchPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/Drive/Gyro/YawVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/OdometryTurnPositions",
+    "type": "struct:Rotation2d[]"
+  },
+  {
+    "key": "/Climb/CurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Mechanism3d/Components",
+    "type": "struct:Pose3d[]"
+  },
+  {
+    "key": "/Drive/Module0/DriveVelocityMeterPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/DriveCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/Flywheel/FlywheelAngularVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/Hood/HoodCurrentDraw",
+    "type": "double"
+  },
+  {
+    "key": "/HopperIntake/IntakeVoltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam2/PoseAmbiguity",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/MaxAcceleration",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Kicker/Tolerance",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam1/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/Drive/Module3/DriveCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/Kd",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/TurnVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module2/TurnAbsolutePosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/Ki",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/TurnPosition",
+    "type": "struct:Rotation2d"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/Kg",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/TagCounts",
+    "type": "int64"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/Kp",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Gyro/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/Kv",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module3/TurnVelocityRadPerSec",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/Ks",
+    "type": "double"
+  },
+  {
+    "key": "/HopperPivot/LeftpivotVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/Tolerance",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/HopperPivot/MaxVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/MaxAcceleration",
+    "type": "double"
+  },
+  {
+    "key": "/Flywheel/FlywheelCurrent",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/CameraTargets/1",
+    "type": "int64[]"
+  },
+  {
+    "key": "/Vision/CameraTargets/0",
+    "type": "int64[]"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Auto Choices",
+    "type": "string"
+  },
+  {
+    "key": "/RealOutputs/SwerveStates/Setpoints",
+    "type": "struct:SwerveModuleState[]"
+  },
+  {
+    "key": "/Drive/Module0/TurnCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Odometry/Odometry",
+    "type": "struct:Pose2d"
+  },
+  {
+    "key": "/Hood/HoodVelocity",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Hood/HomingVelocityThreshold",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/OdometryDrivePositionsRad",
+    "type": "double[]"
+  },
+  {
+    "key": "/Drive/Module3/TurnCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/CameraTargets/2",
+    "type": "int64[]"
+  },
+  {
+    "key": "/.schema/struct:ChassisSpeeds",
+    "type": "structschema"
+  },
+  {
+    "key": "/Drive/Module0/DrivePositionRad",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/DrivePositionMeters",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/Timestamp",
+    "type": "double"
+  },
+  {
+    "key": "/Kicker/KickerAngle",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module0/DriveCurrentAmps",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/HasEstimate",
+    "type": "boolean"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Robot Angle",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Vision/KillSideCams",
+    "type": "boolean"
+  },
+  {
+    "key": "/Drive/Module3/DrivePositionRad",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Flywheel/Kv",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/Match Time",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam1/results",
+    "type": "int64"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Flywheel/Ks",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Flywheel/Kp",
+    "type": "double"
+  },
+  {
+    "key": "/Drive/Module1/OdometryTurnPositions",
+    "type": "struct:Rotation2d[]"
+  },
+  {
+    "key": "/Drive/Module0/DrivePositionMeters",
+    "type": "double"
+  },
+  {
+    "key": "/Vision/TimestampArray",
+    "type": "double[]"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Flywheel/Ki",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning/Flywheel/Kd",
+    "type": "double"
+  },
+  {
+    "key": "/.schema/struct:Translation3d",
+    "type": "structschema"
+  },
+  {
+    "key": "/Hood/HoodTemperature",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@2/RemotePort",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@2/IPAddress",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@2/ProtocolVersion",
+    "type": "raw"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@2/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@3/IPAddress",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@3/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@3/RemotePort",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@3/ProtocolVersion",
+    "type": "raw"
+  },
+  {
+    "key": "/SystemStats/NTClients/AdvantageScope@4/IPAddress",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/NTClients/AdvantageScope@4/RemotePort",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/NTClients/AdvantageScope@4/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/AdvantageScope@4/ProtocolVersion",
+    "type": "raw"
+  },
+  {
+    "key": "/NetworkInputs/SmartDashboard/ShootSide",
+    "type": "boolean"
+  },
+  {
+    "key": "/RealOutputs/HopperPivot/goal",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/HopperPivot/setpoint",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam3/Yaw",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam3/PoseAmbiguity",
+    "type": "double"
+  },
+  {
+    "key": "/NetworkInputs/Tuning//ShooterTrajectoryCalculator/phaseDelay",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Hood/FeedForward Output",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Hood/goal",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Hood/setpoint",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/HopperIntake/Desired Voltage",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam1/Yaw",
+    "type": "double"
+  },
+  {
+    "key": "/RealOutputs/Vision/cam1/PoseAmbiguity",
+    "type": "double"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@2/IPAddress",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@2/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@2/ProtocolVersion",
+    "type": "raw"
+  },
+  {
+    "key": "/SystemStats/NTClients/Elastic@2/RemotePort",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@3/Connected",
+    "type": "boolean"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@3/IPAddress",
+    "type": "string"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@3/RemotePort",
+    "type": "int64"
+  },
+  {
+    "key": "/SystemStats/NTClients/Dashboard@3/ProtocolVersion",
+    "type": "raw"
+  }
+]

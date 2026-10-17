@@ -1,0 +1,75 @@
+commit 17600639e7565efb617f53e4880615b5eaa283f6
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Thu Mar 12 13:10:27 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Thu Mar 12 13:10:27 2026 -0400
+
+    Changes
+
+diff --git a/simgui-ds.json b/simgui-ds.json
+index ff63669..bdaf503 100644
+--- a/simgui-ds.json
++++ b/simgui-ds.json
+@@ -1,4 +1,9 @@
+ {
++  "Keyboard 0 Settings": {
++    "window": {
++      "visible": true
++    }
++  },
+   "keyboardJoysticks": [
+     {
+       "axisConfig": [
+diff --git a/src/main/java/frc/robot/Constants.java b/src/main/java/frc/robot/Constants.java
+index c2856df..c7ffe95 100644
+--- a/src/main/java/frc/robot/Constants.java
++++ b/src/main/java/frc/robot/Constants.java
+@@ -84,6 +84,6 @@ public final class Constants {
+   public static final int QUADRATURE_COUNTS_PER_REV = 8192; // encoder resolution
+   // https://www.revrobotics.com/rev-11-1271/
+ 
+-  public static final int NEO_CURRENT_LIMIT = 80; // amps
++  public static final int NEO_CURRENT_LIMIT = 40; // amps
+   public static final int NEO_VORTEX_CURRENT_LIMIT = 60;
+ }
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index c2b8d09..fe44448 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -215,6 +215,7 @@ public class RobotContainer {
+       )
+     );
+ 
++
+     driver.y()
+     .toggleOnTrue(hopperPivot.runStowAngle());
+ 
+@@ -222,6 +223,8 @@ public class RobotContainer {
+     .whileTrue(hopperPivot.runAgitate())
+     .onFalse(hopperPivot.runIntakeAngle());
+ 
++    driver.b().whileTrue(drive.lockWheels());
++
+     //FieldConstants.Zones.composedTrench.contains(
+       //() -> drive.getPose().getTranslation())
+         //.whileTrue(hood.runAngleCommand(() -> Radians.of(0.0)));
+diff --git a/src/main/java/frc/robot/subsystems/drive/Drive.java b/src/main/java/frc/robot/subsystems/drive/Drive.java
+index ad1914e..425fef5 100644
+--- a/src/main/java/frc/robot/subsystems/drive/Drive.java
++++ b/src/main/java/frc/robot/subsystems/drive/Drive.java
+@@ -515,6 +515,15 @@ public class Drive extends SubsystemBase {
+     poseEstimator.addVisionMeasurement(visionPose, timestamp);
+   }
+ 
++  public Command lockWheels() {
++    return run(() -> {
++      modules[0].runSetpoint(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
++      modules[1].runSetpoint(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
++      modules[2].runSetpoint(new SwerveModuleState(0, new Rotation2d(-Math.PI/4)));
++      modules[3].runSetpoint(new SwerveModuleState(0, new Rotation2d(Math.PI/4)));
++    });
++  }
++
+   /** Returns a command to run a quasistatic test in the specified direction. */
+   public Command sysIdQuasistatic(SysIdRoutine.Direction direction) {
+     return sysId.quasistatic(direction);

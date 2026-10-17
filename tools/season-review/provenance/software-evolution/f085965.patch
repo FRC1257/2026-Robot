@@ -1,0 +1,216 @@
+commit f0859657e95d44ee51d464435b274831b56b6c5e
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Sun Mar 15 08:06:27 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Sun Mar 15 08:06:27 2026 -0400
+
+    Changes on the bus
+
+diff --git a/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_END.path b/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_END.path
+new file mode 100644
+index 0000000..bcd8071
+--- /dev/null
++++ b/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_END.path
+@@ -0,0 +1,54 @@
++{
++  "version": "2025.0",
++  "waypoints": [
++    {
++      "anchor": {
++        "x": 0.7633677662037042,
++        "y": 0.612
++      },
++      "prevControl": null,
++      "nextControl": {
++        "x": 1.8900608497546292,
++        "y": 0.9501295729465956
++      },
++      "isLocked": true,
++      "linkedName": "RIGHT_HUMAN_STATION_END"
++    },
++    {
++      "anchor": {
++        "x": 2.703830721799859,
++        "y": 1.8716843285891094
++      },
++      "prevControl": {
++        "x": 1.7454102915610465,
++        "y": 1.0902966472262006
++      },
++      "nextControl": null,
++      "isLocked": false,
++      "linkedName": null
++    }
++  ],
++  "rotationTargets": [],
++  "constraintZones": [],
++  "pointTowardsZones": [],
++  "eventMarkers": [],
++  "globalConstraints": {
++    "maxVelocity": 3.5,
++    "maxAcceleration": 2.93,
++    "maxAngularVelocity": 540.0,
++    "maxAngularAcceleration": 720.0,
++    "nominalVoltage": 12.0,
++    "unlimited": false
++  },
++  "goalEndState": {
++    "velocity": 0,
++    "rotation": 42.79400126352739
++  },
++  "reversed": false,
++  "folder": null,
++  "idealStartingState": {
++    "velocity": 0,
++    "rotation": 0.0
++  },
++  "useDefaultConstraints": true
++}
+\ No newline at end of file
+diff --git a/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_START.path b/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_START.path
+new file mode 100644
+index 0000000..9d883cd
+--- /dev/null
++++ b/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_START.path
+@@ -0,0 +1,54 @@
++{
++  "version": "2025.0",
++  "waypoints": [
++    {
++      "anchor": {
++        "x": 3.509,
++        "y": 0.612
++      },
++      "prevControl": null,
++      "nextControl": {
++        "x": 4.509,
++        "y": 0.6120000000000001
++      },
++      "isLocked": false,
++      "linkedName": "RIGHT_TRENCH_START"
++    },
++    {
++      "anchor": {
++        "x": 0.7633677662037042,
++        "y": 0.612
++      },
++      "prevControl": {
++        "x": 1.7529058159722226,
++        "y": 0.5964832175925927
++      },
++      "nextControl": null,
++      "isLocked": false,
++      "linkedName": "RIGHT_HUMAN_STATION_END"
++    }
++  ],
++  "rotationTargets": [],
++  "constraintZones": [],
++  "pointTowardsZones": [],
++  "eventMarkers": [],
++  "globalConstraints": {
++    "maxVelocity": 3.5,
++    "maxAcceleration": 2.93,
++    "maxAngularVelocity": 540.0,
++    "maxAngularAcceleration": 720.0,
++    "nominalVoltage": 12.0,
++    "unlimited": false
++  },
++  "goalEndState": {
++    "velocity": 0,
++    "rotation": 0.0
++  },
++  "reversed": false,
++  "folder": null,
++  "idealStartingState": {
++    "velocity": 0,
++    "rotation": 0.0
++  },
++  "useDefaultConstraints": true
++}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 02ad15a..06f3f69 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -255,7 +255,7 @@ public class RobotContainer {
+       flywheel.runTargetedCommand(drive::getPose)
+       .alongWith(hood.runTargetedCommand(drive::getPose))
+       .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
++      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal())).withTimeout(1.5)
+         .andThen(kicker.runIntake()
+         .alongWith(activeFloor.runActiveFloor())
+         .alongWith(hopperPivot.runAgitate())
+@@ -272,16 +272,16 @@ public class RobotContainer {
+ 
+     driver
+       .rightTrigger().whileTrue(
+-        hopperIntake.runIntake()
++        hopperIntake.runVoltage(() -> Volts.of(-driver.getRightTriggerAxis()*8))
+       );
+ 
+     driver
+       .leftTrigger().whileTrue(
+         hopperIntake.runOutake()
+-      );
++      );  
+     
+     // driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+-    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
++    // driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+ 
+   
+ 
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+index 655264c..73fd23d 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+@@ -37,7 +37,7 @@ public class HopperIntake extends SubsystemBase {
+    * @return a command that runs the hopper intake at the given voltage while it is scheduled
+    */
+ 
+-  private Command runVoltage(Supplier<Voltage> voltage) {
++  public Command runVoltage(Supplier<Voltage> voltage) {
+     return this.run(() -> io.setVoltage(voltage.get()));
+   }
+ 
+diff --git a/src/main/java/frc/robot/util/autonomous/AutoChooser.java b/src/main/java/frc/robot/util/autonomous/AutoChooser.java
+index c96f556..a5c10ae 100644
+--- a/src/main/java/frc/robot/util/autonomous/AutoChooser.java
++++ b/src/main/java/frc/robot/util/autonomous/AutoChooser.java
+@@ -24,7 +24,8 @@ public class AutoChooser {
+     public static enum StartPositions {
+         LEFT_TRENCH,
+         DEPOT,
+-        RIGHT_TRENCH
++        RIGHT_TRENCH,
++        RIGHT_HUMAN_STATION,
+     }
+ 
+     private LoggedDashboardChooser<StartPositions> startChooser;
+@@ -50,6 +51,8 @@ public class AutoChooser {
+         startChooser.addDefaultOption("DEPOT", StartPositions.DEPOT);
+         startChooser.addOption("LEFT_TRENCH", StartPositions.LEFT_TRENCH);
+         startChooser.addOption("RIGHT_TRENCH", StartPositions.RIGHT_TRENCH);
++        startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_HUMAN_STATION);
++
+     }
+ 
+     public Command getAutoCommand() {
+@@ -72,8 +75,16 @@ public class AutoChooser {
+                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+                             .andThen(drive.followPathFileCommand("DEPOT_START"))
+                             .andThen(targetedScore().withTimeout(4.0))
++                            .andThen(hopperPivot.runIntakeAngle())
+                             .andThen(drive.followPathFileCommand("DEPOT_END").raceWith(hopperIntake.runIntake()))
+                             .andThen(targetedScore());
++            case RIGHT_HUMAN_STATION:
++                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
++                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
++                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_START"))
++                            .andThen(Commands.waitSeconds(2.5))
++                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
++                            .andThen(targetedScore());
+             default:
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))
+                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))

@@ -1,0 +1,47 @@
+commit 6b3cf89ed6f896c23277e9bd10cbc9a919355188
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Sat Mar 21 14:40:03 2026 -0400
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Sat Mar 21 14:40:03 2026 -0400
+
+    Adjusted Current Limits
+
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 6aa292a..c34b5dc 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -300,7 +300,7 @@ public class RobotContainer {
+ 
+     driver
+       .rightTrigger().whileTrue(
+-        hopperIntake.runVoltage(() -> Volts.of(-driver.getRightTriggerAxis()*8))
++        hopperIntake.runVoltage(() -> Volts.of(-driver.getRightTriggerAxis()*6))
+       );
+ 
+     driver
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+index 9a8d1e7..53f5059 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+@@ -32,7 +32,7 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+         // Configure motor
+         config.idleMode(IdleMode.kBrake);
+         config.voltageCompensation(12);
+-        config.smartCurrentLimit(40);
++        config.smartCurrentLimit(60);
+         config.inverted(true);
+ 
+         config.encoder
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
+index 4b6d666..62d3d95 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java
+@@ -43,7 +43,7 @@ public class HopperPivotIOSparkMax implements HopperPivotIO {
+     leftConfig
+         .idleMode(IdleMode.kBrake)
+         .voltageCompensation(12.0)
+-        .smartCurrentLimit(40)
++        .smartCurrentLimit(60)
+         .inverted(false);
+     leftConfig
+       .encoder

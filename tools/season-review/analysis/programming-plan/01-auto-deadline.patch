@@ -1,0 +1,11 @@
+--- a/src/main/java/frc/robot/util/autonomous/AutoChooser.java
++++ b/src/main/java/frc/robot/util/autonomous/AutoChooser.java
+@@ -70,7 +70,7 @@
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
+                             .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
+-                            .andThen(drive.followPathFileCommand("RNZ_RS").alongWith(flywheel.runIdle()))
++                            .andThen(drive.followPathFileCommand("RNZ_RS").deadlineWith(flywheel.runIdle()))
+                             .andThen(targetedScore());
+             case DEPOT:
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.DEPOT_START_POSITION)))

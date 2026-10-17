@@ -1,0 +1,1678 @@
+{
+  "generated_utc": "2026-10-17T01:48:43.408373+00:00",
+  "source_artifacts": [
+    {
+      "path": "analysis/log-analysis.json",
+      "sha256": "7f628cc8fc60574ee90fbd9c0e3aa36ffdfd7a6277bd9924823144a02ed183bc"
+    },
+    {
+      "path": "analysis/season-metrics.json",
+      "sha256": "796e56b15030df206fe685c7c7b275ec8e31ce0878dced89704e4f8f308e7c47"
+    },
+    {
+      "path": "analysis/electrical/swerve-history.json",
+      "sha256": "430d1196905fa1db1ccd64d5f7aba3411d0fad8cf30b98529dc679730acf4626"
+    }
+  ],
+  "match_log_evidence": [
+    {
+      "file": "logs/2026/akit_26-03-14_15-54-43_njtab_q7.wpilog",
+      "sha256": "6df093e61adee1de01e437fc5d9f27b9b0fe1c6c82e34e9493df7fcb54b156ef",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-13 19:09:41 EDT",
+        "/RealMetadata/BuildDate": "2026-03-14 11:34:46 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 114.072,
+          "end_s": 134.667,
+          "duration_s": 20.595,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.595,
+          "battery_min_v": 8.433,
+          "battery_below_9v_s": 0.621,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.308,
+          "loop_max_ms": 342.378,
+          "intake_commanded_s": 18.882,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 9.143,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.28,
+          "max_pose_speed_mps": 4.47,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.187,
+          "fms_attached_s": 20.595,
+          "ds_attached_s": 20.595,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 138.727,
+          "end_s": 282.782,
+          "duration_s": 144.055,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.391,
+          "battery_below_9v_s": 23.398,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.955,
+          "loop_max_ms": 257.994,
+          "intake_commanded_s": 76.322,
+          "kicker_commanded_s": 31.947,
+          "flywheel_over_100rad_s": 56.228,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 2.127,
+            "2": 2.213,
+            "3": 40.331
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 110.1,
+          "max_pose_speed_mps": 7.78,
+          "pose_jumps": [
+            {
+              "t_s": 183.858,
+              "delta_m": 0.397
+            },
+            {
+              "t_s": 183.878,
+              "delta_m": 0.269
+            },
+            {
+              "t_s": 183.898,
+              "delta_m": 0.186
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 22.886,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 71.384,
+          "drive_command_s": 73.13,
+          "fms_attached_s": 144.055,
+          "ds_attached_s": 144.055,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog",
+      "sha256": "f214b527dead1344b5282ca99dbf0c153d4258fa56072db0317db85d80a554b9",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-13 19:09:41 EDT",
+        "/RealMetadata/BuildDate": "2026-03-14 13:22:35 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 383.456,
+          "end_s": 404.269,
+          "duration_s": 20.812,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 11,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.812,
+          "battery_min_v": 8.641,
+          "battery_below_9v_s": 0.182,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.941,
+          "loop_max_ms": 316.481,
+          "intake_commanded_s": 14.252,
+          "kicker_commanded_s": 14.895,
+          "flywheel_over_100rad_s": 16.558,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 5.3,
+          "max_pose_speed_mps": 2.0,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 6.069,
+          "kicker_active_hood_not_ready_s": 0.02,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 5.885,
+          "fms_attached_s": 20.813,
+          "ds_attached_s": 20.813,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 408.28,
+          "end_s": 422.605,
+          "duration_s": 14.325,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": false,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 11,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": false
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 4.036,
+          "battery_below_9v_s": 0.762,
+          "browned_out_s": 0.081,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.894,
+          "loop_max_ms": 255.23,
+          "intake_commanded_s": 0.286,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 4.522,
+            "2": 4.522,
+            "3": 4.522
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 10.58,
+          "max_pose_speed_mps": 6.24,
+          "pose_jumps": [
+            {
+              "t_s": 417.453,
+              "delta_m": 0.211
+            },
+            {
+              "t_s": 417.473,
+              "delta_m": 0.16
+            },
+            {
+              "t_s": 418.2,
+              "delta_m": 1.487
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 12.658,
+          "drive_command_s": 6.825,
+          "fms_attached_s": 14.325,
+          "ds_attached_s": 14.325,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 475.138,
+          "end_s": 548.614,
+          "duration_s": 73.476,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 11,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.497,
+          "battery_below_9v_s": 36.693,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.703,
+          "loop_max_ms": 81.657,
+          "intake_commanded_s": 27.077,
+          "kicker_commanded_s": 15.574,
+          "flywheel_over_100rad_s": 27.464,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 25.9,
+          "max_pose_speed_mps": 7.16,
+          "pose_jumps": [
+            {
+              "t_s": 475.358,
+              "delta_m": 0.253
+            },
+            {
+              "t_s": 475.378,
+              "delta_m": 0.222
+            },
+            {
+              "t_s": 475.398,
+              "delta_m": 0.193
+            },
+            {
+              "t_s": 475.418,
+              "delta_m": 0.169
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 12.274,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 33.803,
+          "drive_command_s": 36.124,
+          "fms_attached_s": 73.476,
+          "ds_attached_s": 73.476,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-15_14-55-18_njtab_q53.wpilog",
+      "sha256": "e60c73ef1b15704cac856cb012039e1321aebd284df66d7be53e7803ed88651a",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-15 08:10:56 EDT",
+        "/RealMetadata/BuildDate": "2026-03-15 10:24:45 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 122.39,
+          "end_s": 142.41,
+          "duration_s": 20.02,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 5,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.02,
+          "battery_min_v": 8.05,
+          "battery_below_9v_s": 0.48,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.731,
+          "loop_max_ms": 369.869,
+          "intake_commanded_s": 18.317,
+          "kicker_commanded_s": 9.538,
+          "flywheel_over_100rad_s": 9.837,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 16.25,
+          "max_pose_speed_mps": 4.08,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 1.649,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 7.997,
+          "fms_attached_s": 20.02,
+          "ds_attached_s": 20.02,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 146.39,
+          "end_s": 183.975,
+          "duration_s": 37.585,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 5,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.604,
+          "battery_below_9v_s": 11.734,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.952,
+          "loop_max_ms": 272.203,
+          "intake_commanded_s": 13.954,
+          "kicker_commanded_s": 2.721,
+          "flywheel_over_100rad_s": 6.915,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 16.595,
+            "3": 18.005
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 48.97,
+          "max_pose_speed_mps": 7.65,
+          "pose_jumps": [
+            {
+              "t_s": 172.694,
+              "delta_m": 0.157
+            },
+            {
+              "t_s": 172.714,
+              "delta_m": 0.484
+            },
+            {
+              "t_s": 172.734,
+              "delta_m": 0.444
+            },
+            {
+              "t_s": 172.774,
+              "delta_m": 0.376
+            },
+            {
+              "t_s": 172.854,
+              "delta_m": 0.29
+            },
+            {
+              "t_s": 172.914,
+              "delta_m": 0.223
+            },
+            {
+              "t_s": 172.974,
+              "delta_m": 0.187
+            },
+            {
+              "t_s": 173.114,
+              "delta_m": 0.212
+            },
+            {
+              "t_s": 173.134,
+              "delta_m": 0.183
+            },
+            {
+              "t_s": 182.675,
+              "delta_m": 0.274
+            },
+            {
+              "t_s": 182.695,
+              "delta_m": 0.246
+            }
+          ],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 1.446,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 26.049,
+          "drive_command_s": 25.99,
+          "fms_attached_s": 37.585,
+          "ds_attached_s": 37.585,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-15_15-41-42_njtab_q58.wpilog",
+      "sha256": "9d3ce7e072ebc50ccd6768c45383e61c0a26de2bf8381144b2f8199117b4a1c1",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-15 08:10:56 EDT",
+        "/RealMetadata/BuildDate": "2026-03-15 10:24:45 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 513.02,
+          "end_s": 516.187,
+          "duration_s": 3.167,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 58,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 3.167,
+          "battery_min_v": 8.151,
+          "battery_below_9v_s": 0.62,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.367,
+          "loop_max_ms": 334.753,
+          "intake_commanded_s": 1.524,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 3.167,
+            "2": 3.167,
+            "3": 3.167
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 2.12,
+          "max_pose_speed_mps": 2.26,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 1.444,
+          "fms_attached_s": 3.167,
+          "ds_attached_s": 3.167,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 537.947,
+          "end_s": 555.753,
+          "duration_s": 17.806,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 3,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 58,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.793,
+          "battery_below_9v_s": 4.098,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.244,
+          "loop_max_ms": 219.131,
+          "intake_commanded_s": 10.101,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 17.806,
+            "2": 17.806,
+            "3": 17.806
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 20.17,
+          "max_pose_speed_mps": 3.38,
+          "pose_jumps": [],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 11.282,
+          "drive_command_s": 11.822,
+          "fms_attached_s": 17.806,
+          "ds_attached_s": 17.806,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-15_16-37-51_njtab_q63.wpilog",
+      "sha256": "b4e02b0781d9503736e60348bdd1cf1d77648f66ad037db51c88e4519dfa5dda",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-15 08:10:56 EDT",
+        "/RealMetadata/BuildDate": "2026-03-15 12:14:49 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 179.274,
+          "end_s": 199.929,
+          "duration_s": 20.656,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": true,
+            "MatchNumber": 63,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.656,
+          "battery_min_v": 8.427,
+          "battery_below_9v_s": 0.16,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.662,
+          "loop_max_ms": 375.174,
+          "intake_commanded_s": 18.936,
+          "kicker_commanded_s": 8.842,
+          "flywheel_over_100rad_s": 9.117,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 16.236,
+            "2": 16.216,
+            "3": 16.456
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 16.91,
+          "max_pose_speed_mps": 4.25,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 3.932,
+          "kicker_active_hood_not_ready_s": 0.02,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.137,
+          "fms_attached_s": 20.655,
+          "ds_attached_s": 20.655,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        },
+        {
+          "start_s": 203.949,
+          "end_s": 245.412,
+          "duration_s": 41.463,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "NJTAB",
+            "Autonomous": false,
+            "MatchNumber": 63,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.491,
+          "battery_below_9v_s": 10.226,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.656,
+          "loop_max_ms": 241.744,
+          "intake_commanded_s": 25.175,
+          "kicker_commanded_s": 4.2,
+          "flywheel_over_100rad_s": 5.76,
+          "climb_commanded_s": 0,
+          "camera_disconnected_s": {
+            "1": 41.463,
+            "2": 41.463,
+            "3": 41.463
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 44.2,
+          "max_pose_speed_mps": 3.8,
+          "pose_jumps": [],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 2.8,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 27.158,
+          "drive_command_s": 27.416,
+          "fms_attached_s": 41.463,
+          "ds_attached_s": 41.463,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": null
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-28_16-04-00_paben_q7.wpilog",
+      "sha256": "32ff731d3656848c306505fa19107fb209715330101a14b8bbc6d438627915e6",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-27 12:35:02 EDT",
+        "/RealMetadata/BuildDate": "2026-03-28 08:15:09 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 108.82,
+          "end_s": 128.91,
+          "duration_s": 20.09,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 2,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.09,
+          "battery_min_v": 8.182,
+          "battery_below_9v_s": 0.455,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 3.073,
+          "loop_max_ms": 426.389,
+          "intake_commanded_s": 18.552,
+          "kicker_commanded_s": 8.621,
+          "flywheel_over_100rad_s": 13.606,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.53,
+          "max_pose_speed_mps": 4.42,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 3.674,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.287,
+          "fms_attached_s": 20.09,
+          "ds_attached_s": 20.09,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 132.931,
+          "end_s": 202.614,
+          "duration_s": 69.683,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 2,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 7,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.881,
+          "battery_below_9v_s": 6.616,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.413,
+          "loop_max_ms": 308.209,
+          "intake_commanded_s": 42.036,
+          "kicker_commanded_s": 23.097,
+          "flywheel_over_100rad_s": 30.137,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 71.39,
+          "max_pose_speed_mps": 6.4,
+          "pose_jumps": [
+            {
+              "t_s": 152.263,
+              "delta_m": 0.162
+            },
+            {
+              "t_s": 161.612,
+              "delta_m": 0.164
+            }
+          ],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 12.798,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 38.377,
+          "drive_command_s": 38.1,
+          "fms_attached_s": 69.683,
+          "ds_attached_s": 69.683,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-28_21-18-11_paben_q34.wpilog",
+      "sha256": "ab548007210f84a644fbd49f62bdf42d3acf0baa84f8deb84ace8d3c02f7086f",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-27 12:35:02 EDT",
+        "/RealMetadata/BuildDate": "2026-03-28 16:59:38 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 129.734,
+          "end_s": 150.449,
+          "duration_s": 20.715,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 34,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.715,
+          "battery_min_v": 8.39,
+          "battery_below_9v_s": 0.673,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.911,
+          "loop_max_ms": 285.187,
+          "intake_commanded_s": 18.042,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 10.668,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 6.68,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 16.53,
+          "max_pose_speed_mps": 3.57,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 8.184,
+          "fms_attached_s": 20.715,
+          "ds_attached_s": 20.715,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 154.45,
+          "end_s": 294.465,
+          "duration_s": 140.014,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 34,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.384,
+          "battery_below_9v_s": 34.622,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.974,
+          "loop_max_ms": 260.868,
+          "intake_commanded_s": 88.349,
+          "kicker_commanded_s": 42.004,
+          "flywheel_over_100rad_s": 63.115,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 163.06,
+          "max_pose_speed_mps": 6.37,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 29.04,
+          "kicker_active_hood_not_ready_s": 0.04,
+          "driver_translation_input_s": 87.812,
+          "drive_command_s": 87.013,
+          "fms_attached_s": 140.015,
+          "ds_attached_s": 140.015,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.4,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-28_22-29-34_paben_q42.wpilog",
+      "sha256": "a575a400bd5ac588b0678b9d4dcf484b21c6ac0bb4a85025eff35ce057c83ebd",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-27 12:35:02 EDT",
+        "/RealMetadata/BuildDate": "2026-03-28 17:30:49 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 135.993,
+          "end_s": 156.19,
+          "duration_s": 20.197,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 42,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.197,
+          "battery_min_v": 12.668,
+          "battery_below_9v_s": 0,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 0.377,
+          "loop_max_ms": 351.801,
+          "intake_commanded_s": 0,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 0.19,
+          "max_pose_speed_mps": 0.48,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 0.0,
+          "fms_attached_s": 20.197,
+          "ds_attached_s": 20.197,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 20.197,
+          "flywheel_disconnected_s": 20.197
+        },
+        {
+          "start_s": 160.21,
+          "end_s": 300.24,
+          "duration_s": 140.03,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 42,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 12.662,
+          "battery_below_9v_s": 0,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.095,
+          "loop_max_ms": 324.958,
+          "intake_commanded_s": 0,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 0.76,
+          "max_pose_speed_mps": 0.16,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 24.384,
+          "drive_command_s": 0.0,
+          "fms_attached_s": 140.03,
+          "ds_attached_s": 140.03,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 140.03,
+          "flywheel_disconnected_s": 140.03
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_13-40-03_paben_q48.wpilog",
+      "sha256": "90206ca85086f42e03f9add646280a5f2ae95177fcc33208b09654981f3d1067",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-29 08:03:57 EDT",
+        "/RealMetadata/BuildDate": "2026-03-29 08:16:26 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 135.035,
+          "end_s": 155.829,
+          "duration_s": 20.795,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 48,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.795,
+          "battery_min_v": 8.572,
+          "battery_below_9v_s": 0.34,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.862,
+          "loop_max_ms": 387.992,
+          "intake_commanded_s": 19.072,
+          "kicker_commanded_s": 10.314,
+          "flywheel_over_100rad_s": 10.52,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 17.36,
+          "max_pose_speed_mps": 3.78,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 6.279,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 8.295,
+          "fms_attached_s": 20.794,
+          "ds_attached_s": 20.794,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 159.894,
+          "end_s": 299.94,
+          "duration_s": 140.046,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 48,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 6.982,
+          "battery_below_9v_s": 67.837,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.936,
+          "loop_max_ms": 313.347,
+          "intake_commanded_s": 65.575,
+          "kicker_commanded_s": 14.22,
+          "flywheel_over_100rad_s": 29.674,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 86.586,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 188.1,
+          "max_pose_speed_mps": 7.78,
+          "pose_jumps": [
+            {
+              "t_s": 196.977,
+              "delta_m": 0.211
+            },
+            {
+              "t_s": 202.679,
+              "delta_m": 0.267
+            },
+            {
+              "t_s": 202.699,
+              "delta_m": 0.192
+            },
+            {
+              "t_s": 247.233,
+              "delta_m": 0.183
+            },
+            {
+              "t_s": 260.9,
+              "delta_m": 0.357
+            },
+            {
+              "t_s": 260.92,
+              "delta_m": 0.24
+            },
+            {
+              "t_s": 267.775,
+              "delta_m": 0.164
+            },
+            {
+              "t_s": 282.114,
+              "delta_m": 0.192
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 12.275,
+          "kicker_active_hood_not_ready_s": 0.78,
+          "driver_translation_input_s": 117.648,
+          "drive_command_s": 119.694,
+          "fms_attached_s": 140.046,
+          "ds_attached_s": 140.046,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_14-27-29_paben_q53.wpilog",
+      "sha256": "f1ecb2dfd0cb08514d925ed20d7ef12480e8e9e2bf4ab68548e35f848b099b55",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-29 08:03:57 EDT",
+        "/RealMetadata/BuildDate": "2026-03-29 10:19:56 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 248.003,
+          "end_s": 260.428,
+          "duration_s": 12.425,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 1,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 12.425,
+          "battery_min_v": 7.686,
+          "battery_below_9v_s": 1.4,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.061,
+          "loop_max_ms": 453.9,
+          "intake_commanded_s": 10.563,
+          "kicker_commanded_s": 2.254,
+          "flywheel_over_100rad_s": 2.474,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.0,
+          "max_pose_speed_mps": 3.34,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 1.528,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 8.958,
+          "fms_attached_s": 12.425,
+          "ds_attached_s": 12.425,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 272.45,
+          "end_s": 412.53,
+          "duration_s": 140.08,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 1,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 53,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.07,
+          "battery_below_9v_s": 59.392,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.762,
+          "loop_max_ms": 272.277,
+          "intake_commanded_s": 60.215,
+          "kicker_commanded_s": 26.484,
+          "flywheel_over_100rad_s": 44.343,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 194.68,
+          "max_pose_speed_mps": 7.73,
+          "pose_jumps": [
+            {
+              "t_s": 274.087,
+              "delta_m": 0.239
+            },
+            {
+              "t_s": 274.107,
+              "delta_m": 0.177
+            },
+            {
+              "t_s": 306.231,
+              "delta_m": 0.162
+            },
+            {
+              "t_s": 326.062,
+              "delta_m": 0.272
+            },
+            {
+              "t_s": 326.082,
+              "delta_m": 0.163
+            },
+            {
+              "t_s": 335.651,
+              "delta_m": 0.331
+            },
+            {
+              "t_s": 335.671,
+              "delta_m": 0.239
+            },
+            {
+              "t_s": 335.691,
+              "delta_m": 0.176
+            },
+            {
+              "t_s": 365.703,
+              "delta_m": 0.207
+            },
+            {
+              "t_s": 368.124,
+              "delta_m": 0.248
+            },
+            {
+              "t_s": 410.149,
+              "delta_m": 0.191
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 22.126,
+          "kicker_active_hood_not_ready_s": 0.226,
+          "driver_translation_input_s": 106.712,
+          "drive_command_s": 111.807,
+          "fms_attached_s": 140.08,
+          "ds_attached_s": 140.08,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_16-00-10_paben_q61.wpilog",
+      "sha256": "a7324c9fdeb5dcd4b5e7ebc57a4d456e846af71a1d3b214a6d6ded14538c7584",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-29 08:03:57 EDT",
+        "/RealMetadata/BuildDate": "2026-03-29 11:15:46 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 172.529,
+          "end_s": 192.548,
+          "duration_s": 20.019,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 61,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.019,
+          "battery_min_v": 7.862,
+          "battery_below_9v_s": 1.428,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.444,
+          "loop_max_ms": 400.642,
+          "intake_commanded_s": 18.383,
+          "kicker_commanded_s": 8.523,
+          "flywheel_over_100rad_s": 13.561,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 11.959,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 17.31,
+          "max_pose_speed_mps": 7.34,
+          "pose_jumps": [
+            {
+              "t_s": 181.244,
+              "delta_m": 0.199
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 4.141,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 9.085,
+          "fms_attached_s": 20.019,
+          "ds_attached_s": 20.019,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 196.571,
+          "end_s": 336.579,
+          "duration_s": 140.008,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 6,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 61,
+            "ReplayNumber": 1,
+            "MatchType": 2,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.234,
+          "battery_below_9v_s": 57.229,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.538,
+          "loop_max_ms": 308.153,
+          "intake_commanded_s": 42.925,
+          "kicker_commanded_s": 6.325,
+          "flywheel_over_100rad_s": 11.714,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 45.03,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 246.67,
+          "max_pose_speed_mps": 7.01,
+          "pose_jumps": [
+            {
+              "t_s": 260.347,
+              "delta_m": 0.167
+            },
+            {
+              "t_s": 286.658,
+              "delta_m": 0.263
+            },
+            {
+              "t_s": 286.679,
+              "delta_m": 0.214
+            },
+            {
+              "t_s": 286.698,
+              "delta_m": 0.176
+            },
+            {
+              "t_s": 310.527,
+              "delta_m": 0.159
+            }
+          ],
+          "kicker_active_flywheel_not_ready_s": 4.586,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 126.112,
+          "drive_command_s": 124.822,
+          "fms_attached_s": 140.008,
+          "ds_attached_s": 140.008,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_18-53-11_paben_e1.wpilog",
+      "sha256": "00b6aad7e16093514fc878de31e9c37bee41eb14f1a9af11dee7cd1665f13112",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-29 08:03:57 EDT",
+        "/RealMetadata/BuildDate": "2026-03-29 12:43:40 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 229.151,
+          "end_s": 250.304,
+          "duration_s": 21.153,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 1,
+            "ReplayNumber": 1,
+            "MatchType": 3,
+            "FMSAttached": true
+          },
+          "autonomous_s": 21.153,
+          "battery_min_v": 8.559,
+          "battery_below_9v_s": 0.22,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.7,
+          "loop_max_ms": 387.101,
+          "intake_commanded_s": 19.658,
+          "kicker_commanded_s": 10.859,
+          "flywheel_over_100rad_s": 11.215,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.24,
+          "max_pose_speed_mps": 3.99,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 6.578,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 7.944,
+          "fms_attached_s": 21.153,
+          "ds_attached_s": 21.153,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 254.403,
+          "end_s": 395.542,
+          "duration_s": 141.138,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 4,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 1,
+            "ReplayNumber": 1,
+            "MatchType": 3,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.271,
+          "battery_below_9v_s": 36.516,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.71,
+          "loop_max_ms": 262.26,
+          "intake_commanded_s": 74.41,
+          "kicker_commanded_s": 31.305,
+          "flywheel_over_100rad_s": 47.987,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 7.635,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 182.05,
+          "max_pose_speed_mps": 7.22,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 19.544,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 99.925,
+          "drive_command_s": 99.879,
+          "fms_attached_s": 141.139,
+          "ds_attached_s": 141.139,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    },
+    {
+      "file": "logs/2026/akit_26-03-29_19-37-09_paben_e5.wpilog",
+      "sha256": "9803d5bf6cdcde9b098a4fe988cbd7630e46265c94949b8e91f2f93cf96d456e",
+      "build_metadata": {
+        "/RealMetadata/GitBranch": "Sam's-Branch",
+        "/RealMetadata/ProjectName": "2026-Robot",
+        "/RealMetadata/GitSHA": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+        "/RealMetadata/GitDirty": "Uncomitted changes",
+        "/RealMetadata/GitDate": "2026-03-29 08:03:57 EDT",
+        "/RealMetadata/BuildDate": "2026-03-29 15:10:07 EDT"
+      },
+      "decode_error": null,
+      "windows": [
+        {
+          "start_s": 89.366,
+          "end_s": 109.765,
+          "duration_s": 20.4,
+          "metadata": {
+            "Enabled": false,
+            "AllianceStation": 1,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": true,
+            "MatchNumber": 5,
+            "ReplayNumber": 1,
+            "MatchType": 3,
+            "FMSAttached": true
+          },
+          "autonomous_s": 20.4,
+          "battery_min_v": 8.346,
+          "battery_below_9v_s": 0.08,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 2.97,
+          "loop_max_ms": 381.017,
+          "intake_commanded_s": 18.882,
+          "kicker_commanded_s": 10.227,
+          "flywheel_over_100rad_s": 10.511,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 15.2,
+          "max_pose_speed_mps": 4.12,
+          "pose_jumps": [],
+          "kicker_active_flywheel_not_ready_s": 8.755,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 0.0,
+          "drive_command_s": 7.759,
+          "fms_attached_s": 20.399,
+          "ds_attached_s": 20.399,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        },
+        {
+          "start_s": 113.788,
+          "end_s": 146.961,
+          "duration_s": 33.173,
+          "metadata": {
+            "Enabled": true,
+            "AllianceStation": 1,
+            "EmergencyStop": false,
+            "DSAttached": true,
+            "EventName": "PABEN",
+            "Autonomous": false,
+            "MatchNumber": 5,
+            "ReplayNumber": 1,
+            "MatchType": 3,
+            "FMSAttached": true
+          },
+          "autonomous_s": 0,
+          "battery_min_v": 7.837,
+          "battery_below_9v_s": 3.441,
+          "browned_out_s": 0,
+          "gyro_disconnected_s": 0,
+          "loop_over_20ms_s": 1.112,
+          "loop_max_ms": 324.143,
+          "intake_commanded_s": 20.113,
+          "kicker_commanded_s": 0,
+          "flywheel_over_100rad_s": 0,
+          "climb_commanded_s": null,
+          "camera_disconnected_s": {
+            "1": 0,
+            "2": 0,
+            "3": 0
+          },
+          "pose_signal": "/RealOutputs/Odometry/Robot",
+          "estimated_pose_travel_m": 65.09,
+          "max_pose_speed_mps": 6.7,
+          "pose_jumps": [
+            {
+              "t_s": 125.562,
+              "delta_m": 0.226
+            },
+            {
+              "t_s": 125.582,
+              "delta_m": 0.179
+            }
+          ],
+          "truncated_enabled_end": true,
+          "kicker_active_flywheel_not_ready_s": 0.0,
+          "kicker_active_hood_not_ready_s": 0.0,
+          "driver_translation_input_s": 30.923,
+          "drive_command_s": 30.045,
+          "fms_attached_s": 33.173,
+          "ds_attached_s": 33.173,
+          "disabled_by_ds_s": 0.0,
+          "can_silent_s": 0.0,
+          "flywheel_disconnected_s": 0.0
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Original match logs have dirty builds; committed source is not exact deployed code",
+    "Kicker command while readiness false does not count missed shots or establish that timeout caused the interval",
+    "Readiness is a logged tolerance predicate, not a ball outcome",
+    "Below 9 V is exploratory, not brownout detection",
+    "No logged outcomes after March 29; later branch commits are unvalidated by this archive"
+  ]
+}

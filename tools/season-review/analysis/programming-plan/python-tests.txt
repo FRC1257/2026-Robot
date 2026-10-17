@@ -1,0 +1,15 @@
+...example.wpilog 0 ok
+...............................127.0.0.1 - - [17/Oct/2026 10:41:24] "GET /videos/VM5qXlRZAP0.mp4 HTTP/1.1" 206 -
+127.0.0.1 - - [17/Oct/2026 10:41:24] code 404, message Not Found
+127.0.0.1 - - [17/Oct/2026 10:41:24] "GET /videos/VM5qXlRZAP0.info.json HTTP/1.1" 404 -
+127.0.0.1 - - [17/Oct/2026 10:41:24] code 404, message Not Found
+127.0.0.1 - - [17/Oct/2026 10:41:24] "GET /code/build.gradle HTTP/1.1" 404 -
+127.0.0.1 - - [17/Oct/2026 10:41:24] code 404, message Not Found
+127.0.0.1 - - [17/Oct/2026 10:41:24] "GET /../README.md HTTP/1.1" 404 -
+127.0.0.1 - - [17/Oct/2026 10:41:24] code 403, message Forbidden
+127.0.0.1 - - [17/Oct/2026 10:41:24] "POST /api/open-log HTTP/1.1" 403 -
+.
+----------------------------------------------------------------------
+Ran 35 tests in 0.558s
+
+OK

@@ -1,0 +1,61 @@
+commit e1e36a039bdf80886e13b576308ea4987998dc1b
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Mon Mar 23 11:26:00 2026 -0400
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Mon Mar 23 11:26:00 2026 -0400
+
+    Adjusted current limits
+
+diff --git a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
+index 9cdd1ae..012119b 100644
+--- a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIOSparkMax.java
+@@ -29,7 +29,7 @@ public class ActiveFloorIOSparkMax implements ActiveFloorIO {
+         config = new SparkFlexConfig();
+ 
+         config
+-            .smartCurrentLimit(40)
++            .smartCurrentLimit(60)
+             .idleMode(IdleMode.kCoast)
+             .voltageCompensation(12.0)
+             .inverted(false);
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
+index b237b78..2984e7c 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
+@@ -19,7 +19,7 @@ public class HopperIntakeConstants {
+ 
+   public static final int HOPPER_INTAKE_MOTOR_ID = 8;
+ 
+-  public static final Voltage HOPPER_INTAKE_VOLTAGE = Volts.of(-12);
++  public static final Voltage HOPPER_INTAKE_VOLTAGE = Volts.of(-3.5);
+   public static final Voltage HOPPER_OUTTAKE_VOLTAGE = Volts.of(12.0);
+   public static final double HOPPER_INTAKE_TOLERANCE = 1;
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java b/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
+index 712118b..c87fe8e 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/KickerIOSparkMax.java
+@@ -33,7 +33,7 @@ public class KickerIOSparkMax implements KickerIO {
+             new SparkMaxConfig()
+                 .idleMode(SparkBaseConfig.IdleMode.kCoast)
+                 .voltageCompensation(12.0)
+-                .smartCurrentLimit(40)
++                .smartCurrentLimit(70)
+                 .inverted(false)
+             .apply(new EncoderConfig()
+                 .positionConversionFactor(Math.PI * 2.0/3) 
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+index 46eb5e3..7635ebe 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+@@ -33,7 +33,7 @@ public class Flywheel extends SubsystemBase {
+     private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Flywheel/Ks", FlywheelConstants.FLYWHEEL_KS);
+     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Flywheel/Kv", FlywheelConstants.FLYWHEEL_KV);
+ 
+-    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 0.0);
++    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 250);
+ 
+     private final FlywheelIO io; 
+     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();

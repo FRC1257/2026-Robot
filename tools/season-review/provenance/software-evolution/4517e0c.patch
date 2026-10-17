@@ -1,0 +1,442 @@
+commit 4517e0c20f07dfecdc2b3d688a83379b86066aa2
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Thu Mar 26 10:07:05 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Thu Mar 26 10:07:05 2026 -0400
+
+    Changes to paths and new autos
+
+diff --git a/src/main/deploy/pathplanner/paths/HP_RS.path b/src/main/deploy/pathplanner/paths/HP_RS.path
+new file mode 100644
+index 0000000..ac878eb
+--- /dev/null
++++ b/src/main/deploy/pathplanner/paths/HP_RS.path
+@@ -0,0 +1,54 @@
++{
++  "version": "2025.0",
++  "waypoints": [
++    {
++      "anchor": {
++        "x": 1.0247601273148153,
++        "y": 0.6630779079861111
++      },
++      "prevControl": null,
++      "nextControl": {
++        "x": 1.87392367389337,
++        "y": 1.542603558602731
++      },
++      "isLocked": true,
++      "linkedName": null
++    },
++    {
++      "anchor": {
++        "x": 2.5122967189728955,
++        "y": 2.152425106990014
++      },
++      "prevControl": {
++        "x": 1.4876600844360695,
++        "y": 1.3786273050937858
++      },
++      "nextControl": null,
++      "isLocked": true,
++      "linkedName": null
++    }
++  ],
++  "rotationTargets": [],
++  "constraintZones": [],
++  "pointTowardsZones": [],
++  "eventMarkers": [],
++  "globalConstraints": {
++    "maxVelocity": 3.5,
++    "maxAcceleration": 2.93,
++    "maxAngularVelocity": 540.0,
++    "maxAngularAcceleration": 720.0,
++    "nominalVoltage": 12.0,
++    "unlimited": false
++  },
++  "goalEndState": {
++    "velocity": 0,
++    "rotation": 34.508522987668464
++  },
++  "reversed": false,
++  "folder": null,
++  "idealStartingState": {
++    "velocity": 0,
++    "rotation": 0.0
++  },
++  "useDefaultConstraints": true
++}
+\ No newline at end of file
+diff --git a/src/main/deploy/pathplanner/paths/LEFT_TRENCH_END.path b/src/main/deploy/pathplanner/paths/LNZ_LS.path
+similarity index 98%
+rename from src/main/deploy/pathplanner/paths/LEFT_TRENCH_END.path
+rename to src/main/deploy/pathplanner/paths/LNZ_LS.path
+index 5afbda8..b36bbaa 100644
+--- a/src/main/deploy/pathplanner/paths/LEFT_TRENCH_END.path
++++ b/src/main/deploy/pathplanner/paths/LNZ_LS.path
+@@ -41,7 +41,7 @@
+       },
+       "nextControl": null,
+       "isLocked": false,
+-      "linkedName": null
++      "linkedName": "LS"
+     }
+   ],
+   "rotationTargets": [
+diff --git a/src/main/deploy/pathplanner/paths/LEFT_TRENCH_START.path b/src/main/deploy/pathplanner/paths/LT_LNZ.path
+similarity index 100%
+rename from src/main/deploy/pathplanner/paths/LEFT_TRENCH_START.path
+rename to src/main/deploy/pathplanner/paths/LT_LNZ.path
+diff --git a/src/main/deploy/pathplanner/paths/RIGHT_TRENCH_END.path b/src/main/deploy/pathplanner/paths/RNZ_RS.path
+similarity index 95%
+rename from src/main/deploy/pathplanner/paths/RIGHT_TRENCH_END.path
+rename to src/main/deploy/pathplanner/paths/RNZ_RS.path
+index 3765f47..6debb5f 100644
+--- a/src/main/deploy/pathplanner/paths/RIGHT_TRENCH_END.path
++++ b/src/main/deploy/pathplanner/paths/RNZ_RS.path
+@@ -53,11 +53,11 @@
+       },
+       "prevControl": {
+         "x": 2.3462057592654157,
+-        "y": 1.9655727773190994
++        "y": 1.9655727773190992
+       },
+       "nextControl": null,
+-      "isLocked": false,
+-      "linkedName": null
++      "isLocked": true,
++      "linkedName": "RIGHT_TRENCH_SCORE"
+     }
+   ],
+   "rotationTargets": [
+diff --git a/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_END.path b/src/main/deploy/pathplanner/paths/RS_HP.path
+similarity index 71%
+rename from src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_END.path
+rename to src/main/deploy/pathplanner/paths/RS_HP.path
+index bcd8071..ce647b4 100644
+--- a/src/main/deploy/pathplanner/paths/RIGHT_HUMAN_STATION_END.path
++++ b/src/main/deploy/pathplanner/paths/RS_HP.path
+@@ -3,29 +3,29 @@
+   "waypoints": [
+     {
+       "anchor": {
+-        "x": 0.7633677662037042,
+-        "y": 0.612
++        "x": 2.5122967189728955,
++        "y": 2.152425106990014
+       },
+       "prevControl": null,
+       "nextControl": {
+-        "x": 1.8900608497546292,
+-        "y": 0.9501295729465956
++        "x": 1.6564562305933515,
++        "y": 1.3786125661558124
+       },
+-      "isLocked": true,
+-      "linkedName": "RIGHT_HUMAN_STATION_END"
++      "isLocked": false,
++      "linkedName": null
+     },
+     {
+       "anchor": {
+-        "x": 2.703830721799859,
+-        "y": 1.8716843285891094
++        "x": 1.0247601273148153,
++        "y": 0.6630779079861111
+       },
+       "prevControl": {
+-        "x": 1.7454102915610465,
+-        "y": 1.0902966472262006
++        "x": 2.5126658336064462,
++        "y": 2.2612333332902232
+       },
+       "nextControl": null,
+-      "isLocked": false,
+-      "linkedName": null
++      "isLocked": true,
++      "linkedName": "HP"
+     }
+   ],
+   "rotationTargets": [],
+@@ -42,13 +42,13 @@
+   },
+   "goalEndState": {
+     "velocity": 0,
+-    "rotation": 42.79400126352739
++    "rotation": 0.0
+   },
+   "reversed": false,
+   "folder": null,
+   "idealStartingState": {
+     "velocity": 0,
+-    "rotation": 0.0
++    "rotation": 34.508522987668464
+   },
+   "useDefaultConstraints": true
+ }
+\ No newline at end of file
+diff --git a/src/main/deploy/pathplanner/paths/RT_LS.path b/src/main/deploy/pathplanner/paths/RT_LS.path
+new file mode 100644
+index 0000000..e211883
+--- /dev/null
++++ b/src/main/deploy/pathplanner/paths/RT_LS.path
+@@ -0,0 +1,149 @@
++{
++  "version": "2025.0",
++  "waypoints": [
++    {
++      "anchor": {
++        "x": 3.509,
++        "y": 0.612
++      },
++      "prevControl": null,
++      "nextControl": {
++        "x": 4.509,
++        "y": 0.6120000000000001
++      },
++      "isLocked": false,
++      "linkedName": "RIGHT_TRENCH_START"
++    },
++    {
++      "anchor": {
++        "x": 6.613851640513552,
++        "y": 0.6644793152639101
++      },
++      "prevControl": {
++        "x": 5.215035897438981,
++        "y": 0.6708886386872814
++      },
++      "nextControl": {
++        "x": 8.280038411458333,
++        "y": 0.6568449074074079
++      },
++      "isLocked": false,
++      "linkedName": "RIGHT_TRENCH_MID"
++    },
++    {
++      "anchor": {
++        "x": 7.9212144097222215,
++        "y": 3.208569733796296
++      },
++      "prevControl": {
++        "x": 7.925948532005892,
++        "y": 1.9949129301643351
++      },
++      "nextControl": {
++        "x": 7.916884114583333,
++        "y": 4.31869994212963
++      },
++      "isLocked": false,
++      "linkedName": "RIGHT_TRENCH_END"
++    },
++    {
++      "anchor": {
++        "x": 7.030354600694445,
++        "y": 7.414532913773148
++      },
++      "prevControl": {
++        "x": 8.14573365162037,
++        "y": 7.364800130208334
++      },
++      "nextControl": {
++        "x": 5.504017075183523,
++        "y": 7.48258961049887
++      },
++      "isLocked": false,
++      "linkedName": null
++    },
++    {
++      "anchor": {
++        "x": 2.779316984953704,
++        "y": 7.414532913773148
++      },
++      "prevControl": {
++        "x": 3.6872452347366886,
++        "y": 7.410780811451099
++      },
++      "nextControl": {
++        "x": 1.8713887351707177,
++        "y": 7.418285016095197
++      },
++      "isLocked": false,
++      "linkedName": null
++    },
++    {
++      "anchor": {
++        "x": 2.382910128388017,
++        "y": 6.098716119828817
++      },
++      "prevControl": {
++        "x": 1.900660734953704,
++        "y": 6.602471354166666
++      },
++      "nextControl": null,
++      "isLocked": false,
++      "linkedName": "LS"
++    }
++  ],
++  "rotationTargets": [
++    {
++      "waypointRelativePos": 1.3671874999999996,
++      "rotationDegrees": -90.0
++    },
++    {
++      "waypointRelativePos": 2.6889905427631566,
++      "rotationDegrees": -90.0
++    },
++    {
++      "waypointRelativePos": 3.035875822368423,
++      "rotationDegrees": 0.0
++    },
++    {
++      "waypointRelativePos": 3.9114412006578965,
++      "rotationDegrees": 0.0
++    }
++  ],
++  "constraintZones": [
++    {
++      "name": "LEFT_TRENCH",
++      "minWaypointRelativePos": 3.3402330772425266,
++      "maxWaypointRelativePos": 3.664931997508314,
++      "constraints": {
++        "maxVelocity": 1.8,
++        "maxAcceleration": 2.93,
++        "maxAngularVelocity": 540.0,
++        "maxAngularAcceleration": 720.0,
++        "nominalVoltage": 12.0,
++        "unlimited": false
++      }
++    }
++  ],
++  "pointTowardsZones": [],
++  "eventMarkers": [],
++  "globalConstraints": {
++    "maxVelocity": 3.5,
++    "maxAcceleration": 2.93,
++    "maxAngularVelocity": 540.0,
++    "maxAngularAcceleration": 720.0,
++    "nominalVoltage": 12.0,
++    "unlimited": false
++  },
++  "goalEndState": {
++    "velocity": 0,
++    "rotation": -50.079607860014626
++  },
++  "reversed": false,
++  "folder": null,
++  "idealStartingState": {
++    "velocity": 0,
++    "rotation": 0.0
++  },
++  "useDefaultConstraints": true
++}
+\ No newline at end of file
+diff --git a/src/main/deploy/pathplanner/paths/RIGHT_TRENCH_START.path b/src/main/deploy/pathplanner/paths/RT_RNZ.path
+similarity index 100%
+rename from src/main/deploy/pathplanner/paths/RIGHT_TRENCH_START.path
+rename to src/main/deploy/pathplanner/paths/RT_RNZ.path
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
+index 480a3fb..afd54cd 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
+@@ -169,7 +169,6 @@ public class HopperPivot extends SubsystemBase {
+             .andThen(runAngleCommand(() -> Radians.of(1.0)).withTimeout(0.4)).repeatedly();
+     }
+ 
+-
+     /**
+      * Creates a Trigger that is active when the hopper pivot is at the goal angle within the tolerance specified in {@link HopperPivotConstants}.
+      * @return a Trigger that is active when the hopper pivot is at the goal angle within the specified tolerance
+@@ -190,6 +189,9 @@ public class HopperPivot extends SubsystemBase {
+         return new Trigger(() -> inputs.leftpivotAngle.isNear(STOW_ANGLE, HOPPER_PIVOT_TOLERANCE));
+     }
+ 
+-
++    @AutoLogOutput(key = "Hopper/HopperPivot/atTrench")
++    public Trigger atTrench() {
++        return new Trigger(() -> inputs.leftpivotAngle.gte(TRENCH_ANGLE));
++    }
+ 
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java
+index 58020e0..976eaf3 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java
+@@ -21,6 +21,7 @@ public class HopperPivotConstants {
+ 
+   public static final Angle STOW_ANGLE = Radians.of(0.0);
+   public static final Angle INTAKE_ANGLE = Radians.of(1.6);
++  public static final Angle TRENCH_ANGLE = Radians.of(1.0);
+ 
+ 
+ 
+diff --git a/src/main/java/frc/robot/util/autonomous/AutoChooser.java b/src/main/java/frc/robot/util/autonomous/AutoChooser.java
+index a5c10ae..b21b7d9 100644
+--- a/src/main/java/frc/robot/util/autonomous/AutoChooser.java
++++ b/src/main/java/frc/robot/util/autonomous/AutoChooser.java
+@@ -25,7 +25,8 @@ public class AutoChooser {
+         LEFT_TRENCH,
+         DEPOT,
+         RIGHT_TRENCH,
+-        RIGHT_HUMAN_STATION,
++        RIGHT_TRENCH_OUTPOST,
++        RIGHT_TRENCH_FULL_SWEEP
+     }
+ 
+     private LoggedDashboardChooser<StartPositions> startChooser;
+@@ -51,7 +52,8 @@ public class AutoChooser {
+         startChooser.addDefaultOption("DEPOT", StartPositions.DEPOT);
+         startChooser.addOption("LEFT_TRENCH", StartPositions.LEFT_TRENCH);
+         startChooser.addOption("RIGHT_TRENCH", StartPositions.RIGHT_TRENCH);
+-        startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_HUMAN_STATION);
++        startChooser.addOption("HUMAN_STATION", StartPositions.RIGHT_TRENCH_OUTPOST); 
++        startChooser.addOption("RIGHT_TRENCH_SWEEP", StartPositions.RIGHT_TRENCH_FULL_SWEEP);
+ 
+     }
+ 
+@@ -61,14 +63,14 @@ public class AutoChooser {
+             case LEFT_TRENCH:
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))
+                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+-                            .andThen(drive.followPathFileCommand("LEFT_TRENCH_START").raceWith(hopperIntake.runIntake()))
+-                            .andThen(drive.followPathFileCommand("LEFT_TRENCH_END"))
++                            .andThen(drive.followPathFileCommand("LT_LNZ").raceWith(hopperIntake.runIntake()))
++                            .andThen(drive.followPathFileCommand("LNZ_LS"))
+                             .andThen(targetedScore());
+             case RIGHT_TRENCH:
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+                             .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+-                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_START").raceWith(hopperIntake.runIntake()))
+-                            .andThen(drive.followPathFileCommand("RIGHT_TRENCH_END"))
++                            .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
++                            .andThen(drive.followPathFileCommand("RNZ_RS"))
+                             .andThen(targetedScore());
+             case DEPOT:
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.DEPOT_START_POSITION)))
+@@ -78,12 +80,20 @@ public class AutoChooser {
+                             .andThen(hopperPivot.runIntakeAngle())
+                             .andThen(drive.followPathFileCommand("DEPOT_END").raceWith(hopperIntake.runIntake()))
+                             .andThen(targetedScore());
+-            case RIGHT_HUMAN_STATION:
++            case RIGHT_TRENCH_OUTPOST:
+                 return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
+-                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atGoal()))
+-                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_START"))
+-                            .andThen(Commands.waitSeconds(2.5))
+-                            .andThen(drive.followPathFileCommand("RIGHT_HUMAN_STATION_END"))
++                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
++                            .andThen(drive.followPathFileCommand("RT_RNZ").raceWith(hopperIntake.runIntake()))
++                            .andThen(drive.followPathFileCommand("RNZ_RS"))
++                            .andThen(targetedScore().withTimeout(5.0))
++                            .andThen(drive.followPathFileCommand("RS_HP"))
++                            .andThen(Commands.waitSeconds(3.0))
++                            .andThen(drive.followPathFileCommand("HP_RS"))
++                            .andThen(targetedScore());
++            case RIGHT_TRENCH_FULL_SWEEP:
++                return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.RIGHT_TRENCH_START_POSITION)))
++                            .andThen(hopperPivot.runIntakeAngle().until(hopperPivot.atTrench()))
++                            .andThen(drive.followPathFileCommand("RT_LS"))
+                             .andThen(targetedScore());
+             default:
+                  return Commands.runOnce(() -> drive.setPose(AllianceFlipUtil.apply(AutoConstants.LEFT_TRENCH_START_POSITION)))

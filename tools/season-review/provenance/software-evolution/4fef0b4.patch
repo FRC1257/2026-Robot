@@ -1,0 +1,21 @@
+commit 4fef0b4315f4f05f64f62bc31ea504296240756f
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Tue Mar 24 15:48:21 2026 -0400
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Tue Mar 24 15:48:21 2026 -0400
+
+    Update Flywheel.java
+
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+index 33eee1b..f1ce8b3 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+@@ -35,7 +35,7 @@ public class Flywheel extends SubsystemBase {
+     private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Flywheel/Ks", FlywheelConstants.FLYWHEEL_KS);
+     private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Flywheel/Kv", FlywheelConstants.FLYWHEEL_KV);
+ 
+-    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 250);
++    private static final LoggedTunableNumber hubVelocityRads = new LoggedTunableNumber("Flywheel/hubVelocityRads", 280);
+ 
+     private final FlywheelIO io; 
+     private final FlywheelIOInputsAutoLogged inputs = new FlywheelIOInputsAutoLogged();

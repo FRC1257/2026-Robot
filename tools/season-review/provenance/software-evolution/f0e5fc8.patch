@@ -1,0 +1,71 @@
+commit f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6
+Author:     FRCTeam1257 <programmingteam1257@outlook.com>
+AuthorDate: Fri Mar 13 19:09:41 2026 -0400
+Commit:     FRCTeam1257 <programmingteam1257@outlook.com>
+CommitDate: Fri Mar 13 19:09:41 2026 -0400
+
+    Small minor changes before comp
+
+diff --git a/src/main/java/frc/robot/Constants.java b/src/main/java/frc/robot/Constants.java
+index c7ffe95..c2856df 100644
+--- a/src/main/java/frc/robot/Constants.java
++++ b/src/main/java/frc/robot/Constants.java
+@@ -84,6 +84,6 @@ public final class Constants {
+   public static final int QUADRATURE_COUNTS_PER_REV = 8192; // encoder resolution
+   // https://www.revrobotics.com/rev-11-1271/
+ 
+-  public static final int NEO_CURRENT_LIMIT = 40; // amps
++  public static final int NEO_CURRENT_LIMIT = 80; // amps
+   public static final int NEO_VORTEX_CURRENT_LIMIT = 60;
+ }
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index fe44448..02ad15a 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -281,16 +281,16 @@ public class RobotContainer {
+       );
+     
+     // driver.getDPad(DPad.UP).onTrue(climb.extendClimb());
+-    // driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+-
++    driver.getDPad(DPad.DOWN).onTrue(climb.retractClimb());
+ 
++  
+ 
+    new Trigger(() -> Math.abs(operator.getLeftY()) >= 0.1).whileTrue(flywheel.runVoltageCommand(() -> Volts.of(operator.getLeftY())));
+   
+   
+ 
+    operator.rightBumper().whileTrue(kicker.runVelocityCommand(() -> RadiansPerSecond.of(-5)));
+-
++   operator.leftBumper().whileTrue(flywheel.runVelocityCommand(() -> RadiansPerSecond.of(320)));
+   }
+ 
+ 
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
+index 743a56e..ec2ba53 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeConstants.java
+@@ -19,7 +19,7 @@ public class HopperIntakeConstants {
+ 
+   public static final int HOPPER_INTAKE_MOTOR_ID = 8;
+ 
+-  public static final Voltage HOPPER_INTAKE_VOLTAGE = Volts.of(-6.0);
++  public static final Voltage HOPPER_INTAKE_VOLTAGE = Volts.of(-4.0);
+   public static final Voltage HOPPER_OUTTAKE_VOLTAGE = Volts.of(3.0);
+   public static final double HOPPER_INTAKE_TOLERANCE = 1;
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java
+index 8e67cc1..7f6fb40 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java
+@@ -11,7 +11,7 @@ public class FlywheelConstants {
+     public static final double FLYWHEEL_KD = 0.0; 
+ 
+     public static final double FLYWHEEL_KS = 0.268;
+-    public static final double FLYWHEEL_KV = 0.019315;
++    public static final double FLYWHEEL_KV = 0.017315;
+ 
+     public static final AngularVelocity FLYWHEEL_VELOCITY_TOLERANCE = RadiansPerSecond.of(2.5);
+     public static final int FLYWHEEL_MOTOR_ID = 13;

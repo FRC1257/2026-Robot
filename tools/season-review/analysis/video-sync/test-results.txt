@@ -1,0 +1,14 @@
+..........127.0.0.1 - - [16/Oct/2026 19:31:47] "GET /videos/VM5qXlRZAP0.mp4 HTTP/1.1" 206 -
+127.0.0.1 - - [16/Oct/2026 19:31:47] code 404, message Not Found
+127.0.0.1 - - [16/Oct/2026 19:31:47] "GET /videos/VM5qXlRZAP0.info.json HTTP/1.1" 404 -
+127.0.0.1 - - [16/Oct/2026 19:31:47] code 404, message Not Found
+127.0.0.1 - - [16/Oct/2026 19:31:47] "GET /code/build.gradle HTTP/1.1" 404 -
+127.0.0.1 - - [16/Oct/2026 19:31:47] code 404, message Not Found
+127.0.0.1 - - [16/Oct/2026 19:31:47] "GET /../README.md HTTP/1.1" 404 -
+127.0.0.1 - - [16/Oct/2026 19:31:47] code 403, message Forbidden
+127.0.0.1 - - [16/Oct/2026 19:31:47] "POST /api/open-log HTTP/1.1" 403 -
+.
+----------------------------------------------------------------------
+Ran 11 tests in 0.042s
+
+OK

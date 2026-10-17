@@ -1,0 +1,11 @@
+--- a/src/main/java/frc/robot/subsystems/drive/Drive.java
++++ b/src/main/java/frc/robot/subsystems/drive/Drive.java
+@@ -646,7 +646,7 @@
+     Rotation2d currentRotation = currentPose.getRotation();
+     Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
+     Rotation2d rotationSupplier = new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
+-    return Math.abs(rotationSupplier.getRadians()-currentRotation.getRadians()) < Units.degreesToRadians(5);
++    return Math.abs(rotationSupplier.minus(currentRotation).getRadians()) < Units.degreesToRadians(5);
+   }
+ 
+ }

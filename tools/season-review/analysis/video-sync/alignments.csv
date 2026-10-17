@@ -1,0 +1,13 @@
+match,status,offset_s,uncertainty_s,log_file,url,alliance_score,opponent_score
+2026njtab_qm7,clock_aligned,114.426,1.0,logs/2026/akit_26-03-14_15-54-43_njtab_q7.wpilog,https://www.youtube.com/watch?v=VM5qXlRZAP0,76,82
+2026njtab_qm11,clock_aligned,384.057,1.0,logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog,https://www.youtube.com/watch?v=durFirbjol0,123,193
+2026njtab_qm31,pre_match_only_no_gameplay_alignment,,,logs/2026/akit_26-03-14_20-51-03_njtab_q31.wpilog,https://www.youtube.com/watch?v=xx9mqCktlts,170,114
+2026njtab_qm53,clock_aligned,123.163,1.0,logs/2026/akit_26-03-15_14-55-18_njtab_q53.wpilog,https://www.youtube.com/watch?v=Nam20HM9kDU,139,38
+2026njtab_qm58,clock_aligned,513.187,1.0,logs/2026/akit_26-03-15_15-41-42_njtab_q58.wpilog,https://www.youtube.com/watch?v=oDik3z0j3uA,36,86
+2026njtab_qm63,clock_aligned,179.62,1.0,logs/2026/akit_26-03-15_16-37-51_njtab_q63.wpilog,https://www.youtube.com/watch?v=0Rn87qP_f9E,145,140
+2026paben_qm7,clock_aligned,109.215,1.0,logs/2026/akit_26-03-28_16-04-00_paben_q7.wpilog,https://www.youtube.com/watch?v=6lkCeg8ExDM,233,48
+2026paben_qm34,clock_aligned,130.813,1.0,logs/2026/akit_26-03-28_21-18-11_paben_q34.wpilog,https://www.youtube.com/watch?v=Kpk72q5CTvQ,148,73
+2026paben_qm42,clock_aligned,137.43,1.0,logs/2026/akit_26-03-28_22-29-34_paben_q42.wpilog,https://www.youtube.com/watch?v=6xcDmugPbdo,63,88
+2026paben_qm48,clock_aligned,135.186,1.0,logs/2026/akit_26-03-29_13-40-03_paben_q48.wpilog,https://www.youtube.com/watch?v=9AzPARjFShw,29,242
+2026paben_qm53,clock_aligned,248.129,1.0,logs/2026/akit_26-03-29_14-27-29_paben_q53.wpilog,https://www.youtube.com/watch?v=CVh41GkgkEs,47,221
+2026paben_qm61,clock_aligned,173.555,1.0,logs/2026/akit_26-03-29_16-00-10_paben_q61.wpilog,https://www.youtube.com/watch?v=GnIuwhw0xsA,123,70

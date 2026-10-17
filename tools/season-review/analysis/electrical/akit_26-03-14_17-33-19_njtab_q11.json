@@ -1,0 +1,6208 @@
+{
+  "source": "logs/2026/akit_26-03-14_17-33-19_njtab_q11.wpilog",
+  "source_sha256": "f214b527dead1344b5282ca99dbf0c153d4258fa56072db0317db85d80a554b9",
+  "output": "logs/electrical/electrical_akit_26-03-14_17-33-19_njtab_q11.wpilog",
+  "output_sha256": "4288b53f47484ade35205e8a521ad4747a647c0852350be613dce8f92761c904",
+  "original_records_preserved": 2275406,
+  "original_record_digest": "87041666efeb025bdc256c4ffbf7888cb4ea1567a4ae55334a726b9ab2dbbf7b",
+  "preservation": "All original non-padding control and data records retain entry ID, timestamp, payload and order. Binary record headers re-encoded; EOF padding omitted.",
+  "derived_namespace": "/Electrical",
+  "rule_revision": "f1dd52451c91769c8627f9bc990eb6f7bea7ad7206dd0e4090ca2588d6d47e55",
+  "events": [
+    {
+      "t_s": 2.764017,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 12.62 V; no selected voltage warning"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "RIO",
+      "color": "#ffbf47",
+      "reason": "outputs inactive; can be normal when disabled"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "PDH",
+      "color": "#ff526b",
+      "reason": "PDH input 0.00 V below logged brownout threshold"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "RADIO",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "DS",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "GYRO",
+      "color": "#78889b",
+      "reason": "not logged"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "CAM1",
+      "color": "#78889b",
+      "reason": "not logged"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "CAM2",
+      "color": "#78889b",
+      "reason": "not logged"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "CAM3",
+      "color": "#78889b",
+      "reason": "not logged"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "6V",
+      "color": "#39d98a",
+      "reason": "rail active; no selected recent current-fault increment"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "5V",
+      "color": "#39d98a",
+      "reason": "rail active; no selected recent current-fault increment"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "3V3",
+      "color": "#39d98a",
+      "reason": "rail active; no selected recent current-fault increment"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 2.764017,
+      "component": "WIRING",
+      "color": "#78889b",
+      "reason": "physical order, PDH channel assignment, connectors and termination unverified"
+    },
+    {
+      "t_s": 13.949315,
+      "component": "PDH",
+      "color": "#ffbf47",
+      "reason": "raw active fault bitmask 1048624; native logger packing requires verification before physical fault diagnosis"
+    },
+    {
+      "t_s": 13.949315,
+      "component": "GYRO",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 13.949315,
+      "component": "CAM1",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 13.949315,
+      "component": "CAM2",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 13.949315,
+      "component": "CAM3",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 19.488975,
+      "component": "RADIO",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 24.153132,
+      "component": "DS",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 31.566398,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 31.966577,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 66.861465,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 67.261551,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 91.265807,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 91.665931,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 99.26581,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 99.665804,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 157.267078,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 157.667054,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 293.576114,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 293.976164,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 383.456225,
+      "component": "RIO",
+      "color": "#39d98a",
+      "reason": "outputs active; does not certify all controller functions"
+    },
+    {
+      "t_s": 385.376057,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 386.043468,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 390.597066,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.93 V below review threshold 9 V"
+    },
+    {
+      "t_s": 390.617082,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 390.697181,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 391.657514,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 392.061218,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 392.321252,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 392.351414,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 9.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 392.373377,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 400.757755,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 400.777751,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 400.837742,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 400.897751,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.76 V; no selected voltage warning"
+    },
+    {
+      "t_s": 400.957853,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 400.977776,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.93 V; no selected voltage warning"
+    },
+    {
+      "t_s": 401.277785,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 401.317742,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.27 V; no selected voltage warning"
+    },
+    {
+      "t_s": 404.268713,
+      "component": "RIO",
+      "color": "#ffbf47",
+      "reason": "outputs inactive; can be normal when disabled"
+    },
+    {
+      "t_s": 408.279984,
+      "component": "RIO",
+      "color": "#39d98a",
+      "reason": "outputs active; does not certify all controller functions"
+    },
+    {
+      "t_s": 408.967743,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 408.988111,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 409.007719,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.12 V; no selected voltage warning"
+    },
+    {
+      "t_s": 409.047712,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 409.067932,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 410.107715,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 410.327737,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 410.427703,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 410.489103,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.38 V; no selected voltage warning"
+    },
+    {
+      "t_s": 410.589088,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 410.6291,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.23 V; no selected voltage warning"
+    },
+    {
+      "t_s": 410.689091,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.88 V below review threshold 9 V"
+    },
+    {
+      "t_s": 410.709626,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.48 V; no selected voltage warning"
+    },
+    {
+      "t_s": 410.769097,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 410.789112,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 410.830145,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 410.849307,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 410.869081,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.88 V below review threshold 9 V"
+    },
+    {
+      "t_s": 410.96914,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.492695,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 411.532689,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 411.632711,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.88 V below review threshold 9 V"
+    },
+    {
+      "t_s": 411.652689,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.37 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.672704,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 9.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 411.692683,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.712661,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 411.752692,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.77267,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.92 V below review threshold 9 V"
+    },
+    {
+      "t_s": 411.792686,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.812775,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.57 V below review threshold 9 V"
+    },
+    {
+      "t_s": 411.832661,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.872711,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.79 V below review threshold 9 V"
+    },
+    {
+      "t_s": 411.89267,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.70 V; no selected voltage warning"
+    },
+    {
+      "t_s": 411.972676,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 412.012707,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.25 V; no selected voltage warning"
+    },
+    {
+      "t_s": 412.472692,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 412.652775,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 412.692695,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 412.713026,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 412.752778,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.48 V below review threshold 9 V"
+    },
+    {
+      "t_s": 412.792679,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 412.832673,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 412.852707,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.36 V; no selected voltage warning"
+    },
+    {
+      "t_s": 412.932917,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 412.97267,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 413.012682,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 413.033755,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 413.332707,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 413.752697,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 414.032673,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 414.3327,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 414.732731,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 414.892669,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 415.192771,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 415.652848,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 415.672659,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 415.712727,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.13 V; no selected voltage warning"
+    },
+    {
+      "t_s": 415.873333,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 415.893423,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.58 V; no selected voltage warning"
+    },
+    {
+      "t_s": 416.953351,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.60 V below review threshold 9 V"
+    },
+    {
+      "t_s": 416.97346,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.45 V; no selected voltage warning"
+    },
+    {
+      "t_s": 417.233735,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 417.293373,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 417.513339,
+      "component": "BATTERY",
+      "color": "#ff526b",
+      "reason": "controller input 12.28 V; brownout flag or logged threshold crossed"
+    },
+    {
+      "t_s": 417.513339,
+      "component": "RIO",
+      "color": "#ff526b",
+      "reason": "brownout reported"
+    },
+    {
+      "t_s": 417.513339,
+      "component": "6V",
+      "color": "#ff526b",
+      "reason": "rail active flag false"
+    },
+    {
+      "t_s": 417.513339,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 417.553555,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 12.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 417.553555,
+      "component": "RIO",
+      "color": "#39d98a",
+      "reason": "outputs active; does not certify all controller functions"
+    },
+    {
+      "t_s": 417.553555,
+      "component": "6V",
+      "color": "#39d98a",
+      "reason": "rail active; no selected recent current-fault increment"
+    },
+    {
+      "t_s": 417.593364,
+      "component": "BATTERY",
+      "color": "#ff526b",
+      "reason": "controller input 4.04 V; brownout flag or logged threshold crossed"
+    },
+    {
+      "t_s": 417.593364,
+      "component": "RIO",
+      "color": "#ff526b",
+      "reason": "brownout reported"
+    },
+    {
+      "t_s": 417.593364,
+      "component": "6V",
+      "color": "#ff526b",
+      "reason": "rail active flag false"
+    },
+    {
+      "t_s": 417.613342,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "CAN error/full counter increased within last 1 s"
+    },
+    {
+      "t_s": 417.633691,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 12.39 V; no selected voltage warning"
+    },
+    {
+      "t_s": 417.633691,
+      "component": "RIO",
+      "color": "#39d98a",
+      "reason": "outputs active; does not certify all controller functions"
+    },
+    {
+      "t_s": 417.633691,
+      "component": "6V",
+      "color": "#39d98a",
+      "reason": "rail active; no selected recent current-fault increment"
+    },
+    {
+      "t_s": 417.733435,
+      "component": "RIO",
+      "color": "#ff526b",
+      "reason": "DS enabled but FPGA outputs inactive"
+    },
+    {
+      "t_s": 418.082935,
+      "component": "CAM1",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 418.082935,
+      "component": "CAM2",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 418.082935,
+      "component": "CAM3",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 418.613342,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 419.436974,
+      "component": "RADIO",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 422.60511,
+      "component": "RIO",
+      "color": "#ffbf47",
+      "reason": "outputs inactive; can be normal when disabled"
+    },
+    {
+      "t_s": 422.60511,
+      "component": "DS",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 473.995065,
+      "component": "RADIO",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 473.995065,
+      "component": "CAM3",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 474.146007,
+      "component": "CAM1",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 474.326591,
+      "component": "CAM2",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 474.516079,
+      "component": "CAM3",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 474.657634,
+      "component": "CAM3",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 475.138153,
+      "component": "RIO",
+      "color": "#39d98a",
+      "reason": "outputs active; does not certify all controller functions"
+    },
+    {
+      "t_s": 475.138153,
+      "component": "DS",
+      "color": "#39d98a",
+      "reason": "connected flag true"
+    },
+    {
+      "t_s": 475.838138,
+      "component": "RIO",
+      "color": "#ff526b",
+      "reason": "DS enabled but FPGA outputs inactive"
+    },
+    {
+      "t_s": 480.336123,
+      "component": "RIO",
+      "color": "#39d98a",
+      "reason": "outputs active; does not certify all controller functions"
+    },
+    {
+      "t_s": 481.216116,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.23615,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.25611,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.276107,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.296123,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.48 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.316101,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.336116,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.44 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.356113,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 481.376129,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.436119,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.39 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.496221,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.42 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.516126,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.43 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.556398,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.87 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.596521,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.43 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.636237,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.820513,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.50 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.880503,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 481.9005,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.00 V; no selected voltage warning"
+    },
+    {
+      "t_s": 481.940494,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.86 V below review threshold 9 V"
+    },
+    {
+      "t_s": 481.940494,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 482.0205,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.080509,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.160497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.180494,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.69 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.280701,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.300531,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.320973,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.34071,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.93 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.400497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.420475,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.480484,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.18 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.500481,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.41 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.560491,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.50 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.580859,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.78 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.600577,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.65 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.6205,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.06 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.660512,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.680491,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.60 V below review threshold 9 V"
+    },
+    {
+      "t_s": 482.820729,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.39 V; no selected voltage warning"
+    },
+    {
+      "t_s": 482.840521,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.56 V below review threshold 9 V"
+    },
+    {
+      "t_s": 483.020475,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.72 V; no selected voltage warning"
+    },
+    {
+      "t_s": 483.04049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.15 V below review threshold 9 V"
+    },
+    {
+      "t_s": 483.20054,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.43 V; no selected voltage warning"
+    },
+    {
+      "t_s": 483.320484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 483.3405,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.80 V; no selected voltage warning"
+    },
+    {
+      "t_s": 483.480496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.64 V below review threshold 9 V"
+    },
+    {
+      "t_s": 483.500475,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 483.580518,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 483.720496,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 483.740493,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.22 V below review threshold 9 V"
+    },
+    {
+      "t_s": 483.840515,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.10 V; no selected voltage warning"
+    },
+    {
+      "t_s": 483.860679,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.68 V below review threshold 9 V"
+    },
+    {
+      "t_s": 483.980493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.000583,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.28 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.020505,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.67 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.080533,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.76 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.100512,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.12049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.160484,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.260728,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.280484,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.67 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.300481,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.36062,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.40 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.400725,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.03 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.420499,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.25 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.420499,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 484.440496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.460604,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.13 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.500505,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.580493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.60049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.64 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.700493,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 484.760576,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 484.780536,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 484.800496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 484.84049,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 484.960508,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.83 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.02048,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.30 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.040514,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.43 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.08049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.14048,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 485.200731,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 485.26048,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.280496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.320508,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.76 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.400496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.420493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.440489,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.75 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.460505,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.480576,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.600483,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.34 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.620591,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.15 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.660567,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.680526,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.55 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.740517,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.76 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.780511,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.820486,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.25 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.880533,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 485.900585,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 485.920508,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.08 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.000495,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.84 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.020511,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.64 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.040619,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.20 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.100517,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.76 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.140492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.85 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.160563,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.75 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.200501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.240514,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.91 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.280508,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.72 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.300505,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.51 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.320501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.39 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.340517,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.30 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.380566,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.440501,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.460702,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.36 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.480514,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.38 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.540486,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.59 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.560501,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.92 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.640489,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.660486,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.92 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.680538,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.23 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.760489,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.65 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.780541,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.68 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.82048,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.860492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 486.920483,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 486.960495,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.08 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.100529,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.120544,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.27 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.160501,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.37 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.180517,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.34 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.200476,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.60 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.260523,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.78 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.28052,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.49 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.300498,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.360489,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 9.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.38056,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.420498,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.79 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.460492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.98 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.500523,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.57 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.540479,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.43 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.560587,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.600507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.700492,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.720507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.740485,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.41 V below review threshold 9 V"
+    },
+    {
+      "t_s": 487.800624,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 487.880501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.81 V; no selected voltage warning"
+    },
+    {
+      "t_s": 487.880501,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 487.980559,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.020479,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.64 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.100504,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.50 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.120556,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.140924,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.53 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.240556,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.280532,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.380497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.10 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.400494,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.03 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.420603,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.03 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.440507,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.500535,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.520531,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.57 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.6005,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.54 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.620497,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.08 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.700485,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.03 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.7205,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.30 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.820485,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 488.840482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.23 V below review threshold 9 V"
+    },
+    {
+      "t_s": 488.940503,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.93 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.080556,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.100497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.61 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.14051,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 489.200482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.77 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.220497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.48 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.240494,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 489.340516,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.360494,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.02 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.380695,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.01 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.400506,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.420522,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.61 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.520488,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.34 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.620509,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.680741,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.680741,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 489.780485,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.800481,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 489.940608,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 489.960568,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 489.980583,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.19 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.000506,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.240673,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.92 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.260503,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.280518,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.98 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.300645,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.54 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.340509,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.58 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.36058,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 9.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.540497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.34 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.560531,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.27 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.580472,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.680493,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.86 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.800493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.82049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.49 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.840487,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.80 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.880481,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.56 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.900478,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.08 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.940527,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 490.960561,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 490.980521,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.080487,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 491.100577,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.18 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.120611,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.12 V; no selected voltage warning"
+    },
+    {
+      "t_s": 491.140496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.200506,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.12 V; no selected voltage warning"
+    },
+    {
+      "t_s": 491.240499,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.36 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.30049,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 491.340484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.92 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.480481,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.84 V; no selected voltage warning"
+    },
+    {
+      "t_s": 491.600499,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.600499,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 491.800524,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 491.820539,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.75 V below review threshold 9 V"
+    },
+    {
+      "t_s": 491.881142,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 492.080759,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.59 V; no selected voltage warning"
+    },
+    {
+      "t_s": 492.340496,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 492.560499,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.55 V below review threshold 9 V"
+    },
+    {
+      "t_s": 492.840474,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 492.880542,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.90 V; no selected voltage warning"
+    },
+    {
+      "t_s": 492.900743,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 492.980582,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.34 V; no selected voltage warning"
+    },
+    {
+      "t_s": 493.220508,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 493.943513,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 494.220483,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 494.360646,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 494.580501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 494.740495,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 494.80056,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 494.820501,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 495.020507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.59 V; no selected voltage warning"
+    },
+    {
+      "t_s": 495.160522,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.79 V below review threshold 9 V"
+    },
+    {
+      "t_s": 495.240547,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.31 V; no selected voltage warning"
+    },
+    {
+      "t_s": 495.260563,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 495.420501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.67 V; no selected voltage warning"
+    },
+    {
+      "t_s": 495.840528,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 495.940494,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 495.960491,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.0205,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.1405,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.160497,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.22 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.280516,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.57 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.32051,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.27 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.460488,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.25 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.480503,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.60 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.520497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.43 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.540513,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.30 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.560491,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.620482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.640516,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.53 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.660642,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.69 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.740537,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.760479,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.56 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.780661,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.800491,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.820488,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.22 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.840503,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.940506,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 496.960559,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 496.960559,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 497.000478,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 497.060543,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.080633,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.37 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.100537,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.27 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.180488,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.91 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.240478,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.22 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.280528,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.65 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.320503,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.340481,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.65 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.420488,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.440484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.460481,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.480608,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.580481,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.45 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.600589,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.36 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.680521,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.7005,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.46 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.720627,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.18 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.740475,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.760509,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.780524,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.800744,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.820555,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.880509,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 497.920503,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.10 V below review threshold 9 V"
+    },
+    {
+      "t_s": 497.980493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.35 V; no selected voltage warning"
+    },
+    {
+      "t_s": 498.020487,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.35 V below review threshold 9 V"
+    },
+    {
+      "t_s": 498.140487,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 498.160484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.13 V below review threshold 9 V"
+    },
+    {
+      "t_s": 498.320496,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 498.340493,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.27 V below review threshold 9 V"
+    },
+    {
+      "t_s": 498.420518,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.19 V; no selected voltage warning"
+    },
+    {
+      "t_s": 498.440496,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.81 V below review threshold 9 V"
+    },
+    {
+      "t_s": 498.521059,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.19 V; no selected voltage warning"
+    },
+    {
+      "t_s": 498.540499,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.44 V below review threshold 9 V"
+    },
+    {
+      "t_s": 498.800496,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.22 V; no selected voltage warning"
+    },
+    {
+      "t_s": 498.824333,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.81 V below review threshold 9 V"
+    },
+    {
+      "t_s": 499.08049,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 499.100505,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.66 V below review threshold 9 V"
+    },
+    {
+      "t_s": 499.121077,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 499.140481,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 499.180493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.70 V; no selected voltage warning"
+    },
+    {
+      "t_s": 499.200527,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 499.540493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.97 V; no selected voltage warning"
+    },
+    {
+      "t_s": 499.760514,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.04 V below review threshold 9 V"
+    },
+    {
+      "t_s": 499.760514,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 499.880533,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.68 V; no selected voltage warning"
+    },
+    {
+      "t_s": 499.900511,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 499.920527,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 499.940524,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 500.100517,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 500.120885,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 500.140752,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.47 V below review threshold 9 V"
+    },
+    {
+      "t_s": 500.300505,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 500.320799,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.58 V below review threshold 9 V"
+    },
+    {
+      "t_s": 500.46048,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 500.500511,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.18 V below review threshold 9 V"
+    },
+    {
+      "t_s": 500.66056,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 500.680502,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.78 V below review threshold 9 V"
+    },
+    {
+      "t_s": 500.760582,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 500.800743,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 500.860492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 500.880526,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.33 V below review threshold 9 V"
+    },
+    {
+      "t_s": 501.180535,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 501.200607,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.68 V; no selected voltage warning"
+    },
+    {
+      "t_s": 501.220548,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.04 V below review threshold 9 V"
+    },
+    {
+      "t_s": 501.220548,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 501.320477,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 501.380579,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 501.400965,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.92 V below review threshold 9 V"
+    },
+    {
+      "t_s": 501.460492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 501.480489,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.09 V below review threshold 9 V"
+    },
+    {
+      "t_s": 501.500504,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.23 V; no selected voltage warning"
+    },
+    {
+      "t_s": 501.520835,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.67 V below review threshold 9 V"
+    },
+    {
+      "t_s": 501.580492,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 501.600526,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 501.620486,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.04 V below review threshold 9 V"
+    },
+    {
+      "t_s": 501.980782,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.040625,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.28 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.060492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.080489,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.17 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.120501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.160662,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.33 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.200544,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.220504,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.66 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.300529,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.77 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.320526,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.15 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.340523,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.380516,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.77 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.660492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.680488,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.29 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.700485,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.30 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.720482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.740479,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.00 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.760513,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.760513,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 502.800507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.71 V; no selected voltage warning"
+    },
+    {
+      "t_s": 502.820485,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.56 V below review threshold 9 V"
+    },
+    {
+      "t_s": 502.840501,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.020491,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.32 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.180485,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.240476,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.280507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.71 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.280507,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 503.340497,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.41 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.420504,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.90 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.440482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.28 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.440482,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 503.460516,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.50051,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.36 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.520507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.31 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.540578,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.59 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.560482,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.57 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.600494,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.640562,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.660503,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.60 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.6805,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 503.760544,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 503.940497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.65 V; no selected voltage warning"
+    },
+    {
+      "t_s": 504.0405,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 504.060479,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 504.400519,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.32 V below review threshold 9 V"
+    },
+    {
+      "t_s": 504.440494,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 504.460491,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 504.50054,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.60 V; no selected voltage warning"
+    },
+    {
+      "t_s": 504.5205,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 504.660497,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.73 V; no selected voltage warning"
+    },
+    {
+      "t_s": 504.740522,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 504.8805,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 504.960506,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 504.980484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.48 V below review threshold 9 V"
+    },
+    {
+      "t_s": 505.020589,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.02 V; no selected voltage warning"
+    },
+    {
+      "t_s": 505.040568,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.47 V below review threshold 9 V"
+    },
+    {
+      "t_s": 505.060509,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 505.080487,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.30 V below review threshold 9 V"
+    },
+    {
+      "t_s": 505.30049,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 505.320524,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 505.340596,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.31 V; no selected voltage warning"
+    },
+    {
+      "t_s": 505.3605,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.35 V below review threshold 9 V"
+    },
+    {
+      "t_s": 505.400493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 505.660639,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 506.620508,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 506.680518,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.88 V; no selected voltage warning"
+    },
+    {
+      "t_s": 506.700552,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 506.720493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.31 V; no selected voltage warning"
+    },
+    {
+      "t_s": 506.740601,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 506.780502,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 506.800555,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.67 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.060496,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 507.08053,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.23 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.10049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.160536,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.22049,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.30 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.280629,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.300533,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.34 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.320493,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.340675,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.06 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.363046,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.400554,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.36 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.420477,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.520517,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.47 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.540644,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.38 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.560493,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.90 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.620502,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.50 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.640536,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.720505,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.48 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.740743,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.23 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.780533,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.800715,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.41 V below review threshold 9 V"
+    },
+    {
+      "t_s": 507.960505,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.57 V; no selected voltage warning"
+    },
+    {
+      "t_s": 507.980483,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.31 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.000536,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.08 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.042013,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.51 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.100502,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.120517,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.75 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.140495,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.200579,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.70 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.22065,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.02 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.240536,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.23 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.321451,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.38 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.360684,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.78 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.440746,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.460501,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.76 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.480498,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.560505,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 508.700501,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.860514,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 508.880511,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.00 V; no selected voltage warning"
+    },
+    {
+      "t_s": 508.980495,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 508.980495,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 509.040616,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.060798,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.33 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.180483,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.200498,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.220866,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.19 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.240492,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.25 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.280504,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.38 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.30052,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.320832,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.340755,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.76 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.440554,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.40 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.460551,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.680554,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.700495,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.700495,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 509.740526,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.72 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.820736,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.33 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.840492,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 509.880485,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 509.940495,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 510.000597,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 510.020519,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.05 V below review threshold 9 V"
+    },
+    {
+      "t_s": 510.060495,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 510.44051,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.84 V; no selected voltage warning"
+    },
+    {
+      "t_s": 510.460488,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.10 V below review threshold 9 V"
+    },
+    {
+      "t_s": 510.540773,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 510.560491,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.06 V below review threshold 9 V"
+    },
+    {
+      "t_s": 510.660494,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 510.680881,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.20 V below review threshold 9 V"
+    },
+    {
+      "t_s": 510.880516,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.02 V; no selected voltage warning"
+    },
+    {
+      "t_s": 510.900513,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.50 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.180507,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.27 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.200485,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.49 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.28051,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.300488,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.67 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.320485,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.45 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.340482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.400602,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.21 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.420525,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.37 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.440522,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.460797,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.47 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.480479,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.540525,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.54 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.560485,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.580482,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.620494,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.641344,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.28 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.661434,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.27 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.781415,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 511.921412,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.45 V below review threshold 9 V"
+    },
+    {
+      "t_s": 511.961962,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.36 V; no selected voltage warning"
+    },
+    {
+      "t_s": 511.981403,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.021526,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.35 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.201424,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.33 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.221421,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.261563,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.301409,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.321406,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.52 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.40143,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.61 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.421464,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.91 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.501415,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.49 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.521412,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.563613,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.19 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.603273,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.74314,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.13 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.764027,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.75 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.783227,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.18 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.803131,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.87 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.823146,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.74 V; no selected voltage warning"
+    },
+    {
+      "t_s": 512.863196,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 512.883174,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.36 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.023134,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.95 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.083366,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.35 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.123137,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.88 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.183146,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.22 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.263152,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.61 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.303276,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.323217,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.93 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.383152,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.75 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.403242,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.64 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.44344,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.89 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.46314,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 9.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.58314,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.603137,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.40 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.703195,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 513.76313,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.783294,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.15 V below review threshold 9 V"
+    },
+    {
+      "t_s": 513.943139,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.98 V; no selected voltage warning"
+    },
+    {
+      "t_s": 513.983152,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.56 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.023127,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.51 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.043143,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.24 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.043143,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 514.143146,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.163384,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.64 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.283124,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.303399,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.363167,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.383145,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.33 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.503127,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.503127,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 514.523142,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.47 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.543325,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.563155,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.39 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.583207,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.51 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.623368,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.58 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.643142,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.703207,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.70 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.743127,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.76381,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 514.7839,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.18 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.804323,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.03 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.823893,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.863869,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.31 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.883884,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.06 V below review threshold 9 V"
+    },
+    {
+      "t_s": 514.963872,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.28 V; no selected voltage warning"
+    },
+    {
+      "t_s": 514.983961,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.56 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.023881,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.044286,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.83 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.063875,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.083872,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.92 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.143955,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.68 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.203872,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.69 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.243903,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.27 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.283878,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.83 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.343887,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.23 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.363884,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.423893,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 515.444632,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.463924,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.483865,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.503862,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.61 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.523896,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.63 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.543893,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.36 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.663875,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.724144,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.08 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.804205,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.823924,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.16 V below review threshold 9 V"
+    },
+    {
+      "t_s": 515.923871,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.49 V; no selected voltage warning"
+    },
+    {
+      "t_s": 515.943887,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.77 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.003896,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.95 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.023874,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.55 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.04389,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.083884,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.61 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.123859,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.143874,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.13 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.203865,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.02 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.223899,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.37 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.245603,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.263874,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.40 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.363989,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.423868,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.543905,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.623874,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.823862,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.07 V; no selected voltage warning"
+    },
+    {
+      "t_s": 516.863893,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.57 V below review threshold 9 V"
+    },
+    {
+      "t_s": 516.943862,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.023942,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.50 V below review threshold 9 V"
+    },
+    {
+      "t_s": 517.103874,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.78 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.124001,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 517.143868,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.163883,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.28 V below review threshold 9 V"
+    },
+    {
+      "t_s": 517.343874,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.403865,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.68 V below review threshold 9 V"
+    },
+    {
+      "t_s": 517.443858,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.463855,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.35 V below review threshold 9 V"
+    },
+    {
+      "t_s": 517.663898,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.683858,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.69 V below review threshold 9 V"
+    },
+    {
+      "t_s": 517.743868,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.87 V; no selected voltage warning"
+    },
+    {
+      "t_s": 517.823874,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 518.488465,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 518.528737,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.57 V; no selected voltage warning"
+    },
+    {
+      "t_s": 518.748424,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 518.768514,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 518.808767,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 518.82843,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 518.888514,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 518.928433,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.12 V; no selected voltage warning"
+    },
+    {
+      "t_s": 518.948968,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 519.248439,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 519.388436,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.17 V below review threshold 9 V"
+    },
+    {
+      "t_s": 519.428486,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.51 V; no selected voltage warning"
+    },
+    {
+      "t_s": 519.508585,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 519.968439,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 520.028467,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.63 V below review threshold 9 V"
+    },
+    {
+      "t_s": 520.188405,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.69 V; no selected voltage warning"
+    },
+    {
+      "t_s": 520.228417,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.42 V below review threshold 9 V"
+    },
+    {
+      "t_s": 520.268448,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 520.368414,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 520.409206,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.74 V; no selected voltage warning"
+    },
+    {
+      "t_s": 520.44842,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.66 V below review threshold 9 V"
+    },
+    {
+      "t_s": 520.68842,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 522.928426,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 522.948534,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.19 V; no selected voltage warning"
+    },
+    {
+      "t_s": 522.968438,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 523.148688,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 523.328419,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 523.38854,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.75 V; no selected voltage warning"
+    },
+    {
+      "t_s": 523.408444,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.50 V below review threshold 9 V"
+    },
+    {
+      "t_s": 523.548552,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 523.688549,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 523.708416,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 523.728413,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.55 V below review threshold 9 V"
+    },
+    {
+      "t_s": 523.788849,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.08 V; no selected voltage warning"
+    },
+    {
+      "t_s": 524.448635,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 524.608425,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 524.790085,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.58 V below review threshold 9 V"
+    },
+    {
+      "t_s": 524.808412,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.52 V; no selected voltage warning"
+    },
+    {
+      "t_s": 524.908434,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 525.248418,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.68 V; no selected voltage warning"
+    },
+    {
+      "t_s": 525.328406,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.83 V below review threshold 9 V"
+    },
+    {
+      "t_s": 525.348459,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 525.368418,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.71 V below review threshold 9 V"
+    },
+    {
+      "t_s": 525.388415,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 525.408449,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 525.42852,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.69 V; no selected voltage warning"
+    },
+    {
+      "t_s": 525.448443,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 525.668446,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.78 V; no selected voltage warning"
+    },
+    {
+      "t_s": 525.828421,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.73 V below review threshold 9 V"
+    },
+    {
+      "t_s": 526.06844,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 526.228433,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.59 V below review threshold 9 V"
+    },
+    {
+      "t_s": 526.488542,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 526.528443,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 526.54844,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.39 V; no selected voltage warning"
+    },
+    {
+      "t_s": 526.648405,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.45 V below review threshold 9 V"
+    },
+    {
+      "t_s": 526.668421,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 526.96843,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.67 V; no selected voltage warning"
+    },
+    {
+      "t_s": 526.988446,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.028402,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.22 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.068433,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.068433,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 527.108464,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.29 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.128424,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.368442,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.408418,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.448448,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.46 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.508439,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.528529,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.10 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.548489,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.73 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.788414,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.58 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.848424,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 527.86842,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.43 V; no selected voltage warning"
+    },
+    {
+      "t_s": 527.968442,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.61 V below review threshold 9 V"
+    },
+    {
+      "t_s": 528.04843,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 528.068427,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.57 V below review threshold 9 V"
+    },
+    {
+      "t_s": 528.208442,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.20 V; no selected voltage warning"
+    },
+    {
+      "t_s": 528.328887,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 528.428426,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.09 V; no selected voltage warning"
+    },
+    {
+      "t_s": 528.44846,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.46 V below review threshold 9 V"
+    },
+    {
+      "t_s": 528.628451,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.86 V; no selected voltage warning"
+    },
+    {
+      "t_s": 528.792414,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.93 V below review threshold 9 V"
+    },
+    {
+      "t_s": 528.868451,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.84 V; no selected voltage warning"
+    },
+    {
+      "t_s": 528.908426,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.35 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.04846,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.20 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.108432,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.148426,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.39 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.208417,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.57 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.288423,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.34 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.308438,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.83 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.48893,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.90 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.528423,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.548438,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.629261,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.49 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.868426,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.90842,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.949137,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 529.968484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 529.988444,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.01 V; no selected voltage warning"
+    },
+    {
+      "t_s": 530.008423,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 530.308413,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.64 V; no selected voltage warning"
+    },
+    {
+      "t_s": 530.388438,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.93 V below review threshold 9 V"
+    },
+    {
+      "t_s": 530.408416,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.16 V; no selected voltage warning"
+    },
+    {
+      "t_s": 530.42845,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.60 V below review threshold 9 V"
+    },
+    {
+      "t_s": 530.708444,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.10 V; no selected voltage warning"
+    },
+    {
+      "t_s": 530.768453,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.93 V below review threshold 9 V"
+    },
+    {
+      "t_s": 530.788432,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.70 V; no selected voltage warning"
+    },
+    {
+      "t_s": 530.828425,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.43 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.108438,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.148469,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.188481,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.248434,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.67 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.268413,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.288428,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.84 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.488416,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.38 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.508413,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.28 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.548425,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.688515,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.728601,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.83 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.748617,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.64 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.928607,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.36 V; no selected voltage warning"
+    },
+    {
+      "t_s": 531.968601,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 531.988746,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.13 V; no selected voltage warning"
+    },
+    {
+      "t_s": 532.068604,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 532.128613,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.06 V; no selected voltage warning"
+    },
+    {
+      "t_s": 532.152673,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 532.368613,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 532.408644,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 532.488613,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.12 V; no selected voltage warning"
+    },
+    {
+      "t_s": 532.54866,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.65 V below review threshold 9 V"
+    },
+    {
+      "t_s": 532.788622,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.36 V; no selected voltage warning"
+    },
+    {
+      "t_s": 532.828746,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 532.888644,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 532.928601,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.78 V below review threshold 9 V"
+    },
+    {
+      "t_s": 533.188746,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.26 V; no selected voltage warning"
+    },
+    {
+      "t_s": 533.228703,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.75 V below review threshold 9 V"
+    },
+    {
+      "t_s": 533.268622,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 535.428714,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 535.528587,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.18 V; no selected voltage warning"
+    },
+    {
+      "t_s": 535.54864,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.43 V below review threshold 9 V"
+    },
+    {
+      "t_s": 535.688711,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 536.009607,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 536.068596,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.76 V below review threshold 9 V"
+    },
+    {
+      "t_s": 536.188615,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 536.208686,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 536.228609,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 9.00 V below review threshold 9 V"
+    },
+    {
+      "t_s": 536.248624,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.82 V; no selected voltage warning"
+    },
+    {
+      "t_s": 536.268621,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.91 V below review threshold 9 V"
+    },
+    {
+      "t_s": 536.268621,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 536.528785,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.33 V; no selected voltage warning"
+    },
+    {
+      "t_s": 536.548615,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.06 V below review threshold 9 V"
+    },
+    {
+      "t_s": 536.969477,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.18 V; no selected voltage warning"
+    },
+    {
+      "t_s": 536.988621,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.68 V below review threshold 9 V"
+    },
+    {
+      "t_s": 537.008655,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 537.048593,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 537.108602,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.81 V below review threshold 9 V"
+    },
+    {
+      "t_s": 537.128766,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.12 V; no selected voltage warning"
+    },
+    {
+      "t_s": 541.337112,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.79 V below review threshold 9 V"
+    },
+    {
+      "t_s": 541.71811,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 541.896227,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 542.136413,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.08 V; no selected voltage warning"
+    },
+    {
+      "t_s": 542.276224,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 542.316663,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.59 V; no selected voltage warning"
+    },
+    {
+      "t_s": 542.336215,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.89 V below review threshold 9 V"
+    },
+    {
+      "t_s": 542.57627,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.82 V; no selected voltage warning"
+    },
+    {
+      "t_s": 542.636205,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 542.656221,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.44 V; no selected voltage warning"
+    },
+    {
+      "t_s": 542.696252,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 542.984853,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 543.104871,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.77 V below review threshold 9 V"
+    },
+    {
+      "t_s": 543.384883,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.68 V; no selected voltage warning"
+    },
+    {
+      "t_s": 543.464871,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.86 V below review threshold 9 V"
+    },
+    {
+      "t_s": 543.524862,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 543.54484,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 543.565041,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 543.624902,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.98 V below review threshold 9 V"
+    },
+    {
+      "t_s": 543.664858,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 543.704889,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 543.913651,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.55 V; no selected voltage warning"
+    },
+    {
+      "t_s": 543.973623,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.68 V below review threshold 9 V"
+    },
+    {
+      "t_s": 543.993639,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 544.013636,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.80 V below review threshold 9 V"
+    },
+    {
+      "t_s": 544.333604,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.20 V; no selected voltage warning"
+    },
+    {
+      "t_s": 544.373635,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.70 V below review threshold 9 V"
+    },
+    {
+      "t_s": 544.393614,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.23 V; no selected voltage warning"
+    },
+    {
+      "t_s": 544.453716,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.82 V below review threshold 9 V"
+    },
+    {
+      "t_s": 544.753651,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 544.793626,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.99 V below review threshold 9 V"
+    },
+    {
+      "t_s": 544.813753,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.24 V; no selected voltage warning"
+    },
+    {
+      "t_s": 544.873632,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.74 V below review threshold 9 V"
+    },
+    {
+      "t_s": 544.953657,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.64 V; no selected voltage warning"
+    },
+    {
+      "t_s": 544.993613,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.24 V below review threshold 9 V"
+    },
+    {
+      "t_s": 545.19362,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.41 V; no selected voltage warning"
+    },
+    {
+      "t_s": 545.233632,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.94 V below review threshold 9 V"
+    },
+    {
+      "t_s": 545.593632,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 545.673619,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.85 V below review threshold 9 V"
+    },
+    {
+      "t_s": 545.693635,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.05 V; no selected voltage warning"
+    },
+    {
+      "t_s": 545.753607,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.62 V below review threshold 9 V"
+    },
+    {
+      "t_s": 546.013659,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.17 V; no selected voltage warning"
+    },
+    {
+      "t_s": 546.073613,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.86 V below review threshold 9 V"
+    },
+    {
+      "t_s": 546.09361,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 10.25 V; no selected voltage warning"
+    },
+    {
+      "t_s": 546.153601,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.37 V below review threshold 9 V"
+    },
+    {
+      "t_s": 546.45361,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.39 V; no selected voltage warning"
+    },
+    {
+      "t_s": 546.573628,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.72 V below review threshold 9 V"
+    },
+    {
+      "t_s": 546.633638,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 546.8736,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.32 V below review threshold 9 V"
+    },
+    {
+      "t_s": 546.993749,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.32 V; no selected voltage warning"
+    },
+    {
+      "t_s": 547.013653,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.40 V below review threshold 9 V"
+    },
+    {
+      "t_s": 547.013653,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 547.153613,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.62 V; no selected voltage warning"
+    },
+    {
+      "t_s": 547.173795,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.22 V below review threshold 9 V"
+    },
+    {
+      "t_s": 547.273613,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 547.513798,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.56 V; no selected voltage warning"
+    },
+    {
+      "t_s": 547.533628,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.97 V below review threshold 9 V"
+    },
+    {
+      "t_s": 547.533628,
+      "component": "MOTORS",
+      "color": "#ffbf47",
+      "reason": "Module1 drive voltage/current/speed zero while peers exceed1m/s; check commanded state and communications, not proof of a failed motor"
+    },
+    {
+      "t_s": 547.573603,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.14 V; no selected voltage warning"
+    },
+    {
+      "t_s": 547.593674,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.03 V below review threshold 9 V"
+    },
+    {
+      "t_s": 547.613653,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.11 V; no selected voltage warning"
+    },
+    {
+      "t_s": 547.633668,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 7.96 V below review threshold 9 V"
+    },
+    {
+      "t_s": 547.814864,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.18 V; no selected voltage warning"
+    },
+    {
+      "t_s": 547.833637,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.13 V below review threshold 9 V"
+    },
+    {
+      "t_s": 548.073618,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.02 V; no selected voltage warning"
+    },
+    {
+      "t_s": 548.093634,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.29 V below review threshold 9 V"
+    },
+    {
+      "t_s": 548.373609,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.15 V; no selected voltage warning"
+    },
+    {
+      "t_s": 548.393624,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.68 V below review threshold 9 V"
+    },
+    {
+      "t_s": 548.473705,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 9.04 V; no selected voltage warning"
+    },
+    {
+      "t_s": 548.493794,
+      "component": "BATTERY",
+      "color": "#ffbf47",
+      "reason": "controller input 8.26 V below review threshold 9 V"
+    },
+    {
+      "t_s": 548.613665,
+      "component": "BATTERY",
+      "color": "#39d98a",
+      "reason": "controller input 11.53 V; no selected voltage warning"
+    },
+    {
+      "t_s": 548.613665,
+      "component": "RIO",
+      "color": "#ffbf47",
+      "reason": "outputs inactive; can be normal when disabled"
+    },
+    {
+      "t_s": 548.613665,
+      "component": "MOTORS",
+      "color": "#78889b",
+      "reason": "motor current/voltage available in Motor Map; per-device health not established by current alone"
+    },
+    {
+      "t_s": 552.753635,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 553.153629,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 579.777702,
+      "component": "DS",
+      "color": "#ff526b",
+      "reason": "connected flag false"
+    },
+    {
+      "t_s": 658.371065,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 658.771114,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    },
+    {
+      "t_s": 692.771131,
+      "component": "CAN",
+      "color": "#ffbf47",
+      "reason": "utilization above review threshold 80 percent"
+    },
+    {
+      "t_s": 693.171088,
+      "component": "CAN",
+      "color": "#39d98a",
+      "reason": "no recent selected bus errors; individual wiring not verified"
+    }
+  ],
+  "power_details_revision": "3a6ee08f73ee74c36967f7a2fd135acd07ff414011ca978b653458ede4cc1b96",
+  "motor_inventory": {
+    "M0 DRIVE": {
+      "current": "/Drive/Module0/DriveCurrentAmps",
+      "voltage": "/Drive/Module0/DriveAppliedVolts",
+      "speed": "/Drive/Module0/DriveVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M0 TURN": {
+      "current": "/Drive/Module0/TurnCurrentAmps",
+      "voltage": "/Drive/Module0/TurnAppliedVolts",
+      "speed": "/Drive/Module0/TurnVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M1 DRIVE": {
+      "current": "/Drive/Module1/DriveCurrentAmps",
+      "voltage": "/Drive/Module1/DriveAppliedVolts",
+      "speed": "/Drive/Module1/DriveVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M1 TURN": {
+      "current": "/Drive/Module1/TurnCurrentAmps",
+      "voltage": "/Drive/Module1/TurnAppliedVolts",
+      "speed": "/Drive/Module1/TurnVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M2 DRIVE": {
+      "current": "/Drive/Module2/DriveCurrentAmps",
+      "voltage": "/Drive/Module2/DriveAppliedVolts",
+      "speed": "/Drive/Module2/DriveVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M2 TURN": {
+      "current": "/Drive/Module2/TurnCurrentAmps",
+      "voltage": "/Drive/Module2/TurnAppliedVolts",
+      "speed": "/Drive/Module2/TurnVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M3 DRIVE": {
+      "current": "/Drive/Module3/DriveCurrentAmps",
+      "voltage": "/Drive/Module3/DriveAppliedVolts",
+      "speed": "/Drive/Module3/DriveVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "M3 TURN": {
+      "current": "/Drive/Module3/TurnCurrentAmps",
+      "voltage": "/Drive/Module3/TurnAppliedVolts",
+      "speed": "/Drive/Module3/TurnVelocityRadPerSec",
+      "temperature": null,
+      "connected": null
+    },
+    "FLYWHEEL": {
+      "current": "/Flywheel/FlywheelCurrent",
+      "voltage": "/Flywheel/FlywheelVoltage",
+      "speed": "/Flywheel/FlywheelAngularVelocity",
+      "temperature": "/Flywheel/FlywheelTemperature",
+      "connected": null
+    },
+    "HOOD": {
+      "current": "/Hood/HoodCurrentDraw",
+      "voltage": "/Hood/HoodVolts",
+      "speed": "/Hood/HoodVelocity",
+      "temperature": "/Hood/HoodTemperature",
+      "connected": null
+    },
+    "CLIMB": {
+      "current": "/Climb/CurrentAmps",
+      "voltage": "/Climb/AppliedVolts",
+      "speed": null,
+      "temperature": "/Climb/TemperatureCelcius",
+      "connected": null
+    },
+    "INTAKE": {
+      "current": null,
+      "voltage": "/HopperIntake/IntakeVoltage",
+      "speed": "/HopperIntake/IntakeVelocity",
+      "temperature": null,
+      "connected": null
+    },
+    "KICKER": {
+      "current": null,
+      "voltage": "/Kicker/KickerVoltage",
+      "speed": "/Kicker/KickerAngularVelocity",
+      "temperature": null,
+      "connected": null
+    },
+    "FLOOR": {
+      "current": null,
+      "voltage": "/ActiveFloor/ActiveFloorVoltage",
+      "speed": null,
+      "temperature": null,
+      "connected": null
+    },
+    "PIVOT L": {
+      "current": null,
+      "voltage": "/HopperPivot/LeftpivotVoltage",
+      "speed": "/HopperPivot/LeftpivotVelocity",
+      "temperature": null,
+      "connected": null
+    },
+    "PIVOT R": {
+      "current": null,
+      "voltage": "/HopperPivot/RightpivotVoltage",
+      "speed": "/HopperPivot/RightpivotVelocity",
+      "temperature": null,
+      "connected": null
+    }
+  },
+  "limitations": [
+    "Logical connections only; physical wiring order unverified",
+    "No per-motor health flag in Q11",
+    "Missing telemetry is gray",
+    "Historical counters are not ongoing faults",
+    "No generic current threshold proves a motor fault",
+    "Declared AdvantageKit26.0.0 source has PDH indexing/fault-packing defects; deployed binary applicability not proven. Channels3-5,18-23 amber for decoder review. Raw fault mask is not validated physical failure evidence."
+  ]
+}

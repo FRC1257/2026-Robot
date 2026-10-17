@@ -1,0 +1,554 @@
+[
+  {
+    "path": "provenance/software-evolution/83e550c.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/83e550cf1e2da4d1364696ba21d60533cc01905b",
+    "sha256": "1e7369d7f56598cfd1f69ad02e5e36ffcf91fad16c4e511a3103b401432a33cd",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "83e550cf1e2da4d1364696ba21d60533cc01905b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f085965.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/f0859657e95d44ee51d464435b274831b56b6c5e",
+    "sha256": "8d623f319d0cd3411fbbfc0a1a66ad2ed675492be1bdf6ed18e0c14a33640e47",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0859657e95d44ee51d464435b274831b56b6c5e",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/aa2546d.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/aa2546d487affa6056514b2f25859d612b20bdee",
+    "sha256": "2cba8c5cd67c066be295da1f8f93c34d982ba21340d1cb9a8a2e8ebd7cc9b1fa",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "aa2546d487affa6056514b2f25859d612b20bdee",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/6b19b9d.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/6b19b9d3a1d8d6b29cd83ea54ead8449c51efd7c",
+    "sha256": "c9dd975a7121caa87f67e47ea26aacdc6908de06bb23ccaae475719976e509b8",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "6b19b9d3a1d8d6b29cd83ea54ead8449c51efd7c",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/928345b.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/928345b5b7d088aade3e2fe3e987086befb4cc63",
+    "sha256": "34a3a3a482734b08adfbe9e19268758d33ff0cb6c25aae8f6973251b5cda3db2",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "928345b5b7d088aade3e2fe3e987086befb4cc63",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/6b3cf89.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/6b3cf89ed6f896c23277e9bd10cbc9a919355188",
+    "sha256": "85352c6098e8f2f072d5e804fc9a84b1bb7e0929c1e9286278f73a75635a91e1",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "6b3cf89ed6f896c23277e9bd10cbc9a919355188",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/e1e36a0.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/e1e36a039bdf80886e13b576308ea4987998dc1b",
+    "sha256": "5e6f250b4e2e726db0887c765de6660dad277022b5301a79a11956bfc4a2f337",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "e1e36a039bdf80886e13b576308ea4987998dc1b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eeaaa64.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/eeaaa6454144ab3400b42f2f8d0878c9bf2e7bd6",
+    "sha256": "dd785693de10deb6c64a7545a9498d35be6915abd17f2209ae170986811c5c5c",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eeaaa6454144ab3400b42f2f8d0878c9bf2e7bd6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4fef0b4.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/4fef0b4315f4f05f64f62bc31ea504296240756f",
+    "sha256": "bc8d5c4771603884f05f4b07401ed64381cac7bc534a10888e01f4c46d5642d7",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4fef0b4315f4f05f64f62bc31ea504296240756f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/e14861b.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/e14861bb461ef8786fa4503f270b22e75c5cf92d",
+    "sha256": "e7f384bfe56959e10644211855de032bd23237be65314fb0afb303af1d1adab0",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "e14861bb461ef8786fa4503f270b22e75c5cf92d",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e7c726.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/4e7c7261efc0f98eeaaea50897b97bb0b7b7e0d5",
+    "sha256": "77916df28dc2d0317ec11bc444574d31b5189763299a00df2236aed0597b41e6",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e7c7261efc0f98eeaaea50897b97bb0b7b7e0d5",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/45b3940.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/45b3940fd094e096b0e3f51723ad67b433935040",
+    "sha256": "39dabf472219ab753c49913077b33988c686ea5dfc2af3b0c64a81efb2f20275",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "45b3940fd094e096b0e3f51723ad67b433935040",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/ad5d9ba.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/ad5d9ba044520c334cb12be72b20429d13e9d245",
+    "sha256": "98cf87099c11dfcdfd23d079112f6aa4dc0b3caa4a4173a0338a07d88eaa314f",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "ad5d9ba044520c334cb12be72b20429d13e9d245",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/1760063.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/17600639e7565efb617f53e4880615b5eaa283f6",
+    "sha256": "438624dbb1abb97a5f39d54ecc0967bab2432c423c41d6ad7eb52b1eccc90577",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "17600639e7565efb617f53e4880615b5eaa283f6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "sha256": "1aa4e227154e1c031553487239d109d1778fe7bf26f9cca43f5cbc58577846e8",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "sha256": "4fd835b59b16fdb811406834e56eeedbea68aa984a74a514ba3d1450444e8d92",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/fd60dd9.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/fd60dd9f29a56d4eb8cbbca00038811ced1e9285",
+    "sha256": "99c3ea963ee6d0460d3a536a7f1b3449e6ff15f05e49c7f4a505d15bd7c3c0b3",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "fd60dd9f29a56d4eb8cbbca00038811ced1e9285",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/7ea645a.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/7ea645a532e904f733fff73aa9adaec915aa38f4",
+    "sha256": "e522db6205ada00fd73c92d5d455c3f4c91ab9c883db1959ed74eccdcf007a1a",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "7ea645a532e904f733fff73aa9adaec915aa38f4",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/01c9126.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/01c91268c1e2d0c4a3267fdc1a94402a846ae674",
+    "sha256": "3b5c2a35bac9f762c3541e3b4b648aa6e321dd38a3aa103cefcd8218928fb8c9",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "01c91268c1e2d0c4a3267fdc1a94402a846ae674",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/975d4a7.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/975d4a77c3083c7f6096a2ac6bf20129d5f23ee5",
+    "sha256": "13fc31bff6929dfe6ab7b0afc278180cc5abc0ef9fce0b3a458b11bc755e919a",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "975d4a77c3083c7f6096a2ac6bf20129d5f23ee5",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/a10f56f.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/a10f56faf81e014419b15c3629da0db23e614956",
+    "sha256": "a4613f6dd72eb50b8242fff3ca17a9bc7cafc4984c73f3a67e5d8a0527d734f0",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "a10f56faf81e014419b15c3629da0db23e614956",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/479d930.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/479d930f71bfd725c8843d09004aa5a737e00c13",
+    "sha256": "c00159676e3d2ab5008f922abf2786d023a1877c261dfaa30da8f9246bb3f043",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "479d930f71bfd725c8843d09004aa5a737e00c13",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4b3c573.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/4b3c5732a722539d6f3cf10971f1500fc536f7e5",
+    "sha256": "d104b8f5ea36a5f39b6893daf50d8b9228d099081c85b369729c11e7f65e043a",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4b3c5732a722539d6f3cf10971f1500fc536f7e5",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/3189eff.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/3189eff2507e8035d78510e5b1cf7ee75dc158d9",
+    "sha256": "1663407f8dc64be10d5193dc82e073378bae27fc457d8c4137995f13297ba574",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "3189eff2507e8035d78510e5b1cf7ee75dc158d9",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/9004231.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/90042317e3d8f740d00aa73eb4fdcd3a5d4ecfa1",
+    "sha256": "bd213ef8f84cd833714d2e229cd3ac9d840b44a6dd407d72f763fbe4d3a5c936",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "90042317e3d8f740d00aa73eb4fdcd3a5d4ecfa1",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4517e0c.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/4517e0c20f07dfecdc2b3d688a83379b86066aa2",
+    "sha256": "f1b9fa1b21992c0d0b2c3229bc2be643e1111974333664294af4a330c16fecd6",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4517e0c20f07dfecdc2b3d688a83379b86066aa2",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/90560c0.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/90560c085c003ecd8c9b095de77cf99add8ea402",
+    "sha256": "3258fc3a941fbcfde11360bf7f784edf5f7e50d6faeeffc994030a4d8f22d26d",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "90560c085c003ecd8c9b095de77cf99add8ea402",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "sha256": "9730f390c188f2b5db3a43b5a79871356a1ca9e65873eb70d0c568401ed42043",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "sha256": "4272f7a9a9d2d322be1c18625fe8896f41aeeeafc3b05bf50e6659fa71afb8ca",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/192680a.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/192680aa39633b7dcee2b1fcfce88272c4e502fd",
+    "sha256": "b1de1a56419a05359fe48e55d30a8987193c421221c0d4796f9822ad1f4d5ef3",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "192680aa39633b7dcee2b1fcfce88272c4e502fd",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/cd7df74.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/cd7df74b3ea91ef7ff198cdfdaac724c8179e375",
+    "sha256": "d85d5c030d0e0559739bdbd1e70d461bbc98d8cc4e36db2edba40f8fb7d3f512",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "cd7df74b3ea91ef7ff198cdfdaac724c8179e375",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4b7ed85.patch",
+    "url": "https://github.com/FRC1257/2026-Robot/commit/4b7ed8589f9479cedd70fc11c49ba38d68c4c9be",
+    "sha256": "6bdbeafc9b823a1e3e8ab6f8871fbdb59be336e5a0060e43e4bb798d019a465f",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4b7ed8589f9479cedd70fc11c49ba38d68c4c9be",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/RobotContainer.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/RobotContainer.java",
+    "sha256": "41544eddf0a2b3bf71e69ba0b3c0849ae4f98f0767a3f879f0a0eb39f3502077",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/util/autonomous/AutoChooser.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/util/autonomous/AutoChooser.java",
+    "sha256": "65a9f7f35c3947b3c31adcc26f018091f4929b85c4c185cf0ed3fd69bca876d8",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/Shooter/Flywheel/Flywheel.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java",
+    "sha256": "6b874c8b667057acb356750bf5a770002c6c770141c3426d5e7be7459f4311dd",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "sha256": "3981be263e23a632b70dc13f5900cc877c09777e572d62561c5e084f1ca54064",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "sha256": "d8641210ded860276c082b3ae4f50fdeb65aabebfb7af7d3fe3aed9e2ac42d3b",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "sha256": "f3b1ffce581d40b30396b42ec1a880f60226bcf5ff8ce92c65436df867bb5278",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/drive/Drive.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/drive/Drive.java",
+    "sha256": "8c9508db84396b805eb160fbba426b5fd78b7bd02405f6d8bf23aca71211b5c7",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/drive/ModuleIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java",
+    "sha256": "ef719f40774931e81913f08b20cd8a2081bbace9bd7f2842d8d56cefa9ac72dc",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/f0e5fc8/subsystems/vision/VisionIOPhoton.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java",
+    "sha256": "06205bd1b6411ec403693022bdcd77b5b56c07c89fdaa33bedae4edbc8b532e7",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/RobotContainer.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/RobotContainer.java",
+    "sha256": "b2970ea25b628e4d80312b03e7e73592d60f1ab6c0013981d3992fe7e6feccc6",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/util/autonomous/AutoChooser.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/util/autonomous/AutoChooser.java",
+    "sha256": "47c208f524e652998cdf9dde27e0ae6a223ac40f18be1ab6d16074e720c7a1a3",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/Shooter/Flywheel/Flywheel.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java",
+    "sha256": "6b874c8b667057acb356750bf5a770002c6c770141c3426d5e7be7459f4311dd",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "sha256": "3981be263e23a632b70dc13f5900cc877c09777e572d62561c5e084f1ca54064",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "sha256": "d8641210ded860276c082b3ae4f50fdeb65aabebfb7af7d3fe3aed9e2ac42d3b",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "sha256": "f3b1ffce581d40b30396b42ec1a880f60226bcf5ff8ce92c65436df867bb5278",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/drive/Drive.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/drive/Drive.java",
+    "sha256": "8c9508db84396b805eb160fbba426b5fd78b7bd02405f6d8bf23aca71211b5c7",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/drive/ModuleIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java",
+    "sha256": "ef719f40774931e81913f08b20cd8a2081bbace9bd7f2842d8d56cefa9ac72dc",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/4e45023/subsystems/vision/VisionIOPhoton.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/4e45023884010585488d5b7f0716f24c4f2afb4b/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java",
+    "sha256": "06205bd1b6411ec403693022bdcd77b5b56c07c89fdaa33bedae4edbc8b532e7",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/RobotContainer.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/RobotContainer.java",
+    "sha256": "0970ad3f7e27cd2cfcc244708fdf457924fa712423ee132557495b8ca4948315",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/util/autonomous/AutoChooser.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/util/autonomous/AutoChooser.java",
+    "sha256": "287b0c689894aa1d74f29ce8f940ab077f537bfb83c78528d6a63b29bb7ead2d",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/Shooter/Flywheel/Flywheel.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java",
+    "sha256": "5e4225ba93e16bdb647f7bbe7f8499f0150c05806cd05146bc45dfe407629bb1",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "sha256": "3981be263e23a632b70dc13f5900cc877c09777e572d62561c5e084f1ca54064",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "sha256": "24b254834168e9d72d605c0629a291193cac4d57aeb6288a3f8ef5e13631fbee",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "sha256": "fe821a2647e7522276199c46361797afc223f241a6c8fc6ac4f63e295d8d89d4",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/drive/Drive.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/drive/Drive.java",
+    "sha256": "2ceb49e0601694a2f4c0f5be0e535b54b871bc5f02c70eec38306ad996c7314a",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/drive/ModuleIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java",
+    "sha256": "ef719f40774931e81913f08b20cd8a2081bbace9bd7f2842d8d56cefa9ac72dc",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/5083ee8/subsystems/vision/VisionIOPhoton.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/5083ee80a875e8ab8ca3d9f7e376bda174516c6f/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java",
+    "sha256": "e31df97be40deb022d42c3df6f4d5ba287cb7afcd76a6b04a2015c9c16090c4f",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/RobotContainer.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/RobotContainer.java",
+    "sha256": "e10b8ccc450199d337418b511c68a372bf696ebbbaca6c8ee37a8d74dd2f01d5",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/util/autonomous/AutoChooser.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/util/autonomous/AutoChooser.java",
+    "sha256": "287b0c689894aa1d74f29ce8f940ab077f537bfb83c78528d6a63b29bb7ead2d",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/Shooter/Flywheel/Flywheel.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java",
+    "sha256": "5e4225ba93e16bdb647f7bbe7f8499f0150c05806cd05146bc45dfe407629bb1",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelConstants.java",
+    "sha256": "3981be263e23a632b70dc13f5900cc877c09777e572d62561c5e084f1ca54064",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/Shooter/Flywheel/FlywheelIOSparkMax.java",
+    "sha256": "24b254834168e9d72d605c0629a291193cac4d57aeb6288a3f8ef5e13631fbee",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java",
+    "sha256": "fe821a2647e7522276199c46361797afc223f241a6c8fc6ac4f63e295d8d89d4",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/drive/Drive.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/drive/Drive.java",
+    "sha256": "ec31db893419287a0093fd6579268ae28e8a1221f6d29f0987bccd344a51917c",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/drive/ModuleIOSparkMax.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java",
+    "sha256": "ef719f40774931e81913f08b20cd8a2081bbace9bd7f2842d8d56cefa9ac72dc",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/eaa6f81/subsystems/vision/VisionIOPhoton.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java",
+    "sha256": "e31df97be40deb022d42c3df6f4d5ba287cb7afcd76a6b04a2015c9c16090c4f",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  },
+  {
+    "path": "provenance/software-evolution/2026-history.txt",
+    "url": "https://github.com/FRC1257/2026-Robot/commits/",
+    "sha256": "29c15ab7c03eba292b519394d755919072d74162ce85f8e9de33faa0c7b2aa38",
+    "retrieved_utc": "2026-10-17T01:48:43.408373+00:00",
+    "revision": null,
+    "method": "read local Git object; no claim of exact dirty deployed tree"
+  }
+]

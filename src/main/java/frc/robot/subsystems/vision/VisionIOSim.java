@@ -90,6 +90,10 @@ public class VisionIOSim implements VisionIO {
       results[i] = getLatestResult(i);
     }
 
+    boolean[] connected = new boolean[numCameras];
+    for (int i = 0; i < numCameras; i++) connected[i] = cameras[i].isConnected();
+    VisionTelemetry.recordTrackedTags(results, connected, edu.wpi.first.wpilibj.Timer.getFPGATimestamp());
+
     inputs.positionEstimates = new Pose2d[] {new Pose2d()};
     inputs.rotationEstimates = new Rotation2d[] {odometry.getRotation()};
 
@@ -124,6 +128,7 @@ public class VisionIOSim implements VisionIO {
     if (camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
 
     var unreadResults = cameras[camIndex].getAllUnreadResults();
+    VisionTelemetry.recordUnreadFrames(camNames[camIndex], unreadResults);
     double latestTimestamp = 0;
 
     if (unreadResults.size() == 0) {

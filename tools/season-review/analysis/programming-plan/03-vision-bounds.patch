@@ -1,0 +1,14 @@
+--- a/src/main/java/frc/robot/subsystems/drive/Drive.java
++++ b/src/main/java/frc/robot/subsystems/drive/Drive.java
+@@ -332,6 +332,11 @@
+         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
+ 
+         for (int i = 0; i < visionInputs.positionEstimates.length; i++) {
++          if (i >= stdDeviations.size()
++              || i >= visionInputs.timestampArray.length
++              || i >= visionInputs.rotationEstimates.length) {
++            continue;
++          }
+           Matrix<N3, N1> allStdDevs = stdDeviations.get(i);
+           Matrix<N3, N1> positionStdDevs =
+               VecBuilder.fill(allStdDevs.get(0, 0), allStdDevs.get(1, 0), Double.MAX_VALUE);

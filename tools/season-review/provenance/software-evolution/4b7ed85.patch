@@ -1,0 +1,1579 @@
+commit 4b7ed8589f9479cedd70fc11c49ba38d68c4c9be
+Author:     raghavmani0129 <raghavrhino2829@icloud.com>
+AuthorDate: Tue May 26 18:02:26 2026 -0400
+Commit:     raghavmani0129 <raghavrhino2829@icloud.com>
+CommitDate: Tue May 26 18:02:26 2026 -0400
+
+    implementing limelight
+
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index cc079e3..a7b058f 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -18,6 +18,8 @@ import java.util.List;
+ import java.util.function.Supplier;
+ 
+ import com.pathplanner.lib.auto.AutoBuilder;
++import static frc.robot.subsystems.vision.VisionConstants.*;
++
+ 
+ import edu.wpi.first.units.measure.Voltage;
+ import edu.wpi.first.wpilibj.GenericHID;
+@@ -42,10 +44,10 @@ import frc.robot.subsystems.drive.GyroIOReal;
+ import frc.robot.subsystems.drive.ModuleIO;
+ import frc.robot.subsystems.drive.ModuleIOSim;
+ import frc.robot.subsystems.drive.ModuleIOSparkMax;
++import frc.robot.subsystems.vision.Vision;
+ import frc.robot.subsystems.vision.VisionIO;
+-import frc.robot.subsystems.vision.VisionConstants;
+-import frc.robot.subsystems.vision.VisionIOPhoton;
+-import frc.robot.subsystems.vision.VisionIOSim;
++import frc.robot.subsystems.vision.VisionIOLimelight;
++import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
+ import frc.robot.util.autonomous.AutoChooser;
+ import frc.robot.util.drive.CommandSnailController;
+ import frc.robot.util.drive.CommandSnailController.DPad;
+@@ -85,6 +87,7 @@ import frc.robot.subsystems.Shooter.Hood.HoodIOSparkMax;
+  */
+ public class RobotContainer {
+   // Subsystems
++  public final Vision vision;
+   private final Drive drive;
+   private final HopperIntake hopperIntake;
+   private final HopperPivot hopperPivot;
+@@ -110,18 +113,24 @@ public class RobotContainer {
+     switch (Constants.currentMode) {
+       // Real robot, instantiate hardware IO implementations
+       case REAL:
+-        
+ 
+-        //photonVision = new VisionIOPhoton();
+-    
+-        drive =
++      drive =
+             new Drive(
+                 new GyroIOReal(),
+                 new ModuleIOSparkMax(0),
+                 new ModuleIOSparkMax(1),
+                 new ModuleIOSparkMax(2),
+-                new ModuleIOSparkMax(3),
+-                new VisionIOPhoton());
++                new ModuleIOSparkMax(3));
++        vision =
++            new Vision(
++                drive::addVisionMeasurement,
++                new VisionIOLimelight(camera0Name, drive::getRotation),
++                new VisionIOLimelight(camera1Name, drive::getRotation));
++
++
++        //photonVision = new VisionIOPhoton();
++    
++        
+ 
+   
+  
+@@ -137,15 +146,21 @@ public class RobotContainer {
+ 
+       // Sim robot, instantiate physics sim IO implementations
+       case SIM:
+-  VisionIOSim simVision = new VisionIOSim();
+-        drive =
++
++      drive =
+             new Drive(
+                 new GyroIO() {},
+                 new ModuleIOSim(),
+                 new ModuleIOSim(),
+                 new ModuleIOSim(),
+-                new ModuleIOSim(),
+-                new VisionIOSim());
++                new ModuleIOSim());
++        vision =
++            new Vision(
++                drive::addVisionMeasurement,
++                new VisionIOPhotonVisionSim(camera0Name, robotToCamera0, drive::getPose),
++                new VisionIOPhotonVisionSim(camera1Name, robotToCamera1, drive::getPose));
++
++        
+         
+                 
+ 
+@@ -160,15 +175,14 @@ public class RobotContainer {
+ 
+       // Replayed robot, disable IO implementations
+       default:
+-  VisionIO visionIO = new VisionIO() {};
+         drive =
+             new Drive(
+                 new GyroIO() {},
+                 new ModuleIO() {},
+                 new ModuleIO() {},
+                 new ModuleIO() {},
+-                new ModuleIO() {},
+-                new VisionIO() {});
++                new ModuleIO() {});
++        vision = new Vision(drive::addVisionMeasurement, new VisionIO() {}, new VisionIO() {});
+         
+ 
+ 
+diff --git a/src/main/java/frc/robot/subsystems/drive/Drive.java b/src/main/java/frc/robot/subsystems/drive/Drive.java
+index 38bb1b9..5b26f8c 100644
+--- a/src/main/java/frc/robot/subsystems/drive/Drive.java
++++ b/src/main/java/frc/robot/subsystems/drive/Drive.java
+@@ -83,8 +83,8 @@ public class Drive extends SubsystemBase {
+   private final Module[] modules = new Module[4]; // FL, FR, BL, BR
+   // private final SysIdRoutine sysId;
+ 
+-  private final VisionIO visionIO;
+-  private final VisionIOInputsAutoLogged visionInputs = new VisionIOInputsAutoLogged();
++  //private final VisionIO visionIO;
++  //private final VisionIOInputsAutoLogged visionInputs = new VisionIOInputsAutoLogged();
+ 
+   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(getModuleTranslations());
+   private Rotation2d rawGyroRotation = new Rotation2d();
+@@ -120,8 +120,9 @@ public class Drive extends SubsystemBase {
+       ModuleIO flModuleIO,
+       ModuleIO frModuleIO,
+       ModuleIO blModuleIO,
+-      ModuleIO brModuleIO,
+-      VisionIO visionIO) {
++      ModuleIO brModuleIO
++      //VisionIO visionIO) {
++  ) {
+     this.gyroIO = gyroIO;
+     modules[0] = new Module(flModuleIO, 0);
+     modules[1] = new Module(frModuleIO, 1);
+@@ -129,7 +130,7 @@ public class Drive extends SubsystemBase {
+     modules[3] = new Module(brModuleIO, 3);
+     SparkMaxOdometryThread.getInstance().start();
+ 
+-    this.visionIO = visionIO;
++    //this.visionIO = visionIO;
+ 
+     try {
+       config = RobotConfig.fromGUISettings();
+@@ -319,42 +320,9 @@ public class Drive extends SubsystemBase {
+ 
+     odometry.update(rawGyroRotation, modulePositions);
+ 
+-    if (useVision) {
+-      if (RobotBase.isSimulation()) {
+-        // Use odometry as "actual robot position" in vision simulation
+-        visionIO.updateInputs(visionInputs, getPose(), odometry.getPoseMeters());
+-      } else {
+-        // Estimate current heading using the previous heading and the change in gyro angle
+-        visionIO.updateInputs(visionInputs, getPose(), getRotation().rotateBy(dtheta));
+-      }
+-      Logger.processInputs("Vision", visionInputs);
+-      if (visionInputs.hasEstimate) {
+-        List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
+-
+-        for (int i = 0; i < visionInputs.positionEstimates.length; i++) {
+-          Matrix<N3, N1> allStdDevs = stdDeviations.get(i);
+-          Matrix<N3, N1> positionStdDevs =
+-              VecBuilder.fill(allStdDevs.get(0, 0), allStdDevs.get(1, 0), Double.MAX_VALUE);
+-          Matrix<N3, N1> rotationStdDevs =
+-              VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, allStdDevs.get(2, 0));
+-
+-          if (visionInputs.positionEstimates[i].equals(new Pose2d()))
+-            continue; // Camera i has no estimate
+-          else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i)
+-            continue; // Avoids index out of bounds exceptions
+-          else {
+-            // Position and rotation estimates are done separately by different algorithms
+-            poseEstimator.addVisionMeasurement(
+-                visionInputs.positionEstimates[i], visionInputs.timestampArray[i], positionStdDevs);
+-            poseEstimator.addVisionMeasurement(
+-                new Pose2d(0, 0, visionInputs.rotationEstimates[i]),
+-                visionInputs.timestampArray[i],
+-                rotationStdDevs);
+-          }
+-        }
+-      }
++    
+ 
+-    }
++    
+ 
+     poseEstimator.updateWithTime(Timer.getFPGATimestamp(), rawGyroRotation, modulePositions);
+ 
+@@ -367,6 +335,26 @@ public class Drive extends SubsystemBase {
+     rotation.set(AllianceFlipUtil.apply(getRotation()).getDegrees());
+   }
+ 
++   @AutoLogOutput(key = "EstimatedPose")
++  public Pose2d getPose() {
++    return poseEstimator.getEstimatedPosition();
++  }
++
++  /** Returns the latest estimated rotation from the pose estimator. */
++  public Rotation2d getRotation() {
++    return getPose().getRotation();
++  }
++
++  /** Adds a new timestamped vision measurement. */
++  public void addVisionMeasurement(
++      Pose2d visionRobotPoseMeters,
++      double timestampSeconds,
++      Matrix<N3, N1> visionMeasurementStdDevs) {
++    poseEstimator.addVisionMeasurement(
++        visionRobotPoseMeters, timestampSeconds, visionMeasurementStdDevs);
++  }
++
++
+   /**
+    * Runs the drive at the desired velocity.
+    *
+@@ -478,10 +466,10 @@ public class Drive extends SubsystemBase {
+   }
+ 
+   /** Returns the current odometry pose. */
+-  @AutoLogOutput(key = "Odometry/Robot")
+-  public Pose2d getPose() {
+-    return poseEstimator.getEstimatedPosition();
+-  }
++  //@AutoLogOutput(key = "Odometry/Robot")
++  //public Pose2d getPose() {
++  //  return poseEstimator.getEstimatedPosition();
++  //}
+ 
+   public Pose2d getOdometryPose() {
+     return odometry.getPoseMeters();
+@@ -491,10 +479,10 @@ public class Drive extends SubsystemBase {
+   /* public Rotation2d getRotation() {
+     return getPose().getRotation();
+   } */
+-  @AutoLogOutput(key = "Drive/Rotation")
+-  public Rotation2d getRotation() {
+-    return getPose().getRotation();
+-  }
++  //@AutoLogOutput(key = "Drive/Rotation")
++  //public Rotation2d getRotation() {
++    //return getPose().getRotation();
++  //}
+ 
+   /** Resets the current odometry pose. */
+   public void setPose(Pose2d pose) {
+@@ -514,9 +502,7 @@ public class Drive extends SubsystemBase {
+    * @param visionPose The pose of the robot as measured by the vision camera.
+    * @param timestamp The timestamp of the vision measurement in seconds.
+    */
+-  public void addVisionMeasurement(Pose2d visionPose, double timestamp) {
+-    poseEstimator.addVisionMeasurement(visionPose, timestamp);
+-  }
++
+ 
+   public Command lockWheels() {
+     return run(() -> {
+diff --git a/src/main/java/frc/robot/subsystems/vision/Vision.java b/src/main/java/frc/robot/subsystems/vision/Vision.java
+new file mode 100644
+index 0000000..e35e8db
+--- /dev/null
++++ b/src/main/java/frc/robot/subsystems/vision/Vision.java
+@@ -0,0 +1,178 @@
++// Copyright (c) 2021-2026 Littleton Robotics
++// http://github.com/Mechanical-Advantage
++//
++// Use of this source code is governed by a BSD
++// license that can be found in the LICENSE file
++// at the root directory of this project.
++
++package frc.robot.subsystems.vision;
++
++import static frc.robot.subsystems.vision.VisionConstants.*;
++
++import edu.wpi.first.math.Matrix;
++import edu.wpi.first.math.VecBuilder;
++import edu.wpi.first.math.geometry.Pose2d;
++import edu.wpi.first.math.geometry.Pose3d;
++import edu.wpi.first.math.geometry.Rotation2d;
++import edu.wpi.first.math.numbers.N1;
++import edu.wpi.first.math.numbers.N3;
++import edu.wpi.first.wpilibj.Alert;
++import edu.wpi.first.wpilibj.Alert.AlertType;
++import edu.wpi.first.wpilibj2.command.SubsystemBase;
++import frc.robot.subsystems.vision.VisionIO.PoseObservationType;
++import java.util.LinkedList;
++import java.util.List;
++import org.littletonrobotics.junction.Logger;
++
++public class Vision extends SubsystemBase {
++  private final VisionConsumer consumer;
++  private final VisionIO[] io;
++  private final VisionIOInputsAutoLogged[] inputs;
++  private final Alert[] disconnectedAlerts;
++
++  public Vision(VisionConsumer consumer, VisionIO... io) {
++    this.consumer = consumer;
++    this.io = io;
++
++    // Initialize inputs
++    this.inputs = new VisionIOInputsAutoLogged[io.length];
++    for (int i = 0; i < inputs.length; i++) {
++      inputs[i] = new VisionIOInputsAutoLogged();
++    }
++
++    // Initialize disconnected alerts
++    this.disconnectedAlerts = new Alert[io.length];
++    for (int i = 0; i < inputs.length; i++) {
++      disconnectedAlerts[i] =
++          new Alert(
++              "Vision camera " + Integer.toString(i) + " is disconnected.", AlertType.kWarning);
++    }
++  }
++
++  /**
++   * Returns the X angle to the best target, which can be used for simple servoing with vision.
++   *
++   * @param cameraIndex The index of the camera to use.
++   */
++  public Rotation2d getTargetX(int cameraIndex) {
++    return inputs[cameraIndex].latestTargetObservation.tx();
++  }
++
++  @Override
++  public void periodic() {
++    for (int i = 0; i < io.length; i++) {
++      io[i].updateInputs(inputs[i]);
++      Logger.processInputs("Vision/Camera" + Integer.toString(i), inputs[i]);
++    }
++
++    // Initialize logging values
++    List<Pose3d> allTagPoses = new LinkedList<>();
++    List<Pose3d> allRobotPoses = new LinkedList<>();
++    List<Pose3d> allRobotPosesAccepted = new LinkedList<>();
++    List<Pose3d> allRobotPosesRejected = new LinkedList<>();
++
++    // Loop over cameras
++    for (int cameraIndex = 0; cameraIndex < io.length; cameraIndex++) {
++      // Update disconnected alert
++      disconnectedAlerts[cameraIndex].set(!inputs[cameraIndex].connected);
++
++      // Initialize logging values
++      List<Pose3d> tagPoses = new LinkedList<>();
++      List<Pose3d> robotPoses = new LinkedList<>();
++      List<Pose3d> robotPosesAccepted = new LinkedList<>();
++      List<Pose3d> robotPosesRejected = new LinkedList<>();
++
++      // Add tag poses
++      for (int tagId : inputs[cameraIndex].tagIds) {
++        var tagPose = aprilTagLayout.getTagPose(tagId);
++        if (tagPose.isPresent()) {
++          tagPoses.add(tagPose.get());
++        }
++      }
++
++      // Loop over pose observations
++      for (var observation : inputs[cameraIndex].poseObservations) {
++        // Check whether to reject pose
++        boolean rejectPose =
++            observation.tagCount() == 0 // Must have at least one tag
++                || (observation.tagCount() == 1
++                    && observation.ambiguity() > maxAmbiguity) // Cannot be high ambiguity
++                || Math.abs(observation.pose().getZ())
++                    > maxZError // Must have realistic Z coordinate
++
++                // Must be within the field boundaries
++                || observation.pose().getX() < 0.0
++                || observation.pose().getX() > aprilTagLayout.getFieldLength()
++                || observation.pose().getY() < 0.0
++                || observation.pose().getY() > aprilTagLayout.getFieldWidth();
++
++        // Add pose to log
++        robotPoses.add(observation.pose());
++        if (rejectPose) {
++          robotPosesRejected.add(observation.pose());
++        } else {
++          robotPosesAccepted.add(observation.pose());
++        }
++
++        // Skip if rejected
++        if (rejectPose) {
++          continue;
++        }
++
++        // Calculate standard deviations
++        double stdDevFactor =
++            Math.pow(observation.averageTagDistance(), 2.0) / observation.tagCount();
++        double linearStdDev = linearStdDevBaseline * stdDevFactor;
++        double angularStdDev = angularStdDevBaseline * stdDevFactor;
++        if (observation.type() == PoseObservationType.MEGATAG_2) {
++          linearStdDev *= linearStdDevMegatag2Factor;
++          angularStdDev *= angularStdDevMegatag2Factor;
++        }
++        if (cameraIndex < cameraStdDevFactors.length) {
++          linearStdDev *= cameraStdDevFactors[cameraIndex];
++          angularStdDev *= cameraStdDevFactors[cameraIndex];
++        }
++
++        // Send vision observation
++        consumer.accept(
++            observation.pose().toPose2d(),
++            observation.timestamp(),
++            VecBuilder.fill(linearStdDev, linearStdDev, angularStdDev));
++      }
++
++      // Log camera metadata
++      Logger.recordOutput(
++          "Vision/Camera" + Integer.toString(cameraIndex) + "/TagPoses",
++          tagPoses.toArray(new Pose3d[0]));
++      Logger.recordOutput(
++          "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPoses",
++          robotPoses.toArray(new Pose3d[0]));
++      Logger.recordOutput(
++          "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPosesAccepted",
++          robotPosesAccepted.toArray(new Pose3d[0]));
++      Logger.recordOutput(
++          "Vision/Camera" + Integer.toString(cameraIndex) + "/RobotPosesRejected",
++          robotPosesRejected.toArray(new Pose3d[0]));
++      allTagPoses.addAll(tagPoses);
++      allRobotPoses.addAll(robotPoses);
++      allRobotPosesAccepted.addAll(robotPosesAccepted);
++      allRobotPosesRejected.addAll(robotPosesRejected);
++    }
++
++    // Log summary data
++    Logger.recordOutput("Vision/Summary/TagPoses", allTagPoses.toArray(new Pose3d[0]));
++    Logger.recordOutput("Vision/Summary/RobotPoses", allRobotPoses.toArray(new Pose3d[0]));
++    Logger.recordOutput(
++        "Vision/Summary/RobotPosesAccepted", allRobotPosesAccepted.toArray(new Pose3d[0]));
++    Logger.recordOutput(
++        "Vision/Summary/RobotPosesRejected", allRobotPosesRejected.toArray(new Pose3d[0]));
++  }
++
++  @FunctionalInterface
++  public static interface VisionConsumer {
++    public void accept(
++        Pose2d visionRobotPoseMeters,
++        double timestampSeconds,
++        Matrix<N3, N1> visionMeasurementStdDevs);
++  }
++}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionConstants.java b/src/main/java/frc/robot/subsystems/vision/VisionConstants.java
+index b9d637e..05b0f70 100644
+--- a/src/main/java/frc/robot/subsystems/vision/VisionConstants.java
++++ b/src/main/java/frc/robot/subsystems/vision/VisionConstants.java
+@@ -1,79 +1,52 @@
++// Copyright (c) 2021-2026 Littleton Robotics
++// http://github.com/Mechanical-Advantage
++//
++// Use of this source code is governed by a BSD
++// license that can be found in the LICENSE file
++// at the root directory of this project.
++
+ package frc.robot.subsystems.vision;
+ 
+ import edu.wpi.first.apriltag.AprilTagFieldLayout;
+ import edu.wpi.first.apriltag.AprilTagFields;
+-import edu.wpi.first.math.Matrix;
+-import edu.wpi.first.math.VecBuilder;
+ import edu.wpi.first.math.geometry.Rotation3d;
+ import edu.wpi.first.math.geometry.Transform3d;
+-import edu.wpi.first.math.geometry.Translation3d;
+-import edu.wpi.first.math.numbers.N1;
+-import edu.wpi.first.math.numbers.N3;
+-import edu.wpi.first.math.util.Units;
+ 
+ public class VisionConstants {
+-  public static final String[] camNames = {
+-    "Back_Camera", "SwerveBack", "SwerveFront"
+-  };
+-  public static final int numCameras = camNames.length;
+-
+-  // Cam mounted facing forward, half a meter forward of center, half a meter up
+-  // from center.
+-  //     public static final Transform3d[] camsRobotToCam = {
+-  //       new Transform3d(
+-  //           new Translation3d(
+-  //               Units.inchesToMeters(15) - 0.0178,
+-  //               Units.inchesToMeters(0.25),
+-  //               Units.inchesToMeters(7.5)),
+-  //           new Rotation3d(0, Units.degreesToRadians(15), 0)),
+-  //       new Transform3d(
+-  //           new Translation3d(
+-  //               Units.inchesToMeters(6.4375), Units.inchesToMeters(10.5),
+-  //   Units.inchesToMeters(35)),
+-  //           new Rotation3d(
+-  //               0, Units.degreesToRadians(25.5), Units.degreesToRadians(0))),
+-  //       new Transform3d(
+-  //           new Translation3d(
+-  //               Units.inchesToMeters(6.4375), Units.inchesToMeters(-10),
+-  // Units.inchesToMeters(35)),
+-  //           new Rotation3d(
+-  //               0, Units.degreesToRadians(25.5), Units.degreesToRadians(0))),
+-  //       new Transform3d(
+-  //           new Translation3d(
+-  //               Units.inchesToMeters(1.4375), Units.inchesToMeters(0.25),
+-  //   Units.inchesToMeters(31.75)),
+-  //           new Rotation3d(0, Units.degreesToRadians(16.7), 0))
+-  //     };
+-
+-  public static final Transform3d[] camsRobotToCam = {
+-    new Transform3d(
+-        new Translation3d(
+-            Units.inchesToMeters(1.5), Units.inchesToMeters(-8.5), Units.inchesToMeters(20)),
+-        new Rotation3d(0, Units.degreesToRadians(0), Units.degreesToRadians(180))),
+-    new Transform3d(
+-        new Translation3d(
+-            Units.inchesToMeters(10.75), Units.inchesToMeters(-12.75), Units.inchesToMeters(8.5)),
+-        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(-128.75))),
+-    new Transform3d(
+-        new Translation3d(
+-            Units.inchesToMeters(12.9375), Units.inchesToMeters(-11.125), Units.inchesToMeters(8.5)),
+-        new Rotation3d(0, Units.degreesToRadians(-25), Units.degreesToRadians(28.75))),
+-  };
+-
+-  // The layout of the AprilTags on the field
+-  public static final AprilTagFieldLayout kTagLayout =
+-      AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
+-
+-  public static final double AMBIGUITY_THRESHOLD = 0.2;
+-  public static final double MAX_DISTANCE = 4; // meters
+-
+-  // The standard deviations of our vision estimated poses, which affect
+-  // correction rate
+-  // (Fake values. Experiment and determine estimation noise on an actual robot.)
+-  public static final Matrix<N3, N1> kSingleTagStdDevs = VecBuilder.fill(1, 1, 20);
+-  public static final Matrix<N3, N1> kMultiTagStdDevs = VecBuilder.fill(0.2, 0.2, 20);
+-
+-  public static Transform3d getSimVersion(Transform3d real) {
+-    return new Transform3d(real.getTranslation(), new Rotation3d(0, 0, real.getRotation().getZ()));
+-  }
++  // AprilTag layout
++  public static AprilTagFieldLayout aprilTagLayout =
++      AprilTagFieldLayout.loadField(AprilTagFields.kDefaultField);
++
++  // Camera names, must match names configured on coprocessor
++  public static String camera0Name = "camera_0";
++  public static String camera1Name = "camera_1";
++
++  // Robot to camera transforms
++  // (Not used by Limelight, configure in web UI instead)
++  public static Transform3d robotToCamera0 =
++      new Transform3d(0.2, 0.0, 0.2, new Rotation3d(0.0, -0.4, 0.0));
++  public static Transform3d robotToCamera1 =
++      new Transform3d(-0.2, 0.0, 0.2, new Rotation3d(0.0, -0.4, Math.PI));
++
++  // Basic filtering thresholds
++  public static double maxAmbiguity = 0.3;
++  public static double maxZError = 0.75;
++
++  // Standard deviation baselines, for 1 meter distance and 1 tag
++  // (Adjusted automatically based on distance and # of tags)
++  public static double linearStdDevBaseline = 0.02; // Meters
++  public static double angularStdDevBaseline = 0.06; // Radians
++
++  // Standard deviation multipliers for each camera
++  // (Adjust to trust some cameras more than others)
++  public static double[] cameraStdDevFactors =
++      new double[] {
++        1.0, // Camera 0
++        1.0 // Camera 1
++      };
++
++  // Multipliers to apply for MegaTag 2 observations
++  public static double linearStdDevMegatag2Factor = 0.5; // More stable than full 3D solve
++  public static double angularStdDevMegatag2Factor =
++      Double.POSITIVE_INFINITY; // No rotation data available
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIO.java b/src/main/java/frc/robot/subsystems/vision/VisionIO.java
+index fb8f610..b6e0fda 100644
+--- a/src/main/java/frc/robot/subsystems/vision/VisionIO.java
++++ b/src/main/java/frc/robot/subsystems/vision/VisionIO.java
+@@ -1,234 +1,43 @@
+-package frc.robot.subsystems.vision;
++// Copyright (c) 2021-2026 Littleton Robotics
++// http://github.com/Mechanical-Advantage
++//
++// Use of this source code is governed by a BSD
++// license that can be found in the LICENSE file
++// at the root directory of this project.
+ 
+-import static frc.robot.subsystems.vision.VisionConstants.kMultiTagStdDevs;
+-import static frc.robot.subsystems.vision.VisionConstants.kSingleTagStdDevs;
+-import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
+-import static frc.robot.subsystems.vision.VisionConstants.numCameras;
++package frc.robot.subsystems.vision;
+ 
+-import edu.wpi.first.math.Matrix;
+-import edu.wpi.first.math.VecBuilder;
+-import edu.wpi.first.math.geometry.Pose2d;
+ import edu.wpi.first.math.geometry.Pose3d;
+ import edu.wpi.first.math.geometry.Rotation2d;
+-import edu.wpi.first.math.numbers.N1;
+-import edu.wpi.first.math.numbers.N3;
+-import java.util.ArrayList;
+-import java.util.List;
+-import java.util.Optional;
+ import org.littletonrobotics.junction.AutoLog;
+-import org.photonvision.PhotonPoseEstimator;
+-import org.photonvision.targeting.PhotonPipelineResult;
+-import org.photonvision.targeting.PhotonTrackedTarget;
+ 
+ public interface VisionIO {
+-
+   @AutoLog
+   public static class VisionIOInputs {
+-    public Pose2d[] positionEstimates = new Pose2d[0];
+-    public Rotation2d[] rotationEstimates = new Rotation2d[0];
+-    public double timestamp = 0;
+-    public double[] timestampArray = new double[0];
+-
+-    public int[][] cameraTargets = new int[0][];
+-
+-    public boolean hasEstimate = false;
+-
+-    public byte[] results;
+-  }
+-
+-  /** Updates the set of loggable inputs. */
+-  // for real life
+-  public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Rotation2d heading) {}
+-
+-  /** Updates the set of loggable inputs. */
+-  // for sim
+-  public default void updateInputs(VisionIOInputs inputs, Pose2d estimate, Pose2d odometry) {}
+-
+-  public default PhotonPipelineResult getLatestResult(int camIndex) {
+-    return new PhotonPipelineResult();
+-  }
+-
+-  // An array containing all the current position estimates
+-  // Ordered by camera index (estimate index i corresponds to camera i)
+-  // If a camera has no estimate or its estimate isn't good enough, it is set as new Pose2d()
+-  public default Pose2d[] getEstimatesArray(
+-      PhotonPipelineResult[] results, PhotonPoseEstimator[] photonEstimator) {
+-
+-    Pose2d[] estimatesArray = new Pose2d[numCameras];
+-    for (int i = 0; i < numCameras; i++) {
+-      PhotonPipelineResult result = results[i];
+-      if (result.hasTargets()) {
+-        var est = photonEstimator[i].update(results[i]);
+-        if (est.isPresent() && goodResult(result)) {
+-          estimatesArray[i] = est.get().estimatedPose.toPose2d();
+-        } else {
+-          estimatesArray[i] = new Pose2d();
+-        }
+-      } else {
+-        estimatesArray[i] = new Pose2d();
+-      }
+-    }
+-
+-    return estimatesArray;
+-  }
+-
+-  // An array containing all the current rotation estimates
+-  // Ordered by camera index (estimate index i corresponds to camera i)
+-  // If a camera has no estimate or its estimate isn't good enough, it is set as new Rotation2d()
+-  public default Rotation2d[] getRotationEstimates(
+-      PhotonPipelineResult[] results, PhotonPoseEstimator[] estimators) {
+-
+-    Rotation2d[] estimatesArray = new Rotation2d[numCameras];
+-    for (int i = 0; i < numCameras; i++) {
+-      PhotonPipelineResult result = results[i];
+-      if (result.hasTargets()) {
+-        var est = estimators[i].update(results[i]);
+-        if (est.isPresent() && goodResult(result)) {
+-          estimatesArray[i] = est.get().estimatedPose.toPose2d().getRotation();
+-        } else {
+-          estimatesArray[i] = new Rotation2d();
+-        }
+-      } else {
+-        estimatesArray[i] = new Rotation2d();
+-      }
+-    }
+-
+-    return estimatesArray;
+-  }
+-
+-  // A list containing all current estimate standard deviations
+-  // Ordered by camera index (std dev index i corresponds to camera i)
+-  // If a camera has no targets, its corresponding std devs are set to Double.MAX_VALUE
+-  public default List<Matrix<N3, N1>> getStdArray(VisionIOInputs inputs, Pose2d currentPose) {
+-    List<Matrix<N3, N1>> stdsArray = new ArrayList<Matrix<N3, N1>>();
+-
+-    for (int i = 0; i < getCameraTargets(inputs).length; i++) {
+-      if (getCameraTargets(inputs)[i].length != 0) {
+-        stdsArray.add(getEstimationStdDevs(inputs, currentPose, i));
+-      } else {
+-        stdsArray.add(VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE));
+-      }
+-    }
+-
+-    return stdsArray;
+-  }
+-
+-  public default int[][] getCameraTargets(VisionIOInputs inputs) {
+-    return inputs.cameraTargets;
++    public boolean connected = false;
++    public TargetObservation latestTargetObservation =
++        new TargetObservation(Rotation2d.kZero, Rotation2d.kZero);
++    public PoseObservation[] poseObservations = new PoseObservation[0];
++    public int[] tagIds = new int[0];
+   }
+ 
+-  public default double estimateLatestTimestamp(PhotonPipelineResult[] results) {
+-    double latestTimestamp = 0;
+-    int count = 0;
+-    for (PhotonPipelineResult result : results) {
+-      latestTimestamp += result.getTimestampSeconds();
+-      count++;
+-    }
+-    return latestTimestamp / count;
+-  }
++  /** Represents the angle to a simple target, not used for pose estimation. */
++  public static record TargetObservation(Rotation2d tx, Rotation2d ty) {}
+ 
+-  public default boolean goodResult(PhotonPipelineResult result) {
+-    return result.hasTargets();
+-  }
++  /** Represents a robot pose sample used for pose estimation. */
++  public static record PoseObservation(
++      double timestamp,
++      Pose3d pose,
++      double ambiguity,
++      int tagCount,
++      double averageTagDistance,
++      PoseObservationType type) {}
+ 
+-  public default Pose3d[] getTargetsPositions(PhotonPipelineResult[] results) {
+-    int total_targets = 0;
+-    for (int i = 0; i < results.length; i++) {
+-      if (goodResult(results[i])) {
+-        total_targets += results[i].getTargets().size();
+-      }
+-    }
+-    Pose3d[] targets = new Pose3d[total_targets];
+-    int index = 0;
+-    for (int i = 0; i < results.length; i++) {
+-      if (goodResult(results[i])) {
+-        for (PhotonTrackedTarget target : results[i].getTargets()) {
+-          targets[index] = kTagLayout.getTagPose(target.getFiducialId()).get();
+-          index++;
+-        }
+-      }
+-    }
+-    return targets;
++  public static enum PoseObservationType {
++    MEGATAG_1,
++    MEGATAG_2,
++    PHOTONVISION
+   }
+ 
+-  public default Pose2d[] Pose3dToPose2d(Pose3d[] poses) {
+-    Pose2d[] pose2ds = new Pose2d[poses.length];
+-    for (int i = 0; i < poses.length; i++) {
+-      pose2ds[i] = poses[i].toPose2d();
+-    }
+-    return pose2ds;
+-  }
+-
+-  /**
+-   * The standard deviations of the estimated pose from {@link #getEstimatedGlobalPose()}, for use
+-   * with {@link edu.wpi.first.math.estimator.SwerveDrivePoseEstimator SwerveDrivePoseEstimator}.
+-   * This should only be used when there are targets visible.
+-   *
+-   * @param estimatedPose The estimated pose to guess standard deviations for.
+-   */
+-  public default Matrix<N3, N1> getEstimationStdDevs(
+-      VisionIOInputs inputs, Pose2d pose, int camera) {
+-    var estStdDevs = kSingleTagStdDevs;
+-    int numTags = 0;
+-    double avgDist = 0;
+-    int[] targets = getCameraTargets(inputs)[camera];
+-    for (var tgt : targets) {
+-      Optional<Pose3d> tagPose = kTagLayout.getTagPose(tgt);
+-      if (tagPose.isEmpty()) continue;
+-      numTags++;
+-      avgDist += tagPose.get().toPose2d().getTranslation().getDistance(pose.getTranslation());
+-    }
+-    if (numTags == 0) return estStdDevs;
+-    avgDist /= numTags;
+-    // Decrease std devs if multiple targets are visible
+-    if (numTags > 1) estStdDevs = kMultiTagStdDevs;
+-    // Increase std devs based on (average) distance
+-    // if (numTags == 1 && avgDist > 4) {
+-    //   estStdDevs = VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, Double.MAX_VALUE);
+-    /*} else*/ estStdDevs = estStdDevs.times(1 + (avgDist * avgDist / 15));
+-
+-    return estStdDevs;
+-  }
+-
+-  public default int[][] getCameraTargets(PhotonPipelineResult[] results) {
+-    int[][] targets = new int[results.length][];
+-
+-    for (int i = 0; i < results.length; i++) {
+-      targets[i] = new int[results[i].targets.size()];
+-      for (int j = 0; j < results[i].targets.size(); j++) {
+-        targets[i][j] = results[i].targets.get(j).getFiducialId();
+-      }
+-    }
+-
+-    return targets;
+-  }
+-
+-  public default int tagCounts(PhotonPipelineResult[] results) {
+-    int tags = 0;
+-    for (PhotonPipelineResult result : results) {
+-      tags += result.targets.size();
+-    }
+-    return tags;
+-  }
+-
+-  // An array containing all latest camera result timestamps
+-  // Ordered by camera index (timestamp index i corresponds to camera i)
+-  public default double[] getTimestampArray(PhotonPipelineResult[] results) {
+-    double[] timestampArray = new double[VisionConstants.numCameras];
+-
+-    for (int i = 0; i < numCameras; i++) {
+-      timestampArray[i] = results[i].getTimestampSeconds();
+-    }
+-
+-    return timestampArray;
+-  }
+-
+-  public default boolean hasEstimate(PhotonPipelineResult[] results) {
+-    for (PhotonPipelineResult result : results) {
+-      if (result.hasTargets()) {
+-        return true;
+-      }
+-    }
+-    return false;
+-  }
++  public default void updateInputs(VisionIOInputs inputs) {}
+ }
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOLimelight.java b/src/main/java/frc/robot/subsystems/vision/VisionIOLimelight.java
+new file mode 100644
+index 0000000..2d3221e
+--- /dev/null
++++ b/src/main/java/frc/robot/subsystems/vision/VisionIOLimelight.java
+@@ -0,0 +1,152 @@
++// Copyright (c) 2021-2026 Littleton Robotics
++// http://github.com/Mechanical-Advantage
++//
++// Use of this source code is governed by a BSD
++// license that can be found in the LICENSE file
++// at the root directory of this project.
++
++package frc.robot.subsystems.vision;
++
++import edu.wpi.first.math.geometry.Pose3d;
++import edu.wpi.first.math.geometry.Rotation2d;
++import edu.wpi.first.math.geometry.Rotation3d;
++import edu.wpi.first.math.util.Units;
++import edu.wpi.first.networktables.DoubleArrayPublisher;
++import edu.wpi.first.networktables.DoubleArraySubscriber;
++import edu.wpi.first.networktables.DoubleSubscriber;
++import edu.wpi.first.networktables.NetworkTableInstance;
++import edu.wpi.first.wpilibj.RobotController;
++import java.util.HashSet;
++import java.util.LinkedList;
++import java.util.List;
++import java.util.Set;
++import java.util.function.Supplier;
++
++/** IO implementation for real Limelight hardware. */
++public class VisionIOLimelight implements VisionIO {
++  private final Supplier<Rotation2d> rotationSupplier;
++  private final DoubleArrayPublisher orientationPublisher;
++
++  private final DoubleSubscriber latencySubscriber;
++  private final DoubleSubscriber txSubscriber;
++  private final DoubleSubscriber tySubscriber;
++  private final DoubleArraySubscriber megatag1Subscriber;
++  private final DoubleArraySubscriber megatag2Subscriber;
++
++  /**
++   * Creates a new VisionIOLimelight.
++   *
++   * @param name The configured name of the Limelight.
++   * @param rotationSupplier Supplier for the current estimated rotation, used for MegaTag 2.
++   */
++  public VisionIOLimelight(String name, Supplier<Rotation2d> rotationSupplier) {
++    var table = NetworkTableInstance.getDefault().getTable(name);
++    this.rotationSupplier = rotationSupplier;
++    orientationPublisher = table.getDoubleArrayTopic("robot_orientation_set").publish();
++    latencySubscriber = table.getDoubleTopic("tl").subscribe(0.0);
++    txSubscriber = table.getDoubleTopic("tx").subscribe(0.0);
++    tySubscriber = table.getDoubleTopic("ty").subscribe(0.0);
++    megatag1Subscriber = table.getDoubleArrayTopic("botpose_wpiblue").subscribe(new double[] {});
++    megatag2Subscriber =
++        table.getDoubleArrayTopic("botpose_orb_wpiblue").subscribe(new double[] {});
++  }
++
++  @Override
++  public void updateInputs(VisionIOInputs inputs) {
++    // Update connection status based on whether an update has been seen in the last
++    // 250ms
++    inputs.connected =
++        ((RobotController.getFPGATime() - latencySubscriber.getLastChange()) / 1000) < 250;
++
++    // Update target observation
++    inputs.latestTargetObservation =
++        new TargetObservation(
++            Rotation2d.fromDegrees(txSubscriber.get()), Rotation2d.fromDegrees(tySubscriber.get()));
++
++    // Update orientation for MegaTag 2
++    orientationPublisher.accept(
++        new double[] {rotationSupplier.get().getDegrees(), 0.0, 0.0, 0.0, 0.0, 0.0});
++    NetworkTableInstance.getDefault()
++        .flush(); // Increases network traffic but recommended by Limelight
++
++    // Read new pose observations from NetworkTables
++    Set<Integer> tagIds = new HashSet<>();
++    List<PoseObservation> poseObservations = new LinkedList<>();
++    for (var rawSample : megatag1Subscriber.readQueue()) {
++      if (rawSample.value.length == 0) continue;
++      for (int i = 11; i < rawSample.value.length; i += 7) {
++        tagIds.add((int) rawSample.value[i]);
++      }
++      poseObservations.add(
++          new PoseObservation(
++              // Timestamp, based on server timestamp of publish and latency
++              rawSample.timestamp * 1.0e-6 - rawSample.value[6] * 1.0e-3,
++
++              // 3D pose estimate
++              parsePose(rawSample.value),
++
++              // Ambiguity, using only the first tag because ambiguity isn't applicable for
++              // multitag
++              rawSample.value.length >= 18 ? rawSample.value[17] : 0.0,
++
++              // Tag count
++              (int) rawSample.value[7],
++
++              // Average tag distance
++              rawSample.value[9],
++
++              // Observation type
++              PoseObservationType.MEGATAG_1));
++    }
++    for (var rawSample : megatag2Subscriber.readQueue()) {
++      if (rawSample.value.length == 0) continue;
++      for (int i = 11; i < rawSample.value.length; i += 7) {
++        tagIds.add((int) rawSample.value[i]);
++      }
++      poseObservations.add(
++          new PoseObservation(
++              // Timestamp, based on server timestamp of publish and latency
++              rawSample.timestamp * 1.0e-6 - rawSample.value[6] * 1.0e-3,
++
++              // 3D pose estimate
++              parsePose(rawSample.value),
++
++              // Ambiguity, zeroed because the pose is already disambiguated
++              0.0,
++
++              // Tag count
++              (int) rawSample.value[7],
++
++              // Average tag distance
++              rawSample.value[9],
++
++              // Observation type
++              PoseObservationType.MEGATAG_2));
++    }
++
++    // Save pose observations to inputs object
++    inputs.poseObservations = new PoseObservation[poseObservations.size()];
++    for (int i = 0; i < poseObservations.size(); i++) {
++      inputs.poseObservations[i] = poseObservations.get(i);
++    }
++
++    // Save tag IDs to inputs objects
++    inputs.tagIds = new int[tagIds.size()];
++    int i = 0;
++    for (int id : tagIds) {
++      inputs.tagIds[i++] = id;
++    }
++  }
++
++  /** Parses the 3D pose from a Limelight botpose array. */
++  private static Pose3d parsePose(double[] rawLLArray) {
++    return new Pose3d(
++        rawLLArray[0],
++        rawLLArray[1],
++        rawLLArray[2],
++        new Rotation3d(
++            Units.degreesToRadians(rawLLArray[3]),
++            Units.degreesToRadians(rawLLArray[4]),
++            Units.degreesToRadians(rawLLArray[5])));
++  }
++}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java b/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java
+deleted file mode 100644
+index 67948c1..0000000
+--- a/src/main/java/frc/robot/subsystems/vision/VisionIOPhoton.java
++++ /dev/null
+@@ -1,197 +0,0 @@
+-package frc.robot.subsystems.vision;
+-
+-import static frc.robot.subsystems.vision.VisionConstants.AMBIGUITY_THRESHOLD;
+-import static frc.robot.subsystems.vision.VisionConstants.camNames;
+-import static frc.robot.subsystems.vision.VisionConstants.camsRobotToCam;
+-import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
+-import static frc.robot.subsystems.vision.VisionConstants.numCameras;
+-
+-import edu.wpi.first.math.geometry.Pose2d;
+-import edu.wpi.first.math.geometry.Pose3d;
+-import edu.wpi.first.math.geometry.Rotation2d;
+-import edu.wpi.first.net.PortForwarder;
+-import edu.wpi.first.wpilibj.Timer;
+-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+-import org.littletonrobotics.junction.Logger;
+-import org.littletonrobotics.junction.networktables.LoggedNetworkBoolean;
+-import org.photonvision.PhotonCamera;
+-import org.photonvision.PhotonPoseEstimator;
+-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+-import org.photonvision.targeting.PhotonPipelineResult;
+-import org.photonvision.targeting.PhotonTrackedTarget;
+-
+-public class VisionIOPhoton implements VisionIO {
+-  private final PhotonCamera[] cameras = new PhotonCamera[numCameras];
+-  private final PhotonPoseEstimator[] positionEstimators = new PhotonPoseEstimator[numCameras];
+-  private final PhotonPoseEstimator[] rotationEstimators = new PhotonPoseEstimator[numCameras];
+-  private final PhotonPipelineResult[] cameraResults = new PhotonPipelineResult[numCameras];
+-
+-  private Pose2d lastEstimate = new Pose2d();
+-
+-  LoggedNetworkBoolean killSideCams =
+-      new LoggedNetworkBoolean("/SmartDashboard/Vision/KillSideCams", false);
+-
+-  public VisionIOPhoton() {
+-    PortForwarder.add(5800, "photonvision.local", 5800);
+-
+-    for (int i = 0; i < numCameras; i++) {
+-      cameras[i] = new PhotonCamera(camNames[i]);
+-
+-      positionEstimators[i] =
+-          new PhotonPoseEstimator(
+-              kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
+-      positionEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+-
+-      // These estimators are used specifically to mitigate gyro drifting
+-      // LOWEST_AMBIGUITY is unreliable at estimating position but any additional rotation data is
+-      // worth it
+-      rotationEstimators[i] =
+-          new PhotonPoseEstimator(
+-              kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
+-      rotationEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.LOWEST_AMBIGUITY);
+-
+-      cameraResults[i] = new PhotonPipelineResult();
+-    }
+-
+-    SmartDashboard.putBoolean("KillSideCams", false);
+-  }
+-
+-  @Override
+-  public void updateInputs(VisionIOInputs inputs, Pose2d currentEstimate, Rotation2d heading) {
+-    lastEstimate = currentEstimate;
+-
+-    PhotonPipelineResult[] results = getAprilTagResults();
+-    PhotonPoseEstimator[] photonEstimators = getPositionEstimators(currentEstimate, heading);
+-    PhotonPoseEstimator[] photonRotationEstimators = getRotationEstimators(currentEstimate);
+-
+-    inputs.positionEstimates = new Pose2d[] {new Pose2d()};
+-    inputs.rotationEstimates = new Rotation2d[] {heading};
+-
+-    // add code to check if the closest target is in front or back
+-    inputs.timestamp = estimateLatestTimestamp(results);
+-
+-    inputs.timestampArray = getTimestampArray(results);
+-
+-    if (hasEstimate(results)) {
+-      // inputs.results = results;
+-      inputs.positionEstimates = getEstimatesArray(results, photonEstimators);
+-      inputs.rotationEstimates = getRotationEstimates(results, photonRotationEstimators);
+-      inputs.hasEstimate = true;
+-
+-      inputs.cameraTargets = getCameraTargets(results);
+-
+-      Pose3d[] tags = getTargetsPositions(results);
+-      Logger.recordOutput("Vision/Targets3D", tags);
+-      Logger.recordOutput("Vision/Targets", Pose3dToPose2d(tags));
+-      Logger.recordOutput("Vision/TagCounts", tagCounts(results));
+-    } else {
+-      inputs.timestamp = inputs.timestamp;
+-      inputs.hasEstimate = false;
+-    }
+-
+-    // Log if the robot code can see these cameras
+-    for (int i = 0; i < numCameras; i++) {
+-      Logger.recordOutput("Vision/cam" + (i + 1) + "/Connected", cameras[i].isConnected());
+-    }
+-  }
+-
+-  @Override
+-  public PhotonPipelineResult getLatestResult(int camIndex) {
+-    if (camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
+-
+-    var unreadResults = cameras[camIndex].getAllUnreadResults();
+-    double latestTimestamp = 0;
+-
+-    if (unreadResults.size() == 0) {
+-      return cameraResults[camIndex];
+-    }
+-
+-    for (var result : unreadResults) {
+-      if (result.getTimestampSeconds() > latestTimestamp) {
+-        latestTimestamp = result.getTimestampSeconds();
+-        cameraResults[camIndex] = result;
+-      }
+-    }
+-
+-    return cameraResults[camIndex];
+-  }
+-
+-  private PhotonPipelineResult[] getAprilTagResults() {
+-    if (killSideCams.get()) {
+-      PhotonPipelineResult cam1_result = getLatestResult(0);
+-
+-      printStuff("cam1", cam1_result);
+-
+-      return new PhotonPipelineResult[] {cam1_result};
+-    }
+-
+-    PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];
+-
+-    for (int i = 0; i < numCameras; i++) {
+-      results[i] = getLatestResult(i);
+-      printStuff("cam" + (i + 1), results[i]);
+-    }
+-
+-    return results;
+-  }
+-
+-  private void printStuff(String name, PhotonPipelineResult result) {
+-    Logger.recordOutput("Vision/" + name + "/results", result.getTargets().size());
+-
+-    PhotonTrackedTarget target = result.getBestTarget();
+-    if (target != null) {
+-      Logger.recordOutput(
+-          "Vision/" + name + "/PoseAmbiguity", result.getBestTarget().getPoseAmbiguity());
+-      Logger.recordOutput("Vision/" + name + "/Yaw", result.getBestTarget().getYaw());
+-    }
+-  }
+-
+-  private PhotonPoseEstimator[] getPositionEstimators(Pose2d currentEstimate, Rotation2d heading) {
+-    if (killSideCams.get()) {
+-      positionEstimators[0].setReferencePose(currentEstimate);
+-      positionEstimators[0].addHeadingData(Timer.getFPGATimestamp(), heading);
+-
+-      return new PhotonPoseEstimator[] {positionEstimators[0]};
+-    }
+-
+-    for (PhotonPoseEstimator estimator : positionEstimators) {
+-      estimator.setReferencePose(currentEstimate);
+-      estimator.addHeadingData(Timer.getFPGATimestamp(), heading);
+-    }
+-
+-    return positionEstimators;
+-  }
+-
+-  private PhotonPoseEstimator[] getRotationEstimators(Pose2d currentEstimate) {
+-    if (killSideCams.get()) {
+-      rotationEstimators[0].setReferencePose(currentEstimate);
+-
+-      return new PhotonPoseEstimator[] {rotationEstimators[0]};
+-    }
+-
+-    for (PhotonPoseEstimator estimator : rotationEstimators) {
+-      estimator.setReferencePose(currentEstimate);
+-    }
+-
+-    return rotationEstimators;
+-  }
+-
+-  @Override
+-  public boolean goodResult(PhotonPipelineResult result) {
+-    return result.hasTargets() && result.getBestTarget().getPoseAmbiguity() < AMBIGUITY_THRESHOLD
+-    /*
+-     * && kTagLayout.
+-     * getTagPose(
+-     * result.
+-     * getBestTarget().
+-     * getFiducialId())
+-     * .get().toPose2d(
+-     * ).getTranslation
+-     * ()
+-     * .getDistance(
+-     * lastEstimate.
+-     * getTranslation()
+-     * ) < MAX_DISTANCE
+-     */ ;
+-  }
+-}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOPhotonVision.java b/src/main/java/frc/robot/subsystems/vision/VisionIOPhotonVision.java
+new file mode 100644
+index 0000000..dc856dd
+--- /dev/null
++++ b/src/main/java/frc/robot/subsystems/vision/VisionIOPhotonVision.java
+@@ -0,0 +1,125 @@
++// Copyright (c) 2021-2026 Littleton Robotics
++// http://github.com/Mechanical-Advantage
++//
++// Use of this source code is governed by a BSD
++// license that can be found in the LICENSE file
++// at the root directory of this project.
++
++package frc.robot.subsystems.vision;
++
++import static frc.robot.subsystems.vision.VisionConstants.*;
++
++import edu.wpi.first.math.geometry.Pose3d;
++import edu.wpi.first.math.geometry.Rotation2d;
++import edu.wpi.first.math.geometry.Transform3d;
++import java.util.HashSet;
++import java.util.LinkedList;
++import java.util.List;
++import java.util.Set;
++import org.photonvision.PhotonCamera;
++
++/** IO implementation for real PhotonVision hardware. */
++public class VisionIOPhotonVision implements VisionIO {
++  protected final PhotonCamera camera;
++  protected final Transform3d robotToCamera;
++
++  /**
++   * Creates a new VisionIOPhotonVision.
++   *
++   * @param name The configured name of the camera.
++   * @param robotToCamera The 3D position of the camera relative to the robot.
++   */
++  public VisionIOPhotonVision(String name, Transform3d robotToCamera) {
++    camera = new PhotonCamera(name);
++    this.robotToCamera = robotToCamera;
++  }
++
++  @Override
++  public void updateInputs(VisionIOInputs inputs) {
++    inputs.connected = camera.isConnected();
++
++    // Read new camera observations
++    Set<Short> tagIds = new HashSet<>();
++    List<PoseObservation> poseObservations = new LinkedList<>();
++    for (var result : camera.getAllUnreadResults()) {
++      // Update latest target observation
++      if (result.hasTargets()) {
++        inputs.latestTargetObservation =
++            new TargetObservation(
++                Rotation2d.fromDegrees(result.getBestTarget().getYaw()),
++                Rotation2d.fromDegrees(result.getBestTarget().getPitch()));
++      } else {
++        inputs.latestTargetObservation = new TargetObservation(Rotation2d.kZero, Rotation2d.kZero);
++      }
++
++      // Add pose observation
++      if (result.multitagResult.isPresent()) { // Multitag result
++        var multitagResult = result.multitagResult.get();
++
++        // Calculate robot pose
++        Transform3d fieldToCamera = multitagResult.estimatedPose.best;
++        Transform3d fieldToRobot = fieldToCamera.plus(robotToCamera.inverse());
++        Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
++
++        // Calculate average tag distance
++        double totalTagDistance = 0.0;
++        for (var target : result.targets) {
++          totalTagDistance += target.bestCameraToTarget.getTranslation().getNorm();
++        }
++
++        // Add tag IDs
++        tagIds.addAll(multitagResult.fiducialIDsUsed);
++
++        // Add observation
++        poseObservations.add(
++            new PoseObservation(
++                result.getTimestampSeconds(), // Timestamp
++                robotPose, // 3D pose estimate
++                multitagResult.estimatedPose.ambiguity, // Ambiguity
++                multitagResult.fiducialIDsUsed.size(), // Tag count
++                totalTagDistance / result.targets.size(), // Average tag distance
++                PoseObservationType.PHOTONVISION)); // Observation type
++
++      } else if (!result.targets.isEmpty()) { // Single tag result
++        var target = result.targets.get(0);
++
++        // Calculate robot pose
++        var tagPose = aprilTagLayout.getTagPose(target.fiducialId);
++        if (tagPose.isPresent()) {
++          Transform3d fieldToTarget =
++              new Transform3d(tagPose.get().getTranslation(), tagPose.get().getRotation());
++          Transform3d cameraToTarget = target.bestCameraToTarget;
++          Transform3d fieldToCamera = fieldToTarget.plus(cameraToTarget.inverse());
++          Transform3d fieldToRobot = fieldToCamera.plus(robotToCamera.inverse());
++          Pose3d robotPose = new Pose3d(fieldToRobot.getTranslation(), fieldToRobot.getRotation());
++
++          // Add tag ID
++          tagIds.add((short) target.fiducialId);
++
++          // Add observation
++          poseObservations.add(
++              new PoseObservation(
++                  result.getTimestampSeconds(), // Timestamp
++                  robotPose, // 3D pose estimate
++                  target.poseAmbiguity, // Ambiguity
++                  1, // Tag count
++                  cameraToTarget.getTranslation().getNorm(), // Average tag distance
++                  PoseObservationType.PHOTONVISION)); // Observation type
++        }
++      }
++    }
++
++    // Save pose observations to inputs object
++    inputs.poseObservations = new PoseObservation[poseObservations.size()];
++    for (int i = 0; i < poseObservations.size(); i++) {
++      inputs.poseObservations[i] = poseObservations.get(i);
++    }
++
++    // Save tag IDs to inputs objects
++    inputs.tagIds = new int[tagIds.size()];
++    int i = 0;
++    for (int id : tagIds) {
++      inputs.tagIds[i++] = id;
++    }
++  }
++}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOPhotonVisionSim.java b/src/main/java/frc/robot/subsystems/vision/VisionIOPhotonVisionSim.java
+new file mode 100644
+index 0000000..d415fd3
+--- /dev/null
++++ b/src/main/java/frc/robot/subsystems/vision/VisionIOPhotonVisionSim.java
+@@ -0,0 +1,54 @@
++// Copyright (c) 2021-2026 Littleton Robotics
++// http://github.com/Mechanical-Advantage
++//
++// Use of this source code is governed by a BSD
++// license that can be found in the LICENSE file
++// at the root directory of this project.
++
++package frc.robot.subsystems.vision;
++
++import static frc.robot.subsystems.vision.VisionConstants.aprilTagLayout;
++
++import edu.wpi.first.math.geometry.Pose2d;
++import edu.wpi.first.math.geometry.Transform3d;
++import java.util.function.Supplier;
++import org.photonvision.simulation.PhotonCameraSim;
++import org.photonvision.simulation.SimCameraProperties;
++import org.photonvision.simulation.VisionSystemSim;
++
++/** IO implementation for physics sim using PhotonVision simulator. */
++public class VisionIOPhotonVisionSim extends VisionIOPhotonVision {
++  private static VisionSystemSim visionSim;
++
++  private final Supplier<Pose2d> poseSupplier;
++  private final PhotonCameraSim cameraSim;
++
++  /**
++   * Creates a new VisionIOPhotonVisionSim.
++   *
++   * @param name The name of the camera.
++   * @param poseSupplier Supplier for the robot pose to use in simulation.
++   */
++  public VisionIOPhotonVisionSim(
++      String name, Transform3d robotToCamera, Supplier<Pose2d> poseSupplier) {
++    super(name, robotToCamera);
++    this.poseSupplier = poseSupplier;
++
++    // Initialize vision sim
++    if (visionSim == null) {
++      visionSim = new VisionSystemSim("main");
++      visionSim.addAprilTags(aprilTagLayout);
++    }
++
++    // Add sim camera
++    var cameraProperties = new SimCameraProperties();
++    cameraSim = new PhotonCameraSim(camera, cameraProperties, aprilTagLayout);
++    visionSim.addCamera(cameraSim, robotToCamera);
++  }
++
++  @Override
++  public void updateInputs(VisionIOInputs inputs) {
++    visionSim.update(poseSupplier.get());
++    super.updateInputs(inputs);
++  }
++}
+\ No newline at end of file
+diff --git a/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java b/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java
+deleted file mode 100644
+index ceeaf82..0000000
+--- a/src/main/java/frc/robot/subsystems/vision/VisionIOSim.java
++++ /dev/null
+@@ -1,169 +0,0 @@
+-package frc.robot.subsystems.vision;
+-
+-import static frc.robot.subsystems.vision.VisionConstants.AMBIGUITY_THRESHOLD;
+-import static frc.robot.subsystems.vision.VisionConstants.camNames;
+-import static frc.robot.subsystems.vision.VisionConstants.camsRobotToCam;
+-import static frc.robot.subsystems.vision.VisionConstants.kTagLayout;
+-import static frc.robot.subsystems.vision.VisionConstants.numCameras;
+-
+-import edu.wpi.first.math.geometry.Pose2d;
+-import edu.wpi.first.math.geometry.Pose3d;
+-import edu.wpi.first.math.geometry.Rotation2d;
+-import edu.wpi.first.wpilibj.Timer;
+-import edu.wpi.first.wpilibj.smartdashboard.Field2d;
+-import org.littletonrobotics.junction.Logger;
+-import org.photonvision.PhotonCamera;
+-import org.photonvision.PhotonPoseEstimator;
+-import org.photonvision.PhotonPoseEstimator.PoseStrategy;
+-import org.photonvision.simulation.PhotonCameraSim;
+-import org.photonvision.simulation.SimCameraProperties;
+-import org.photonvision.simulation.VisionSystemSim;
+-import org.photonvision.targeting.PhotonPipelineResult;
+-
+-public class VisionIOSim implements VisionIO {
+-  private final PhotonCamera[] cameras = new PhotonCamera[numCameras];
+-  private final PhotonPoseEstimator[] camEstimators = new PhotonPoseEstimator[numCameras];
+-  private PhotonCameraSim[] camSims = new PhotonCameraSim[numCameras];
+-  private PhotonPipelineResult[] cameraResults = new PhotonPipelineResult[numCameras];
+-
+-  private VisionSystemSim visionSim;
+-
+-  private Pose2d lastEstimate = new Pose2d();
+-
+-  public VisionIOSim() {
+-    for (int i = 0; i < numCameras; i++) {
+-      cameras[i] = new PhotonCamera(camNames[i]);
+-      camEstimators[i] =
+-          new PhotonPoseEstimator(
+-              kTagLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR, camsRobotToCam[i]);
+-      camEstimators[i].setMultiTagFallbackStrategy(PoseStrategy.PNP_DISTANCE_TRIG_SOLVE);
+-      cameraResults[i] = new PhotonPipelineResult();
+-    }
+-
+-    // Create the vision system simulation which handles cam1s and targets on the
+-    // field.
+-    visionSim = new VisionSystemSim("main");
+-    // Add all the AprilTags inside the tag layout as visible targets to this
+-    // simulated field.
+-    visionSim.addAprilTags(kTagLayout);
+-    // Create simulated cam1 properties. These can be set to mimic your actual
+-    // cam1.
+-
+-    SimCameraProperties[] camProps = new SimCameraProperties[numCameras];
+-
+-    for (int i = 0; i < numCameras; i++) {
+-      camProps[i] = new SimCameraProperties();
+-      camProps[i].setCalibError(0.35, 0.10);
+-      camProps[i].setAvgLatencyMs(50);
+-      camProps[i].setLatencyStdDevMs(15);
+-    }
+-
+-    camProps[0].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+-    camProps[0].setFPS(40);
+-    camProps[1].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+-    camProps[1].setFPS(20);
+-    camProps[2].setCalibration(480, 320, Rotation2d.fromDegrees(70));
+-    camProps[2].setFPS(20);
+-
+-    // Create a PhotonCameraSim which will update the linked PhotonCamera's values
+-    // with visible
+-    // targets.
+-    for (int i = 0; i < numCameras; i++) {
+-      camSims[i] = new PhotonCameraSim(cameras[i], camProps[i]);
+-      visionSim.addCamera(camSims[i], camsRobotToCam[i]);
+-    }
+-  }
+-
+-  @Override
+-  public void updateInputs(VisionIOInputs inputs, Pose2d currentEstimate, Pose2d odometry) {
+-    lastEstimate = currentEstimate;
+-    visionSim.update(odometry);
+-
+-    for (PhotonPoseEstimator estimator : camEstimators) {
+-      estimator.setReferencePose(currentEstimate);
+-      estimator.addHeadingData(Timer.getFPGATimestamp(), odometry.getRotation());
+-    }
+-
+-    PhotonPipelineResult[] results = new PhotonPipelineResult[numCameras];
+-
+-    for (int i = 0; i < numCameras; i++) {
+-      results[i] = getLatestResult(i);
+-    }
+-
+-    inputs.positionEstimates = new Pose2d[] {new Pose2d()};
+-    inputs.rotationEstimates = new Rotation2d[] {odometry.getRotation()};
+-
+-    // add code to check if the closest target is in front or back
+-    inputs.timestamp = estimateLatestTimestamp(results);
+-
+-    inputs.timestampArray = getTimestampArray(results);
+-
+-    if (hasEstimate(results)) {
+-      inputs.positionEstimates = getEstimatesArray(results, camEstimators);
+-      inputs.rotationEstimates = getRotationEstimates(odometry);
+-      inputs.hasEstimate = true;
+-
+-      inputs.cameraTargets = getCameraTargets(results);
+-
+-      Pose3d[] tags = getTargetsPositions(results);
+-      Logger.recordOutput("Vision/Targets3D", tags);
+-      Logger.recordOutput("Vision/Targets", Pose3dToPose2d(tags));
+-      Logger.recordOutput("Vision/TagCounts", tagCounts(results));
+-    } else {
+-      inputs.timestamp = inputs.timestamp;
+-      inputs.hasEstimate = false;
+-    }
+-
+-    Logger.recordOutput("Vision/OrangeConnected", cameras[0].isConnected());
+-    Logger.recordOutput("Vision/RaspberryConnected", cameras[1].isConnected());
+-    Logger.recordOutput("Vision/Raspberry2Connected", cameras[2].isConnected());
+-  }
+-
+-  @Override
+-  public PhotonPipelineResult getLatestResult(int camIndex) {
+-    if (camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
+-
+-    var unreadResults = cameras[camIndex].getAllUnreadResults();
+-    double latestTimestamp = 0;
+-
+-    if (unreadResults.size() == 0) {
+-      return cameraResults[camIndex];
+-    }
+-
+-    for (var result : unreadResults) {
+-      if (result.getTimestampSeconds() > latestTimestamp) {
+-        latestTimestamp = result.getTimestampSeconds();
+-        cameraResults[camIndex] = result;
+-      }
+-    }
+-
+-    return cameraResults[camIndex];
+-  }
+-
+-  private Rotation2d[] getRotationEstimates(Pose2d referencePose) {
+-    Rotation2d[] rotationEstimates = new Rotation2d[numCameras];
+-
+-    for (int i = 0; i < numCameras; i++) {
+-      rotationEstimates[i] = referencePose.getRotation();
+-    }
+-
+-    return rotationEstimates;
+-  }
+-
+-  /** A Field2d for visualizing our robot and objects on the field. */
+-  public Field2d getSimDebugField() {
+-    return visionSim.getDebugField();
+-  }
+-
+-  @Override
+-  public boolean goodResult(PhotonPipelineResult result) {
+-    return result.hasTargets() && result.getBestTarget().getPoseAmbiguity() < AMBIGUITY_THRESHOLD;
+-    // && kTagLayout
+-    //         .getTagPose(result.getBestTarget().getFiducialId())
+-    //         .get()
+-    //         .toPose2d()
+-    //         .getTranslation()
+-    //         .getDistance(lastEstimate.getTranslation())
+-    //     < MAX_DISTANCE;
+-  }
+-}
+\ No newline at end of file

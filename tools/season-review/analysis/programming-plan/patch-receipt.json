@@ -1,0 +1,35 @@
+{
+  "base_head": "f1a5fe50d65188cd047efaab31455f381f28a509",
+  "unapplied": true,
+  "compile_tested": false,
+  "patches": [
+    {
+      "patch": "01-auto-deadline.patch",
+      "source": "src/main/java/frc/robot/util/autonomous/AutoChooser.java",
+      "source_sha256": "287b0c689894aa1d74f29ce8f940ab077f537bfb83c78528d6a63b29bb7ead2d",
+      "apply_check_passed": true,
+      "diagnostic": ""
+    },
+    {
+      "patch": "02-heading-wrap.patch",
+      "source": "src/main/java/frc/robot/subsystems/drive/Drive.java",
+      "source_sha256": "3a1eba268ea78d9629fbfc74406b7fcdf73e07e92f3a962e8d25b4dde889eb61",
+      "apply_check_passed": true,
+      "diagnostic": ""
+    },
+    {
+      "patch": "03-vision-bounds.patch",
+      "source": "src/main/java/frc/robot/subsystems/drive/Drive.java",
+      "source_sha256": "3a1eba268ea78d9629fbfc74406b7fcdf73e07e92f3a962e8d25b4dde889eb61",
+      "apply_check_passed": true,
+      "diagnostic": ""
+    },
+    {
+      "patch": "04-intake-stop-on-cancel.patch",
+      "source": "src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java",
+      "source_sha256": "e9f5e14a16974eabf447ded35aaabdfb42627fd330eb3ce75fc68dd50c614894",
+      "apply_check_passed": true,
+      "diagnostic": ""
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+commit 3189eff2507e8035d78510e5b1cf7ee75dc158d9
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Sat Mar 21 18:04:04 2026 -0400
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Sat Mar 21 18:04:04 2026 -0400
+
+    Got rid of the timeout
+
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 618cccf..43c182e 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -283,7 +283,7 @@ public class RobotContainer {
+       flywheel.runTargetedCommand(drive::getPose)
+       .alongWith(hood.runTargetedCommand(drive::getPose))
+       .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal())).withTimeout(1.5)
++      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
+         .andThen(kicker.runIntake()
+         .alongWith(activeFloor.runActiveFloor())
+         .alongWith(hopperPivot.runAgitate())

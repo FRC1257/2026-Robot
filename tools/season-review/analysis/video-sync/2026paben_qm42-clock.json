@@ -1,0 +1,586 @@
+{
+  "match": "2026paben_qm42",
+  "url": "https://www.youtube.com/watch?v=6xcDmugPbdo",
+  "video_id": "6xcDmugPbdo",
+  "title": "QM42 2026 Bensalem Event",
+  "publisher": "FIRST Mid-Atlantic",
+  "duration_s": 218,
+  "upload_date": "20260328",
+  "file": "videos/6xcDmugPbdo.mp4",
+  "video_sha256": "ddcdbab1a05b0f9018376c98f3b479d9f1708091f4ed365063f8e676e7f68121",
+  "recorded_at_utc": "2026-10-16T23:17:52.259357+00:00",
+  "rights": "Local research copy; redistribution permission not established",
+  "ocr_engine": "tesseract 5.5.2",
+  "samples": [
+    {
+      "video_s": 0.0,
+      "text": "0:19",
+      "clock": 19,
+      "image": "videos/clock-frames/2026paben_qm42/first-00001.png"
+    },
+    {
+      "video_s": 0.5,
+      "text": "0:19",
+      "clock": 19,
+      "image": "videos/clock-frames/2026paben_qm42/first-00002.png"
+    },
+    {
+      "video_s": 1.0,
+      "text": "0:18",
+      "clock": 18,
+      "image": "videos/clock-frames/2026paben_qm42/first-00003.png"
+    },
+    {
+      "video_s": 1.5,
+      "text": "0:18",
+      "clock": 18,
+      "image": "videos/clock-frames/2026paben_qm42/first-00004.png"
+    },
+    {
+      "video_s": 2.0,
+      "text": "0:17",
+      "clock": 17,
+      "image": "videos/clock-frames/2026paben_qm42/first-00005.png"
+    },
+    {
+      "video_s": 2.5,
+      "text": "0:17",
+      "clock": 17,
+      "image": "videos/clock-frames/2026paben_qm42/first-00006.png"
+    },
+    {
+      "video_s": 3.0,
+      "text": "0:16:",
+      "clock": 16,
+      "image": "videos/clock-frames/2026paben_qm42/first-00007.png"
+    },
+    {
+      "video_s": 3.5,
+      "text": "0:16:",
+      "clock": 16,
+      "image": "videos/clock-frames/2026paben_qm42/first-00008.png"
+    },
+    {
+      "video_s": 4.0,
+      "text": "0:15",
+      "clock": 15,
+      "image": "videos/clock-frames/2026paben_qm42/first-00009.png"
+    },
+    {
+      "video_s": 4.5,
+      "text": "0:15",
+      "clock": 15,
+      "image": "videos/clock-frames/2026paben_qm42/first-00010.png"
+    },
+    {
+      "video_s": 5.0,
+      "text": "0:14:",
+      "clock": 14,
+      "image": "videos/clock-frames/2026paben_qm42/first-00011.png"
+    },
+    {
+      "video_s": 5.5,
+      "text": "0:14:",
+      "clock": 14,
+      "image": "videos/clock-frames/2026paben_qm42/first-00012.png"
+    },
+    {
+      "video_s": 6.0,
+      "text": "0:13",
+      "clock": 13,
+      "image": "videos/clock-frames/2026paben_qm42/first-00013.png"
+    },
+    {
+      "video_s": 6.5,
+      "text": "0:13",
+      "clock": 13,
+      "image": "videos/clock-frames/2026paben_qm42/first-00014.png"
+    },
+    {
+      "video_s": 7.0,
+      "text": "0:12",
+      "clock": 12,
+      "image": "videos/clock-frames/2026paben_qm42/first-00015.png"
+    },
+    {
+      "video_s": 7.5,
+      "text": "0:12",
+      "clock": 12,
+      "image": "videos/clock-frames/2026paben_qm42/first-00016.png"
+    },
+    {
+      "video_s": 8.0,
+      "text": "0:11",
+      "clock": 11,
+      "image": "videos/clock-frames/2026paben_qm42/first-00017.png"
+    },
+    {
+      "video_s": 8.5,
+      "text": "0:11",
+      "clock": 11,
+      "image": "videos/clock-frames/2026paben_qm42/first-00018.png"
+    },
+    {
+      "video_s": 9.0,
+      "text": "0:10:",
+      "clock": 10,
+      "image": "videos/clock-frames/2026paben_qm42/first-00019.png"
+    },
+    {
+      "video_s": 9.5,
+      "text": "0:10",
+      "clock": 10,
+      "image": "videos/clock-frames/2026paben_qm42/first-00020.png"
+    },
+    {
+      "video_s": 10.0,
+      "text": "0:09",
+      "clock": 9,
+      "image": "videos/clock-frames/2026paben_qm42/first-00021.png"
+    },
+    {
+      "video_s": 10.5,
+      "text": "0:09:",
+      "clock": 9,
+      "image": "videos/clock-frames/2026paben_qm42/first-00022.png"
+    },
+    {
+      "video_s": 11.0,
+      "text": "0:08",
+      "clock": 8,
+      "image": "videos/clock-frames/2026paben_qm42/first-00023.png"
+    },
+    {
+      "video_s": 11.5,
+      "text": "0:08",
+      "clock": 8,
+      "image": "videos/clock-frames/2026paben_qm42/first-00024.png"
+    },
+    {
+      "video_s": 12.0,
+      "text": "0:07",
+      "clock": 7,
+      "image": "videos/clock-frames/2026paben_qm42/first-00025.png"
+    },
+    {
+      "video_s": 12.5,
+      "text": "0:07",
+      "clock": 7,
+      "image": "videos/clock-frames/2026paben_qm42/first-00026.png"
+    },
+    {
+      "video_s": 13.0,
+      "text": "0:06:",
+      "clock": 6,
+      "image": "videos/clock-frames/2026paben_qm42/first-00027.png"
+    },
+    {
+      "video_s": 13.5,
+      "text": "0:06:",
+      "clock": 6,
+      "image": "videos/clock-frames/2026paben_qm42/first-00028.png"
+    },
+    {
+      "video_s": 14.0,
+      "text": "0:05",
+      "clock": 5,
+      "image": "videos/clock-frames/2026paben_qm42/first-00029.png"
+    },
+    {
+      "video_s": 14.5,
+      "text": "0:05",
+      "clock": 5,
+      "image": "videos/clock-frames/2026paben_qm42/first-00030.png"
+    },
+    {
+      "video_s": 15.0,
+      "text": "0:04",
+      "clock": 4,
+      "image": "videos/clock-frames/2026paben_qm42/first-00031.png"
+    },
+    {
+      "video_s": 15.5,
+      "text": "0:04",
+      "clock": 4,
+      "image": "videos/clock-frames/2026paben_qm42/first-00032.png"
+    },
+    {
+      "video_s": 16.0,
+      "text": "0:03",
+      "clock": 3,
+      "image": "videos/clock-frames/2026paben_qm42/first-00033.png"
+    },
+    {
+      "video_s": 16.5,
+      "text": "0:03",
+      "clock": 3,
+      "image": "videos/clock-frames/2026paben_qm42/first-00034.png"
+    },
+    {
+      "video_s": 17.0,
+      "text": "0:02",
+      "clock": 2,
+      "image": "videos/clock-frames/2026paben_qm42/first-00035.png"
+    },
+    {
+      "video_s": 17.5,
+      "text": "0:02",
+      "clock": 2,
+      "image": "videos/clock-frames/2026paben_qm42/first-00036.png"
+    },
+    {
+      "video_s": 18.0,
+      "text": "0:01",
+      "clock": 1,
+      "image": "videos/clock-frames/2026paben_qm42/first-00037.png"
+    },
+    {
+      "video_s": 18.5,
+      "text": "0:01",
+      "clock": 1,
+      "image": "videos/clock-frames/2026paben_qm42/first-00038.png"
+    },
+    {
+      "video_s": 19.0,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00039.png"
+    },
+    {
+      "video_s": 19.5,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00040.png"
+    },
+    {
+      "video_s": 20.0,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00041.png"
+    },
+    {
+      "video_s": 20.5,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00042.png"
+    },
+    {
+      "video_s": 21.0,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00043.png"
+    },
+    {
+      "video_s": 21.5,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00044.png"
+    },
+    {
+      "video_s": 22.0,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00045.png"
+    },
+    {
+      "video_s": 22.5,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00046.png"
+    },
+    {
+      "video_s": 23.0,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00047.png"
+    },
+    {
+      "video_s": 23.5,
+      "text": "2:20",
+      "clock": 140,
+      "image": "videos/clock-frames/2026paben_qm42/first-00048.png"
+    },
+    {
+      "video_s": 24.0,
+      "text": "2:19",
+      "clock": 139,
+      "image": "videos/clock-frames/2026paben_qm42/first-00049.png"
+    },
+    {
+      "video_s": 24.5,
+      "text": "2:19",
+      "clock": 139,
+      "image": "videos/clock-frames/2026paben_qm42/first-00050.png"
+    },
+    {
+      "video_s": 25.0,
+      "text": "2:18",
+      "clock": 138,
+      "image": "videos/clock-frames/2026paben_qm42/first-00051.png"
+    },
+    {
+      "video_s": 25.5,
+      "text": "2:18",
+      "clock": 138,
+      "image": "videos/clock-frames/2026paben_qm42/first-00052.png"
+    },
+    {
+      "video_s": 26.0,
+      "text": "2:17",
+      "clock": 137,
+      "image": "videos/clock-frames/2026paben_qm42/first-00053.png"
+    },
+    {
+      "video_s": 26.5,
+      "text": "2:17",
+      "clock": 137,
+      "image": "videos/clock-frames/2026paben_qm42/first-00054.png"
+    },
+    {
+      "video_s": 27.0,
+      "text": "2:16",
+      "clock": 136,
+      "image": "videos/clock-frames/2026paben_qm42/first-00055.png"
+    },
+    {
+      "video_s": 27.5,
+      "text": "2:16",
+      "clock": 136,
+      "image": "videos/clock-frames/2026paben_qm42/first-00056.png"
+    },
+    {
+      "video_s": 28.0,
+      "text": "2:15",
+      "clock": 135,
+      "image": "videos/clock-frames/2026paben_qm42/first-00057.png"
+    },
+    {
+      "video_s": 28.5,
+      "text": "2:15",
+      "clock": 135,
+      "image": "videos/clock-frames/2026paben_qm42/first-00058.png"
+    },
+    {
+      "video_s": 29.0,
+      "text": "2:14",
+      "clock": 134,
+      "image": "videos/clock-frames/2026paben_qm42/first-00059.png"
+    },
+    {
+      "video_s": 29.5,
+      "text": "2:14",
+      "clock": 134,
+      "image": "videos/clock-frames/2026paben_qm42/first-00060.png"
+    },
+    {
+      "video_s": 30.0,
+      "text": "2:13",
+      "clock": 133,
+      "image": "videos/clock-frames/2026paben_qm42/first-00061.png"
+    },
+    {
+      "video_s": 30.5,
+      "text": "2:13",
+      "clock": 133,
+      "image": "videos/clock-frames/2026paben_qm42/first-00062.png"
+    },
+    {
+      "video_s": 31.0,
+      "text": "2:12",
+      "clock": 132,
+      "image": "videos/clock-frames/2026paben_qm42/first-00063.png"
+    },
+    {
+      "video_s": 31.5,
+      "text": "2:12",
+      "clock": 132,
+      "image": "videos/clock-frames/2026paben_qm42/first-00064.png"
+    },
+    {
+      "video_s": 32.0,
+      "text": "2:11",
+      "clock": 131,
+      "image": "videos/clock-frames/2026paben_qm42/first-00065.png"
+    },
+    {
+      "video_s": 32.5,
+      "text": "2:11",
+      "clock": 131,
+      "image": "videos/clock-frames/2026paben_qm42/first-00066.png"
+    },
+    {
+      "video_s": 33.0,
+      "text": "2:10",
+      "clock": 130,
+      "image": "videos/clock-frames/2026paben_qm42/first-00067.png"
+    },
+    {
+      "video_s": 33.5,
+      "text": "2:10",
+      "clock": 130,
+      "image": "videos/clock-frames/2026paben_qm42/first-00068.png"
+    },
+    {
+      "video_s": 34.0,
+      "text": "2:09",
+      "clock": 129,
+      "image": "videos/clock-frames/2026paben_qm42/first-00069.png"
+    },
+    {
+      "video_s": 34.5,
+      "text": "2:09",
+      "clock": 129,
+      "image": "videos/clock-frames/2026paben_qm42/first-00070.png"
+    },
+    {
+      "video_s": 35.0,
+      "text": "2:08",
+      "clock": 128,
+      "image": "videos/clock-frames/2026paben_qm42/first-00071.png"
+    },
+    {
+      "video_s": 35.5,
+      "text": "2:08",
+      "clock": 128,
+      "image": "videos/clock-frames/2026paben_qm42/first-00072.png"
+    },
+    {
+      "video_s": 36.0,
+      "text": "2:07",
+      "clock": 127,
+      "image": "videos/clock-frames/2026paben_qm42/first-00073.png"
+    },
+    {
+      "video_s": 36.5,
+      "text": "2:07",
+      "clock": 127,
+      "image": "videos/clock-frames/2026paben_qm42/first-00074.png"
+    },
+    {
+      "video_s": 37.0,
+      "text": "2:06",
+      "clock": 126,
+      "image": "videos/clock-frames/2026paben_qm42/first-00075.png"
+    },
+    {
+      "video_s": 37.5,
+      "text": "2:06",
+      "clock": 126,
+      "image": "videos/clock-frames/2026paben_qm42/first-00076.png"
+    },
+    {
+      "video_s": 38.0,
+      "text": "2:05",
+      "clock": 125,
+      "image": "videos/clock-frames/2026paben_qm42/first-00077.png"
+    },
+    {
+      "video_s": 38.5,
+      "text": "2:05",
+      "clock": 125,
+      "image": "videos/clock-frames/2026paben_qm42/first-00078.png"
+    },
+    {
+      "video_s": 39.0,
+      "text": "2:04",
+      "clock": 124,
+      "image": "videos/clock-frames/2026paben_qm42/first-00079.png"
+    },
+    {
+      "video_s": 39.5,
+      "text": "2:04",
+      "clock": 124,
+      "image": "videos/clock-frames/2026paben_qm42/first-00080.png"
+    },
+    {
+      "video_s": 40.0,
+      "text": "2:03",
+      "clock": 123,
+      "image": "videos/clock-frames/2026paben_qm42/first-00081.png"
+    },
+    {
+      "video_s": 40.5,
+      "text": "2:03",
+      "clock": 123,
+      "image": "videos/clock-frames/2026paben_qm42/first-00082.png"
+    },
+    {
+      "video_s": 41.0,
+      "text": "2:02",
+      "clock": 122,
+      "image": "videos/clock-frames/2026paben_qm42/first-00083.png"
+    },
+    {
+      "video_s": 41.5,
+      "text": "2:02",
+      "clock": 122,
+      "image": "videos/clock-frames/2026paben_qm42/first-00084.png"
+    },
+    {
+      "video_s": 42.0,
+      "text": "2:01",
+      "clock": 121,
+      "image": "videos/clock-frames/2026paben_qm42/first-00085.png"
+    },
+    {
+      "video_s": 42.5,
+      "text": "2:01",
+      "clock": 121,
+      "image": "videos/clock-frames/2026paben_qm42/first-00086.png"
+    },
+    {
+      "video_s": 43.0,
+      "text": "2:00",
+      "clock": 120,
+      "image": "videos/clock-frames/2026paben_qm42/first-00087.png"
+    },
+    {
+      "video_s": 43.5,
+      "text": "2:00",
+      "clock": 120,
+      "image": "videos/clock-frames/2026paben_qm42/first-00088.png"
+    },
+    {
+      "video_s": 44.0,
+      "text": "1:59",
+      "clock": 119,
+      "image": "videos/clock-frames/2026paben_qm42/first-00089.png"
+    },
+    {
+      "video_s": 44.5,
+      "text": "1:59",
+      "clock": 119,
+      "image": "videos/clock-frames/2026paben_qm42/first-00090.png"
+    },
+    {
+      "video_s": 60,
+      "text": "1:43",
+      "clock": 103,
+      "image": "videos/clock-frames/2026paben_qm42/check-60.png"
+    },
+    {
+      "video_s": 90,
+      "text": "1:14",
+      "clock": 74,
+      "image": "videos/clock-frames/2026paben_qm42/check-90.png"
+    },
+    {
+      "video_s": 120,
+      "text": "0:44",
+      "clock": 44,
+      "image": "videos/clock-frames/2026paben_qm42/check-120.png"
+    },
+    {
+      "video_s": 150,
+      "text": "0:13",
+      "clock": 13,
+      "image": "videos/clock-frames/2026paben_qm42/check-150.png"
+    },
+    {
+      "video_s": 170,
+      "text": "0:00",
+      "clock": 0,
+      "image": "videos/clock-frames/2026paben_qm42/check-170.png"
+    }
+  ]
+}

@@ -61,6 +61,9 @@ public class VisionIOPhoton implements VisionIO {
     lastEstimate = currentEstimate;
 
     PhotonPipelineResult[] results = getAprilTagResults();
+    boolean[] connected = new boolean[numCameras];
+    for (int i = 0; i < numCameras; i++) connected[i] = cameras[i].isConnected();
+    VisionTelemetry.recordTrackedTags(results, connected, Timer.getFPGATimestamp());
     PhotonPoseEstimator[] photonEstimators = getPositionEstimators(currentEstimate, heading);
     PhotonPoseEstimator[] photonRotationEstimators = getRotationEstimators(currentEstimate);
 
@@ -100,6 +103,7 @@ public class VisionIOPhoton implements VisionIO {
     if (camIndex < 0 || camIndex >= numCameras) return new PhotonPipelineResult();
 
     var unreadResults = cameras[camIndex].getAllUnreadResults();
+    VisionTelemetry.recordUnreadFrames(camNames[camIndex], unreadResults);
     double latestTimestamp = 0;
 
     if (unreadResults.size() == 0) {

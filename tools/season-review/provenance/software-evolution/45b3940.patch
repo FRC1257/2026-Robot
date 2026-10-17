@@ -1,0 +1,673 @@
+commit 45b3940fd094e096b0e3f51723ad67b433935040
+Author:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+AuthorDate: Wed Feb 25 14:17:36 2026 -0500
+Commit:     ipad6202 <78675126+ipad6202@users.noreply.github.com>
+CommitDate: Wed Feb 25 14:17:36 2026 -0500
+
+    Added 6328 LoggedTunableNumber class & Javadoc comments
+
+diff --git a/src/main/java/frc/robot/Constants.java b/src/main/java/frc/robot/Constants.java
+index 6d9d3a2..c2856df 100644
+--- a/src/main/java/frc/robot/Constants.java
++++ b/src/main/java/frc/robot/Constants.java
+@@ -23,6 +23,10 @@ public final class Constants {
+ 
+   public static final boolean useVision = (currentMode == Mode.SIM ? true : true);
+ 
++  public static final boolean tuningMode = true; // if true, tunable numbers will get values from dashboard, otherwise they will use default values. Should be true for testing and tuning, false for comp
++  public static final boolean disableHAL = false;
++
++
+   public static enum Mode {
+     /** Running on a real robot. */
+     REAL,
+diff --git a/src/main/java/frc/robot/RobotContainer.java b/src/main/java/frc/robot/RobotContainer.java
+index 571c8cd..9cbe781 100644
+--- a/src/main/java/frc/robot/RobotContainer.java
++++ b/src/main/java/frc/robot/RobotContainer.java
+@@ -42,6 +42,8 @@ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivot;
+ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIO;
+ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSim;
+ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
++import frc.robot.subsystems.Kicker.Kicker;
++import frc.robot.subsystems.Kicker.KickerIO;
+ 
+ 
+ /**
+@@ -53,8 +55,10 @@ import frc.robot.subsystems.Hopper.HopperPivot.HopperPivotIOSparkMax;
+ public class RobotContainer {
+   // Subsystems
+   private final Drive drive;
++
+   private final HopperIntake hopperIntake;
+   private final HopperPivot hopperPivot;
++  private final Kicker kicker;
+ 
+   private Mechanism2d HopperPivotMechanism = new Mechanism2d(3, 3);
+ 
+@@ -79,6 +83,7 @@ public class RobotContainer {
+          =  new HopperIntake(new HopperIntakeIOSparkMax());
+         
+          hopperPivot = new HopperPivot(new HopperPivotIOSparkMax());
++         kicker = new Kicker(new KickerIO() {});
+          break;
+ 
+         // Sim robot, instantiate physics sim IO implementations
+@@ -94,6 +99,7 @@ public class RobotContainer {
+         
+         hopperIntake = new HopperIntake(new HopperIntakeIOSim());
+         hopperPivot = new HopperPivot(new HopperPivotIOSim());
++        kicker = new Kicker(new KickerIO() {});
+         break;
+ 
+         // Replayed robot, disable IO implementations
+@@ -109,6 +115,8 @@ public class RobotContainer {
+ 
+         hopperIntake = new HopperIntake(new HopperIntakeIO() {});
+         hopperPivot = new HopperPivot(new HopperPivotIO() {});
++        kicker = new Kicker(new KickerIO() {});
++         break;
+     }
+ 
+     // Set up robot state manager
+diff --git a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java
+index 4db2a48..c3691f2 100644
+--- a/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java
++++ b/src/main/java/frc/robot/subsystems/ActiveFloor/ActiveFloorIO.java
+@@ -17,7 +17,7 @@ public interface ActiveFloorIO {
+ 
+     default void setVoltage(Voltage voltage) {}
+     
+-     default void stop() {}
++    default void stop() {}
+     
+-     default void setBreakMode(boolean enabled) {}
++    default void setBreakMode(boolean enabled) {}
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+index 1645016..df0f87a 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntake.java
+@@ -3,20 +3,19 @@ package frc.robot.subsystems.Hopper.HopperIntake;
+ import edu.wpi.first.units.measure.Voltage;
+ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.Command;
+-import edu.wpi.first.wpilibj2.command.Commands;
+-import edu.wpi.first.wpilibj2.command.FunctionalCommand;
+-import edu.wpi.first.wpilibj2.command.RunCommand;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
++import frc.robot.util.misc.LoggedTunableNumber;
+ 
+ import static edu.wpi.first.units.Units.Volts;
+-
+-import java.util.function.DoubleSupplier;
+ import java.util.function.Supplier;
+ 
+ import org.littletonrobotics.junction.Logger;
+ 
+ public class HopperIntake extends SubsystemBase {
+ 
++  private static final LoggedTunableNumber IntakeVolts = new LoggedTunableNumber("HopperIntake/Voltage", HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE.magnitude());
++  private static final LoggedTunableNumber OuttakeVolts = new LoggedTunableNumber("HopperIntake/OuttakeVoltage", HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE.magnitude());
++
+   private final HopperIntakeIO io;
+   private HopperIntakeIOInputsAutoLogged inputs = new HopperIntakeIOInputsAutoLogged();
+     
+@@ -48,7 +47,7 @@ public class HopperIntake extends SubsystemBase {
+    */
+ 
+   public Command runIntake() {
+-    return runVoltage(() -> HopperIntakeConstants.HOPPER_INTAKE_VOLTAGE).withName("HopperIntake/INTAKE");
++    return runVoltage(() -> Volts.of(IntakeVolts.get())).withName("HopperIntake/INTAKE");
+   }
+ 
+   /**
+@@ -56,7 +55,7 @@ public class HopperIntake extends SubsystemBase {
+    * @return a command that runs the hopper intake in reverse at the voltage specified in {@link HopperIntakeConstants} while it is scheduled
+    */
+   public Command runOutake() {
+-    return runVoltage(() -> HopperIntakeConstants.HOPPER_OUTTAKE_VOLTAGE).withName("HopperIntake/OUTTAKE");
++    return runVoltage(() -> Volts.of(OuttakeVolts.get())).withName("HopperIntake/OUTTAKE");
+   }
+ 
+   /**
+@@ -72,7 +71,7 @@ public class HopperIntake extends SubsystemBase {
+    * Stops the hopper intake. This is functionally the same as {@link #stopIntake()}, but is provided for convenience when a command is needed that only stops the hopper intake without any additional functionality.
+    * @return a command that stops the hopper intake while it is scheduled
+    */
+-  
++
+   public Command stopCommand() {
+     return runOnce(io::stop);
+   }
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+index 6f0eaa8..8ed65df 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperIntake/HopperIntakeIOSparkMax.java
+@@ -32,9 +32,6 @@ public class HopperIntakeIOSparkMax implements HopperIntakeIO {
+         config.smartCurrentLimit(NEO_VORTEX_CURRENT_LIMIT);
+         config.inverted(true);
+ 
+-
+-       
+-
+         motor.configure(config, com.revrobotics.ResetMode.kResetSafeParameters, com.revrobotics.PersistMode.kPersistParameters); 
+         
+ 
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
+index bdb9ec4..ffa24a4 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivot.java
+@@ -23,9 +23,23 @@ import edu.wpi.first.wpilibj.util.Color8Bit;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import edu.wpi.first.wpilibj2.command.button.Trigger;
++import frc.robot.util.misc.LoggedTunableNumber;
+ 
+ public class HopperPivot extends SubsystemBase {
+ 
++    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("HopperPivot/Kp", HopperPivotConstants.HOPPER_PIVOT_KP);
++    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("HopperPivot/Ki", HopperPivotConstants.HOPPER_PIVOT_KI);
++    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("HopperPivot/Kd", HopperPivotConstants.HOPPER_PIVOT_KD);
++
++    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("HopperPivot/Ks", HopperPivotConstants.HOPPER_PIVOT_KS);
++    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("HopperPivot/Kg", HopperPivotConstants.HOPPER_PIVOT_KG);
++    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("HopperPivot/Kv", HopperPivotConstants.HOPPER_PIVOT_KV);
++
++    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("HopperPivot/Tolerance", HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
++
++    private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("HopperPivot/MaxVelocity", HopperPivotConstants.HOPPER_CONSTRAINTS.maxVelocity);
++    private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("HopperPivot/MaxAcceleration", HopperPivotConstants.HOPPER_CONSTRAINTS.maxAcceleration);
++
+     private final HopperPivotIO io;
+     private HopperPivotIOInputsAutoLogged inputs = new HopperPivotIOInputsAutoLogged();
+ 
+@@ -40,14 +54,14 @@ public class HopperPivot extends SubsystemBase {
+ 
+     public HopperPivot(HopperPivotIO io) {
+         this.io = io; 
+-        this.controller = new PIDController(8, 0, 0);
+-        this.feedforward = new ArmFeedforward(0, 4, 0);
++        this.controller = new PIDController(Kp.get(), Ki.get(), Kd.get());
++        this.feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
+ 
+-        this.controller.setTolerance(HopperPivotConstants.HOPPER_PIVOT_PID_TOLERANCE);
+-        this.profile = new TrapezoidProfile(HopperPivotConstants.HOPPER_CONSTRAINTS);
++        this.controller.setTolerance(tolerance.get());
++        this.profile = new TrapezoidProfile(
++            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
+ 
+         SmartDashboard.putData(getName(), this);
+-
+     }
+ 
+     @Override
+@@ -55,6 +69,23 @@ public class HopperPivot extends SubsystemBase {
+         io.updateInputs(inputs);
+         Logger.processInputs("HopperPivot", inputs);
+ 
++        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
++            controller.setPID(Kp.get(), Ki.get(), Kd.get());
++        }
++
++        if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
++            feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
++        }
++
++        if(tolerance.hasChanged(hashCode())) {
++            controller.setTolerance(tolerance.get());
++        }
++
++        if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {
++            profile = new TrapezoidProfile(
++                new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
++        }
++
+         pivot.setAngle(inputs.pivotAngle.in(Degrees));
+     }
+ 
+diff --git a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java
+index a800fe7..90ef48a 100644
+--- a/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java
++++ b/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotConstants.java
+@@ -11,8 +11,14 @@ public class HopperPivotConstants {
+ 
+   public static final double HOPPER_PIVOT_GEARING = 1.0 / 16.0;
+ 
+-  public static final double[] HOPPER_PIVOT_PID_REAL = {1, 0, 0};
+-  public static final double[] HOPPER_PIVOT_FEEDFORWARD_REAL = {0.123, 0.6465, 0.22, 0.04};
++  public static final double HOPPER_PIVOT_KP = 8.0;
++  public static final double HOPPER_PIVOT_KI = 0.0;
++  public static final double HOPPER_PIVOT_KD = 0.0;
++
++  public static final double HOPPER_PIVOT_KS = 0.0;
++  public static final double HOPPER_PIVOT_KG = 4.0;
++  public static final double HOPPER_PIVOT_KV = 0.0;
++
+ 
+ 
+   public static final double HOPPER_PIVOT_PID_TOLERANCE = Units.degreesToRadians(1);
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/Kicker.java b/src/main/java/frc/robot/subsystems/Kicker/Kicker.java
+index 0aad683..0e3052d 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/Kicker.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/Kicker.java
+@@ -8,11 +8,26 @@ import org.littletonrobotics.junction.Logger;
+ 
+ import edu.wpi.first.units.measure.AngularVelocity;
+ import edu.wpi.first.units.measure.Voltage;
++import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import edu.wpi.first.wpilibj2.command.button.Trigger;
++import frc.robot.util.misc.LoggedTunableNumber;
+ 
+ public class Kicker extends SubsystemBase {
++
++    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Kicker/Kp", KickerConstants.KICKER_KP);
++    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Kicker/Ki", KickerConstants.KICKER_KI);
++    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Kicker/Kd", KickerConstants.KICKER_KD);
++    
++    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Kicker/Ks", KickerConstants.KICKER_KS);
++    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Kicker/Kv", KickerConstants.KICKER_KV);
++
++    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("Kicker/Tolerance", KickerConstants.KICKER_VELOCITY_TOLERANCE);
++
++    private static final LoggedTunableNumber kickerIntakeVelocity = new LoggedTunableNumber("Kicker/IntakeVelocity", KickerConstants.KICKER_INTAKE_VELOCITY.magnitude()); 
++    private static final LoggedTunableNumber kickerOuttakeVelocity = new LoggedTunableNumber("Kicker/OuttakeVelocity", KickerConstants.KICKER_OUTTAKE_VELOCITY.magnitude());
++
+     private final KickerIO io;
+     private KickerIOInputsAutoLogged inputs = new KickerIOInputsAutoLogged();
+ 
+@@ -26,6 +41,14 @@ public class Kicker extends SubsystemBase {
+     public void periodic() {
+         io.updateInputs(inputs);
+         Logger.processInputs(getName(), inputs);
++
++        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
++            io.setPID(Kp.get(), Ki.get(), Kd.get());
++        }
++
++        if(Ks.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
++            io.setFF(Ks.get(), Kv.get());
++        }
+     }
+ 
+     /**
+@@ -45,7 +68,7 @@ public class Kicker extends SubsystemBase {
+      * @return a command that runs the kicker at the given velocity while it is scheduled
+      */
+ 
+-    public Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
++    private Command runVelocityCommand(Supplier<AngularVelocity> velocity) {
+         return runEnd(() -> {
+             goalVelocity = velocity.get().in(RadiansPerSecond);
+             io.setVelocity(velocity.get());
+@@ -53,6 +76,26 @@ public class Kicker extends SubsystemBase {
+             .withName(getName() + "/RunVelocityCommand");
+     }
+     
++    /**
++     * Runs the kicker at the intake velocity specified in {@link KickerConstants}. This should be used whenever the kicker needs to be intaking, as it will allow for more consistent intaking by using velocity control instead of voltage control.
++     * @return a command that runs the kicker at the intake velocity while it is scheduled
++     */
++
++    public Command runIntake() {
++        return runVelocityCommand(() -> RadiansPerSecond.of(kickerIntakeVelocity.get()))
++            .withName(getName() + "/IntakeCommand");
++    }
++
++    /**
++     * Runs the kicker at the outtake velocity specified in {@link KickerConstants}. This should be used whenever the kicker needs to be outtaking, as it will allow for more consistent outtaking by using velocity control instead of voltage control.
++     * @return a command that runs the kicker at the outtake velocity while it is scheduled
++     */
++
++    public Command runOuttake() {
++        return runVelocityCommand(() -> RadiansPerSecond.of(kickerOuttakeVelocity.get()))
++            .withName(getName() + "/OuttakeCommand");
++    }
++    
+     /**
+      * Stops the kicker. 
+      * @return a command that stops the kicker when it is scheduled
+@@ -70,7 +113,7 @@ public class Kicker extends SubsystemBase {
+ 
+     public Trigger atGoalVelocity() {
+         return new Trigger(() -> Math.abs(inputs.kickerAngularVelocity.in(RadiansPerSecond) - goalVelocity) 
+-            < KickerConstants.KICKER_VELOCITY_TOLERANCE);
++            < tolerance.get());
+     }
+ 
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/KickerConstants.java b/src/main/java/frc/robot/subsystems/Kicker/KickerConstants.java
+index 8c7c766..90312a1 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/KickerConstants.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/KickerConstants.java
+@@ -1,5 +1,24 @@
+ package frc.robot.subsystems.Kicker;
+ 
++import static edu.wpi.first.units.Units.RadiansPerSecond;
++
++import edu.wpi.first.units.measure.AngularVelocity;
++
+ public class KickerConstants {
++
++    public static final int KICKER_MOTOR_ID = 0; // Placeholder Value  
++
++    public static final double KICKER_KP = 0.0; // Placeholder Value
++    public static final double KICKER_KI = 0.0; // Placeholder Value
++    public static final double KICKER_KD = 0.0; // Placeholder Value
++
++    public static final double KICKER_KS = 0.0; // Placeholder Value
++    public static final double KICKER_KV = 0.0; // Placeholder Value
++
++    public static final AngularVelocity KICKER_INTAKE_VELOCITY = RadiansPerSecond.of(0.0); // Placeholder Value
++    public static final AngularVelocity KICKER_OUTTAKE_VELOCITY = RadiansPerSecond.of(0.0); // Placeholder Value
++
+     public static final double KICKER_VELOCITY_TOLERANCE = 0.01; // Placholder Value
++
++
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java b/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java
+index a703e55..371f66a 100644
+--- a/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java
++++ b/src/main/java/frc/robot/subsystems/Kicker/KickerIO.java
+@@ -24,5 +24,9 @@ public interface KickerIO {
+ 
+     public default void stop() {}
+ 
++    public default void setPID(double kP, double kI, double kD) {}
++
++    public default void setFF(double kS, double kV) {}
++
+     public default void setBreakMode(boolean enabled) {}
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+index c641abf..cf7808e 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Flywheel/Flywheel.java
+@@ -89,6 +89,7 @@ public class Flywheel extends SubsystemBase {
+      * Stops the flywheel. This is functionally the same as {@link #stop()}, but is provided for convenience when a command is needed that only stops the flywheel without any additional functionality.
+      * @return a command that stops the flywheel while it is scheduled
+      */
++    
+     public Command stopCommand() {
+         return runOnce(this::stop)
+             .withName("Shooter/Flywheel/StopCommand");
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java
+index 6f082c2..b3b48fd 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/Hood.java
+@@ -13,13 +13,30 @@ import edu.wpi.first.math.controller.PIDController;
+ import edu.wpi.first.math.trajectory.TrapezoidProfile;
+ import edu.wpi.first.units.measure.Angle;
+ import edu.wpi.first.units.measure.Voltage;
++import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+ import edu.wpi.first.wpilibj2.command.Command;
+ import edu.wpi.first.wpilibj2.command.Commands;
+ import edu.wpi.first.wpilibj2.command.SubsystemBase;
+ import frc.robot.subsystems.Shooter.ShooterTrajectoryCalculator;
++import frc.robot.util.misc.LoggedTunableNumber;
+ 
+ public class Hood extends SubsystemBase {
+ 
++    private static final LoggedTunableNumber Kp = new LoggedTunableNumber("Hood/Kp", HoodConstants.kP);
++    private static final LoggedTunableNumber Ki = new LoggedTunableNumber("Hood/Ki", HoodConstants.kI);
++    private static final LoggedTunableNumber Kd = new LoggedTunableNumber("Hood/Kd", HoodConstants.kD);
++    private static final LoggedTunableNumber tolerance = new LoggedTunableNumber("Hood/Tolerance", HoodConstants.HOOD_ANGLE_TOLERANCE);
++
++    private static final LoggedTunableNumber Ks = new LoggedTunableNumber("Hood/Ks", 0.0);
++    private static final LoggedTunableNumber Kg = new LoggedTunableNumber("Hood/Kg", 4.0);
++    private static final LoggedTunableNumber Kv = new LoggedTunableNumber("Hood/Kv", 0.0);
++
++    private static final LoggedTunableNumber maxVel = new LoggedTunableNumber("Hood/MaxVelocity", HoodConstants.HOOD_CONSTRAINTS.maxVelocity);
++    private static final LoggedTunableNumber maxAccel = new LoggedTunableNumber("Hood/MaxAcceleration", HoodConstants.HOOD_CONSTRAINTS.maxAcceleration);
++
++    private static final LoggedTunableNumber homingVolts = new LoggedTunableNumber("Hood/HomingVoltage", HoodConstants.HOMING_VOLTAGE.in(Volts));
++    private static final LoggedTunableNumber homingVelocityThreshold = new LoggedTunableNumber("Hood/HomingVelocityThreshold", HoodConstants.HOMING_VELOCITY_THRESHOLD);
++
+     private final HoodIO io; 
+     private final HoodIOInputsAutoLogged inputs = new HoodIOInputsAutoLogged();
+ 
+@@ -35,18 +52,37 @@ public class Hood extends SubsystemBase {
+ 
+     public Hood(HoodIO io) {
+         this.io = io; 
+-        this.controller = new PIDController(HoodConstants.kP, HoodConstants.kI, HoodConstants.kD);
+-        this.feedforward = new ArmFeedforward(0, 4, 0);
+-
+-        this.controller.setTolerance(HoodConstants.HOOD_ANGLE_TOLERANCE);
+-        this.profile = new TrapezoidProfile(HoodConstants.HOOD_CONSTRAINTS);
++        this.controller = new PIDController(Kp.get(), Ki.get(), Kd.get());
++        this.feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
+ 
++        this.controller.setTolerance(tolerance.get());
++        this.profile = new TrapezoidProfile(
++            new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
++        
++        SmartDashboard.putData(getName(), this);
+     }
+ 
+     @Override
+     public void periodic() {
+         io.updateInputs(inputs);
+         Logger.processInputs("Hood", inputs);
++
++        if(Kp.hasChanged(hashCode()) || Ki.hasChanged(hashCode()) || Kd.hasChanged(hashCode())) {
++            controller.setPID(Kp.get(), Ki.get(), Kd.get());
++        }
++
++        if(Ks.hasChanged(hashCode()) || Kg.hasChanged(hashCode()) || Kv.hasChanged(hashCode())) {
++            feedforward = new ArmFeedforward(Ks.get(), Kg.get(), Kv.get());
++        }
++
++         if(tolerance.hasChanged(hashCode())) {
++            controller.setTolerance(tolerance.get());
++        }
++
++         if(maxVel.hasChanged(hashCode()) || maxAccel.hasChanged(hashCode())) {
++            profile = new TrapezoidProfile(
++                new TrapezoidProfile.Constraints(maxVel.get(), maxAccel.get()));
++        }
+     }
+     
+     /**
+@@ -149,11 +185,11 @@ public class Hood extends SubsystemBase {
+      * Runs the hood at a constant voltage until it is zeroed, as determined by the hood velocity being below a certain threshold for a certain amount of time.
+      * @return a Command that runs the hood at a constant voltage until it is zeroed
+      */
+-    
++
+     public Command zeroCommand() {
+-        return runVoltageCommand(() -> HoodConstants.HOMING_VOLTAGE)
++        return runVoltageCommand(() -> Volts.of(homingVolts.get()))
+             .raceWith(Commands.waitSeconds(0.5)
+-                .andThen(Commands.waitUntil(() -> Math.abs(inputs.hoodVelocity.magnitude()) <= HoodConstants.HOMING_VELOCITY_THRESHOLD)))
++                .andThen(Commands.waitUntil(() -> Math.abs(inputs.hoodVelocity.magnitude()) <= homingVelocityThreshold.get())))
+             .andThen(this::zero)
+             .withTimeout(3.0)
+         .withName("Shooter/Hood/ZeroCommand");
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodConstants.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodConstants.java
+index 0e3eec3..691c91f 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodConstants.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodConstants.java
+@@ -14,6 +14,8 @@ public class HoodConstants {
+     public static final Angle HOOD_MIN_ANGLE = Radians.of(Units.degreesToRadians(0.0));
+     public static final Angle HOOD_MAX_ANGLE = Radians.of(Units.degreesToRadians(45.0));
+ 
++    
++
+     public static final double HOOD_ANGLE_TOLERANCE = Degrees.of(1.0).in(Radians);
+ 
+     public static final int HOOD_MOTOR_ID = 0;
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java
+index d63d0c7..75f8f5b 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIO.java
+@@ -1,6 +1,10 @@
+ package frc.robot.subsystems.Shooter.Hood;
+ 
+ 
++import static edu.wpi.first.units.Units.Radians;
++import static edu.wpi.first.units.Units.RadiansPerSecond;
++import static edu.wpi.first.units.Units.Volts;
++
+ import org.littletonrobotics.junction.AutoLog;
+ 
+ import edu.wpi.first.units.measure.Angle;
+@@ -11,15 +15,15 @@ public interface HoodIO {
+ 
+     @AutoLog
+     public static class HoodIOInputs {
+-        Angle hoodAngle; 
+-        AngularVelocity hoodVelocity;
+-        Voltage hoodVolts; 
++        Angle hoodAngle = Radians.of(0.0); 
++        AngularVelocity hoodVelocity = RadiansPerSecond.of(0.0);
++        Voltage hoodVolts = Volts.of(0.0); 
+     }
+ 
+     public default void updateInputs(HoodIOInputs inputs) {}
+ 
+     public default void runVoltage(Voltage volts) {}
+ 
+-    
++
+     
+ }
+diff --git a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+index f3f87c1..769342d 100644
+--- a/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
++++ b/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java
+@@ -1,5 +1,5 @@
+ package frc.robot.subsystems.Shooter.Hood;
+ 
+ public class HoodIOSparkMax implements HoodIO {
+-
++    
+ }
+diff --git a/src/main/java/frc/robot/util/misc/LoggedTunableNumber.java b/src/main/java/frc/robot/util/misc/LoggedTunableNumber.java
+new file mode 100644
+index 0000000..454ce6b
+--- /dev/null
++++ b/src/main/java/frc/robot/util/misc/LoggedTunableNumber.java
+@@ -0,0 +1,119 @@
++package frc.robot.util.misc;
++
++import java.util.Arrays;
++import java.util.HashMap;
++import java.util.Map;
++import java.util.function.Consumer;
++import java.util.function.DoubleSupplier;
++import org.littletonrobotics.junction.networktables.LoggedNetworkNumber;
++
++import frc.robot.Constants;
++
++
++/**
++ * Class for a tunable number. Gets value from dashboard in tuning mode, returns default if not or
++ * value not in dashboard.
++ */
++@SuppressWarnings("unused")
++public class LoggedTunableNumber implements DoubleSupplier {
++  private static final String tableKey = "/Tuning";
++
++  private final String key;
++  private boolean hasDefault = false;
++  private double defaultValue;
++  private LoggedNetworkNumber dashboardNumber;
++  private Map<Integer, Double> lastHasChangedValues = new HashMap<>();
++
++  /**
++   * Create a new LoggedTunableNumber
++   *
++   * @param dashboardKey Key on dashboard
++   */
++  public LoggedTunableNumber(String dashboardKey) {
++    this.key = tableKey + "/" + dashboardKey;
++  }
++
++  /**
++   * Create a new LoggedTunableNumber with the default value
++   *
++   * @param dashboardKey Key on dashboard
++   * @param defaultValue Default value
++   */
++  public LoggedTunableNumber(String dashboardKey, double defaultValue) {
++    this(dashboardKey);
++    initDefault(defaultValue);
++  }
++
++  /**
++   * Set the default value of the number. The default value can only be set once.
++   *
++   * @param defaultValue The default value
++   */
++  public void initDefault(double defaultValue) {
++    if (!hasDefault) {
++      hasDefault = true;
++      this.defaultValue = defaultValue;
++      if (Constants.tuningMode && !Constants.disableHAL) {
++        dashboardNumber = new LoggedNetworkNumber(key, defaultValue);
++      }
++    }
++  }
++
++  /**
++   * Get the current value, from dashboard if available and in tuning mode.
++   *
++   * @return The current value
++   */
++  public double get() {
++    if (!hasDefault) {
++      return 0.0;
++    } else {
++      return Constants.tuningMode && !Constants.disableHAL ? dashboardNumber.get() : defaultValue;
++    }
++  }
++
++  /**
++   * Checks whether the number has changed since our last check
++   *
++   * @param id Unique identifier for the caller to avoid conflicts when shared between multiple
++   *     objects. Recommended approach is to pass the result of "hashCode()"
++   * @return True if the number has changed since the last time this method was called, false
++   *     otherwise.
++   */
++  public boolean hasChanged(int id) {
++    double currentValue = get();
++    Double lastValue = lastHasChangedValues.get(id);
++    if (lastValue == null || currentValue != lastValue) {
++      lastHasChangedValues.put(id, currentValue);
++      return true;
++    }
++
++    return false;
++  }
++
++  /**
++   * Runs action if any of the tunableNumbers have changed
++   *
++   * @param id Unique identifier for the caller to avoid conflicts when shared between multiple *
++   *     objects. Recommended approach is to pass the result of "hashCode()"
++   * @param action Callback to run when any of the tunable numbers have changed. Access tunable
++   *     numbers in order inputted in method
++   * @param tunableNumbers All tunable numbers to check
++   */
++  public static void ifChanged(
++      int id, Consumer<double[]> action, LoggedTunableNumber... tunableNumbers) {
++    if (Arrays.stream(tunableNumbers).anyMatch(tunableNumber -> tunableNumber.hasChanged(id))) {
++      action.accept(Arrays.stream(tunableNumbers).mapToDouble(LoggedTunableNumber::get).toArray());
++    }
++  }
++
++  /** Runs action if any of the tunableNumbers have changed */
++  public static void ifChanged(int id, Runnable action, LoggedTunableNumber... tunableNumbers) {
++    ifChanged(id, values -> action.run(), tunableNumbers);
++  }
++
++  @Override
++  public double getAsDouble() {
++    return get();
++  }
++}
+\ No newline at end of file

@@ -1,0 +1,194 @@
+[
+  {
+    "sha": "83e550cf1e2da4d1364696ba21d60533cc01905b",
+    "author_date": "2026-03-15T08:10:14-04:00",
+    "committer_date": "2026-03-15T08:10:14-04:00",
+    "subject": "SENECA DAY 1 CHANGEs"
+  },
+  {
+    "sha": "f0859657e95d44ee51d464435b274831b56b6c5e",
+    "author_date": "2026-03-15T08:06:27-04:00",
+    "committer_date": "2026-03-15T08:06:27-04:00",
+    "subject": "Changes on the bus"
+  },
+  {
+    "sha": "aa2546d487affa6056514b2f25859d612b20bdee",
+    "author_date": "2026-03-23T17:41:22-04:00",
+    "committer_date": "2026-03-23T17:41:22-04:00",
+    "subject": "drive changes"
+  },
+  {
+    "sha": "6b19b9d3a1d8d6b29cd83ea54ead8449c51efd7c",
+    "author_date": "2026-03-25T18:59:38-04:00",
+    "committer_date": "2026-03-25T18:59:38-04:00",
+    "subject": "Command Update"
+  },
+  {
+    "sha": "928345b5b7d088aade3e2fe3e987086befb4cc63",
+    "author_date": "2026-03-21T13:08:43-04:00",
+    "committer_date": "2026-03-21T13:08:43-04:00",
+    "subject": "Current Limit Changes"
+  },
+  {
+    "sha": "6b3cf89ed6f896c23277e9bd10cbc9a919355188",
+    "author_date": "2026-03-21T14:40:03-04:00",
+    "committer_date": "2026-03-21T14:40:03-04:00",
+    "subject": "Adjusted Current Limits"
+  },
+  {
+    "sha": "e1e36a039bdf80886e13b576308ea4987998dc1b",
+    "author_date": "2026-03-23T11:26:00-04:00",
+    "committer_date": "2026-03-23T11:26:00-04:00",
+    "subject": "Adjusted current limits"
+  },
+  {
+    "sha": "eeaaa6454144ab3400b42f2f8d0878c9bf2e7bd6",
+    "author_date": "2026-03-24T11:53:32-04:00",
+    "committer_date": "2026-03-24T11:53:32-04:00",
+    "subject": "Added a voltage ramping command"
+  },
+  {
+    "sha": "4fef0b4315f4f05f64f62bc31ea504296240756f",
+    "author_date": "2026-03-24T15:48:21-04:00",
+    "committer_date": "2026-03-24T15:48:21-04:00",
+    "subject": "Update Flywheel.java"
+  },
+  {
+    "sha": "e14861bb461ef8786fa4503f270b22e75c5cf92d",
+    "author_date": "2026-01-13T17:03:42-05:00",
+    "committer_date": "2026-01-13T17:03:42-05:00",
+    "subject": "Imported 2025 code, successful build 1/13/2026"
+  },
+  {
+    "sha": "4e7c7261efc0f98eeaaea50897b97bb0b7b7e0d5",
+    "author_date": "2026-01-21T17:14:12-05:00",
+    "committer_date": "2026-01-21T17:14:12-05:00",
+    "subject": "updated can ids (1/21)"
+  },
+  {
+    "sha": "45b3940fd094e096b0e3f51723ad67b433935040",
+    "author_date": "2026-02-25T14:17:36-05:00",
+    "committer_date": "2026-02-25T14:17:36-05:00",
+    "subject": "Added 6328 LoggedTunableNumber class & Javadoc comments"
+  },
+  {
+    "sha": "ad5d9ba044520c334cb12be72b20429d13e9d245",
+    "author_date": "2026-03-07T17:44:29-05:00",
+    "committer_date": "2026-03-07T17:44:29-05:00",
+    "subject": "Fixed Raghav's swerve issue 3/7"
+  },
+  {
+    "sha": "17600639e7565efb617f53e4880615b5eaa283f6",
+    "author_date": "2026-03-12T13:10:27-04:00",
+    "committer_date": "2026-03-12T13:10:27-04:00",
+    "subject": "Changes"
+  },
+  {
+    "sha": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "author_date": "2026-03-13T19:09:41-04:00",
+    "committer_date": "2026-03-13T19:09:41-04:00",
+    "subject": "Small minor changes before comp"
+  },
+  {
+    "sha": "4e45023884010585488d5b7f0716f24c4f2afb4b",
+    "author_date": "2026-03-15T08:10:56-04:00",
+    "committer_date": "2026-03-15T08:10:56-04:00",
+    "subject": "Merge branch 'Sam's-Branch' of https://github.com/FRC1257/2026-Robot into Sam's-Branch"
+  },
+  {
+    "sha": "fd60dd9f29a56d4eb8cbbca00038811ced1e9285",
+    "author_date": "2026-03-16T18:47:01-04:00",
+    "committer_date": "2026-03-16T18:47:01-04:00",
+    "subject": "Brought all current limits down to 40"
+  },
+  {
+    "sha": "7ea645a532e904f733fff73aa9adaec915aa38f4",
+    "author_date": "2026-03-19T12:19:10-04:00",
+    "committer_date": "2026-03-19T12:19:10-04:00",
+    "subject": "Removed Climb, Added Battery Logger Updates"
+  },
+  {
+    "sha": "01c91268c1e2d0c4a3267fdc1a94402a846ae674",
+    "author_date": "2026-03-23T01:35:46-04:00",
+    "committer_date": "2026-03-23T01:35:46-04:00",
+    "subject": "Added Alerts and disconnection logging to every subsystem"
+  },
+  {
+    "sha": "975d4a77c3083c7f6096a2ac6bf20129d5f23ee5",
+    "author_date": "2026-03-23T14:13:42-04:00",
+    "committer_date": "2026-03-23T14:13:42-04:00",
+    "subject": "Added a second motor to the hopper intake"
+  },
+  {
+    "sha": "a10f56faf81e014419b15c3629da0db23e614956",
+    "author_date": "2026-03-23T19:13:00-04:00",
+    "committer_date": "2026-03-23T19:13:00-04:00",
+    "subject": "back to photon"
+  },
+  {
+    "sha": "479d930f71bfd725c8843d09004aa5a737e00c13",
+    "author_date": "2026-03-23T02:55:38-04:00",
+    "committer_date": "2026-03-23T02:55:38-04:00",
+    "subject": "Clamped hood angle for safety"
+  },
+  {
+    "sha": "4b3c5732a722539d6f3cf10971f1500fc536f7e5",
+    "author_date": "2026-03-23T03:13:39-04:00",
+    "committer_date": "2026-03-23T03:13:39-04:00",
+    "subject": "Added additional clamps for safety"
+  },
+  {
+    "sha": "3189eff2507e8035d78510e5b1cf7ee75dc158d9",
+    "author_date": "2026-03-21T18:04:04-04:00",
+    "committer_date": "2026-03-21T18:04:04-04:00",
+    "subject": "Got rid of the timeout"
+  },
+  {
+    "sha": "90042317e3d8f740d00aa73eb4fdcd3a5d4ecfa1",
+    "author_date": "2026-03-25T18:09:28-04:00",
+    "committer_date": "2026-03-25T18:09:28-04:00",
+    "subject": "new auto align AND lock"
+  },
+  {
+    "sha": "4517e0c20f07dfecdc2b3d688a83379b86066aa2",
+    "author_date": "2026-03-26T10:07:05-04:00",
+    "committer_date": "2026-03-26T10:07:05-04:00",
+    "subject": "Changes to paths and new autos"
+  },
+  {
+    "sha": "90560c085c003ecd8c9b095de77cf99add8ea402",
+    "author_date": "2026-03-26T17:04:17-04:00",
+    "committer_date": "2026-03-26T17:04:17-04:00",
+    "subject": "Minor auto changes"
+  },
+  {
+    "sha": "5083ee80a875e8ab8ca3d9f7e376bda174516c6f",
+    "author_date": "2026-03-27T12:35:02-04:00",
+    "committer_date": "2026-03-27T12:35:02-04:00",
+    "subject": "Fixed Trench Alignment"
+  },
+  {
+    "sha": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "author_date": "2026-03-29T08:03:57-04:00",
+    "committer_date": "2026-03-29T08:03:57-04:00",
+    "subject": "Adjusted Lock Command"
+  },
+  {
+    "sha": "192680aa39633b7dcee2b1fcfce88272c4e502fd",
+    "author_date": "2026-03-31T10:34:49-04:00",
+    "committer_date": "2026-03-31T10:34:49-04:00",
+    "subject": "Paralib SnailMotorSubsystem"
+  },
+  {
+    "sha": "cd7df74b3ea91ef7ff198cdfdaac724c8179e375",
+    "author_date": "2026-04-27T20:17:01-04:00",
+    "committer_date": "2026-04-27T20:17:01-04:00",
+    "subject": "Persisting Tunable Number"
+  },
+  {
+    "sha": "4b7ed8589f9479cedd70fc11c49ba38d68c4c9be",
+    "author_date": "2026-05-26T18:02:26-04:00",
+    "committer_date": "2026-05-26T18:02:26-04:00",
+    "subject": "implementing limelight"
+  }
+]

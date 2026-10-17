@@ -1,0 +1,37 @@
+{
+  "app_version": "26.0.2",
+  "checked_at": "2026-10-17T01:22:56.245045+00:00",
+  "log": "logs/focus/Q11-electrical-focus.wpilog",
+  "preserves_original_fpga_times": true,
+  "video": "videos/Q11_410-425_brownout.mov",
+  "video_frame1_log_s": 410,
+  "alignment_uncertainty_s": 1,
+  "native_window_arrangement": "Hub tiled left, new linked Video satellite tiled right",
+  "checks": [
+    {
+      "time_s": 416,
+      "views": [
+        "Swerve Measured vs Setpoint",
+        "Mechanisms2D - Encoder Angles",
+        "Motor Map"
+      ],
+      "observations": "Swerve FR measured zero while optimized command4.59m/s;16 motor groups render available amps/volts with unavailable currents gray; hood and both hopper encoder angles render with goal overlays"
+    },
+    {
+      "time_s": 417.593364,
+      "views": [
+        "Electrical Map",
+        "Video satellite"
+      ],
+      "observations": "Controller input, RIO and6V highlighted red;24 recorded PDH bars visible; video broadcast clock2:12;PDH rawfaultmaskwarning amber"
+    }
+  ],
+  "playback_check": "Global playback started from414s; pause icon and advancing electrical replay observed. New satellite updates with shared timestamp; paired paused video rechecked at417.593364. This is not a full-match gameplay review.",
+  "screenshots": [
+    "videos/q11-swerve-416.png",
+    "videos/q11-mechanisms-416.png",
+    "videos/q11-motors-416.png",
+    "videos/q11-extended-electrical-417_593.png",
+    "videos/q11-linked-video-417_593.png"
+  ]
+}

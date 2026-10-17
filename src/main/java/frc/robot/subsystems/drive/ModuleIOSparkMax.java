@@ -215,18 +215,28 @@ public class ModuleIOSparkMax implements ModuleIO {
 
   @Override
   public void updateInputs(ModuleIOInputs inputs) {
-    inputs.drivePositionRad = driveEncoder.getPosition();
-    inputs.drivePositionMeters = driveEncoder.getPosition() * kWheelRadiusMeters;
-    inputs.driveVelocityMeterPerSec = driveEncoder.getVelocity() * kWheelRadiusMeters;
-    inputs.driveVelocityRadPerSec = driveEncoder.getVelocity();
-    inputs.driveAppliedVolts = driveSparkMax.getAppliedOutput() * driveSparkMax.getBusVoltage();
-    inputs.driveCurrentAmps = driveSparkMax.getOutputCurrent();
-
-    inputs.turnAbsolutePosition = getTurnPosition();
-    inputs.turnPosition = getTurnPosition();
-    inputs.turnVelocityRadPerSec = turnAbsoluteEncoder.getVelocity();
-    inputs.turnAppliedVolts = turnSparkMax.getAppliedOutput() * turnSparkMax.getBusVoltage();
-    inputs.turnCurrentAmps = turnSparkMax.getOutputCurrent();
+    inputs.driveReadValid = true;
+    inputs.turnReadValid = true;
+    inputs.driveReadError = "kOk";
+    inputs.turnReadError = "kOk";
+    inputs.driveDeviceId = driveSparkMax.getDeviceId();
+    inputs.turnDeviceId = turnSparkMax.getDeviceId();
+    inputs.drivePositionRad = readDrive(driveEncoder::getPosition, inputs);
+    inputs.drivePositionMeters = inputs.drivePositionRad * kWheelRadiusMeters;
+    inputs.driveVelocityRadPerSec = readDrive(driveEncoder::getVelocity, inputs);
+    inputs.driveVelocityMeterPerSec = inputs.driveVelocityRadPerSec * kWheelRadiusMeters;
+    inputs.driveBusVoltage = readDrive(driveSparkMax::getBusVoltage, inputs);
+    inputs.driveAppliedVolts = readDrive(driveSparkMax::getAppliedOutput, inputs) * inputs.driveBusVoltage;
+    inputs.driveCurrentAmps = readDrive(driveSparkMax::getOutputCurrent, inputs);
+    double turnPosition = readTurn(turnAbsoluteEncoder::getPosition, inputs) - absoluteEncoderOffset;
+    inputs.turnAbsolutePosition = Rotation2d.fromRadians(turnPosition);
+    inputs.turnPosition = inputs.turnAbsolutePosition;
+    inputs.turnVelocityRadPerSec = readTurn(turnAbsoluteEncoder::getVelocity, inputs);
+    inputs.turnBusVoltage = readTurn(turnSparkMax::getBusVoltage, inputs);
+    inputs.turnAppliedVolts = readTurn(turnSparkMax::getAppliedOutput, inputs) * inputs.turnBusVoltage;
+    inputs.turnCurrentAmps = readTurn(turnSparkMax::getOutputCurrent, inputs);
+    if (inputs.driveReadValid) inputs.driveLastSuccessfulReadSeconds = Timer.getFPGATimestamp();
+    if (inputs.turnReadValid) inputs.turnLastSuccessfulReadSeconds = Timer.getFPGATimestamp();
 
     inputs.odometryTimestamps =
         timestampQueue.stream().mapToDouble((Double value) -> value).toArray();
@@ -241,6 +251,26 @@ public class ModuleIOSparkMax implements ModuleIO {
     timestampQueue.clear();
     drivePositionQueue.clear();
     turnPositionQueue.clear();
+  }
+
+  private double readDrive(java.util.function.DoubleSupplier read, ModuleIOInputs inputs) {
+    double value = read.getAsDouble();
+    var error = driveSparkMax.getLastError();
+    if (error != com.revrobotics.REVLibError.kOk || !Double.isFinite(value)) {
+      inputs.driveReadValid = false;
+      inputs.driveReadError = Double.isFinite(value) ? error.toString() : "nonfinite";
+    }
+    return value;
+  }
+
+  private double readTurn(java.util.function.DoubleSupplier read, ModuleIOInputs inputs) {
+    double value = read.getAsDouble();
+    var error = turnSparkMax.getLastError();
+    if (error != com.revrobotics.REVLibError.kOk || !Double.isFinite(value)) {
+      inputs.turnReadValid = false;
+      inputs.turnReadError = Double.isFinite(value) ? error.toString() : "nonfinite";
+    }
+    return value;
   }
 
   @Override

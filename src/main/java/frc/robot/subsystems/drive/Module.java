@@ -26,6 +26,8 @@ public class Module {
   private final ModuleIO io;
   private final ModuleIOInputsAutoLogged inputs = new ModuleIOInputsAutoLogged();
   private final int index;
+  private final edu.wpi.first.wpilibj.Alert readAlert;
+
 
   private SwerveModulePosition[] odometryPositions = new SwerveModulePosition[] {};
 
@@ -34,6 +36,8 @@ public class Module {
   public Module(ModuleIO io, int index) {
     this.io = io;
     this.index = index;
+    readAlert = new edu.wpi.first.wpilibj.Alert("Swerve module " + index + " invalid drive/steer reads",
+        edu.wpi.first.wpilibj.Alert.AlertType.kError);
 
     // Switch constants based on mode (the physics simulator is treated as a
     // separate robot with different tuning)
@@ -66,6 +70,11 @@ public class Module {
 
   public void periodic() {
     Logger.processInputs("Drive/Module" + Integer.toString(index), inputs);
+
+    readAlert.set(Constants.currentMode == Constants.Mode.REAL
+        && (!inputs.driveReadValid || !inputs.turnReadValid));
+    Logger.recordOutput("Drive/Module" + index + "/ReadHealthKnown", inputs.driveLastSuccessfulReadSeconds >= 0
+        && inputs.turnLastSuccessfulReadSeconds >= 0);
 
     // Calculate positions for odometry
     int sampleCount = inputs.odometryTimestamps.length; // All signals are sampled together

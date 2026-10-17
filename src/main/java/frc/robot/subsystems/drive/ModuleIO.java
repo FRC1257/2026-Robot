@@ -19,6 +19,17 @@ import org.littletonrobotics.junction.AutoLog;
 public interface ModuleIO {
   @AutoLog
   public static class ModuleIOInputs {
+    // Read validity is distinct from zero motion; old logs leave these false/unknown.
+    public boolean driveReadValid = false;
+    public boolean turnReadValid = false;
+    public double driveLastSuccessfulReadSeconds = -1;
+    public double turnLastSuccessfulReadSeconds = -1;
+    public String driveReadError = "unknown";
+    public String turnReadError = "unknown";
+    public double driveBusVoltage = 0;
+    public double turnBusVoltage = 0;
+    public int driveDeviceId = -1;
+    public int turnDeviceId = -1;
     public double drivePositionRad = 0.0;
     public double drivePositionMeters = 0.0;
     public double driveVelocityRadPerSec = 0.0;

@@ -84,6 +84,8 @@ public class Drive extends SubsystemBase {
   // private final SysIdRoutine sysId;
 
   private final VisionIO visionIO;
+  private final frc.robot.subsystems.vision.VisionFrameGate visionFrameGate =
+      new frc.robot.subsystems.vision.VisionFrameGate(0.5);
   private final VisionIOInputsAutoLogged visionInputs = new VisionIOInputsAutoLogged();
 
   private SwerveDriveKinematics kinematics = new SwerveDriveKinematics(getModuleTranslations());
@@ -332,14 +334,34 @@ public class Drive extends SubsystemBase {
         List<Matrix<N3, N1>> stdDeviations = visionIO.getStdArray(visionInputs, getPose());
 
         for (int i = 0; i < visionInputs.positionEstimates.length; i++) {
+          if (i >= stdDeviations.size() || i >= visionInputs.timestampArray.length
+              || i >= visionInputs.rotationEstimates.length) {
+            Logger.recordOutput("Vision/Acceptance/Camera" + i, "array-length");
+            continue;
+          }
+          String reason = visionFrameGate.check(i, visionInputs.timestampArray[i], Timer.getFPGATimestamp());
+          Logger.recordOutput("Vision/Acceptance/Camera" + i, reason);
+          if (!reason.equals("accepted")) continue;
           Matrix<N3, N1> allStdDevs = stdDeviations.get(i);
+          Pose2d measurement = visionInputs.positionEstimates[i];
+          if (!Double.isFinite(measurement.getX()) || !Double.isFinite(measurement.getY())
+              || !Double.isFinite(measurement.getRotation().getRadians())
+              || !Double.isFinite(visionInputs.rotationEstimates[i].getRadians())
+              || !Double.isFinite(allStdDevs.get(0, 0)) || allStdDevs.get(0, 0) < 0
+              || !Double.isFinite(allStdDevs.get(1, 0)) || allStdDevs.get(1, 0) < 0
+              || !Double.isFinite(allStdDevs.get(2, 0)) || allStdDevs.get(2, 0) < 0) {
+            Logger.recordOutput("Vision/Acceptance/Camera" + i, "invalid-measurement");
+            continue;
+          }
           Matrix<N3, N1> positionStdDevs =
               VecBuilder.fill(allStdDevs.get(0, 0), allStdDevs.get(1, 0), Double.MAX_VALUE);
           Matrix<N3, N1> rotationStdDevs =
               VecBuilder.fill(Double.MAX_VALUE, Double.MAX_VALUE, allStdDevs.get(2, 0));
 
-          if (visionInputs.positionEstimates[i].equals(new Pose2d()))
-            continue; // Camera i has no estimate
+          if (visionInputs.positionEstimates[i].equals(new Pose2d())) {
+            Logger.recordOutput("Vision/Acceptance/Camera" + i, "no-estimate");
+            continue;
+          }
           else if (stdDeviations.size() <= i || visionInputs.timestampArray.length <= i)
             continue; // Avoids index out of bounds exceptions
           else {
@@ -646,7 +668,7 @@ public class Drive extends SubsystemBase {
     Rotation2d currentRotation = currentPose.getRotation();
     Translation2d targetPose = AllianceFlipUtil.apply(Hub.topCenterPoint.toTranslation2d());
     Rotation2d rotationSupplier = new Rotation2d(targetPose.getX()-currentPose.getX(), targetPose.getY() - currentPose.getY());
-    return Math.abs(rotationSupplier.getRadians()-currentRotation.getRadians()) < Units.degreesToRadians(5);
+    return Math.abs(rotationSupplier.minus(currentRotation).getRadians()) < Units.degreesToRadians(5);
   }
 
 }

@@ -18,7 +18,7 @@ class Handler(BaseHTTPRequestHandler):
     def do_GET(self):
         path=unquote(urlsplit(self.path).path)
         if path=='/':path='/review/index.html'
-        allowed=(path=='/review/index.html' or path in ['/analysis/video-sync/manifest.json','/analysis/MATCH_WALKTHROUGH.md'] or bool(re.fullmatch(r'/videos/[A-Za-z0-9_-]+\.mp4',path)) or bool(re.fullmatch(r'/analysis/video-sync/telemetry/2026[a-z]+_qm\d+\.json',path)))
+        allowed=(path in ['/review/index.html','/review/fuel-detector.html','/analysis/fuel-detector/events.json'] or path in ['/analysis/video-sync/manifest.json','/analysis/MATCH_WALKTHROUGH.md'] or bool(re.fullmatch(r'/videos/[A-Za-z0-9_-]+\.mp4',path)) or bool(re.fullmatch(r'/analysis/video-sync/telemetry/2026[a-z]+_qm\d+\.json',path)))
         if not allowed:return self.send_error(404)
         file=(ROOT/path.lstrip('/')).resolve()
         if not file.is_relative_to(ROOT) or not file.is_file():return self.send_error(404)

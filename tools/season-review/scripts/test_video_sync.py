@@ -1,4 +1,6 @@
-import json,threading,unittest,urllib.request,urllib.error
+import json,threading,unittest,urllib.request,urllib.error,tempfile
+from pathlib import Path
+from unittest.mock import patch
 from http.server import ThreadingHTTPServer
 from build_video_sync import align,ROOT
 from season_signals import held_condition
@@ -36,18 +38,19 @@ class VideoSeekingTests(unittest.TestCase):
         for x in ['bytes=100-','bytes=10-1','bytes=','bytes=0-1,5-6']:
             with self.assertRaises(ValueError):byte_range(x,100)
     def test_http_seeking_and_private_metadata_not_served(self):
-        server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
-        thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
-        base=f'http://127.0.0.1:{server.server_port}'
-        try:
-            rows=json.loads((ROOT/'analysis/video-sync/manifest.json').read_text())['rows']
-            path=ROOT/rows[0]['file']
-            with urllib.request.urlopen(urllib.request.Request(base+'/'+rows[0]['file'],headers={'Range':'bytes=0-31'})) as r:
-                self.assertEqual(r.status,206);self.assertEqual(r.read(),path.read_bytes()[:32])
-            for target in ['/videos/'+rows[0]['video_id']+'.info.json','/code/build.gradle','/../README.md']:
-                with self.assertRaises(urllib.error.HTTPError) as e:urllib.request.urlopen(base+target)
-                self.assertEqual(e.exception.code,404)
-            with self.assertRaises(urllib.error.HTTPError) as e:urllib.request.urlopen(urllib.request.Request(base+'/api/open-log',data=b'{}',headers={'Origin':'https://example.com'}))
-            self.assertEqual(e.exception.code,403)
-        finally:server.shutdown();server.server_close();thread.join()
+        with tempfile.TemporaryDirectory() as folder, patch('serve_review.ROOT',Path(folder).resolve()):
+            root=Path(folder);(root/'videos').mkdir()
+            path=root/'videos/test.mp4';path.write_bytes(bytes(range(100)))
+            server=ThreadingHTTPServer(('127.0.0.1',0),Handler)
+            thread=threading.Thread(target=server.serve_forever,daemon=True);thread.start()
+            base=f'http://127.0.0.1:{server.server_port}'
+            try:
+                with urllib.request.urlopen(urllib.request.Request(base+'/videos/test.mp4',headers={'Range':'bytes=0-31'})) as r:
+                    self.assertEqual(r.status,206);self.assertEqual(r.read(),path.read_bytes()[:32])
+                for target in ['/videos/test.info.json','/code/build.gradle','/../README.md']:
+                    with self.assertRaises(urllib.error.HTTPError) as e:urllib.request.urlopen(base+target)
+                    self.assertEqual(e.exception.code,404)
+                with self.assertRaises(urllib.error.HTTPError) as e:urllib.request.urlopen(urllib.request.Request(base+'/api/open-log',data=b'{}',headers={'Origin':'https://example.com'}))
+                self.assertEqual(e.exception.code,403)
+            finally:server.shutdown();server.server_close();thread.join()
 if __name__=='__main__':unittest.main()

@@ -1,0 +1,66 @@
+[
+  {
+    "event_id": "90206ca85086-intake_contact-168.554",
+    "source_url": "https://www.youtube.com/watch?v=9AzPARjFShw",
+    "video_sha256": "cd77f3ace499d7504106fc8c49a1ae09678b30a3e2995d34b3e526c7f765bb5d",
+    "reviewed_utc": "2026-10-17T14:55:53.412729+00:00",
+    "method": "AI visual review of five 1 fps extracted frames plus a full-resolution central frame; not continuous video review",
+    "video_seconds_sampled": [
+      31.368,
+      32.368,
+      33.368,
+      34.368,
+      35.368
+    ],
+    "label": "uncertain",
+    "visible_balls": null,
+    "observation": "Wide field broadcast with robots moving among loose fuel. Bumper identity and individual ball crossings at 1257 intake/shooter are not reliably resolved in these samples. Cannot attribute a pickup or launch count to 1257.",
+    "telemetry_context": {
+      "log_s": 168.554,
+      "video_s": 33.368,
+      "battery_v": 9.124559814453125,
+      "pose_estimate": [
+        5.706104042384354,
+        6.46051737048843,
+        1.3327326626956442
+      ],
+      "flywheel_rad_s": -0.05585923418402672,
+      "kicker_current_corroboration": false,
+      "warnings": [
+        "contact-or-jam-not-confirmed-acquisition"
+      ]
+    }
+  },
+  {
+    "event_id": "90206ca85086-launch-197.574",
+    "source_url": "https://www.youtube.com/watch?v=9AzPARjFShw",
+    "video_sha256": "cd77f3ace499d7504106fc8c49a1ae09678b30a3e2995d34b3e526c7f765bb5d",
+    "reviewed_utc": "2026-10-17T14:55:53.431043+00:00",
+    "method": "AI visual review of five 1 fps extracted frames plus a full-resolution central frame; not continuous video review",
+    "video_seconds_sampled": [
+      60.388,
+      61.388,
+      62.388,
+      63.388,
+      64.388
+    ],
+    "label": "uncertain",
+    "visible_balls": null,
+    "observation": "Wide field broadcast with robots moving among loose fuel. Bumper identity and individual ball crossings at 1257 intake/shooter are not reliably resolved in these samples. Cannot attribute a pickup or launch count to 1257.",
+    "telemetry_context": {
+      "log_s": 197.574,
+      "video_s": 62.388,
+      "battery_v": 9.727677001953124,
+      "pose_estimate": [
+        1.4098434338654728,
+        5.479850226491734,
+        -0.45952233435428286
+      ],
+      "flywheel_rad_s": 301.7516174316406,
+      "kicker_current_corroboration": true,
+      "warnings": [
+        "voltage-confounded"
+      ]
+    }
+  }
+]

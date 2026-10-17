@@ -126,3 +126,22 @@ gversion {
   timeZone     = "America/New_York" // Use preferred time zone
   indent       = "  "
 }
+// Exact inputs accompany the existing source backup in the robot jar.
+def deploymentManifestDir = layout.buildDirectory.dir('generated/deploymentManifest')
+tasks.register('generateDeploymentManifest') {
+    outputs.upToDateWhen { false }
+    doLast {
+        def files = fileTree('src/main') { exclude '**/BuildConstants.java' }.files + fileTree('vendordeps').files + [file('build.gradle')]
+        def hashes = new TreeMap<String, String>()
+        files.findAll { it.isFile() }.each { f ->
+            hashes[project.relativePath(f)] = java.security.MessageDigest.getInstance('SHA-256').digest(f.bytes).encodeHex().toString()
+        }
+        def dest = deploymentManifestDir.get().file('deployment-manifest.json').asFile
+        dest.parentFile.mkdirs()
+        dest.text = groovy.json.JsonOutput.toJson([schema: 1, files: hashes])
+    }
+}
+processResources {
+    dependsOn generateDeploymentManifest
+    from(deploymentManifestDir)
+}

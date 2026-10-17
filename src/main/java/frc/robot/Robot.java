@@ -49,6 +49,13 @@ public class Robot extends LoggedRobot {
     Logger.recordMetadata("ProjectName", BuildConstants.MAVEN_NAME);
     Logger.recordMetadata("BuildDate", BuildConstants.BUILD_DATE);
     Logger.recordMetadata("GitSHA", BuildConstants.GIT_SHA);
+    try (var manifest = Robot.class.getResourceAsStream("/deployment-manifest.json")) {
+      Logger.recordMetadata("DeploymentManifest", manifest == null ? "missing"
+          : new String(manifest.readAllBytes(), java.nio.charset.StandardCharsets.UTF_8));
+    } catch (java.io.IOException error) {
+      Logger.recordMetadata("DeploymentManifest", "unreadable");
+    }
+
     Logger.recordMetadata("GitDate", BuildConstants.GIT_DATE);
     Logger.recordMetadata("GitBranch", BuildConstants.GIT_BRANCH);
     switch (BuildConstants.DIRTY) {

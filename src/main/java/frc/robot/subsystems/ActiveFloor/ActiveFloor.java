@@ -69,8 +69,9 @@ public class ActiveFloor extends SubsystemBase {
         return runVoltage(() -> Volts.of(0.0)).withName("ActiveFloor/OFF");
     }
     
-    public Command runGated(java.util.function.BooleanSupplier allowed) {
-        return runVoltage(() -> allowed.getAsBoolean()
-            ? ActiveFloorConstants.ACTIVE_FLOOR_VOLTAGE : Volts.of(0));
+    /** Called by the shared feed command while it owns this subsystem. */
+    public void setFeedAllowed(boolean allowed) {
+        if (allowed) io.setVoltage(ActiveFloorConstants.ACTIVE_FLOOR_VOLTAGE);
+        else io.stop();
     }
 }

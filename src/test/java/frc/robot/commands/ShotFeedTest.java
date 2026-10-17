@@ -35,7 +35,7 @@ class ShotFeedTest {
   try {
    command.initialize();command.execute();command.execute();assertEquals(0,output[0]);assertEquals(0,output[1]);
    SimHooks.stepTiming(.12);command.execute();command.execute();assertNotEquals(0,output[0]);assertNotEquals(0,output[1]);
-   aligned[0]=false;command.execute();command.execute();assertEquals(0,output[0]);assertEquals(0,output[1]);
+   aligned[0]=false;command.execute();assertEquals(0,output[0]);assertEquals(0,output[1]);
    aligned[0]=true;command.execute();SimHooks.stepTiming(.12);command.execute();command.execute();
    assertNotEquals(0,output[0]);command.end(true);assertEquals(0,output[0]);assertEquals(0,output[1]);
   } finally {SimHooks.resumeTiming();}

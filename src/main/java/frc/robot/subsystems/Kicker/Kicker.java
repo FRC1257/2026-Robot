@@ -152,12 +152,11 @@ public class Kicker extends SubsystemBase {
     public boolean feedbackValid() {
         return inputs.kickerConnected && Double.isFinite(inputs.kickerAngularVelocity.in(RadiansPerSecond));
     }
-    public Command runGatedIntake(java.util.function.BooleanSupplier allowed) {
-        return runEnd(() -> {
-            if (allowed.getAsBoolean()) {
-                goalVelocity = kickerIntakeVelocity.get();
-                io.setVelocity(RadiansPerSecond.of(goalVelocity));
-            } else { goalVelocity = 0; io.stop(); }
-        }, () -> { goalVelocity = 0; io.stop(); });
+    /** Called by the shared feed command while it owns this subsystem. */
+    public void setFeedAllowed(boolean allowed) {
+        if (allowed) {
+            goalVelocity = kickerIntakeVelocity.get();
+            io.setVelocity(RadiansPerSecond.of(goalVelocity));
+        } else { goalVelocity = 0; io.stop(); }
     }
 }

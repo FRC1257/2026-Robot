@@ -248,37 +248,19 @@ public class RobotContainer {
    driver.getDPad(DPad.UP).whileTrue(drive.lockWheels());
 
 
-  driver
-    .rightBumper().whileTrue(
+  driver.rightBumper().whileTrue(
       flywheel.runTargetedCommand(drive::getPose)
       .alongWith(hood.runTargetedCommand(drive::getPose))
-      .alongWith(
-        DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE).until(drive::isHubAligned)
-        .andThen(
-          Commands.either(
-            DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE),
-            drive.lockWheels(), 
-            () -> Math.abs(DRIVE_FORWARD.getAsDouble())> 0.08 || Math.abs(DRIVE_STRAFE.getAsDouble()) > 0.08 || !drive.isHubAligned()))
-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()).and(drive::isHubAligned))
-        .withTimeout(0.5)
-        .andThen(kicker.runIntake()
-        .alongWith(activeFloor.runActiveFloor())
-        .alongWith(hopperPivot.runAgitate())
-        .alongWith(hopperIntake.runIntake())))
-    ));
+      .alongWith(DriveCommands.joystickHubPoint(drive, DRIVE_FORWARD, DRIVE_STRAFE))
+      .alongWith(frc.robot.commands.ShotFeed.create(flywheel, hood, kicker, activeFloor, drive::isHubAligned))
+      .alongWith(hopperPivot.runAgitate(), hopperIntake.runIntake()));
 
-  driver
-    .leftBumper().whileTrue(
+  driver.leftBumper().whileTrue(
       flywheel.runHubVelocity()
       .alongWith(hood.runHubAngle())
-      .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
-        .withTimeout(0.5)
-        .andThen(kicker.runIntake()
-        .alongWith(activeFloor.runActiveFloor())
-        .alongWith(hopperPivot.runAgitate())
-        .alongWith(hopperIntake.runIntake())))
-    );
-  
+      .alongWith(frc.robot.commands.ShotFeed.create(flywheel, hood, kicker, activeFloor, () -> true))
+      .alongWith(hopperPivot.runAgitate(), hopperIntake.runIntake()));
+
   // driver
   //   .rightBumper().whileTrue(
   //     kicker.runOuttake()

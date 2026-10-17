@@ -190,4 +190,12 @@ public class Flywheel extends SubsystemBase {
         return new Trigger(() -> inputs.flywheelLeaderAngularVelocity.isNear(goalVelocity, FlywheelConstants.FLYWHEEL_VELOCITY_TOLERANCE));
     }
 
+    public boolean feedbackValid() {
+        return inputs.flywheelLeaderConnected && inputs.flywheelFollowerConnected
+            && Double.isFinite(inputs.flywheelLeaderAngularVelocity.in(RadiansPerSecond));
+    }
+    public boolean withinRecoveryBand() {
+        return Math.abs(inputs.flywheelLeaderAngularVelocity.in(RadiansPerSecond)
+            - goalVelocity.in(RadiansPerSecond)) <= 5.0;
+    }
 }

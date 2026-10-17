@@ -125,9 +125,7 @@ public class AutoChooser {
         return flywheel.runTargetedCommand(drive::getPose)
                 .alongWith(hood.runTargetedCommand(drive::getPose))
                 .alongWith(DriveCommands.joystickHubPoint(drive, () -> 0, () -> 0))
-                .alongWith(Commands.waitUntil(flywheel.isAtGoal().and(hood.isAtGoal()))
-                    .andThen(kicker.runIntake()
-                    .alongWith(activeFloor.runActiveFloor())
-                    .alongWith(hopperPivot.runAgitate())));
+                .alongWith(frc.robot.commands.ShotFeed.create(flywheel, hood, kicker, activeFloor, drive::isHubAligned))
+                .alongWith(hopperPivot.runAgitate());
     }
 }

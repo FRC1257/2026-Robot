@@ -184,4 +184,7 @@ public class Hood extends SubsystemBase {
         return runAngleCommand(() -> ShooterTrajectoryCalculator.getInstance().getStaticParameters(robotPose).hoodAngle());
     }
 
+    public boolean feedbackValid() {
+        return inputs.hoodConnected && Double.isFinite(getMeasuredAngle().in(Radians));
+    }
 }

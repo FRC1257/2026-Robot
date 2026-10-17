@@ -1,0 +1,42 @@
+[
+  {
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/vendordeps/AdvantageKit.json",
+    "path": "robot-2026/provenance/electrical-dashboard/q11-code/AdvantageKit.json",
+    "sha256": "48d10f41676b079d5a8d12c8aaec57ac00b5e291fc598e469ee68bacd2a41717",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "limitation": "Log marks working tree dirty; base revision is not exact deployed source",
+    "retrieved_at": "2026-10-17T01:13:07.513766+00:00"
+  },
+  {
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/drive/DriveConstants.java",
+    "path": "robot-2026/provenance/electrical-dashboard/q11-code/DriveConstants.java",
+    "sha256": "92d61d86e2eccbee25b68b116d94d10c2ed75f616dbd8ab08e34ae66b75f0117",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "limitation": "Log marks working tree dirty; base revision is not exact deployed source",
+    "retrieved_at": "2026-10-17T01:13:07.537278+00:00"
+  },
+  {
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/drive/ModuleIOSparkMax.java",
+    "path": "robot-2026/provenance/electrical-dashboard/q11-code/ModuleIOSparkMax.java",
+    "sha256": "ef719f40774931e81913f08b20cd8a2081bbace9bd7f2842d8d56cefa9ac72dc",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "limitation": "Log marks working tree dirty; base revision is not exact deployed source",
+    "retrieved_at": "2026-10-17T01:13:07.593638+00:00"
+  },
+  {
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/Shooter/Hood/HoodIOSparkMax.java",
+    "path": "robot-2026/provenance/electrical-dashboard/q11-code/HoodIOSparkMax.java",
+    "sha256": "3f2f8297e6fe976fb50e4970b408d9eda5406243acf9b302f8276bcbc6695316",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "limitation": "Log marks working tree dirty; base revision is not exact deployed source",
+    "retrieved_at": "2026-10-17T01:13:07.626423+00:00"
+  },
+  {
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/Hopper/HopperPivot/HopperPivotIOSparkMax.java",
+    "path": "robot-2026/provenance/electrical-dashboard/q11-code/HopperPivotIOSparkMax.java",
+    "sha256": "9004cce478e69b6317865663ef7fdaf410c82ad59c0b07ac4086eea25fe5a251",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "limitation": "Log marks working tree dirty; base revision is not exact deployed source",
+    "retrieved_at": "2026-10-17T01:13:07.662068+00:00"
+  }
+]

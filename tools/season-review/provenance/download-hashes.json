@@ -1,0 +1,26 @@
+[
+  {
+    "path": "robot-2026/downloads/Elastic-macOS.zip",
+    "size_bytes": 41753706,
+    "sha256": "5f733a6299fe7ddfb127b61beec3ca62e2cfc61205976400bc0c686a2c948bc0",
+    "recorded_at": "2026-10-16T22:59:29.342052+00:00"
+  },
+  {
+    "path": "robot-2026/downloads/PathPlanner-macOS-v2026.1.2.zip",
+    "size_bytes": 21125504,
+    "sha256": "b135e20e665cb38f3089d53f5cbc3dbf160e25b1fc1f1b7c291e0cd6691e611f",
+    "recorded_at": "2026-10-16T22:59:29.342052+00:00"
+  },
+  {
+    "path": "robot-2026/downloads/WPILib_macOS-Arm64-2026.2.1.dmg",
+    "size_bytes": 2314172106,
+    "sha256": "98c13566292993d3f32c0e0765430617f56c18d85d608115821442fefffe6dcb",
+    "recorded_at": "2026-10-16T22:59:29.342052+00:00"
+  },
+  {
+    "path": "robot-2026/downloads/advantagescope-mac-arm64-v26.0.2.dmg",
+    "size_bytes": 209677733,
+    "sha256": "01022c3e0f4df3ceb8831d23f9c5d9b36ee27d84a23e57ed1118d4125ea35434",
+    "recorded_at": "2026-10-16T22:59:29.342052+00:00"
+  }
+]

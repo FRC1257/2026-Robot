@@ -1,0 +1,99 @@
+{
+  "code_revision": "f1a5fe50d65188cd047efaab31455f381f28a509",
+  "extrinsics_source": "code/src/main/java/frc/robot/subsystems/vision/VisionConstants.java",
+  "extrinsics_status": "code_reported; also matches committed Q11 and Q48 revisions; dirty robot builds may differ",
+  "intrinsics_source": "VisionIOSim.java:480x320,70 degree diagonal FOV; converted to horizontal FOV",
+  "intrinsics_status": "simulator values, not verified physical calibration",
+  "coordinate_system": "WPILib robot-relative x forward, y left, z up; meters; roll-pitch-yaw",
+  "cameras": [
+    {
+      "name": "Back_Camera",
+      "position": [
+        0.038099999999999995,
+        -0.21589999999999998,
+        0.508
+      ],
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": 0
+        },
+        {
+          "axis": "z",
+          "degrees": 180
+        }
+      ],
+      "resolution": [
+        480,
+        320
+      ],
+      "fov": 60.45083037605332
+    },
+    {
+      "name": "SwerveBack",
+      "position": [
+        0.27305,
+        -0.32384999999999997,
+        0.21589999999999998
+      ],
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": -25
+        },
+        {
+          "axis": "z",
+          "degrees": -128.75
+        }
+      ],
+      "resolution": [
+        480,
+        320
+      ],
+      "fov": 60.45083037605332
+    },
+    {
+      "name": "SwerveFront",
+      "position": [
+        0.3286125,
+        -0.28257499999999997,
+        0.21589999999999998
+      ],
+      "rotations": [
+        {
+          "axis": "y",
+          "degrees": -25
+        },
+        {
+          "axis": "z",
+          "degrees": 28.75
+        }
+      ],
+      "resolution": [
+        480,
+        320
+      ],
+      "fov": 60.45083037605332
+    }
+  ],
+  "model_repairs": [
+    {
+      "file": "model_1.glb",
+      "source_sha256": "a876223f1476b008a1fa577a0be3834c422dea5ca66acce18225a172c4825593",
+      "derived_sha256": "caede8c3c38ffc68153fd993531394096a3801bd6c370038b00f2e35ba7b400f",
+      "change": "Added normalized area-weighted vertex normals and moved uniform vertex colors into materials; positions/indices unchanged"
+    },
+    {
+      "file": "model_0.glb",
+      "source_sha256": "3fb191d82c78c10a343af9e4e1de9c2d5f6ae20e7ead523464cb89d09500cd54",
+      "derived_sha256": "68e43182b78382d6b77423a3da806c4e8f0c0511170d0a67940bdc5c54f9ab7f",
+      "change": "Added normalized area-weighted vertex normals and moved uniform vertex colors into materials; positions/indices unchanged"
+    },
+    {
+      "file": "model.glb",
+      "source_sha256": "b74186b7618a427e566eb4aab934eea1af6d792715cafde9ab6384a943c80d27",
+      "derived_sha256": "b2b28f28b2e7a44cb4328b8f2d701658b5bb1d470418abf366130b39dd7cd162",
+      "change": "Added normalized area-weighted vertex normals and moved uniform vertex colors into materials; positions/indices unchanged"
+    }
+  ]
+}

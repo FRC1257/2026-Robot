@@ -1,0 +1,23 @@
+{
+  "source_id": "tba:team/frc1257/matches/2026:bba8c68c7525a40c",
+  "provider": "The Blue Alliance",
+  "url": "https://www.thebluealliance.com/api/v3/team/frc1257/matches/2026",
+  "method": "GET",
+  "requested_at_utc": "2026-10-16T22:53:09Z",
+  "retrieved_at_utc": "2026-10-16T22:53:09Z",
+  "http_status": 200,
+  "response_headers": {
+    "date": "Fri, 16 Oct 2026 22:53:09 GMT",
+    "content-type": "application/json",
+    "cache-control": "public, max-age=61, s-maxage=61",
+    "etag": "W/\"6f69b8174f1943b63f0020f456ee4dcaafb2386a\""
+  },
+  "attempt": 1,
+  "response_file": "20261016T225309215821Z.attempt-01.json",
+  "raw_path": "robot-2026/provenance/tba/team/frc1257/matches/2026/20261016T225309215821Z.attempt-01.json",
+  "receipt_path": "robot-2026/provenance/tba/team/frc1257/matches/2026/20261016T225309215821Z.attempt-01.receipt.json",
+  "byte_count": 63433,
+  "sha256": "bba8c68c7525a40c1114b7dd672fbe471e9e031edd6a0169fdf3a35f070f7072",
+  "status": "ok",
+  "error": null
+}

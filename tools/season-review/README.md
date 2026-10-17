@@ -13,3 +13,5 @@ Full broadcasts, original WPILOGs, installed WPILib/AdvantageScope binaries, vir
 Public illustrated report: https://frc1257-2026-season-review.akashdub06.chatgpt.site
 
 The scripts were developed against the archived season. Some historical reconstruction scripts intentionally read fixed Git revisions. No claim is made that old dirty deployment sources are fully recoverable. See report caveats before using PDH channels or candidate ball events as facts.
+
+Current branch changes and release tests: `IMPLEMENTATION.md`. Fuel review instructions and calibration limits: `analysis/fuel-detector/README.md`. The delivered season HTML and authored report sources are retained under `reports/`; that report predates these implementation commits.

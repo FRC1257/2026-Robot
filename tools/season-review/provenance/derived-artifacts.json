@@ -1,0 +1,302 @@
+[
+  {
+    "path": "Open Electrical Dashboard.command",
+    "sha256": "6351b729067252e9f4d0a2e677dfc3529cc2df44321c84f0592d966a2fd9b589"
+  },
+  {
+    "path": "Q11 Brownout Replay.command",
+    "sha256": "c3e63b0fe8b2510e4c061f3af9da53f3c198c396580a6f9c5886272609d7d469"
+  },
+  {
+    "path": "README.md",
+    "sha256": "239488b2cc50f86ed4d144c0eefd014fba2c2f78763b6d4bc7888859a7664925"
+  },
+  {
+    "path": "analysis/1257-electrical-dashboard.json",
+    "sha256": "c0a8959d8935e86e2fa955a4595204f1ae38693fbccb218a46a4c54c31045217"
+  },
+  {
+    "path": "analysis/1257-electronics-lab.json",
+    "sha256": "0b664c40c816db076bb3f1bb5747b0689741a482bccb2d53d1af0ea0948ab158"
+  },
+  {
+    "path": "analysis/1257-season-review.json",
+    "sha256": "0b09f1c1fb8e5c70243717cffb5d017c446a7434b5802b553b265544f55765ac"
+  },
+  {
+    "path": "analysis/ELECTRICAL_DASHBOARD.md",
+    "sha256": "406b83ee8298d623d60536d05945088e414ef4534f3f3861ce727fb37e7eb2b5"
+  },
+  {
+    "path": "analysis/MATCH_WALKTHROUGH.md",
+    "sha256": "9d12ee12ee40f5fc4d1587f6dff5424007d471990f2d49d29baca59a901d5718"
+  },
+  {
+    "path": "analysis/Q11_FAILURE_ANALYSIS.md",
+    "sha256": "1a592be1ac134b0fb26a9d912124eb57e7e164ee125ad4cb4f4e8f94e3b7b4dd"
+  },
+  {
+    "path": "analysis/ROBOT_EVOLUTION_AND_SOFTWARE_REVIEW.md",
+    "sha256": "c82b78ddf5adbf79d2415f0e7dcc20047c68cf3cd9fbc411374adb81d3ecc3c3"
+  },
+  {
+    "path": "analysis/SWERVE_MODULE_HISTORY.md",
+    "sha256": "9f5c90bc0083bcdf185b340a6ad5f3f96b125b0c7c20f3f682d052c0cc796e0b"
+  },
+  {
+    "path": "analysis/electrical/akit_26-03-14_17-33-19_njtab_q11-swerve-trace.json",
+    "sha256": "5a017b35c0766db1357764ab2fa07821db1b276de5ba4cf0071e83a9a2904b64"
+  },
+  {
+    "path": "analysis/electrical/akit_26-03-14_17-33-19_njtab_q11.json",
+    "sha256": "b238aa1fd67a92ab3cf882d0a2a03d5a895a8ae12e7a5cd34d8ec233cd30c6a1"
+  },
+  {
+    "path": "analysis/electrical/akit_26-03-15_14-55-18_njtab_q53-swerve-trace.json",
+    "sha256": "db6e806e0cfdb0cb8fc3715b540413e24f244be9a248aab15d563b2e5b7b575d"
+  },
+  {
+    "path": "analysis/electrical/native-extended-verification.json",
+    "sha256": "628cfbd6d948c4125c181964b7e0baba046d862e967852f84de811714edcbc89"
+  },
+  {
+    "path": "analysis/electrical/q11-diagnosis-evidence.json",
+    "sha256": "03ecd77be21272dc80fad51de25861728cab5005b31b5fa89c6e150983c35969"
+  },
+  {
+    "path": "analysis/electrical/q11-extended-focus.json",
+    "sha256": "4fa7ef373baf7c0e09b29bd42bb3f4d5fd57c68f7aa60359edb6203c57d44ad8"
+  },
+  {
+    "path": "analysis/electrical/q11-field-inventory.json",
+    "sha256": "e44ca4dc4c9f5f339ef95e01f8bf75ea8ecd6fd93518ddacb48f65fc1b23f7d3"
+  },
+  {
+    "path": "analysis/electrical/q11-power-audit.json",
+    "sha256": "bdc478af503d464d2e7aa0681281e4714b46bdb270e284f70f567e0789a12cca"
+  },
+  {
+    "path": "analysis/electrical/q11-q53-comparison.json",
+    "sha256": "d10ff1c6760b414f95744d068640c656fef682615655c1ac255312e9c284b4bc"
+  },
+  {
+    "path": "analysis/electrical/q11-q53-swerve.png",
+    "sha256": "4da7f45983ee9747900e701ed5bb241f1efaedb101bbe77c1e08196c2c6289d0"
+  },
+  {
+    "path": "analysis/electrical/q11-radio-safe.json",
+    "sha256": "a8f9fff304ab0f025b27965c7d0313727b30e431cf4dfce22cf640ddab3c2913"
+  },
+  {
+    "path": "analysis/electrical/swerve-history.json",
+    "sha256": "430d1196905fa1db1ccd64d5f7aba3411d0fad8cf30b98529dc679730acf4626"
+  },
+  {
+    "path": "analysis/log-analysis.json",
+    "sha256": "7f628cc8fc60574ee90fbd9c0e3aa36ffdfd7a6277bd9924823144a02ed183bc"
+  },
+  {
+    "path": "analysis/match-review.json",
+    "sha256": "f930a97df28c12f4134b3c6cb8e80d36672799249dd2d9c6b0ad299574c6711a"
+  },
+  {
+    "path": "analysis/programming-plan/01-auto-deadline.patch",
+    "sha256": "5daf5352db9b17de4b12a4467f73a9fae6a4352fbf8caa0fb5468c8232a42c74"
+  },
+  {
+    "path": "analysis/programming-plan/02-heading-wrap.patch",
+    "sha256": "9cd328e31c75671b341f7de507b4489fef9768f20eb789189492f3fe767c5c05"
+  },
+  {
+    "path": "analysis/programming-plan/03-vision-bounds.patch",
+    "sha256": "e910c0125769bdf55ffa266c213a2faa0a94343f14e1104b6e8ac8e89687bdf0"
+  },
+  {
+    "path": "analysis/programming-plan/04-intake-stop-on-cancel.patch",
+    "sha256": "72a7004cf0e9ad134454a34375fea15f5bf5d82c4df734a0b3887864d36e1a96"
+  },
+  {
+    "path": "analysis/programming-plan/BALL_COUNT_FEASIBILITY.md",
+    "sha256": "e230868a05ab46ae80102384a370f3bf3321635b25e406228e176a582578c5bb"
+  },
+  {
+    "path": "analysis/programming-plan/PROGRAMMING_TEAM_PLAN.md",
+    "sha256": "223acbb0bcfa92fea87f0bb0fa38bb51b1e13e4458de4d940b7b297fd46da8d5"
+  },
+  {
+    "path": "analysis/programming-plan/ball-activity-probe.json",
+    "sha256": "6149af5ef7b5e4040bfb84b07c539975fa2f2013955064ee1dcada898d9467e9"
+  },
+  {
+    "path": "analysis/programming-plan/ball-activity.csv",
+    "sha256": "bc51e8d48a7788c7f3f3968c38504917cf2e330566fbbcdb63c570b6962c9927"
+  },
+  {
+    "path": "analysis/programming-plan/patch-receipt.json",
+    "sha256": "0d03a07f4f7bde92f95ce6d9da9621f82f17520f318248cf531c399817cef5fc"
+  },
+  {
+    "path": "analysis/programming-plan/probe-console.txt",
+    "sha256": "e260470f774f8db49b9f3d8d822a7175b6fa28f65ba2ca699e27417162f703ec"
+  },
+  {
+    "path": "analysis/programming-plan/python-tests.txt",
+    "sha256": "03c3dc0e8e2ffd89ca9b4dd675ee73b9d0fbb4f9e2012659a3463683c05b87f7"
+  },
+  {
+    "path": "analysis/season-metrics.json",
+    "sha256": "796e56b15030df206fe685c7c7b275ec8e31ce0878dced89704e4f8f308e7c47"
+  },
+  {
+    "path": "analysis/software-evolution-evidence.json",
+    "sha256": "ef186df735a952c8b00c950f78ceec08e0b4f36403b5a63d6ce9e341d0758a5b"
+  },
+  {
+    "path": "analysis/video-sync/alignments.csv",
+    "sha256": "c7329afb1737e33a5fc32effdfa8778fac95d18952a3e54686c5202f84a87823"
+  },
+  {
+    "path": "analysis/video-sync/manifest.json",
+    "sha256": "51e344d66175d6e6bb34e58df21cee464c49a5c7c74f4963e2279487b529cfac"
+  },
+  {
+    "path": "analysis/video-sync/q11-electronics-signals.json",
+    "sha256": "e768b8437c6f3b8ed6d06256c2a049369250750c26026921c7ba6581b35a45fc"
+  },
+  {
+    "path": "analysis/video-sync/q11-focus-receipt.json",
+    "sha256": "ed8176d0bd69c61a0187a5d90ebcf464c9db99f49a4ceae1b015e22030eda125"
+  },
+  {
+    "path": "analysis/vision-export-index.json",
+    "sha256": "807704db9c117c22ecb1a6afcd84d02e2a51ed5265b44c9b6258eb052a24bda1"
+  },
+  {
+    "path": "analysis/vision-logging.patch",
+    "sha256": "11a319d521c12170ba6f89eeb015c427ac9a3d09be190107fd8150d1ed75f4ac"
+  },
+  {
+    "path": "provenance/software-evolution/commits.json",
+    "sha256": "bc5a7a09d6c6b4374ed7291b81586d4842151d2b435918211ea269bf70d184e3"
+  },
+  {
+    "path": "provenance/software-evolution/sources.json",
+    "sha256": "128e7e5abfe12986d778c7dc0df3874370b4ad022605238d0fe710122b67397e"
+  },
+  {
+    "path": "provenance/software-evolution/wpilib-receipt.json",
+    "sha256": "ce42dc24e2e924ad1e73271c558208e191c217c50edd57b1b88c6d5a501bfa1b"
+  },
+  {
+    "path": "provenance/swerve-history/sources.json",
+    "sha256": "77f31077ad3a9b9e7497a490f99fef34ba459224f01586c8760adb6d2f43096a"
+  },
+  {
+    "path": "review/index.html",
+    "sha256": "d30b4f3bc6e794fa753dce5b7fc8602bfa5b02ccba9dc4df9bf58a2839183aad"
+  },
+  {
+    "path": "scripts/analyze_logs.py",
+    "sha256": "35e7029132f8241e9d1034ba00056b2f1df590d3ebe7b8a096d0f29407dba874"
+  },
+  {
+    "path": "scripts/analyze_q11_electrical.py",
+    "sha256": "a811aa9ca2033ed82139f4b195f7feef7fd3a162d73cfb0c4cebb788eda464a3"
+  },
+  {
+    "path": "scripts/ball_activity_probe.py",
+    "sha256": "a5e1d50932faca0add1a04a3164b4d48e55f6fc3ff67db638315bc06a878bdb7"
+  },
+  {
+    "path": "scripts/build_evolution_evidence.py",
+    "sha256": "7ce006944ea81369ffa602725634ed724caec5c6b184d94225bc7036c5a1b1a0"
+  },
+  {
+    "path": "scripts/build_review.py",
+    "sha256": "44c5ad6ef34bab2648bfec6b8d3cd99f6b1ce9c27ab31d023988f8e3237eb9e7"
+  },
+  {
+    "path": "scripts/build_video_sync.py",
+    "sha256": "3d06450c373169c9dcb69cd22e6ed5e1a40519c1484c1ddcf075aa10c1f37e94"
+  },
+  {
+    "path": "scripts/choose_electrical.py",
+    "sha256": "484854a3b302a2c254923151784eb3e773b73a7a51906e09f61e08aed1970f7e"
+  },
+  {
+    "path": "scripts/compare_swerve.py",
+    "sha256": "6858e3d8876348c77ccdc22b1e581e42407f1a94cc07fe34894864b8934461da"
+  },
+  {
+    "path": "scripts/configure_electronics_layout.py",
+    "sha256": "a685eaf008703d78c1abe56d65773570f8d7ccf75b44e3bbb6ee60c0014700ce"
+  },
+  {
+    "path": "scripts/configure_vision_layout.py",
+    "sha256": "88077eca37adf177a8c651b7e24737d8a02687948e5925ef736e0bfb83b46857"
+  },
+  {
+    "path": "scripts/electrical_dashboard.py",
+    "sha256": "f1dd52451c91769c8627f9bc990eb6f7bea7ad7206dd0e4090ca2588d6d47e55"
+  },
+  {
+    "path": "scripts/focus_electrical.py",
+    "sha256": "0d2b341faf7388d6531b4ee1c5406f5a364506215a0bec2929318e31a69aa6b3"
+  },
+  {
+    "path": "scripts/focus_q11.py",
+    "sha256": "3cc89df0aad45f86b7529d94fc48259937ca9638b849d99ea1ddaecb785b0ad5"
+  },
+  {
+    "path": "scripts/open_review.py",
+    "sha256": "7996016f8cccc9268a1a54660c491a28401d8a6a769a30f89147136982d88181"
+  },
+  {
+    "path": "scripts/power_details.py",
+    "sha256": "3a6ee08f73ee74c36967f7a2fd135acd07ff414011ca978b653458ede4cc1b96"
+  },
+  {
+    "path": "scripts/rebase_q11_focus.py",
+    "sha256": "362c2b4ff58d28fc16d3850bb65b8c35654c96e926783f5504752e385d49de49"
+  },
+  {
+    "path": "scripts/season_signals.py",
+    "sha256": "d08b5254e9e6295fdf63ee58408873a91140f5f3f421e34860b19399f650f584"
+  },
+  {
+    "path": "scripts/serve_review.py",
+    "sha256": "0a47fbfd717c3a9ed5647adb9ff213f4296f83cff29c5d4948f83e27bf6c6623"
+  },
+  {
+    "path": "scripts/test_analyze_logs.py",
+    "sha256": "4a0d8a20b3670b291788f3526ab094dcf499d95e19e84e90fa7284d7b2605b4b"
+  },
+  {
+    "path": "scripts/test_ball_activity_probe.py",
+    "sha256": "109e5f189a9e574811263648de9e60d11a8f0bb8e60a891a51b5fa615bbe531e"
+  },
+  {
+    "path": "scripts/test_electrical_dashboard.py",
+    "sha256": "f773f545fbd04d9249edd715b057b955198542f90d4e43c4725c1b19b7dd8fe2"
+  },
+  {
+    "path": "scripts/test_power_details.py",
+    "sha256": "8bb0820b6bbafc5a2e6c6cf50172b3bfb7d8429a163a8dcb30f0227913a7af62"
+  },
+  {
+    "path": "scripts/test_trace_swerve.py",
+    "sha256": "aed0233321b8c267bebab95cca357e94ef7d7be93ef0f83be1407fff5dc9e248"
+  },
+  {
+    "path": "scripts/test_video_sync.py",
+    "sha256": "44e505457cdf10c20e0e2e17f75c6aafe0889f3bf8ad5b6e645c515648ff07a7"
+  },
+  {
+    "path": "scripts/trace_swerve.py",
+    "sha256": "698a529e83174f341b2015b2f641bc039d8a5f1cc8d7ce6e32c4ceb3d60eb0d3"
+  },
+  {
+    "path": "scripts/video_clock.py",
+    "sha256": "578e0b5c0a4a4fec087cbdb020773e5cebb172742d1e639d1677398b8f9e6197"
+  }
+]

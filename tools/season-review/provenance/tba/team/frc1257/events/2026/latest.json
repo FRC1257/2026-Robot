@@ -1,0 +1,23 @@
+{
+  "source_id": "tba:team/frc1257/events/2026:f8d63025905440fd",
+  "provider": "The Blue Alliance",
+  "url": "https://www.thebluealliance.com/api/v3/team/frc1257/events/2026",
+  "method": "GET",
+  "requested_at_utc": "2026-10-16T22:53:08Z",
+  "retrieved_at_utc": "2026-10-16T22:53:08Z",
+  "http_status": 200,
+  "response_headers": {
+    "date": "Fri, 16 Oct 2026 22:53:08 GMT",
+    "content-type": "application/json",
+    "etag": "W/\"2f6ac02fee7d9ded44bc348554492fcbfd3bc303\"",
+    "cache-control": "public, max-age=61, s-maxage=61"
+  },
+  "attempt": 1,
+  "response_file": "20261016T225308832225Z.attempt-01.json",
+  "raw_path": "robot-2026/provenance/tba/team/frc1257/events/2026/20261016T225308832225Z.attempt-01.json",
+  "receipt_path": "robot-2026/provenance/tba/team/frc1257/events/2026/20261016T225308832225Z.attempt-01.receipt.json",
+  "byte_count": 1972,
+  "sha256": "f8d63025905440fd5374f1df780c2624616263cad9d34187704714b15fb3f9aa",
+  "status": "ok",
+  "error": null
+}

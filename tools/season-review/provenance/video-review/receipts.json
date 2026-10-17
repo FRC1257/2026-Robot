@@ -1,0 +1,12 @@
+[
+  {
+    "path": "provenance/video-review/advantagescope-video.html",
+    "sha256": "331016664e9ddaa22fbbecd2791326ca6b240191b8b7a7d36aefa8b4a56607ea",
+    "recorded_at_utc": "2026-10-16T23:35:27.580153+00:00"
+  },
+  {
+    "path": "provenance/video-review/documentation-web-snapshot.json",
+    "sha256": "d5b1d06827c8834c47f0e2fae35047139b2093a00a4e9eb831279e86f10d3914",
+    "recorded_at_utc": "2026-10-16T23:35:27.580555+00:00"
+  }
+]

@@ -1,0 +1,29 @@
+
+.report-page { --data-app-layout-intent: authored-report; --data-app-content-width: 1000px; }
+.season-report { display:grid; gap:48px; min-width:0; }
+.season-report .report-hero { border-top:6px solid #63845f; padding-top:26px; }
+.season-report h1 { font-size:clamp(32px,5vw,54px); line-height:1.08; letter-spacing:-.035em; margin:20px 0; }
+.season-report .rich-narrative { line-height:1.7; }
+.season-report .rich-narrative h2 { font-size:28px; line-height:1.25; margin:0 0 24px; }
+.season-report .rich-narrative h3 { margin-top:30px; }
+.season-report .rich-narrative p { margin:0 0 18px; }
+.season-report .rich-narrative li { margin-bottom:12px; }
+.season-toc { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px 24px; border-block:1px solid var(--border); padding:24px 0; }
+.season-toc a { color:var(--text); text-decoration:none; font-size:14px; }
+.season-toc a:hover { text-decoration:underline; }
+.season-chapter { display:grid; gap:30px; scroll-margin-top:90px; min-width:0; }
+.season-figure { margin:0; }
+.season-figure img { display:block; width:100%; max-height:850px; object-fit:contain; background:#111827; border-radius:8px; }
+.season-figure figcaption { margin-top:14px; font-size:14px; color:var(--secondary); }
+.season-table { overflow-x:auto; }
+.season-report table { border-collapse:collapse; width:100%; font-size:13px; }
+.season-report td,.season-report th { padding:12px 10px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top; }
+.season-report .num { text-align:right; font-variant-numeric:tabular-nums; }
+.season-report .rich-narrative table { display:block; overflow-x:auto; font-size:14px; }
+.season-report .rich-narrative table td { min-width:170px; }
+.season-filter { display:flex; gap:12px; align-items:center; margin:16px 0; font-size:14px; }
+.season-filter select { padding:8px; background:var(--background); color:var(--text); border:1px solid var(--border); border-radius:6px; }
+@media(max-width:640px){.season-toc{grid-template-columns:1fr}.season-report{gap:32px}.season-report .rich-narrative h2{font-size:24px}.season-filter{flex-wrap:wrap}}
+@media print {.season-toc{display:none}.season-figure{break-inside:avoid}.season-table{overflow:visible}.season-filter{display:none}}
+.report-page { box-sizing:border-box; width:100%; max-width:1072px; margin-inline:auto; padding:36px 36px 80px; }
+@media(max-width:640px){.report-page{padding:24px 20px 60px}}

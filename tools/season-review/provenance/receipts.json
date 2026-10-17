@@ -1,0 +1,34 @@
+[
+  {
+    "url": "https://api.github.com/repos/wpilibsuite/allwpilib/releases/tags/v2026.2.1",
+    "retrieved_at": "2026-10-16T22:49:42.936520+00:00",
+    "sha256": "eb2ebc6b86e1874faea5645059f971557b2642619e99449f3879688def532452"
+  },
+  {
+    "url": "https://api.github.com/repos/Mechanical-Advantage/AdvantageScope/releases/latest",
+    "retrieved_at": "2026-10-16T22:49:43.210659+00:00",
+    "sha256": "89c1279361ef7330c7b694ba9c900f3a6936cab9eab76bcf5a799f3ad5ac519f"
+  },
+  {
+    "url": "https://api.github.com/repos/mjansen4857/pathplanner/releases/latest",
+    "retrieved_at": "2026-10-16T22:49:43.388478+00:00",
+    "sha256": "6bdd940b15fab90b7279ac49c6e7c150cbec3f0269d4722faec99735e2978996"
+  },
+  {
+    "url": "https://api.github.com/repos/Gold872/elastic-dashboard/releases/latest",
+    "retrieved_at": "2026-10-16T22:49:43.762790+00:00",
+    "sha256": "08364d92ee56165a389941271ba7b113d113df0f51275901a4baae0e5e19a507"
+  },
+  {
+    "source_path": "USER_HOME",
+    "sha256": "b966bc1420763a5ba7ed667ab61f868aab293482c36716b09cbe9c899369fd25",
+    "size_bytes": 493162331,
+    "retrieved_at": "2026-10-16T22:49:44.422471+00:00"
+  },
+  {
+    "source_path": "USER_HOME",
+    "sha256": "7934ac15e426b7d9c33c229204936cd81650e0a8a3b947867de8c2f4a7540db4",
+    "size_bytes": 8618,
+    "retrieved_at": "2026-10-16T22:49:46.081848+00:00"
+  }
+]

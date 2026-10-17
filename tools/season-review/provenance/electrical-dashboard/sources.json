@@ -1,0 +1,98 @@
+[
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/controllers/MechanismController.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_hub_controllers_MechanismController.ts",
+    "sha256": "69bd454f360072fc6146f3641ded50f9c49fb10e731292f3d66caacd7eedf09c",
+    "retrieved_at": "2026-10-17T00:40:50.373138+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/log/LogUtil.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_shared_log_LogUtil.ts",
+    "sha256": "3fd66b64469d5cf788a863033e363f725a8cdf3494a3894705ccffe0b0c43586",
+    "retrieved_at": "2026-10-17T00:40:50.482208+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/TabType.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_shared_TabType.ts",
+    "sha256": "16b306038e73e421f2f6e279f6cec9f9df72b8bd6c107e82ba794cb05ac30e40",
+    "retrieved_at": "2026-10-17T00:40:50.566682+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/renderers/MechanismRenderer.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_shared_renderers_MechanismRenderer.ts",
+    "sha256": "7061015027c8482b8c1aa2e482adde348de43e868a63aa6501dd276e5167d2e3",
+    "retrieved_at": "2026-10-17T00:40:50.678854+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/controllers/MechanismController_Config.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/MechanismController_Config.ts",
+    "sha256": "f036aa2b164e9355ef2222f14adc9ce501b3ce8ced89ea95dc770df0e0000790",
+    "retrieved_at": "2026-10-17T00:41:07.173081+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/SourceList.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_hub_SourceList.ts",
+    "sha256": "f1fe16dd49eee47621188d8b63127a61bc193e82a4a452b95da3701f768f2fdb",
+    "retrieved_at": "2026-10-17T00:48:34.429218+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/log/Log.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_shared_log_Log.ts",
+    "sha256": "3a7d0394f7d90a8495315e88796f3317199560c5bc43f8254f81e01590cdbbe6",
+    "retrieved_at": "2026-10-17T00:48:34.539488+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/dataSources/HistoricalDataSource.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_hub_dataSources_HistoricalDataSource.ts",
+    "sha256": "9ba315794d4a29070101913d0e2f4d221363a38e841a131ed9d6b0ac27a87166",
+    "retrieved_at": "2026-10-17T00:48:34.663416+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageKit/v26.0.0/akit/src/main/java/org/littletonrobotics/junction/LoggedPowerDistribution.java",
+    "path": "robot-2026/provenance/electrical-dashboard/akit_akit_src_main_java_org_littletonrobotics_junction_LoggedPowerDistribution.java",
+    "sha256": "fa6f88d8dfc9ba71b4b13c4031c1d6112a8711f412cafb71b690fc9d1f8f7c64",
+    "retrieved_at": "2026-10-17T01:02:00.599801+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageKit/v26.0.0/akit/src/main/fbs/conduit_schema.fbs",
+    "path": "robot-2026/provenance/electrical-dashboard/akit_akit_src_main_fbs_conduit_schema.fbs",
+    "sha256": "5f203922220631ddb89c4b3baa3916cc9a1cb42484f6bce49d866d2aa739ff6b",
+    "retrieved_at": "2026-10-17T01:02:00.726662+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageKit/v26.0.0/akit/src/main/native/include/conduit/pdp_reader.h",
+    "path": "robot-2026/provenance/electrical-dashboard/akit_akit_src_main_native_include_conduit_pdp_reader.h",
+    "sha256": "e433f4100f5aed94b4ce19cb1967e675fcb439b43cd36c7dab8eaff56bfc8d7e",
+    "retrieved_at": "2026-10-17T01:02:00.932785+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageKit/v26.0.0/akit/src/main/native/include/conduit/pdp_util.h",
+    "path": "robot-2026/provenance/electrical-dashboard/akit_akit_src_main_native_include_conduit_pdp_util.h",
+    "sha256": "aa0c46a04de3e17329a31d7648cf91c6c5ababff596d13a1b64db0a824c8167e",
+    "retrieved_at": "2026-10-17T01:02:01.063159+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageKit/v26.0.0/akit/src/main/native/cc/pdp_reader.cc",
+    "path": "robot-2026/provenance/electrical-dashboard/akit_pdp_reader.cc",
+    "sha256": "bbb0ea83fc4a0dbd92085816a4f26e5c41fa38962d7c93ec8e585831bdcad211",
+    "retrieved_at": "2026-10-17T01:02:11.051137+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/controllers/SwerveController.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_hub_controllers_SwerveController.ts",
+    "sha256": "06cb37080bde8e0eb16cabcad2d49ac9632bced3fc144fd2d92a672703bad00d",
+    "retrieved_at": "2026-10-17T01:08:37.904536+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/controllers/SwerveController_Config.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_hub_controllers_SwerveController_Config.ts",
+    "sha256": "eb3c006b35f2b96d154922cc432d8fd7a50b990fe2db627b313f44cdafe5b5de",
+    "retrieved_at": "2026-10-17T01:08:38.024737+00:00"
+  },
+  {
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/Tabs.ts",
+    "path": "robot-2026/provenance/electrical-dashboard/src_hub_Tabs.ts",
+    "sha256": "898352306b328cd63a9f63f70287a4bb6c7631e5ee8c34c8477099f5ef9c0cae",
+    "retrieved_at": "2026-10-17T01:11:56.074222+00:00"
+  }
+]

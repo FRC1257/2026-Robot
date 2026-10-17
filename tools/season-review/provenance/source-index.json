@@ -1,0 +1,194 @@
+[
+  {
+    "file": "installer-cli.cs",
+    "url": "https://raw.githubusercontent.com/wpilibsuite/WPILibInstaller-Avalonia/main/WPILibInstaller.CLI/Program.cs",
+    "revision": "main at retrieval (not immutable)",
+    "sha256": "3229a8f4f2d4dd107302ee3a9efebcd2da6f6b1ad4a488e5ed7cc6219163438d",
+    "retrieved_at": "2026-10-16T22:50:39.780598+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "njtab_q11-VisionConstants.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6/src/main/java/frc/robot/subsystems/vision/VisionConstants.java",
+    "revision": "f0e5fc88cf38aa3a792dafdaf0b42a1e975c38d6",
+    "sha256": "799156c321981126ac738f001b7199a28f6e61a7940f629bcb19656996024209",
+    "retrieved_at": "2026-10-16T23:02:11.178186+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "paben_q48-VisionConstants.java",
+    "url": "https://github.com/FRC1257/2026-Robot/blob/eaa6f817b1270b3cac850423deb50fbcf3b93e2f/src/main/java/frc/robot/subsystems/vision/VisionConstants.java",
+    "revision": "eaa6f817b1270b3cac850423deb50fbcf3b93e2f",
+    "sha256": "ade6ff5b66d95fc2fb41d7343a215e43c175bb38094910c57c61df6af84c5d43",
+    "retrieved_at": "2026-10-16T23:02:11.164701+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_SelectionImpl.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/SelectionImpl.ts",
+    "revision": "v26.0.2",
+    "sha256": "d6e35c7267cb73c0c4e233b4eec7d9e65e598ae7e5fef64f0fc4434481635565",
+    "retrieved_at": "2026-10-16T22:56:55.896885+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_Sidebar.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/Sidebar.ts",
+    "revision": "v26.0.2",
+    "sha256": "75fe4c27b866a88689ee4ea86753f54ff5dcc820f7256ddf47f08007914e8d16",
+    "retrieved_at": "2026-10-16T22:56:56.091757+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_controllers_TableController.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/controllers/TableController.ts",
+    "revision": "v26.0.2",
+    "sha256": "5126ba7666ce22806c26a2346caa2309f92893a1d4d701cf8148f3e21af19f3b",
+    "retrieved_at": "2026-10-16T23:02:40.979469+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_dataSources_wpilog_WPILOGDecoder.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/dataSources/wpilog/WPILOGDecoder.ts",
+    "revision": "v26.0.2",
+    "sha256": "79f547e16c86ec5e97de172abb37749eb8d800fdf88430ad248cdca11283ea7b",
+    "retrieved_at": "2026-10-16T22:59:54.697789+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_dataSources_wpilog_WPILOGEncoder.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/dataSources/wpilog/WPILOGEncoder.ts",
+    "revision": "v26.0.2",
+    "sha256": "911eca97f75f8c392025265f8afaf118763dabfade365e1717df0e726187b884",
+    "retrieved_at": "2026-10-16T22:59:54.829047+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_dataSources_wpilog_WPILOGShared.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/dataSources/wpilog/WPILOGShared.ts",
+    "revision": "v26.0.2",
+    "sha256": "8eaf2186441945f4d8bce14ed103cab1c0e5f2511744df86e41db26346c022c5",
+    "retrieved_at": "2026-10-16T22:59:54.968889+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_hub_dataSources_wpilog_wpilogWorker.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/hub/dataSources/wpilog/wpilogWorker.ts",
+    "revision": "v26.0.2",
+    "sha256": "9cd7d99db7a6d5f709b73be190a0df8068244e1f856fe7d3b3e48ccb48c64018",
+    "retrieved_at": "2026-10-16T23:00:17.631818+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_main_assetUtil.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/main/assetUtil.ts",
+    "revision": "v26.0.2",
+    "sha256": "c08d492c72599166923cfcd99f10a60732d48583bfea49f81dcec5f3e4f047dd",
+    "retrieved_at": "2026-10-16T22:54:29.147018+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_main_electron_ElectronConstants.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/main/electron/ElectronConstants.ts",
+    "revision": "v26.0.2",
+    "sha256": "fcf09b0f90f1398a3a9c7ba2d6dc848ca8609dd099f89884fe693c35fc233b18",
+    "retrieved_at": "2026-10-16T22:55:30.552127+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_main_electron_StateTracker.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/main/electron/StateTracker.ts",
+    "revision": "v26.0.2",
+    "sha256": "32138e8b08ee2c22868ee1a70d060141a874b5d1c0b898b52c54b2c87064ee17",
+    "retrieved_at": "2026-10-16T22:54:13.725359+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_main_electron_assetLoader.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/main/electron/assetLoader.ts",
+    "revision": "v26.0.2",
+    "sha256": "47bc6a4a1115f6c70e0152505b65fc61f944f8185e563b2692135384a446c80e",
+    "retrieved_at": "2026-10-16T22:54:28.998955+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_main_electron_main.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/main/electron/main.ts",
+    "revision": "v26.0.2",
+    "sha256": "7482b352543f0aebd77633d71a5593c7f301179b9160893e11810d43cbfdb578",
+    "retrieved_at": "2026-10-16T22:54:13.875958+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_main_lite_main.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/main/lite/main.ts",
+    "revision": "v26.0.2",
+    "sha256": "bb46c0b34d05fa138bb53592d58a63387377da449227ed3dc6643511e14b29ef",
+    "retrieved_at": "2026-10-16T22:54:14.028387+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_TabType.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/TabType.ts",
+    "revision": "v26.0.2",
+    "sha256": "16b306038e73e421f2f6e279f6cec9f9df72b8bd6c107e82ba794cb05ac30e40",
+    "retrieved_at": "2026-10-16T22:52:15.137000+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_geometry.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/geometry.ts",
+    "revision": "v26.0.2",
+    "sha256": "36d952f0193d18ed84fc273b714633876a18f6b1bf603bcefa50b315516a4e83",
+    "retrieved_at": "2026-10-16T23:00:54.174415+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_log_LoggableType.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/log/LoggableType.ts",
+    "revision": "v26.0.2",
+    "sha256": "73a8796099c5cd8b539fe8eae102999e1dda9d6800a3ac260877b0ebe6ff3ae5",
+    "retrieved_at": "2026-10-16T22:54:29.274545+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_renderers_Field3dRenderer.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/renderers/Field3dRenderer.ts",
+    "revision": "v26.0.2",
+    "sha256": "b467d2df88c90e6dfb7aa670f6b5b50745083a132326f062e6cfa40478af6977",
+    "retrieved_at": "2026-10-16T22:59:55.112032+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_renderers_Field3dRendererImpl.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/renderers/Field3dRendererImpl.ts",
+    "revision": "v26.0.2",
+    "sha256": "4a7288d2ce5a5ab38abbfb8625264cfeb887567ccedae5b6ae45d95e7656420a",
+    "retrieved_at": "2026-10-16T22:59:55.244217+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_renderers_field3d_OptimizeGeometries.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/renderers/field3d/OptimizeGeometries.ts",
+    "revision": "v26.0.2",
+    "sha256": "bb4aae65d166086b6b405587da2494533d3bce4671387c7a0e46a815e26a8cff",
+    "retrieved_at": "2026-10-16T23:01:41.416097+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_renderers_field3d_objectManagers_RobotManager.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/renderers/field3d/objectManagers/RobotManager.ts",
+    "revision": "v26.0.2",
+    "sha256": "0cf8407934e523ff587ea15381c33603196beec327f2400783123ece313997f1",
+    "retrieved_at": "2026-10-16T23:01:14.859616+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  },
+  {
+    "file": "src_shared_renderers_field3d_workers_loadRobot.ts",
+    "url": "https://raw.githubusercontent.com/Mechanical-Advantage/AdvantageScope/v26.0.2/src/shared/renderers/field3d/workers/loadRobot.ts",
+    "revision": "v26.0.2",
+    "sha256": "8d4b92b54a0d63a284450daa47d4691d3a2ff878dce23256de0cb902206432e6",
+    "retrieved_at": "2026-10-16T23:01:41.537460+00:00",
+    "indexed_at": "2026-10-16T23:09:41.593612+00:00"
+  }
+]

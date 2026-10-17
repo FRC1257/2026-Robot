@@ -192,7 +192,10 @@ public class Flywheel extends SubsystemBase {
 
     public boolean feedbackValid() {
         return inputs.flywheelLeaderConnected && inputs.flywheelFollowerConnected
-            && Double.isFinite(inputs.flywheelLeaderAngularVelocity.in(RadiansPerSecond));
+            && Double.isFinite(inputs.flywheelLeaderAngularVelocity.in(RadiansPerSecond))
+            && Double.isFinite(inputs.flywheelFollowerAngularVelocity.in(RadiansPerSecond))
+            && Double.isFinite(goalVelocity.in(RadiansPerSecond))
+            && goalVelocity.in(RadiansPerSecond) > 0;
     }
     public boolean withinRecoveryBand() {
         return Math.abs(inputs.flywheelLeaderAngularVelocity.in(RadiansPerSecond)
